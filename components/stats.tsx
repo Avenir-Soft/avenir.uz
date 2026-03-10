@@ -53,24 +53,24 @@ function StatItem({ stat, index }: StatItemProps) {
 
   return (
     <div ref={itemRef} className="text-center">
-      <div className="text-6xl md:text-7xl font-serif font-bold text-gold mb-4">
+      <div className="text-6xl md:text-7xl font-serif font-bold mb-4" style={{ color: '#C9A84C' }}>
         {count}
-        {stat.suffix && <span className="text-gold-light">{stat.suffix}</span>}
+        {stat.suffix && <span style={{ color: '#E8C97A' }}>{stat.suffix}</span>}
       </div>
-      <p className="text-cream text-lg font-medium">{stat.label}</p>
+      <p className="text-lg font-medium" style={{ color: '#F5F4F0' }}>{stat.label}</p>
     </div>
   )
 }
 
 export function Stats() {
   return (
-    <section className="bg-navy py-24 px-6">
+    <section className="py-24 px-6" style={{ backgroundColor: '#042147' }}>
       <div className="max-w-7xl mx-auto">
         {/* Decorative divider */}
         <div className="flex items-center justify-center gap-4 mb-12">
-          <div className="flex-1 h-px bg-gold/30" />
-          <span className="text-gold text-2xl opacity-60">◇</span>
-          <div className="flex-1 h-px bg-gold/30" />
+          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
+          <span className="text-2xl" style={{ color: '#C9A84C', opacity: 0.6 }}>◇</span>
+          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
         </div>
 
         {/* Stats grid */}

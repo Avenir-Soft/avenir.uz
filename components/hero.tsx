@@ -24,13 +24,14 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center pt-20 pb-10 px-6 overflow-hidden bg-cream"
+      className="relative min-h-screen flex items-center justify-center pt-20 pb-10 px-6 overflow-hidden"
+      style={{ backgroundColor: '#F5F4F0' }}
     >
       {/* Subtle noise texture */}
       <div className="absolute inset-0 opacity-5 pointer-events-none" />
 
       {/* Animated mesh background on right */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 opacity-10 pointer-events-none">
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 pointer-events-none" style={{ opacity: 0.1 }}>
         <svg viewBox="0 0 400 400" className="w-full h-full">
           {/* 4-pointed star expanding mesh */}
           <g stroke="#042147" strokeWidth="1" fill="none">
@@ -50,11 +51,11 @@ export function Hero() {
         {/* Left: Text */}
         <div className="space-y-8">
           <div data-animate className="opacity-0 translate-y-5">
-            <h1 className="text-6xl md:text-7xl font-serif font-bold text-navy leading-tight text-balance">
+            <h1 className="text-6xl md:text-7xl font-serif font-bold leading-tight text-balance" style={{ color: '#042147' }}>
               We build digital{' '}
               <span className="relative inline-block">
                 futures
-                <span className="absolute bottom-2 left-0 right-0 h-1 bg-gold" />
+                <span className="absolute bottom-2 left-0 right-0 h-1" style={{ backgroundColor: '#C9A84C' }} />
               </span>
               .
             </h1>
@@ -62,8 +63,8 @@ export function Hero() {
 
           <p
             data-animate
-            className="text-lg text-navy/70 max-w-md leading-relaxed opacity-0 translate-y-5"
-            style={{ animationDelay: '100ms' }}
+            className="text-lg max-w-md leading-relaxed opacity-0 translate-y-5"
+            style={{ animationDelay: '100ms', color: 'rgba(4, 33, 71, 0.7)' }}
           >
             IT solutions & web platforms for ambitious businesses in Uzbekistan and beyond.
           </p>
@@ -73,10 +74,10 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4 pt-4 opacity-0 translate-y-5"
             style={{ animationDelay: '200ms' }}
           >
-            <button className="px-8 py-3 bg-gold text-navy font-serif font-bold hover:bg-gold-light transition-colors duration-200 tracking-wide">
+            <button className="px-8 py-3 font-serif font-bold transition-colors duration-200 tracking-wide" style={{ backgroundColor: '#C9A84C', color: '#042147' }}>
               View Portfolio
             </button>
-            <button className="px-8 py-3 border-2 border-navy text-navy font-serif font-bold hover:bg-navy hover:text-cream transition-colors duration-200 tracking-wide">
+            <button className="px-8 py-3 border-2 font-serif font-bold transition-colors duration-200 tracking-wide" style={{ borderColor: '#042147', color: '#042147' }}>
               Meet the Team
             </button>
           </div>

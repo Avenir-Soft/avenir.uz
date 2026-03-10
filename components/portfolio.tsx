@@ -8,42 +8,42 @@ const projects = [
     name: 'Saffron Market',
     category: 'E-commerce',
     year: 2024,
-    color: 'from-gold to-gold-light',
+    bgColor: '#C9A84C',
   },
   {
     id: 2,
     name: 'MedLink UZ',
     category: 'Healthcare SaaS',
     year: 2023,
-    color: 'from-navy to-navy-light',
+    bgColor: '#042147',
   },
   {
     id: 3,
     name: 'TashTrack',
     category: 'Logistics Dashboard',
     year: 2024,
-    color: 'from-navy-light to-navy',
+    bgColor: '#1a3a5c',
   },
   {
     id: 4,
     name: 'Edu Portal',
     category: 'EdTech Platform',
     year: 2023,
-    color: 'from-gold-light to-gold',
+    bgColor: '#E8C97A',
   },
   {
     id: 5,
     name: 'Halal Finance',
     category: 'FinTech App',
     year: 2024,
-    color: 'from-navy to-gold',
+    bgColor: '#7a5c3a',
   },
   {
     id: 6,
     name: 'Textile Hub',
     category: 'B2B Marketplace',
     year: 2022,
-    color: 'from-gold to-navy-light',
+    bgColor: '#3a5a8c',
   },
 ]
 
@@ -78,36 +78,55 @@ function ProjectCard({ project, index }: ProjectCardProps) {
       className="opacity-0 translate-y-5 group relative overflow-hidden aspect-square cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ backgroundColor: project.bgColor, borderRadius: '8px' }}
     >
-      {/* Background gradient */}
+      {/* Background glow on hover */}
       <div
-        className={`absolute inset-0 bg-gradient-to-br ${project.color} transition-transform duration-300 group-hover:scale-105`}
+        className="absolute inset-0 transition-all duration-500"
+        style={{
+          opacity: isHovered ? 0.2 : 0,
+          backgroundColor: '#F5F4F0',
+        }}
       />
 
-      {/* Content overlay */}
-      <div className="relative h-full p-8 flex flex-col justify-between text-cream">
-        {/* Project info */}
+      {/* Content */}
+      <div className="relative h-full flex flex-col justify-between p-8">
+        {/* Top: Category and year */}
         <div>
-          <p className="text-sm font-medium opacity-75 mb-2">{project.category}</p>
-          <h3 className="text-3xl font-serif font-bold">{project.name}</h3>
-        </div>
-
-        {/* Year */}
-        <p className="text-sm font-medium opacity-75">{project.year}</p>
-      </div>
-
-      {/* Hover overlay with CTA */}
-      <div
-        className={`absolute inset-0 bg-navy/95 flex items-center justify-center transition-all duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="text-center">
-          <p className="text-gold font-serif text-2xl font-bold">
-            View Case <span className="text-gold/60">→</span>
+          <span className="text-sm font-medium tracking-widest" style={{ color: '#F5F4F0', opacity: 0.7 }}>
+            {project.category}
+          </span>
+          <p className="text-xs mt-2" style={{ color: '#F5F4F0', opacity: 0.5 }}>
+            {project.year}
           </p>
         </div>
+
+        {/* Bottom: Title and CTA */}
+        <div>
+          <h3 className="text-3xl font-serif font-bold mb-6" style={{ color: '#F5F4F0' }}>
+            {project.name}
+          </h3>
+
+          {/* View Case button */}
+          <a
+            href="#"
+            className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 group-hover:gap-3"
+            style={{ color: '#F5F4F0' }}
+          >
+            View Case
+            <span>→</span>
+          </a>
+        </div>
       </div>
+
+      {/* Overlay on hover */}
+      <div
+        className="absolute inset-0 transition-all duration-500"
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.3)',
+          opacity: isHovered ? 1 : 0,
+        }}
+      />
     </div>
   )
 }
@@ -116,28 +135,27 @@ export function Portfolio() {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section id="portfolio" ref={sectionRef} className="bg-cream py-24 px-6">
+    <section id="portfolio" ref={sectionRef} className="py-24 px-6" style={{ backgroundColor: '#F5F4F0' }}>
       <div className="max-w-7xl mx-auto">
         {/* Decorative divider */}
         <div className="flex items-center justify-center gap-4 mb-12">
-          <div className="flex-1 h-px bg-navy/20" />
-          <span className="text-gold text-2xl opacity-60">◇</span>
-          <div className="flex-1 h-px bg-navy/20" />
+          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(4, 33, 71, 0.15)' }} />
+          <span className="text-2xl" style={{ color: '#C9A84C', opacity: 0.6 }}>◇</span>
+          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(4, 33, 71, 0.15)' }} />
         </div>
 
         {/* Section title */}
-        <div className="mb-16">
-          <h2 className="text-5xl md:text-6xl font-serif font-bold text-navy mb-4 text-balance">
-            Our Work
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#042147' }}>
+            Our Portfolio
           </h2>
-          <div className="flex gap-3 items-center">
-            <p className="text-navy/60 text-lg">Recent projects</p>
-            <div className="h-1 w-12 bg-gold" />
-          </div>
+          <p className="text-lg max-w-md mx-auto" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>
+            Digital products that made a real impact
+          </p>
         </div>
 
         {/* Masonry grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, idx) => (
             <ProjectCard key={project.id} project={project} index={idx} />
           ))}

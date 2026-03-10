@@ -9,7 +9,7 @@ import { Footer } from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="bg-cream">
+    <main style={{ backgroundColor: '#F5F4F0' }}>
       <Navbar />
       <Hero />
       <Services />
