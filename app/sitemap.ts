@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { portfolioCatalog } from '@/lib/portfolio-catalog'
 import { serviceCatalog } from '@/lib/service-catalog'
 
 const defaultSiteUrl = 'https://avenir.uz'
@@ -33,8 +34,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
+  const portfolioEntries: MetadataRoute.Sitemap = portfolioCatalog.map(project => ({
+    url: `${siteUrl}/portfolio/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }))
+
   return [
     baseEntry,
     ...serviceEntries,
+    ...portfolioEntries,
   ]
 }

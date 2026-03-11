@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'Avenir',
     locale: 'uz_UZ',
-    localeAlternate: ['ru_RU', 'en_US'],
+    alternateLocale: ['ru_RU', 'en_US'],
     title: siteTitle,
     description: siteDescription,
     images: [

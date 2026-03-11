@@ -5,6 +5,7 @@ import {
   AppWindow,
   ArrowUpRight,
   Bot,
+  Database,
   Globe,
   Send,
   Smartphone,
@@ -18,6 +19,7 @@ import { serviceCatalog, type ServiceIcon } from '@/lib/service-catalog'
 const iconMap: Record<ServiceIcon, LucideIcon> = {
   globe: Globe,
   smartphone: Smartphone,
+  database: Database,
   bot: Bot,
   send: Send,
   app: AppWindow,

@@ -1,7 +1,7 @@
 import type { Language } from '@/lib/i18n'
 
-export type ServiceSlug = 'web-sites' | 'mobile-apps' | 'ai-bots' | 'telegram-bots' | 'mini-apps'
-export type ServiceIcon = 'globe' | 'smartphone' | 'bot' | 'send' | 'app'
+export type ServiceSlug = 'web-sites' | 'mobile-apps' | 'crm-erp' | 'ai-bots' | 'telegram-bots' | 'mini-apps'
+export type ServiceIcon = 'globe' | 'smartphone' | 'database' | 'bot' | 'send' | 'app'
 
 export interface ServiceLocalizedContent {
   title: string
@@ -237,6 +237,78 @@ export const serviceCatalog: ServiceEntry[] = [
         stack: ['OpenAI API', 'RAG', 'Vector DB', 'Serverless Functions'],
         timelineLabel: 'Estimated timeline',
         timeline: '2-5 weeks',
+      },
+    },
+  },
+  {
+    slug: 'crm-erp',
+    icon: 'database',
+    content: {
+      uz: {
+        title: 'CRM va ERP tizimlar',
+        teaser: 'Sotuv, ombor, moliya va operatsiyalarni yagona tizimda boshqarish.',
+        intro:
+          'Biznes jarayonlarini CRM va ERP orqali raqamlashtirib, bo`limlar o`rtasidagi ishlashni bir platformaga jamlaymiz.',
+        outcomesLabel: 'Natija',
+        outcomes: [
+          'Mijozlar va savdo jarayonlari to`liq nazoratda',
+          'Ombor, hisob-kitob va operatsiyalar bo`yicha shaffoflik',
+          'Qo`lda bajariladigan ishlarni avtomatlashtirish',
+        ],
+        includedLabel: 'Nimalar kiradi',
+        included: [
+          'Biznes jarayonlarni audit va xaritalash',
+          'CRM/ERP modul konfiguratsiyasi',
+          '1C, billing yoki boshqa xizmatlar bilan integratsiya',
+        ],
+        stackLabel: 'Texnologiyalar',
+        stack: ['Odoo', 'Bitrix24', 'HubSpot', 'Custom API', 'PostgreSQL'],
+        timelineLabel: 'Taxminiy muddat',
+        timeline: '4-12 hafta',
+      },
+      ru: {
+        title: 'CRM и ERP системы',
+        teaser: 'Единое управление продажами, складом, финансами и операциями.',
+        intro:
+          'Оцифровываем процессы бизнеса через CRM и ERP, чтобы объединить отделы и данные в одной системе.',
+        outcomesLabel: 'Результат',
+        outcomes: [
+          'Полный контроль клиентской базы и воронки продаж',
+          'Прозрачность по складу, финансам и операционке',
+          'Сокращение ручных операций за счет автоматизации',
+        ],
+        includedLabel: 'Что входит',
+        included: [
+          'Аудит и карта бизнес-процессов',
+          'Настройка CRM/ERP модулей под ваш процесс',
+          'Интеграции с 1C, billing и внешними сервисами',
+        ],
+        stackLabel: 'Технологии',
+        stack: ['Odoo', 'Bitrix24', 'HubSpot', 'Custom API', 'PostgreSQL'],
+        timelineLabel: 'Срок реализации',
+        timeline: '4-12 недель',
+      },
+      en: {
+        title: 'CRM & ERP Systems',
+        teaser: 'Unified management of sales, inventory, finance, and operations.',
+        intro:
+          'We digitize business workflows with CRM and ERP to connect teams, data, and operations in one platform.',
+        outcomesLabel: 'Outcomes',
+        outcomes: [
+          'Full visibility over customer pipeline and deals',
+          'Transparent inventory, finance, and operations data',
+          'Less manual work through automation',
+        ],
+        includedLabel: 'What is included',
+        included: [
+          'Business process audit and mapping',
+          'CRM/ERP module customization',
+          'Integrations with 1C, billing, and external services',
+        ],
+        stackLabel: 'Tech stack',
+        stack: ['Odoo', 'Bitrix24', 'HubSpot', 'Custom API', 'PostgreSQL'],
+        timelineLabel: 'Estimated timeline',
+        timeline: '4-12 weeks',
       },
     },
   },

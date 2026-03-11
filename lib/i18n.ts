@@ -193,6 +193,10 @@ export const dictionaries: Record<Language, Dictionary> = {
           description: 'Android va iOS uchun tezkor, qulay va barqaror mobil mahsulotlar.',
         },
         {
+          title: 'CRM va ERP tizimlar',
+          description: 'Sotuv, ombor, moliya va ichki jarayonlarni yagona platformada boshqarish.',
+        },
+        {
           title: 'AI botlar',
           description: 'Jarayonlarni avtomatlashtiruvchi va savollarni qayta ishlovchi intellektual botlar.',
         },
@@ -395,6 +399,10 @@ export const dictionaries: Record<Language, Dictionary> = {
           description: 'Нативные и кроссплатформенные приложения для Android и iOS.',
         },
         {
+          title: 'CRM и ERP системы',
+          description: 'Единая платформа для управления продажами, складом, финансами и процессами.',
+        },
+        {
           title: 'AI-боты',
           description: 'Интеллектуальные боты для автоматизации процессов и поддержки клиентов.',
         },
@@ -595,6 +603,10 @@ export const dictionaries: Record<Language, Dictionary> = {
         {
           title: 'Mobile Apps',
           description: 'High-performance mobile applications for Android and iOS.',
+        },
+        {
+          title: 'CRM & ERP Systems',
+          description: 'Unified platform for sales, inventory, finance, and internal operations.',
         },
         {
           title: 'AI Bots',

@@ -1,71 +1,23 @@
 'use client'
 
+import Link from 'next/link'
 import { SectionOrnaments } from '@/components/section-ornaments'
 import { useLanguage } from '@/components/language-provider'
+import { portfolioCatalog, type ProjectLayout } from '@/lib/portfolio-catalog'
 import Image from 'next/image'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
-type ProjectLayout = 'feature' | 'wide' | 'tile'
-
-interface BaseProject {
+interface LocalizedProject {
   id: number
   year: number
   image: string
-  href: string
+  slug: string
   layout: ProjectLayout
-}
-
-interface LocalizedProject extends BaseProject {
   name: string
   category: string
   summary: string
   tags: string[]
 }
-
-const projects: BaseProject[] = [
-  {
-    id: 1,
-    year: 2025,
-    image: '/portfolio/saffron-market.webp',
-    href: '#',
-    layout: 'feature',
-  },
-  {
-    id: 2,
-    year: 2024,
-    image: '/portfolio/medlink-uz.webp',
-    href: '#',
-    layout: 'wide',
-  },
-  {
-    id: 3,
-    year: 2024,
-    image: '/portfolio/tashtrack.webp',
-    href: '#',
-    layout: 'wide',
-  },
-  {
-    id: 4,
-    year: 2024,
-    image: '/portfolio/educore.webp',
-    href: '#',
-    layout: 'tile',
-  },
-  {
-    id: 5,
-    year: 2024,
-    image: '/portfolio/halal-finance.webp',
-    href: '#',
-    layout: 'tile',
-  },
-  {
-    id: 6,
-    year: 2023,
-    image: '/portfolio/textile-hub.webp',
-    href: '#',
-    layout: 'tile',
-  },
-]
 
 interface ProjectCardProps {
   project: LocalizedProject
@@ -184,14 +136,14 @@ function ProjectCard({
               </span>
             ))}
           </div>
-          <a
-            href={project.href}
+          <Link
+            href={`/portfolio/${project.slug}`}
             className="mt-6 inline-flex items-center gap-2 text-sm font-medium transition-[gap] duration-200 group-hover:gap-3"
             style={{ color: '#F5F4F0' }}
           >
             {viewCaseLabel}
             <span aria-hidden="true">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -220,7 +172,7 @@ export function Portfolio() {
     return () => observer.disconnect()
   }, [])
 
-  const localizedProjects: LocalizedProject[] = projects.map((project, index) => ({
+  const localizedProjects: LocalizedProject[] = portfolioCatalog.map((project, index) => ({
     ...project,
     name: t.portfolio.projects[index]?.name ?? t.portfolio.projects[0].name,
     category: t.portfolio.projects[index]?.category ?? t.portfolio.projects[0].category,

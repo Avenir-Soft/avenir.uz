@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
       description,
       siteName: 'Avenir',
       locale: 'uz_UZ',
-      localeAlternate: ['ru_RU', 'en_US'],
+      alternateLocale: ['ru_RU', 'en_US'],
       images: [
         {
           url: '/logo-black.png',
