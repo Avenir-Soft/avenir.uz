@@ -9,6 +9,17 @@ const UZ_PHONE_PATTERN_SOURCE = String.raw`\+998 \(\d{2}\) \d{3} \d{2} \d{2}`
 
 type GtagEvent = (command: 'event', eventName: string, params?: Record<string, unknown>) => void
 
+function isGaDebugEnabled() {
+  if (typeof window === 'undefined') return false
+
+  const searchParams = new URLSearchParams(window.location.search)
+  const queryValue = searchParams.get('ga_debug')
+  if (queryValue === '1' || queryValue === 'true') return true
+
+  const storedValue = window.localStorage.getItem('ga_debug')
+  return storedValue === '1' || storedValue === 'true'
+}
+
 function trackLeadSubmit(params: { hasCompany: boolean; hasEmail: boolean; hasProject: boolean; language: string }) {
   if (typeof window === 'undefined') return
 
@@ -23,6 +34,7 @@ function trackLeadSubmit(params: { hasCompany: boolean; hasEmail: boolean; hasPr
     has_email: params.hasEmail ? 1 : 0,
     has_project: params.hasProject ? 1 : 0,
     ui_language: params.language,
+    debug_mode: isGaDebugEnabled(),
   })
 }
 
