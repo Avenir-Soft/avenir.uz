@@ -193,7 +193,7 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
                 boxShadow: '0 16px 34px -24px rgba(4, 33, 71, 0.86)',
               }}
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+              <div className="relative aspect-16/10 overflow-hidden rounded-xl">
                 <Image
                   src={project.image}
                   alt={`${localizedProject.name} cover`}

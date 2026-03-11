@@ -188,7 +188,7 @@ export function Navbar() {
 
               <div className="flex items-center gap-3">
                 <div
-                  className="liquid-chip relative hidden w-[168px] grid-cols-3 rounded-full p-1 lg:grid"
+                  className="liquid-chip relative hidden w-42 grid-cols-3 rounded-full p-1 lg:grid"
                   style={{
                     borderColor: useLightText ? 'rgba(245, 244, 240, 0.26)' : 'rgba(4, 33, 71, 0.16)',
                     backgroundColor: useLightText ? 'rgba(4, 33, 71, 0.3)' : 'rgba(255, 255, 255, 0.28)',
@@ -312,7 +312,7 @@ export function Navbar() {
                   {t.nav.languageLabel}
                 </p>
                 <div
-                  className="relative grid w-[168px] grid-cols-3 rounded-full p-1 text-sm"
+                  className="relative grid w-42 grid-cols-3 rounded-full p-1 text-sm"
                   style={{
                     backgroundColor: 'rgba(4, 33, 71, 0.08)',
                     border: '1px solid rgba(4, 33, 71, 0.14)',

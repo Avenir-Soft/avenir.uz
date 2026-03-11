@@ -7,6 +7,25 @@ import { SectionOrnaments } from '@/components/section-ornaments'
 const UZ_PHONE_PREFIX = '+998'
 const UZ_PHONE_PATTERN_SOURCE = String.raw`\+998 \(\d{2}\) \d{3} \d{2} \d{2}`
 
+type GtagEvent = (command: 'event', eventName: string, params?: Record<string, unknown>) => void
+
+function trackLeadSubmit(params: { hasCompany: boolean; hasEmail: boolean; hasProject: boolean; language: string }) {
+  if (typeof window === 'undefined') return
+
+  const gtag = (window as Window & { gtag?: GtagEvent }).gtag
+  if (typeof gtag !== 'function') return
+
+  gtag('event', 'lead_submit', {
+    event_category: 'engagement',
+    event_label: 'contact_form',
+    lead_type: 'contact_form',
+    has_company: params.hasCompany ? 1 : 0,
+    has_email: params.hasEmail ? 1 : 0,
+    has_project: params.hasProject ? 1 : 0,
+    ui_language: params.language,
+  })
+}
+
 function formatUzPhone(input: string) {
   const digitsOnly = input.replace(/\D/g, '')
   const nationalDigits = (digitsOnly.startsWith('998') ? digitsOnly.slice(3) : digitsOnly).slice(0, 9)
@@ -41,7 +60,7 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -81,6 +100,13 @@ export function Contact() {
       if (!response.ok) {
         throw new Error('Failed to submit contact form')
       }
+
+      trackLeadSubmit({
+        hasCompany: Boolean(formData.company.trim()),
+        hasEmail: Boolean(formData.email.trim()),
+        hasProject: Boolean(formData.project.trim()),
+        language,
+      })
 
       setSubmitted(true)
       setTimeout(() => {
@@ -180,7 +206,7 @@ export function Contact() {
           <div>
             {submitted ? (
               <div
-                className="contact-success-card animate-scale-in relative flex h-full min-h-[330px] items-center justify-center overflow-hidden rounded-[1.6rem] px-6 py-10 text-center sm:px-10"
+                className="contact-success-card animate-scale-in relative flex h-full min-h-82.5 items-center justify-center overflow-hidden rounded-[1.6rem] px-6 py-10 text-center sm:px-10"
                 style={{
                   backgroundColor: 'rgba(8, 45, 90, 0.86)',
                   border: '1px solid rgba(240, 218, 146, 0.36)',
