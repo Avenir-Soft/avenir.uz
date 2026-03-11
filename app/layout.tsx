@@ -1,24 +1,27 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Avenir.uz - Premium IT Solutions & Web Development',
-  description: 'We build digital futures. Premium IT solutions and web platforms for ambitious businesses in Uzbekistan and beyond.',
+  title: 'Avenir',
+  description:
+    'Biz raqamli kelajaklarni yaratamiz. O`zbekiston va undan tashqaridagi bizneslar uchun premium IT yechimlar va veb platformalar.',
   generator: 'v0.app',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   icons: {
     icon: [
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/logo-white.png',
+        type: 'image/png',
       },
     ],
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default function RootLayout({
@@ -27,9 +30,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="uz">
       <body className="font-sans antialiased">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

@@ -1,163 +1,273 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { SectionOrnaments } from '@/components/section-ornaments'
+import { useLanguage } from '@/components/language-provider'
+import Image from 'next/image'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
-const projects = [
+type ProjectLayout = 'feature' | 'wide' | 'tile'
+
+interface BaseProject {
+  id: number
+  year: number
+  image: string
+  href: string
+  layout: ProjectLayout
+}
+
+interface LocalizedProject extends BaseProject {
+  name: string
+  category: string
+  summary: string
+  tags: string[]
+}
+
+const projects: BaseProject[] = [
   {
     id: 1,
-    name: 'Saffron Market',
-    category: 'E-commerce',
-    year: 2024,
-    bgColor: '#C9A84C',
+    year: 2025,
+    image: '/portfolio/saffron-market.webp',
+    href: '#',
+    layout: 'feature',
   },
   {
     id: 2,
-    name: 'MedLink UZ',
-    category: 'Healthcare SaaS',
-    year: 2023,
-    bgColor: '#042147',
+    year: 2024,
+    image: '/portfolio/medlink-uz.webp',
+    href: '#',
+    layout: 'wide',
   },
   {
     id: 3,
-    name: 'TashTrack',
-    category: 'Logistics Dashboard',
     year: 2024,
-    bgColor: '#1a3a5c',
+    image: '/portfolio/tashtrack.webp',
+    href: '#',
+    layout: 'wide',
   },
   {
     id: 4,
-    name: 'Edu Portal',
-    category: 'EdTech Platform',
-    year: 2023,
-    bgColor: '#E8C97A',
+    year: 2024,
+    image: '/portfolio/educore.webp',
+    href: '#',
+    layout: 'tile',
   },
   {
     id: 5,
-    name: 'Halal Finance',
-    category: 'FinTech App',
     year: 2024,
-    bgColor: '#7a5c3a',
+    image: '/portfolio/halal-finance.webp',
+    href: '#',
+    layout: 'tile',
   },
   {
     id: 6,
-    name: 'Textile Hub',
-    category: 'B2B Marketplace',
-    year: 2022,
-    bgColor: '#3a5a8c',
+    year: 2023,
+    image: '/portfolio/textile-hub.webp',
+    href: '#',
+    layout: 'tile',
   },
 ]
 
 interface ProjectCardProps {
-  project: typeof projects[0]
+  project: LocalizedProject
   index: number
+  viewCaseLabel: string
+  imageAltSuffix: string
+  isVisible: boolean
 }
 
-function ProjectCard({ project, index }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+function ProjectCard({
+  project,
+  index,
+  viewCaseLabel,
+  imageAltSuffix,
+  isVisible,
+}: ProjectCardProps) {
+  const layoutClass =
+    project.layout === 'feature'
+      ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[360px] lg:min-h-[560px]'
+      : project.layout === 'wide'
+        ? 'md:col-span-1 lg:col-span-5 min-h-[260px]'
+        : 'md:col-span-1 lg:col-span-4 min-h-[240px]'
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('animate-fade-in-up')
-          }, index * 100)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (cardRef.current) observer.observe(cardRef.current)
-    return () => observer.disconnect()
-  }, [index])
+  const transitionStyle: CSSProperties = {
+    transitionDelay: `${120 + index * 75}ms`,
+    willChange: 'transform, opacity',
+  }
 
   return (
     <div
-      ref={cardRef}
-      className="opacity-0 translate-y-5 group relative overflow-hidden aspect-square cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ backgroundColor: project.bgColor, borderRadius: '8px' }}
+      className={`group relative overflow-hidden rounded-3xl transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${layoutClass} ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{
+        ...transitionStyle,
+        border: '1px solid rgba(4, 33, 71, 0.12)',
+        boxShadow: '0 14px 36px -24px rgba(4, 33, 71, 0.55)',
+      }}
     >
-      {/* Background glow on hover */}
+      <Image
+        src={project.image}
+        alt={`${project.name} — ${imageAltSuffix}`}
+        fill
+        loading="lazy"
+        quality={78}
+        sizes="(min-width: 1280px) 34vw, (min-width: 768px) 50vw, 100vw"
+        className="object-cover transform-gpu transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+      />
+
       <div
-        className="absolute inset-0 transition-all duration-500"
+        className="absolute inset-0"
         style={{
-          opacity: isHovered ? 0.2 : 0,
-          backgroundColor: '#F5F4F0',
+          background:
+            'linear-gradient(180deg, rgba(4, 33, 71, 0.06) 16%, rgba(4, 33, 71, 0.44) 68%, rgba(4, 33, 71, 0.78) 100%)',
         }}
       />
 
-      {/* Content */}
-      <div className="relative h-full flex flex-col justify-between p-8">
-        {/* Top: Category and year */}
-        <div>
-          <span className="text-sm font-medium tracking-widest" style={{ color: '#F5F4F0', opacity: 0.7 }}>
+      <div
+        className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            'radial-gradient(circle at 18% 12%, rgba(201, 168, 76, 0.28) 0%, rgba(201, 168, 76, 0) 44%)',
+        }}
+      />
+
+      <div
+        className="pointer-events-none absolute left-5 right-5 top-5 h-px scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(201, 168, 76, 0), rgba(201, 168, 76, 0.95), rgba(201, 168, 76, 0))',
+          transformOrigin: 'left center',
+        }}
+      />
+
+      <div className="relative flex h-full flex-col justify-between p-6 md:p-7 lg:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <span
+            className="rounded-full px-3 py-1 text-[11px] uppercase tracking-widest"
+            style={{
+              backgroundColor: 'rgba(245, 244, 240, 0.14)',
+              border: '1px solid rgba(245, 244, 240, 0.24)',
+              color: 'rgba(245, 244, 240, 0.92)',
+            }}
+          >
             {project.category}
           </span>
-          <p className="text-xs mt-2" style={{ color: '#F5F4F0', opacity: 0.5 }}>
+          <span className="text-xs font-medium" style={{ color: 'rgba(245, 244, 240, 0.72)' }}>
             {project.year}
-          </p>
+          </span>
         </div>
 
-        {/* Bottom: Title and CTA */}
         <div>
-          <h3 className="text-3xl font-serif font-bold mb-6" style={{ color: '#F5F4F0' }}>
-            {project.name}
-          </h3>
-
-          {/* View Case button */}
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 group-hover:gap-3"
+          <h3
+            className={`font-serif font-semibold leading-tight ${
+              project.layout === 'feature' ? 'text-4xl md:text-5xl' : 'text-3xl'
+            }`}
             style={{ color: '#F5F4F0' }}
           >
-            View Case
-            <span>→</span>
+            {project.name}
+          </h3>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.76)' }}>
+            {project.summary}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.tags.map(tag => (
+              <span
+                key={tag}
+                className="rounded-full px-2.5 py-1 text-[11px]"
+                style={{
+                  backgroundColor: 'rgba(4, 33, 71, 0.28)',
+                  border: '1px solid rgba(245, 244, 240, 0.2)',
+                  color: 'rgba(245, 244, 240, 0.9)',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <a
+            href={project.href}
+            className="mt-6 inline-flex items-center gap-2 text-sm font-medium transition-[gap] duration-200 group-hover:gap-3"
+            style={{ color: '#F5F4F0' }}
+          >
+            {viewCaseLabel}
+            <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
-
-      {/* Overlay on hover */}
-      <div
-        className="absolute inset-0 transition-all duration-500"
-        style={{
-          backgroundColor: 'rgba(0,0,0,0.3)',
-          opacity: isHovered ? 1 : 0,
-        }}
-      />
     </div>
   )
 }
 
 export function Portfolio() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const { t } = useLanguage()
+  const sectionRef = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!sectionRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          requestAnimationFrame(() => setIsVisible(true))
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
+    )
+
+    observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  const localizedProjects: LocalizedProject[] = projects.map((project, index) => ({
+    ...project,
+    name: t.portfolio.projects[index]?.name ?? t.portfolio.projects[0].name,
+    category: t.portfolio.projects[index]?.category ?? t.portfolio.projects[0].category,
+    summary: t.portfolio.projects[index]?.summary ?? t.portfolio.projects[0].summary,
+    tags: t.portfolio.projects[index]?.tags ?? t.portfolio.projects[0].tags,
+  }))
 
   return (
-    <section id="portfolio" ref={sectionRef} className="py-24 px-6" style={{ backgroundColor: '#F5F4F0' }}>
-      <div className="max-w-7xl mx-auto">
-        {/* Decorative divider */}
+    <section
+      id="portfolio"
+      ref={sectionRef}
+      className="section-shell relative overflow-hidden py-24 px-6"
+      style={{ backgroundColor: '#F5F4F0' }}
+    >
+      <SectionOrnaments tone="light" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="flex items-center justify-center gap-4 mb-12">
           <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(4, 33, 71, 0.15)' }} />
           <span className="text-2xl" style={{ color: '#C9A84C', opacity: 0.6 }}>◇</span>
           <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(4, 33, 71, 0.15)' }} />
         </div>
 
-        {/* Section title */}
-        <div className="text-center mb-16">
+        <div
+          className={`text-center mb-16 transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+          style={{ transitionDelay: '40ms' }}
+        >
           <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#042147' }}>
-            Our Portfolio
+            {t.portfolio.title}
           </h2>
-          <p className="text-lg max-w-md mx-auto" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>
-            Digital products that made a real impact
+          <p className="text-lg max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>
+            {t.portfolio.subtitle}
           </p>
         </div>
 
-        {/* Masonry grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {projects.map((project, idx) => (
-            <ProjectCard key={project.id} project={project} index={idx} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(220px,auto)] gap-5 md:gap-6">
+          {localizedProjects.map((project, idx) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={idx}
+              viewCaseLabel={t.portfolio.viewCase}
+              imageAltSuffix={t.portfolio.imageAltSuffix}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>

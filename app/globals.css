@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+@import 'tailwindcss';
 
 :root {
   --navy: #042147;
@@ -29,6 +29,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
@@ -72,6 +74,57 @@
 }
 
 @layer components {
+  .section-shell {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+  }
+
+  .section-shell-dark {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 820px;
+  }
+
+  .ornament-spin,
+  .ornament-spin-reverse {
+    border: 1px dashed currentColor;
+    opacity: 0.8;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .ornament-spin {
+    animation: ornamentSpin 26s linear infinite;
+  }
+
+  .ornament-spin-reverse {
+    animation: ornamentSpinReverse 31s linear infinite;
+  }
+
+  .ornament-dot {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    animation: ornamentPulse 5.5s ease-in-out infinite;
+  }
+
+  .ornament-star {
+    will-change: transform, opacity;
+    transform-origin: center;
+    transform: translateZ(0);
+    opacity: 0.82;
+  }
+
+  .ornament-star-spin {
+    animation: ornamentStarSpin 15s linear infinite;
+  }
+
+  .ornament-star-spin-reverse {
+    animation: ornamentStarSpinReverse 19s linear infinite;
+  }
+
+  .ornament-star-float {
+    animation: ornamentStarFloat 7.5s ease-in-out infinite;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -109,6 +162,72 @@
       transform: scale(1);
     }
   }
+
+  @keyframes ornamentSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes ornamentSpinReverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes ornamentPulse {
+    0%,
+    100% {
+      opacity: 0.32;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.72;
+      transform: scale(1.22);
+    }
+  }
+
+  @keyframes ornamentStarSpin {
+    0% {
+      transform: rotate(0deg) scale(0.95);
+    }
+    50% {
+      transform: rotate(180deg) scale(1);
+    }
+    100% {
+      transform: rotate(360deg) scale(0.95);
+    }
+  }
+
+  @keyframes ornamentStarSpinReverse {
+    0% {
+      transform: rotate(360deg) scale(0.95);
+    }
+    50% {
+      transform: rotate(180deg) scale(1);
+    }
+    100% {
+      transform: rotate(0deg) scale(0.95);
+    }
+  }
+
+  @keyframes ornamentStarFloat {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translateY(-5px) rotate(14deg);
+      opacity: 0.9;
+    }
+  }
   
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
@@ -121,14 +240,601 @@
   .animate-scale-in {
     animation: scaleIn 0.5s ease-out forwards;
   }
+
+  .animate-fade-in-up,
+  .animate-slide-in-right,
+  .animate-scale-in {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
   
   /* Hover effects */
   .hover-lift {
-    @apply transition-all duration-200 hover:shadow-lg hover:shadow-gold/20 hover:-translate-y-1;
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .hover-lift:hover {
+    box-shadow: 0 10px 30px -12px rgba(201, 168, 76, 0.2);
   }
   
   .hover-gold {
     @apply transition-colors duration-200 hover:text-gold;
+  }
+
+  .liquid-glass {
+    --liquid-x: 18%;
+    --liquid-y: 14%;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 2.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background:
+      radial-gradient(
+        150% 170% at var(--liquid-x) var(--liquid-y),
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.28) 28%,
+        rgba(255, 255, 255, 0.08) 52%,
+        rgba(255, 255, 255, 0.02) 72%
+      ),
+      linear-gradient(
+        132deg,
+        rgba(255, 255, 255, 0.54) 0%,
+        rgba(245, 244, 240, 0.34) 55%,
+        rgba(225, 214, 184, 0.3) 100%
+      );
+    box-shadow:
+      0 24px 42px -28px rgba(4, 33, 71, 0.58),
+      inset 0 1px 0 rgba(255, 255, 255, 0.84),
+      inset 0 -18px 26px -22px rgba(4, 33, 71, 0.22);
+    backdrop-filter: blur(34px) saturate(210%) contrast(112%);
+    -webkit-backdrop-filter: blur(34px) saturate(210%) contrast(112%);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        90% 56% at 50% -8%,
+        rgba(255, 255, 255, 0.82) 0%,
+        rgba(255, 255, 255, 0.04) 68%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      conic-gradient(
+        from 115deg at var(--liquid-x) var(--liquid-y),
+        rgba(255, 255, 255, 0.2) 0deg,
+        rgba(255, 255, 255, 0.03) 100deg,
+        rgba(255, 255, 255, 0.22) 210deg,
+        rgba(255, 255, 255, 0.02) 300deg,
+        rgba(255, 255, 255, 0.2) 360deg
+      );
+    mix-blend-mode: screen;
+    opacity: 0.72;
+    animation: liquidDrift 10s ease-in-out infinite alternate;
+  }
+
+  .liquid-glass::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -34%;
+    width: 40%;
+    z-index: -1;
+    pointer-events: none;
+    transform: skewX(-17deg);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+    animation: liquidShimmer 9.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    opacity: 0.56;
+  }
+
+  .liquid-glass-active {
+    border-color: rgba(201, 168, 76, 0.44);
+    background:
+      radial-gradient(
+        150% 170% at var(--liquid-x) var(--liquid-y),
+        rgba(255, 255, 255, 0.76) 0%,
+        rgba(255, 255, 255, 0.34) 28%,
+        rgba(255, 255, 255, 0.1) 52%,
+        rgba(255, 255, 255, 0.02) 74%
+      ),
+      linear-gradient(
+        132deg,
+        rgba(255, 255, 255, 0.62) 0%,
+        rgba(245, 244, 240, 0.42) 50%,
+        rgba(224, 199, 132, 0.26) 100%
+      );
+    box-shadow:
+      0 28px 46px -30px rgba(4, 33, 71, 0.66),
+      inset 0 1px 0 rgba(255, 255, 255, 0.86),
+      inset 0 -18px 26px -24px rgba(4, 33, 71, 0.24);
+  }
+
+  .liquid-chip {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(245, 244, 240, 0.18) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      inset 0 -8px 14px -12px rgba(4, 33, 71, 0.2);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+  }
+
+  .liquid-menu {
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    background:
+      radial-gradient(
+        150% 160% at 16% 10%,
+        rgba(255, 255, 255, 0.78) 0%,
+        rgba(255, 255, 255, 0.26) 34%,
+        rgba(255, 255, 255, 0.16) 60%
+      ),
+      linear-gradient(
+        154deg,
+        rgba(255, 255, 255, 0.62) 0%,
+        rgba(245, 244, 240, 0.42) 56%,
+        rgba(245, 244, 240, 0.32) 100%
+      );
+    box-shadow:
+      0 24px 40px -24px rgba(4, 33, 71, 0.62),
+      inset 0 1px 0 rgba(255, 255, 255, 0.78),
+      inset 0 -12px 20px -18px rgba(4, 33, 71, 0.2);
+    backdrop-filter: blur(30px) saturate(210%);
+    -webkit-backdrop-filter: blur(30px) saturate(210%);
+  }
+
+  .liquid-overlay {
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+  }
+
+  @keyframes liquidShimmer {
+    0% {
+      left: -34%;
+      opacity: 0;
+    }
+    14% {
+      opacity: 0.56;
+    }
+    45% {
+      left: 118%;
+      opacity: 0;
+    }
+    100% {
+      left: 118%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes liquidDrift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.66;
+    }
+    100% {
+      transform: translate3d(1.5%, -1.5%, 0) scale(1.03);
+      opacity: 0.8;
+    }
+  }
+
+  .nav-link-gold {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: 0.35rem;
+  }
+
+  .nav-link-gold::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      90deg,
+      rgba(201, 168, 76, 0) 0%,
+      rgba(201, 168, 76, 0.95) 50%,
+      rgba(201, 168, 76, 0) 100%
+    );
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.45);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .nav-link-gold:hover::after,
+  .nav-link-gold:focus-visible::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .btn-avenir {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 9999px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease,
+      background-position 0.35s ease, color 0.28s ease, border-color 0.28s ease;
+  }
+
+  .btn-avenir::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 48%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-avenir::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: -42%;
+    width: 38%;
+    transform: skewX(-22deg);
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transition: left 0.65s ease;
+  }
+
+  .btn-avenir:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-avenir:hover::before {
+    opacity: 1;
+  }
+
+  .btn-avenir:hover::after {
+    left: 110%;
+  }
+
+  .btn-avenir:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn-avenir-primary {
+    background: linear-gradient(135deg, #d6b25a 0%, #be9638 100%);
+    color: #042147;
+    border: 1px solid rgba(201, 168, 76, 0.75);
+    box-shadow: 0 10px 24px -12px rgba(201, 168, 76, 0.85);
+  }
+
+  .btn-avenir-primary:hover {
+    box-shadow: 0 16px 32px -14px rgba(201, 168, 76, 0.75);
+  }
+
+  .btn-avenir-outline {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.66) 0%,
+      rgba(245, 244, 240, 0.72) 48%,
+      rgba(236, 228, 203, 0.82) 100%
+    );
+    background-size: 160% 160%;
+    background-position: 0% 50%;
+    color: #042147;
+    border: 1px solid rgba(4, 33, 71, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 10px 24px -18px rgba(4, 33, 71, 0.35);
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-avenir-outline:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(245, 244, 240, 0.96) 0%,
+      rgba(240, 232, 209, 0.96) 48%,
+      rgba(224, 194, 116, 0.35) 100%
+    );
+    background-position: 100% 50%;
+    border-color: rgba(201, 168, 76, 0.86);
+    color: #b98f34;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 16px 30px -18px rgba(4, 33, 71, 0.45);
+  }
+
+  .btn-avenir-on-dark {
+    background: linear-gradient(132deg, #f0d38b 0%, #d4b05a 42%, #b7892f 100%);
+    background-size: 180% 180%;
+    background-position: 0% 50%;
+    color: #042147;
+    border: 1px solid rgba(240, 218, 146, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 14px 30px -16px rgba(201, 168, 76, 0.95),
+      0 0 0 1px rgba(4, 33, 71, 0.08);
+  }
+
+  .btn-avenir-on-dark:hover {
+    background-position: 100% 50%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 22px 38px -16px rgba(201, 168, 76, 0.95),
+      0 0 0 1px rgba(4, 33, 71, 0.12);
+  }
+
+  .btn-avenir:focus-visible {
+    outline: 2px solid rgba(201, 168, 76, 0.55);
+    outline-offset: 2px;
+  }
+
+  .contact-success-card {
+    position: relative;
+    border: 1px solid rgba(240, 218, 146, 0.34);
+    background:
+      radial-gradient(
+        130% 130% at 12% 8%,
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(255, 255, 255, 0.06) 34%,
+        rgba(255, 255, 255, 0) 66%
+      ),
+      linear-gradient(
+        150deg,
+        rgba(8, 45, 90, 0.9) 0%,
+        rgba(15, 66, 126, 0.72) 46%,
+        rgba(178, 135, 47, 0.24) 100%
+      );
+    box-shadow:
+      0 26px 46px -24px rgba(4, 33, 71, 0.76),
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -14px 26px -20px rgba(4, 33, 71, 0.5);
+    backdrop-filter: blur(12px) saturate(138%);
+    -webkit-backdrop-filter: blur(12px) saturate(138%);
+    transition: transform 0.42s ease, box-shadow 0.42s ease, border-color 0.42s ease;
+  }
+
+  .contact-success-card:hover {
+    border-color: rgba(240, 218, 146, 0.56);
+    box-shadow:
+      0 34px 52px -24px rgba(4, 33, 71, 0.82),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -18px 30px -20px rgba(4, 33, 71, 0.58);
+    transform: translateY(-2px);
+  }
+
+  .contact-success-card::before {
+    content: '';
+    position: absolute;
+    inset: -42% -30%;
+    pointer-events: none;
+    z-index: 0;
+    background: conic-gradient(
+      from 95deg at 50% 50%,
+      rgba(240, 218, 146, 0.28) 0deg,
+      rgba(240, 218, 146, 0.02) 92deg,
+      rgba(255, 255, 255, 0.28) 170deg,
+      rgba(255, 255, 255, 0.04) 236deg,
+      rgba(240, 218, 146, 0.18) 360deg
+    );
+    mix-blend-mode: screen;
+    animation: contactSuccessAurora 9.2s linear infinite;
+  }
+
+  .contact-success-card::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.26) 45%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-116%);
+    animation: contactSuccessSheen 4.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  .contact-success-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-success-seal {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 9999px;
+    color: #042147;
+    border: 1px solid rgba(240, 218, 146, 0.88);
+    background: linear-gradient(138deg, #f6de9f 0%, #dbb86a 42%, #bd923c 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.62),
+      0 18px 32px -18px rgba(201, 168, 76, 0.88);
+    animation: contactSuccessSealFloat 3.8s ease-in-out infinite;
+  }
+
+  .contact-success-seal::before {
+    content: '';
+    position: absolute;
+    inset: -11px;
+    border-radius: inherit;
+    border: 1px solid rgba(240, 218, 146, 0.38);
+    animation: contactSuccessRing 2.9s ease-out infinite;
+  }
+
+  .contact-success-seal::after {
+    content: '';
+    position: absolute;
+    inset: -17px;
+    border-radius: inherit;
+    border: 1px dashed rgba(240, 218, 146, 0.26);
+    animation: contactSuccessOrbit 9s linear infinite;
+  }
+
+  .contact-success-check {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+
+  .contact-success-check path {
+    stroke-dasharray: 36;
+    stroke-dashoffset: 36;
+    animation: contactSuccessDraw 0.72s ease forwards;
+    animation-delay: 0.16s;
+  }
+
+  .contact-success-title {
+    color: #f0d897;
+    text-shadow:
+      0 8px 20px rgba(3, 23, 50, 0.46),
+      0 0 16px rgba(240, 218, 146, 0.18);
+    animation: contactSuccessTitleIn 0.7s cubic-bezier(0.18, 1, 0.3, 1) both;
+    animation-delay: 0.12s;
+  }
+
+  .contact-success-message {
+    color: rgba(245, 244, 240, 0.9);
+    text-shadow: 0 4px 14px rgba(3, 23, 50, 0.34);
+    animation: contactSuccessTextIn 0.74s ease both;
+    animation-delay: 0.22s;
+  }
+
+  .contact-success-sparkles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  .contact-success-spark {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #fff3ca 0%, #f0d897 58%, rgba(240, 216, 151, 0.04) 100%);
+    box-shadow: 0 0 12px rgba(240, 218, 146, 0.6);
+    animation: contactSuccessSpark 2.7s ease-in-out infinite;
+  }
+
+  .contact-success-spark:nth-child(2) {
+    animation-delay: 0.34s;
+    transform: scale(1.14);
+  }
+
+  .contact-success-spark:nth-child(3) {
+    animation-delay: 0.68s;
+  }
+
+  @keyframes contactSuccessDraw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes contactSuccessRing {
+    0% {
+      opacity: 0.8;
+      transform: scale(0.92);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.18);
+    }
+  }
+
+  @keyframes contactSuccessOrbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes contactSuccessSealFloat {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes contactSuccessAurora {
+    from {
+      transform: rotate(0deg) scale(1);
+    }
+    to {
+      transform: rotate(360deg) scale(1.06);
+    }
+  }
+
+  @keyframes contactSuccessSheen {
+    0% {
+      transform: translateX(-116%);
+      opacity: 0;
+    }
+    22% {
+      opacity: 0.48;
+    }
+    48% {
+      transform: translateX(116%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(116%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes contactSuccessTitleIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes contactSuccessTextIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes contactSuccessSpark {
+    0%,
+    100% {
+      opacity: 0.34;
+      transform: translateY(0) scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.16);
+    }
   }
   
   /* Typography utilities */
@@ -149,5 +855,47 @@
     content: '◇';
     @apply absolute left-1/2 -translate-x-1/2 -top-2.5 text-gold text-lg opacity-60 px-4 bg-background;
   }
-}
 
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in-up,
+    .animate-slide-in-right,
+    .animate-scale-in {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    .btn-avenir,
+    .btn-avenir::before,
+    .btn-avenir::after,
+    .nav-link-gold::after,
+    .ornament-spin,
+    .ornament-spin-reverse,
+    .ornament-dot,
+    .ornament-star,
+    .ornament-star-spin,
+    .ornament-star-spin-reverse,
+    .ornament-star-float,
+    .liquid-glass,
+    .liquid-glass::before,
+    .liquid-glass::after,
+    .contact-success-card,
+    .contact-success-card::before,
+    .contact-success-card::after,
+    .contact-success-seal,
+    .contact-success-seal::before,
+    .contact-success-seal::after,
+    .contact-success-check path,
+    .contact-success-title,
+    .contact-success-message,
+    .contact-success-spark {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ornament-hide-mobile {
+      display: none;
+    }
+  }
+}

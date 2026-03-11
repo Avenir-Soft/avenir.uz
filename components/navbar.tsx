@@ -1,72 +1,367 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Logo } from './logo'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import { type Language } from '@/lib/i18n'
+import { useLanguage } from '@/components/language-provider'
+
+const languageOptions: Language[] = ['uz', 'ru', 'en']
+
+function isDarkBackgroundColor(color: string) {
+  const match = color.match(/rgba?\(([^)]+)\)/)
+  if (!match) return false
+
+  const values = match[1]
+    .split(',')
+    .map(value => Number.parseFloat(value.trim()))
+
+  const [r, g, b, alpha] = values
+  if ([r, g, b].some(value => Number.isNaN(value))) return false
+  if (typeof alpha === 'number' && !Number.isNaN(alpha) && alpha < 0.08) return false
+
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+  return luminance < 0.46
+}
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOnDarkBackground, setIsOnDarkBackground] = useState(false)
+  const liquidRef = useRef<HTMLDivElement>(null)
+  const { language, setLanguage, t } = useLanguage()
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50)
+
+        const probeX = Math.floor(window.innerWidth / 2)
+        const probeY = Math.min(window.innerHeight - 1, 140)
+        const probeElement = document.elementFromPoint(probeX, probeY)
+        const section = probeElement?.closest('section, footer')
+
+        if (section) {
+          const background = window.getComputedStyle(section).backgroundColor
+          setIsOnDarkBackground(isDarkBackgroundColor(background))
+        } else {
+          setIsOnDarkBackground(false)
+        }
+
+        ticking = false
+      })
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
+
   const navLinks = [
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Team', href: '#team' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
+    { key: 'portfolio', label: t.nav.links.portfolio, href: '#portfolio' },
+    { key: 'team', label: t.nav.links.team, href: '#team' },
+    { key: 'services', label: t.nav.links.services, href: '#services' },
+    { key: 'contact', label: t.nav.links.contact, href: '#contact' },
   ]
 
+  const closeMenu = () => setIsMenuOpen(false)
+
+  const handleLanguageChange = (nextLanguage: Language) => {
+    setLanguage(nextLanguage)
+    closeMenu()
+  }
+
+  const handleLiquidMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!liquidRef.current) return
+    const rect = liquidRef.current.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / rect.width) * 100
+    const y = ((event.clientY - rect.top) / rect.height) * 100
+    liquidRef.current.style.setProperty('--liquid-x', `${x.toFixed(2)}%`)
+    liquidRef.current.style.setProperty('--liquid-y', `${y.toFixed(2)}%`)
+  }
+
+  const resetLiquid = () => {
+    if (!liquidRef.current) return
+    liquidRef.current.style.setProperty('--liquid-x', '18%')
+    liquidRef.current.style.setProperty('--liquid-y', '14%')
+  }
+
+  const isGlassActive = isScrolled || isMenuOpen
+  const useLightText = isOnDarkBackground && !isMenuOpen
+  const navTextColor = 'rgba(4, 33, 71, 0.9)'
+  const navMutedColor = 'rgba(4, 33, 71, 0.64)'
+  const navLineColor = useLightText ? '#F5F4F0' : '#042147'
+  const logoSrc = '/Avenir-logo.png'
+  const languageIndex = Math.max(languageOptions.indexOf(language), 0)
+  const desktopIndicatorBackground = useLightText
+    ? 'linear-gradient(135deg, rgba(224, 199, 132, 0.56) 0%, rgba(224, 199, 132, 0.3) 100%)'
+    : 'linear-gradient(135deg, rgba(201, 168, 76, 0.34) 0%, rgba(201, 168, 76, 0.18) 100%)'
+
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        backgroundColor: isScrolled ? 'rgba(245, 244, 240, 0.95)' : 'transparent',
-        borderBottom: isScrolled ? '1px solid rgba(201, 168, 76, 0.2)' : 'none',
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center hover:opacity-80 transition-opacity">
-          <Logo />
-        </a>
-
-        {/* Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="font-medium text-sm tracking-wide transition-colors duration-200"
-              style={{ color: '#042147' }}
+    <>
+      <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
+        <div className="relative mx-auto max-w-7xl">
+          <div
+            ref={liquidRef}
+            onMouseMove={handleLiquidMove}
+            onMouseLeave={resetLiquid}
+            className={`liquid-glass transition-transform duration-300 ${
+              isGlassActive ? 'liquid-glass-active scale-100' : 'scale-[0.995]'
+            }`}
+            style={{ borderRadius: '2.1rem' }}
+          >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
             >
-              {link.label}
-            </a>
-          ))}
-        </div>
+              <span
+                className="absolute -left-12 top-2 h-14 w-36 rounded-full blur-2xl"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.44)' }}
+              />
+              <span
+                className="absolute right-8 top-0 h-12 w-28 rounded-full blur-xl"
+                style={{ backgroundColor: 'rgba(201, 168, 76, 0.22)' }}
+              />
+            </div>
 
-        {/* Right side: Language + CTA */}
-        <div className="flex items-center gap-6">
-          <div className="hidden sm:flex items-center gap-2 text-xs">
-            <button className="transition-colors" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>RU</button>
-            <span style={{ color: 'rgba(4, 33, 71, 0.2)' }}>/</span>
-            <button className="transition-colors" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>EN</button>
+            <div className="flex items-center justify-between gap-4 px-5 py-3.5 sm:px-6 sm:py-4">
+              <a
+                href="#"
+                className="flex items-center transition-opacity duration-200 hover:opacity-80"
+                onClick={closeMenu}
+              >
+                <div className="relative h-10 w-24 sm:h-14 sm:w-32">
+                  <Image
+                    src={logoSrc}
+                    alt={t.nav.logoAlt}
+                    fill
+                    priority
+                    sizes="(min-width: 640px) 128px, 96px"
+                    className="object-contain"
+                  />
+                </div>
+              </a>
+
+              <div className="hidden items-center gap-6 md:flex lg:gap-8">
+                {navLinks.map(link => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    className="nav-link-gold text-[15px] lg:text-base font-semibold tracking-[0.01em] transition-colors duration-200"
+                    style={{
+                      color: navTextColor,
+                      textShadow: 'none',
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div
+                  className="liquid-chip relative hidden w-[168px] grid-cols-3 rounded-full p-1 lg:grid"
+                  style={{
+                    borderColor: useLightText ? 'rgba(245, 244, 240, 0.26)' : 'rgba(4, 33, 71, 0.16)',
+                    backgroundColor: useLightText ? 'rgba(4, 33, 71, 0.3)' : 'rgba(255, 255, 255, 0.28)',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1 top-1 bottom-1 rounded-full border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{
+                      width: 'calc((100% - 0.5rem) / 3)',
+                      transform: `translateX(${languageIndex * 100}%)`,
+                      background: desktopIndicatorBackground,
+                      borderColor: useLightText ? 'rgba(245, 244, 240, 0.24)' : 'rgba(201, 168, 76, 0.34)',
+                      boxShadow: useLightText
+                        ? '0 8px 16px -14px rgba(224, 199, 132, 0.9)'
+                        : '0 8px 16px -14px rgba(201, 168, 76, 0.84)',
+                    }}
+                  />
+                  {languageOptions.map(code => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => handleLanguageChange(code)}
+                      className={`relative z-10 rounded-full px-0 py-1.5 text-[13px] font-semibold transition-[color,opacity,transform] duration-300 ${
+                        language === code
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-80 hover:opacity-100 hover:scale-[1.04]'
+                      }`}
+                      style={{
+                        color:
+                          language === code
+                            ? '#7a5b1a'
+                            : navMutedColor,
+                        textShadow:
+                          language === code
+                            ? '0 1px 0 rgba(255, 255, 255, 0.45)'
+                            : 'none',
+                      }}
+                    >
+                      {code.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  aria-label={t.nav.toggleMenuAria}
+                  aria-expanded={isMenuOpen}
+                  className="liquid-chip relative flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 md:hidden"
+                  style={{
+                    borderColor: useLightText ? 'rgba(245, 244, 240, 0.26)' : 'rgba(4, 33, 71, 0.2)',
+                    backgroundColor: useLightText ? 'rgba(4, 33, 71, 0.3)' : 'rgba(255, 255, 255, 0.3)',
+                  }}
+                  onClick={() => setIsMenuOpen(prev => !prev)}
+                >
+                  <span
+                    className={`absolute h-0.5 w-5 rounded-full transition-[transform,opacity] duration-300 ${
+                      isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1.5'
+                    }`}
+                    style={{ backgroundColor: navLineColor }}
+                  />
+                  <span
+                    className={`absolute h-0.5 w-5 rounded-full transition-[transform,opacity] duration-300 ${
+                      isMenuOpen ? 'opacity-0' : 'opacity-100'
+                    }`}
+                    style={{ backgroundColor: navLineColor }}
+                  />
+                  <span
+                    className={`absolute h-0.5 w-5 rounded-full transition-[transform,opacity] duration-300 ${
+                      isMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1.5'
+                    }`}
+                    style={{ backgroundColor: navLineColor }}
+                  />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <button
-            className="px-6 py-2 border-2 font-medium text-sm transition-all duration-200 tracking-wide"
-            style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
+          <div
+            className={`absolute inset-x-0 top-full mt-2 origin-top transition-[opacity,transform] duration-300 md:hidden ${
+              isMenuOpen
+                ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+                : 'pointer-events-none -translate-y-2 scale-[0.98] opacity-0'
+            }`}
           >
-            Get a Quote
-          </button>
+            <div
+              className="liquid-menu overflow-hidden rounded-[1.8rem] p-5"
+              style={{
+                borderColor: 'rgba(201, 168, 76, 0.28)',
+              }}
+            >
+              <div className="space-y-1">
+                {navLinks.map((link, idx) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className={`group flex items-center justify-between rounded-xl px-3 py-3 text-base font-medium transition-[opacity,transform,background-color,color] duration-300 hover:bg-white/45 ${
+                      isMenuOpen
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-2 opacity-0'
+                    }`}
+                    style={{
+                      color: 'rgba(4, 33, 71, 0.9)',
+                      transitionDelay: `${70 + idx * 45}ms`,
+                    }}
+                  >
+                    <span>{link.label}</span>
+                  </a>
+                ))}
+              </div>
+
+              <div
+                className="mt-4 flex items-center justify-between pt-4"
+                style={{ borderTop: '1px solid rgba(4, 33, 71, 0.12)' }}
+              >
+                <p
+                  className="text-xs uppercase tracking-[0.18em]"
+                  style={{ color: 'rgba(4, 33, 71, 0.55)' }}
+                >
+                  {t.nav.languageLabel}
+                </p>
+                <div
+                  className="relative grid w-[168px] grid-cols-3 rounded-full p-1 text-sm"
+                  style={{
+                    backgroundColor: 'rgba(4, 33, 71, 0.08)',
+                    border: '1px solid rgba(4, 33, 71, 0.14)',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1 top-1 bottom-1 rounded-full border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{
+                      width: 'calc((100% - 0.5rem) / 3)',
+                      transform: `translateX(${languageIndex * 100}%)`,
+                      background:
+                        'linear-gradient(135deg, rgba(201, 168, 76, 0.36) 0%, rgba(201, 168, 76, 0.18) 100%)',
+                      borderColor: 'rgba(201, 168, 76, 0.35)',
+                      boxShadow: '0 8px 16px -14px rgba(201, 168, 76, 0.85)',
+                    }}
+                  />
+                  {languageOptions.map(code => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => handleLanguageChange(code)}
+                      className={`relative z-10 rounded-full px-0 py-1.5 font-medium transition-[color,opacity,transform] duration-300 ${
+                        language === code
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-75 hover:opacity-100 hover:scale-[1.04]'
+                      }`}
+                      style={{
+                        color: language === code ? '#7a5b1a' : 'rgba(4, 33, 71, 0.72)',
+                        textShadow:
+                          language === code
+                            ? '0 1px 0 rgba(255, 255, 255, 0.45)'
+                            : 'none',
+                      }}
+                    >
+                      {code.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      <button
+        type="button"
+        aria-label={t.nav.closeMenuAria}
+        className={`liquid-overlay md:hidden fixed inset-0 z-40 transition-opacity duration-300 ${
+          isMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+        style={{ backgroundColor: 'rgba(4, 33, 71, 0.2)' }}
+        onClick={closeMenu}
+      />
+    </>
   )
 }
