@@ -24,7 +24,7 @@ const siteTitle = 'Avenir — IT-агентство в Узбекистане'
 const siteDescription =
   'Разрабатываем сайты и веб-платформы для бизнеса: дизайн, разработка, запуск и поддержка цифровых продуктов.'
 const instagramUrl = 'https://www.instagram.com/avenir.uz/'
-const gaId = process.env.NEXT_PUBLIC_GA_ID
+const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim()
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION
 
 export const metadata: Metadata = {
@@ -128,11 +128,11 @@ export default function RootLayout({
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
+              strategy="beforeInteractive"
             />
             <Script
               id="google-analytics"
-              strategy="afterInteractive"
+              strategy="beforeInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
