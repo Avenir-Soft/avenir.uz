@@ -138,8 +138,7 @@ function ProjectCard({
           </div>
           <Link
             href={`/portfolio/${project.slug}`}
-            className="mt-6 inline-flex items-center gap-2 text-sm font-medium transition-[gap] duration-200 group-hover:gap-3"
-            style={{ color: '#F5F4F0' }}
+            className="btn-avenir btn-avenir-on-dark mt-6 inline-flex items-center gap-2 px-5 py-2 text-sm"
           >
             {viewCaseLabel}
             <span aria-hidden="true">→</span>
