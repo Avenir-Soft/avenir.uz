@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Clock3, Layers3, Sparkles } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
+import { Navbar } from '@/components/navbar'
 import { SectionOrnaments } from '@/components/section-ornaments'
 import { type Language } from '@/lib/i18n'
 import { getServiceBySlug, serviceCatalog, type ServiceSlug } from '@/lib/service-catalog'
@@ -64,6 +65,8 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
 
   return (
     <main style={{ backgroundColor: '#F5F4F0' }}>
+      <Navbar />
+
       <section
         className="section-shell-dark relative overflow-hidden px-6 pb-20 pt-28 md:pt-32"
         style={{ backgroundColor: '#042147' }}

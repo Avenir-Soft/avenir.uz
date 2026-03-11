@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { type Language } from '@/lib/i18n'
 import { useLanguage } from '@/components/language-provider'
@@ -28,6 +29,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOnDarkBackground, setIsOnDarkBackground] = useState(false)
   const liquidRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
   const { language, setLanguage, t } = useLanguage()
 
   useEffect(() => {
@@ -78,12 +80,17 @@ export function Navbar() {
     }
   }, [isMenuOpen])
 
+  const isHomePage = pathname === '/'
+  const sectionPrefix = isHomePage ? '' : '/'
+
   const navLinks = [
-    { key: 'portfolio', label: t.nav.links.portfolio, href: '#portfolio' },
-    { key: 'team', label: t.nav.links.team, href: '#team' },
-    { key: 'services', label: t.nav.links.services, href: '#services' },
-    { key: 'contact', label: t.nav.links.contact, href: '#contact' },
+    { key: 'portfolio', label: t.nav.links.portfolio, href: `${sectionPrefix}#portfolio` },
+    { key: 'team', label: t.nav.links.team, href: `${sectionPrefix}#team` },
+    { key: 'services', label: t.nav.links.services, href: `${sectionPrefix}#services` },
+    { key: 'contact', label: t.nav.links.contact, href: `${sectionPrefix}#contact` },
   ]
+
+  const logoHref = isHomePage ? '#' : '/'
 
   const closeMenu = () => setIsMenuOpen(false)
 
@@ -147,7 +154,7 @@ export function Navbar() {
 
             <div className="flex items-center justify-between gap-4 px-5 py-3.5 sm:px-6 sm:py-4">
               <a
-                href="#"
+                href={logoHref}
                 className="flex items-center transition-opacity duration-200 hover:opacity-80"
                 onClick={closeMenu}
               >
