@@ -24,7 +24,7 @@ const siteTitle = 'Avenir — IT-агентство в Узбекистане'
 const siteDescription =
   'Разрабатываем сайты и веб-платформы для бизнеса: дизайн, разработка, запуск и поддержка цифровых продуктов.'
 const instagramUrl = 'https://www.instagram.com/avenir.uz/'
-const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim()
+const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim() || 'G-7CDEEPTX0Q'
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION
 
 export const metadata: Metadata = {
@@ -117,22 +117,11 @@ export default function RootLayout({
 
   return (
     <html lang="uz">
-      <body className="font-sans antialiased">
-        <Script
-          id="organization-jsonld"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+      <head>
         {gaId ? (
           <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="beforeInteractive"
-            />
-            <Script
-              id="google-analytics"
-              strategy="beforeInteractive"
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+            <script
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -144,6 +133,14 @@ export default function RootLayout({
             />
           </>
         ) : null}
+      </head>
+      <body className="font-sans antialiased">
+        <Script
+          id="organization-jsonld"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
