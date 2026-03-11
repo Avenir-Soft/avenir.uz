@@ -4,7 +4,22 @@ import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://avenir.uz'
+const defaultSiteUrl = 'https://avenir.uz'
+
+function resolveSiteUrl(value: string | undefined) {
+  const candidate = value?.trim()
+  if (!candidate) return defaultSiteUrl
+
+  try {
+    const url = new URL(candidate)
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return defaultSiteUrl
+    return url.origin
+  } catch {
+    return defaultSiteUrl
+  }
+}
+
+const siteUrl = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 const siteTitle = 'Avenir — IT-агентство в Узбекистане'
 const siteDescription =
   'Разрабатываем сайты и веб-платформы для бизнеса: дизайн, разработка, запуск и поддержка цифровых продуктов.'
