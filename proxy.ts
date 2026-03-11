@@ -20,7 +20,8 @@ export function proxy(request: NextRequest) {
   }
 
   const url = request.nextUrl.clone()
-  url.host = APEX_HOST
+  url.hostname = APEX_HOST
+  url.port = ''
   url.protocol = 'https'
 
   return NextResponse.redirect(url, 308)
