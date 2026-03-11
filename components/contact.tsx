@@ -165,7 +165,13 @@ export function Contact() {
               <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
                 {t.contact.socialLinks.twitter}
               </a>
-              <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
+              <a
+                href="https://www.instagram.com/avenir.uz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg transition-colors"
+                style={{ color: '#C9A84C' }}
+              >
                 {t.contact.socialLinks.instagram}
               </a>
             </div>
