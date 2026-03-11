@@ -1,16 +1,38 @@
 'use client'
 
-import { Handshake, Layers3, Rocket, Sparkles, type LucideIcon } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import {
+  AppWindow,
+  ArrowUpRight,
+  Bot,
+  Globe,
+  Send,
+  Smartphone,
+  type LucideIcon,
+} from 'lucide-react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useLanguage } from '@/components/language-provider'
 import { SectionOrnaments } from '@/components/section-ornaments'
+import { serviceCatalog, type ServiceIcon } from '@/lib/service-catalog'
 
-const serviceIcons: LucideIcon[] = [Rocket, Layers3, Sparkles, Handshake]
+const iconMap: Record<ServiceIcon, LucideIcon> = {
+  globe: Globe,
+  smartphone: Smartphone,
+  bot: Bot,
+  send: Send,
+  app: AppWindow,
+}
+
+const detailsLabel = {
+  uz: 'Batafsil',
+  ru: 'Подробнее',
+  en: 'View details',
+} as const
 
 export function Services() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   useEffect(() => {
     if (!sectionRef.current) return
@@ -33,7 +55,7 @@ export function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="section-shell-dark relative overflow-hidden py-24 px-6"
+      className="section-shell-dark relative overflow-hidden px-6 py-24"
       style={{ backgroundColor: '#042147' }}
     >
       <SectionOrnaments tone="dark" />
@@ -46,15 +68,17 @@ export function Services() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="flex items-center justify-center gap-4 mb-12">
-          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
-          <span className="text-2xl" style={{ color: '#C9A84C', opacity: 0.6 }}>◇</span>
-          <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-12 flex items-center justify-center gap-4">
+          <div className="h-px flex-1" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
+          <span className="text-2xl" style={{ color: '#C9A84C', opacity: 0.6 }}>
+            ◇
+          </span>
+          <div className="h-px flex-1" style={{ backgroundColor: 'rgba(201, 168, 76, 0.3)' }} />
         </div>
 
         <div
-          className={`text-center mb-16 transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${
+          className={`mb-16 text-center transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
           style={{ transitionDelay: '40ms' }}
@@ -65,28 +89,34 @@ export function Services() {
           >
             {t.services.eyebrow}
           </p>
-          <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#C9A84C' }}>
+          <h2 className="mb-4 text-5xl font-serif font-bold md:text-6xl" style={{ color: '#C9A84C' }}>
             {t.services.title}
           </h2>
-          <p className="text-lg max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(201, 168, 76, 0.7)' }}>
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed" style={{ color: 'rgba(201, 168, 76, 0.72)' }}>
             {t.services.subtitle}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
-          {t.services.items.map((service, idx) => {
-            const Icon = serviceIcons[idx] ?? Rocket
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {serviceCatalog.map((service, idx) => {
+            const Icon = iconMap[service.icon]
+            const content = service.content[language]
+            const cardDelay = 120 + idx * 70
+            const transitionStyle: CSSProperties = {
+              transitionDelay: `${cardDelay}ms`,
+              willChange: 'transform, opacity',
+            }
+
             return (
-              <article
-                key={service.title}
-                className={`group relative overflow-hidden rounded-2xl p-7 transform-gpu transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none ${
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className={`group relative overflow-hidden rounded-2xl p-6 transform-gpu transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
                 style={{
-                  transitionDelay: `${120 + idx * 70}ms`,
-                  willChange: 'transform, opacity',
-                  background:
-                    'linear-gradient(160deg, rgba(245, 244, 240, 0.06) 0%, rgba(245, 244, 240, 0.02) 100%)',
+                  ...transitionStyle,
+                  background: 'linear-gradient(160deg, rgba(245, 244, 240, 0.06) 0%, rgba(245, 244, 240, 0.02) 100%)',
                   border: '1px solid rgba(201, 168, 76, 0.26)',
                   boxShadow: '0 14px 30px -24px rgba(4, 33, 71, 0.75)',
                 }}
@@ -100,11 +130,8 @@ export function Services() {
                   }}
                 />
 
-                <div className="mb-7 flex items-center justify-between">
-                  <span
-                    className="text-xs tracking-[0.24em]"
-                    style={{ color: 'rgba(245, 244, 240, 0.52)' }}
-                  >
+                <div className="mb-6 flex items-center justify-between">
+                  <span className="text-xs tracking-[0.24em]" style={{ color: 'rgba(245, 244, 240, 0.52)' }}>
                     0{idx + 1}
                   </span>
                   <div
@@ -119,18 +146,18 @@ export function Services() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-serif font-semibold mb-3" style={{ color: '#F5F4F0' }}>
-                  {service.title}
+                <h3 className="mb-3 text-2xl font-serif font-semibold" style={{ color: '#F5F4F0' }}>
+                  {content.title}
                 </h3>
-                <p className="leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.7)' }}>
-                  {service.description}
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.74)' }}>
+                  {content.teaser}
                 </p>
 
-                <div
-                  className="mt-6 h-px w-10 transition-[width] duration-300 group-hover:w-20"
-                  style={{ backgroundColor: 'rgba(201, 168, 76, 0.7)' }}
-                />
-              </article>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium" style={{ color: '#E8C97A' }}>
+                  <span>{detailsLabel[language]}</span>
+                  <ArrowUpRight size={16} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </Link>
             )
           })}
         </div>

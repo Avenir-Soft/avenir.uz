@@ -180,25 +180,29 @@ export const dictionaries: Record<Language, Dictionary> = {
       satisfactionValue: '98% hamkorlar biz bilan qoladi',
     },
     services: {
-      eyebrow: 'Asosiy tamoyillar',
-      title: 'Nega Avenir?',
-      subtitle: 'Yuqori darajadagi raqamli mahsulotlarni yaratishdagi yondashuvimiz',
+      eyebrow: 'Mahsulotlar va xizmatlar',
+      title: 'Nimalar yaratamiz?',
+      subtitle: 'Biznesingiz uchun ishlab chiqadigan asosiy raqamli yechimlar',
       items: [
         {
-          title: 'Tezkor yetkazish',
-          description: 'Aniq bosqichlar va muddatida relizlar bilan ixcham ishlab chiqish sikllari.',
+          title: 'Veb saytlar',
+          description: 'Korporativ, landing va e-commerce saytlar zamonaviy dizayn bilan.',
         },
         {
-          title: 'Masshtablanuvchi arxitektura',
-          description: 'O`sish, qo`llab-quvvatlash va barqarorlik uchun tayyor tizimlar.',
+          title: 'Mobil ilovalar',
+          description: 'Android va iOS uchun tezkor, qulay va barqaror mobil mahsulotlar.',
         },
         {
-          title: 'Premium dizayn',
-          description: 'Aniqlik, estetika va konversiya uyg`unlashgan mahsulot tajribasi.',
+          title: 'AI botlar',
+          description: 'Jarayonlarni avtomatlashtiruvchi va savollarni qayta ishlovchi intellektual botlar.',
         },
         {
-          title: 'Uzoq muddatli hamkorlik',
-          description: 'Ishga tushirishdan keyin ham doimiy qo`llab-quvvatlash va rivojlantirish.',
+          title: 'Telegram botlar',
+          description: 'Mijozlar bilan ishlash, buyurtma qabul qilish va CRM ulash uchun botlar.',
+        },
+        {
+          title: 'Mini-app',
+          description: 'Telegram ichida ishlaydigan mini-ilovalar va interaktiv servislar.',
         },
       ],
     },
@@ -378,25 +382,29 @@ export const dictionaries: Record<Language, Dictionary> = {
       satisfactionValue: '98% партнеров остаются с нами',
     },
     services: {
-      eyebrow: 'Ключевые принципы',
-      title: 'Почему Avenir?',
-      subtitle: 'Наш подход к созданию выдающихся цифровых продуктов',
+      eyebrow: 'Продукты и услуги',
+      title: 'Что мы создаем?',
+      subtitle: 'Основные цифровые решения, которые мы делаем для бизнеса',
       items: [
         {
-          title: 'Быстрая доставка',
-          description: 'Короткие циклы разработки с предсказуемыми этапами и релизами в срок.',
+          title: 'Веб-сайты',
+          description: 'Корпоративные сайты, лендинги и e-commerce проекты с современным UX.',
         },
         {
-          title: 'Масштабируемая архитектура',
-          description: 'Системы, готовые к росту, поддержке и надежной работе.',
+          title: 'Мобильные приложения',
+          description: 'Нативные и кроссплатформенные приложения для Android и iOS.',
         },
         {
-          title: 'Премиальный дизайн',
-          description: 'Продуманный продуктовый опыт, где объединяются ясность, эстетика и конверсия.',
+          title: 'AI-боты',
+          description: 'Интеллектуальные боты для автоматизации процессов и поддержки клиентов.',
         },
         {
-          title: 'Долгосрочное партнерство',
-          description: 'Постоянная поддержка и развитие продукта после релиза.',
+          title: 'Telegram-боты',
+          description: 'Боты для продаж, обработки заявок, интеграций с CRM и внутренней автоматизации.',
+        },
+        {
+          title: 'Mini-app',
+          description: 'Мини-приложения внутри Telegram с интерактивным пользовательским сценарием.',
         },
       ],
     },
@@ -576,25 +584,29 @@ export const dictionaries: Record<Language, Dictionary> = {
       satisfactionValue: '98% Partner retention',
     },
     services: {
-      eyebrow: 'Core Principles',
-      title: 'Why Avenir?',
-      subtitle: 'Our approach to building exceptional digital products',
+      eyebrow: 'Products & Services',
+      title: 'What We Build',
+      subtitle: 'Core digital products we deliver for modern businesses',
       items: [
         {
-          title: 'Fast Delivery',
-          description: 'Lean execution cycles with predictable milestones and on-time releases.',
+          title: 'Websites',
+          description: 'Corporate websites, landing pages, and e-commerce experiences.',
         },
         {
-          title: 'Scalable Architecture',
-          description: 'Future-ready systems designed for growth, maintainability, and resilience.',
+          title: 'Mobile Apps',
+          description: 'High-performance mobile applications for Android and iOS.',
         },
         {
-          title: 'Premium Design',
-          description: 'Refined product experiences where clarity, aesthetics, and conversion align.',
+          title: 'AI Bots',
+          description: 'Intelligent bots that automate workflows and improve user support.',
         },
         {
-          title: 'Long-term Partnership',
-          description: 'Continuous support and product evolution long after launch day.',
+          title: 'Telegram Bots',
+          description: 'Bots for lead capture, sales, CRM integrations, and internal automation.',
+        },
+        {
+          title: 'Mini Apps',
+          description: 'Interactive Telegram Mini Apps for seamless in-app user journeys.',
         },
       ],
     },
