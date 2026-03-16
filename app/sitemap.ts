@@ -41,9 +41,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  const legalEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${siteUrl}/privacy`,
+      lastModified: new Date('2025-01-01'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/terms`,
+      lastModified: new Date('2025-01-01'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+  ]
+
   return [
     baseEntry,
     ...serviceEntries,
     ...portfolioEntries,
+    ...legalEntries,
   ]
 }

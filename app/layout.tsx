@@ -1,8 +1,25 @@
 import type { Metadata, Viewport } from 'next'
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-cormorant',
+  display: 'swap',
+  preload: true,
+})
+
+const dmSans = DM_Sans({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+  preload: true,
+})
 
 const defaultSiteUrl = 'https://avenir.uz'
 
@@ -71,7 +88,6 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: 'Avenir',
-  generator: 'v0.app',
   keywords: seoKeywords,
   category: 'Technology',
   authors: [{ name: 'Avenir', url: siteUrl }],
@@ -93,7 +109,7 @@ export const metadata: Metadata = {
         url: '/logo-black.png',
         width: 1200,
         height: 630,
-        alt: 'Avenir',
+        alt: 'Avenir — IT Agency in Uzbekistan',
       },
     ],
   },
@@ -126,12 +142,7 @@ export const metadata: Metadata = {
     google: googleSiteVerification,
   },
   icons: {
-    icon: [
-      {
-        url: '/logo-black.png',
-        type: 'image/png',
-      },
-    ],
+    icon: [{ url: '/logo-black.png', type: 'image/png' }],
     apple: '/logo-black.png',
   },
 }
@@ -139,7 +150,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -161,6 +172,11 @@ export default function RootLayout({
     ],
     description: siteDescriptionEn,
     inLanguage: ['uz', 'ru', 'en'],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/?s={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   }
 
   const organizationJsonLd = {
@@ -172,27 +188,25 @@ export default function RootLayout({
     logo: `${siteUrl}/logo-black.png`,
     description: siteDescriptionRu,
     areaServed: 'UZ',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Tashkent',
+      addressCountry: 'UZ',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+998935298807',
+      contactType: 'customer service',
+      availableLanguage: ['Uzbek', 'Russian', 'English'],
+    },
     sameAs: [instagramUrl],
   }
 
   return (
-    <html lang="uz">
+    <html lang="uz" className={`${cormorant.variable} ${dmSans.variable}`}>
       <head>
-        {gaId ? (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${gaId}');
-                `,
-              }}
-            />
-          </>
-        ) : null}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
       <body className="font-sans antialiased">
         <Script
@@ -207,6 +221,22 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        {gaId && (
+          <>
+            <Script
+              id="gtag-load"
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}',{page_path:window.location.pathname});`,
+              }}
+            />
+          </>
+        )}
         <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>

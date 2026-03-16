@@ -78,9 +78,7 @@ export function Hero() {
             <a href="#portfolio" className="btn-avenir btn-avenir-primary px-8 py-3 text-base">
               {t.hero.ctaPortfolio}
             </a>
-            <a href="#team" className="btn-avenir btn-avenir-outline px-8 py-3 text-base">
-              {t.hero.ctaTeam}
-            </a>
+            
             <a href="#contact" className="btn-avenir btn-avenir-outline px-8 py-3 text-base">
               {t.hero.ctaProject}
             </a>

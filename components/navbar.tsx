@@ -85,7 +85,6 @@ export function Navbar() {
 
   const navLinks = [
     { key: 'portfolio', label: t.nav.links.portfolio, href: `${sectionPrefix}#portfolio` },
-    { key: 'team', label: t.nav.links.team, href: `${sectionPrefix}#team` },
     { key: 'services', label: t.nav.links.services, href: `${sectionPrefix}#services` },
     { key: 'contact', label: t.nav.links.contact, href: `${sectionPrefix}#contact` },
   ]
@@ -128,7 +127,7 @@ export function Navbar() {
   return (
     <>
       <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.35rem] sm:rounded-full">
+        <div className="relative mx-auto max-w-7xl rounded-[2.35rem] sm:rounded-full">
           <div
             ref={liquidRef}
             onMouseMove={handleLiquidMove}

@@ -7,7 +7,6 @@ export interface Dictionary {
   nav: {
     links: {
       portfolio: string
-      team: string
       services: string
       contact: string
     }
@@ -26,7 +25,6 @@ export interface Dictionary {
       description: string
     }>
     ctaPortfolio: string
-    ctaTeam: string
     ctaProject: string
     frameworkLabel: string
     frameworkTitle: string
@@ -134,7 +132,6 @@ export const dictionaries: Record<Language, Dictionary> = {
     nav: {
       links: {
         portfolio: 'Loyihalar',
-        team: 'Jamoa',
         services: 'Xizmatlar',
         contact: 'Aloqa',
       },
@@ -164,7 +161,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         },
       ],
       ctaPortfolio: 'Loyihalarni ko`rish',
-      ctaTeam: 'Jamoa bilan tanishish',
       ctaProject: 'Loyihani boshlash',
       frameworkLabel: 'Yetkazib berish tizimi',
       frameworkTitle: 'G`oyadan ishga tushirishgacha',
@@ -302,7 +298,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       form: {
         name: 'Имя',
         phone: 'Телефон номер',
-        telegram: 'ТГ юзер',
+        telegram: 'Telegram username',
         employeesCount: 'Сотрудники кол-во',
         annualTurnover: 'Годовой оборот',
         annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
@@ -341,7 +337,6 @@ export const dictionaries: Record<Language, Dictionary> = {
     nav: {
       links: {
         portfolio: 'Портфолио',
-        team: 'Команда',
         services: 'Услуги',
         contact: 'Контакты',
       },
@@ -371,7 +366,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         },
       ],
       ctaPortfolio: 'Смотреть портфолио',
-      ctaTeam: 'Наша команда',
       ctaProject: 'Начать проект',
       frameworkLabel: 'Фреймворк доставки',
       frameworkTitle: 'От идеи до запуска',
@@ -509,7 +503,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       form: {
         name: 'Имя',
         phone: 'Телефон номер',
-        telegram: 'ТГ юзер',
+        telegram: 'Telegram username',
         employeesCount: 'Сотрудники кол-во',
         annualTurnover: 'Годовой оборот',
         annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
@@ -548,7 +542,6 @@ export const dictionaries: Record<Language, Dictionary> = {
     nav: {
       links: {
         portfolio: 'Portfolio',
-        team: 'Team',
         services: 'Services',
         contact: 'Contact',
       },
@@ -578,7 +571,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         },
       ],
       ctaPortfolio: 'View Portfolio',
-      ctaTeam: 'Meet the Team',
       ctaProject: 'Start a project',
       frameworkLabel: 'Delivery Framework',
       frameworkTitle: 'From idea to launch',
@@ -716,7 +708,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       form: {
         name: 'Name',
         phone: 'Phone',
-        telegram: 'TG username',
+        telegram: 'Telegram username',
         employeesCount: 'Employees count',
         annualTurnover: 'Annual turnover',
         annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
