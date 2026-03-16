@@ -20,7 +20,12 @@ function isGaDebugEnabled() {
   return storedValue === '1' || storedValue === 'true'
 }
 
-function trackLeadSubmit(params: { hasCompany: boolean; hasEmail: boolean; hasProject: boolean; language: string }) {
+function trackLeadSubmit(params: {
+  hasTelegram: boolean
+  hasEmployees: boolean
+  hasAnnualTurnover: boolean
+  language: string
+}) {
   if (typeof window === 'undefined') return
 
   const gtag = (window as Window & { gtag?: GtagEvent }).gtag
@@ -30,9 +35,9 @@ function trackLeadSubmit(params: { hasCompany: boolean; hasEmail: boolean; hasPr
     event_category: 'engagement',
     event_label: 'contact_form',
     lead_type: 'contact_form',
-    has_company: params.hasCompany ? 1 : 0,
-    has_email: params.hasEmail ? 1 : 0,
-    has_project: params.hasProject ? 1 : 0,
+    has_telegram: params.hasTelegram ? 1 : 0,
+    has_employees: params.hasEmployees ? 1 : 0,
+    has_annual_turnover: params.hasAnnualTurnover ? 1 : 0,
     ui_language: params.language,
     debug_mode: isGaDebugEnabled(),
   })
@@ -64,10 +69,10 @@ function formatUzPhone(input: string) {
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    company: '',
-    email: '',
     phone: UZ_PHONE_PREFIX,
-    project: '',
+    telegramUsername: '',
+    employeeCount: '',
+    annualTurnover: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -114,9 +119,9 @@ export function Contact() {
       }
 
       trackLeadSubmit({
-        hasCompany: Boolean(formData.company.trim()),
-        hasEmail: Boolean(formData.email.trim()),
-        hasProject: Boolean(formData.project.trim()),
+        hasTelegram: Boolean(formData.telegramUsername.trim()),
+        hasEmployees: Boolean(formData.employeeCount.trim()),
+        hasAnnualTurnover: Boolean(formData.annualTurnover.trim()),
         language,
       })
 
@@ -125,10 +130,10 @@ export function Contact() {
         setSubmitted(false)
         setFormData({
           name: '',
-          company: '',
-          email: '',
           phone: UZ_PHONE_PREFIX,
-          project: '',
+          telegramUsername: '',
+          employeeCount: '',
+          annualTurnover: '',
         })
       }, 5000)
     } catch (error) {
@@ -151,71 +156,16 @@ export function Contact() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#C9A84C' }}>
-                {t.contact.title}
-              </h2>
-              <p className="text-lg leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.7)' }}>
-                {t.contact.description}
-              </p>
-            </div>
-
-            <div className="space-y-6 pt-8" style={{ borderTop: '1px solid rgba(201, 168, 76, 0.2)' }}>
-              <div>
-                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
-                  {t.contact.labels.email}
-                </p>
-                <a
-                  href="mailto:info@avenir.uz"
-                  className="text-lg transition-colors"
-                  style={{ color: '#F5F4F0' }}
-                >
-                  info@avenir.uz
-                </a>
-              </div>
-
-              <div>
-                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
-                  {t.contact.labels.phone}
-                </p>
-                <a
-                  href="tel:+998712345678"
-                  className="text-lg transition-colors"
-                  style={{ color: '#F5F4F0' }}
-                >
-                  +998 93 529 88 07
-                </a>
-              </div>
-
-              <div>
-                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
-                  {t.contact.labels.location}
-                </p>
-                <p style={{ color: '#F5F4F0' }}>{t.contact.locationValue}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 pt-4">
-              <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
-                {t.contact.socialLinks.linkedin}
-              </a>
-              <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
-                {t.contact.socialLinks.twitter}
-              </a>
-              <a
-                href="https://www.instagram.com/avenir.uz/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg transition-colors"
-                style={{ color: '#C9A84C' }}
-              >
-                {t.contact.socialLinks.instagram}
-              </a>
-            </div>
+          <div className="order-1 md:col-start-1 md:row-start-1">
+            <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#C9A84C' }}>
+              {t.contact.title}
+            </h2>
+            <p className="text-lg leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.7)' }}>
+              {t.contact.description}
+            </p>
           </div>
 
-          <div>
+          <div className="order-2 md:col-start-2 md:row-start-1 md:row-span-2">
             {submitted ? (
               <div
                 className="contact-success-card animate-scale-in relative flex h-full min-h-82.5 items-center justify-center overflow-hidden rounded-[1.6rem] px-6 py-10 text-center sm:px-10"
@@ -315,9 +265,9 @@ export function Contact() {
                 <div>
                   <input
                     type="text"
-                    name="company"
-                    placeholder={t.contact.form.company}
-                    value={formData.company}
+                    name="telegramUsername"
+                    placeholder={t.contact.form.telegram}
+                    value={formData.telegramUsername}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-transparent border transition-colors"
                     style={{
@@ -330,11 +280,13 @@ export function Contact() {
 
                 <div>
                   <input
-                    type="email"
-                    name="email"
-                    placeholder={t.contact.form.email}
-                    value={formData.email}
+                    type="number"
+                    name="employeeCount"
+                    placeholder={t.contact.form.employeesCount}
+                    value={formData.employeeCount}
                     onChange={handleChange}
+                    min="1"
+                    inputMode="numeric"
                     className="w-full px-4 py-3 bg-transparent border transition-colors"
                     style={{
                       borderColor: 'rgba(201, 168, 76, 0.3)',
@@ -345,19 +297,26 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <textarea
-                    name="project"
-                    placeholder={t.contact.form.project}
-                    value={formData.project}
+                  <select
+                    name="annualTurnover"
+                    value={formData.annualTurnover}
                     onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-transparent border transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-transparent border transition-colors"
                     style={{
                       borderColor: 'rgba(201, 168, 76, 0.3)',
                       color: '#F5F4F0',
                       borderRadius: '4px',
                     }}
-                  />
+                  >
+                    <option value="" style={{ color: '#042147' }}>
+                      {t.contact.form.annualTurnover}
+                    </option>
+                    {t.contact.form.annualTurnoverOptions.map(option => (
+                      <option key={option} value={option} style={{ color: '#042147' }}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <button
@@ -380,6 +339,61 @@ export function Contact() {
                 </p>
               </form>
             )}
+          </div>
+
+          <div className="order-3 space-y-8 md:col-start-1 md:row-start-2">
+            <div className="space-y-6 pt-8" style={{ borderTop: '1px solid rgba(201, 168, 76, 0.2)' }}>
+              <div>
+                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
+                  {t.contact.labels.email}
+                </p>
+                <a
+                  href="mailto:info@avenir.uz"
+                  className="text-lg transition-colors"
+                  style={{ color: '#F5F4F0' }}
+                >
+                  info@avenir.uz
+                </a>
+              </div>
+
+              <div>
+                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
+                  {t.contact.labels.phone}
+                </p>
+                <a
+                  href="tel:+998712345678"
+                  className="text-lg transition-colors"
+                  style={{ color: '#F5F4F0' }}
+                >
+                  +998 93 529 88 07
+                </a>
+              </div>
+
+              <div>
+                <p className="text-sm uppercase tracking-widest mb-2" style={{ color: 'rgba(201, 168, 76, 0.6)' }}>
+                  {t.contact.labels.location}
+                </p>
+                <p style={{ color: '#F5F4F0' }}>{t.contact.locationValue}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 pt-4">
+              <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
+                {t.contact.socialLinks.linkedin}
+              </a>
+              <a href="#" className="text-lg transition-colors" style={{ color: '#C9A84C' }}>
+                {t.contact.socialLinks.twitter}
+              </a>
+              <a
+                href="https://www.instagram.com/avenir.uz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg transition-colors"
+                style={{ color: '#C9A84C' }}
+              >
+                {t.contact.socialLinks.instagram}
+              </a>
+            </div>
           </div>
         </div>
       </div>

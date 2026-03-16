@@ -92,10 +92,11 @@ export interface Dictionary {
     successMessage: string
     form: {
       name: string
-      email: string
-      company: string
       phone: string
-      project: string
+      telegram: string
+      employeesCount: string
+      annualTurnover: string
+      annualTurnoverOptions: string[]
       submit: string
       responseTime: string
     }
@@ -143,9 +144,9 @@ export const dictionaries: Record<Language, Dictionary> = {
       logoAlt: 'Avenir logotipi',
     },
     hero: {
-      studioBadge: 'Avenir IT agenstvasi',
-      titlePrefix: 'Biz raqamli',
-      titleHighlight: 'kelajaklarni',
+      studioBadge: 'Avenir IT-agenstligi',
+      titlePrefix: 'Biz bilan',
+      titleHighlight: 'kelajakni quring',
       description:
         'Biz katta maqsadli kompaniyalar bilan birga tezkor, nafis va tijoriy jihatdan samarali veb mahsulotlar yaratamiz va rivojlantiramiz.',
       focusAreas: [
@@ -175,7 +176,7 @@ export const dictionaries: Record<Language, Dictionary> = {
         { title: 'Ishga tushirish va o`sish', detail: 'Optimizatsiya va uzoq muddatli qo`llab-quvvatlash' },
       ],
       avgLaunchLabel: 'O`rtacha ishga tushirish',
-      avgLaunchValue: '6-8 hafta',
+      avgLaunchValue: '2 haftagacha',
       satisfactionLabel: 'Qoniqish',
       satisfactionValue: '98% hamkorlar biz bilan qoladi',
     },
@@ -299,11 +300,12 @@ export const dictionaries: Record<Language, Dictionary> = {
       successTitle: 'Rahmat!',
       successMessage: 'Xabaringizni oldik va tez orada siz bilan bog`lanamiz.',
       form: {
-        name: 'To`liq ism',
-        email: 'Elektron pochta (ixtiyoriy)',
-        company: 'Kompaniya (ixtiyoriy)',
-        phone: 'Telefon',
-        project: 'Loyihangiz haqida yozing...',
+        name: 'Имя',
+        phone: 'Телефон номер',
+        telegram: 'ТГ юзер',
+        employeesCount: 'Сотрудники кол-во',
+        annualTurnover: 'Годовой оборот',
+        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Xabar yuborish',
         responseTime: '24 soat ichida javob beramiz',
       },
@@ -505,11 +507,12 @@ export const dictionaries: Record<Language, Dictionary> = {
       successTitle: 'Спасибо!',
       successMessage: 'Мы получили ваше сообщение и скоро свяжемся с вами.',
       form: {
-        name: 'Полное имя',
-        email: 'Электронная почта (необязательно)',
-        company: 'Компания (необязательно)',
-        phone: 'Телефон',
-        project: 'Расскажите о вашем проекте...',
+        name: 'Имя',
+        phone: 'Телефон номер',
+        telegram: 'ТГ юзер',
+        employeesCount: 'Сотрудники кол-во',
+        annualTurnover: 'Годовой оборот',
+        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Отправить сообщение',
         responseTime: 'Ответим в течение 24 часов',
       },
@@ -711,11 +714,12 @@ export const dictionaries: Record<Language, Dictionary> = {
       successTitle: 'Thank you!',
       successMessage: "We've received your message and will get back to you shortly.",
       form: {
-        name: 'Full Name',
-        email: 'Email (optional)',
-        company: 'Company (optional)',
+        name: 'Name',
         phone: 'Phone',
-        project: 'Tell us about your project...',
+        telegram: 'TG username',
+        employeesCount: 'Employees count',
+        annualTurnover: 'Annual turnover',
+        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Send Message',
         responseTime: "We'll respond within 24 hours",
       },

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 
 const UZ_PHONE_PATTERN = /^\+998 \(\d{2}\) \d{3} \d{2} \d{2}$/
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const TELEGRAM_API_BASE = (process.env.TELEGRAM_API_BASE ?? 'https://api.telegram.org').replace(/\/$/, '')
 const TELEGRAM_REQUEST_TIMEOUT_MS = Number(process.env.TELEGRAM_REQUEST_TIMEOUT_MS ?? 10_000)
 const TELEGRAM_RETRY_COUNT = Number(process.env.TELEGRAM_RETRY_COUNT ?? 2)
@@ -78,9 +77,9 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
 function buildTelegramMessage(data: {
   name: string
   phone: string
-  email: string
-  company: string
-  project: string
+  telegramUsername: string
+  employeeCount: string
+  annualTurnover: string
 }) {
   const timestamp = new Intl.DateTimeFormat('ru-RU', {
     dateStyle: 'medium',
@@ -92,10 +91,10 @@ function buildTelegramMessage(data: {
     'Новая заявка с сайта avenir.uz',
     '',
     `Имя: ${data.name}`,
-    `Телефон: ${data.phone}`,
-    `Email: ${data.email || '—'}`,
-    `Компания: ${data.company || '—'}`,
-    `Проект: ${data.project || '—'}`,
+    `Телефон номер: ${data.phone}`,
+    `ТГ юзер: ${data.telegramUsername || '—'}`,
+    `Сотрудники кол-во: ${data.employeeCount || '—'}`,
+    `Годовой оборот: ${data.annualTurnover || '—'}`,
     `Время: ${timestamp}`,
   ].join('\n')
 }
@@ -117,9 +116,9 @@ export async function POST(request: Request) {
   const payload = rawBody as Record<string, unknown>
   const name = cleanString(payload.name)
   const phone = cleanString(payload.phone)
-  const email = cleanString(payload.email)
-  const company = cleanString(payload.company)
-  const project = cleanString(payload.project)
+  const telegramUsername = cleanString(payload.telegramUsername)
+  const employeeCount = cleanString(payload.employeeCount)
+  const annualTurnover = cleanString(payload.annualTurnover)
 
   if (!name || !phone) {
     return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 })
@@ -127,10 +126,6 @@ export async function POST(request: Request) {
 
   if (!UZ_PHONE_PATTERN.test(phone)) {
     return NextResponse.json({ error: 'Phone format is invalid' }, { status: 400 })
-  }
-
-  if (email && !EMAIL_PATTERN.test(email)) {
-    return NextResponse.json({ error: 'Email format is invalid' }, { status: 400 })
   }
 
   const botToken = process.env.TELEGRAM_BOT_TOKEN
@@ -141,7 +136,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Server is not configured' }, { status: 500 })
   }
 
-  const message = buildTelegramMessage({ name, phone, email, company, project })
+  const message = buildTelegramMessage({
+    name,
+    phone,
+    telegramUsername,
+    employeeCount,
+    annualTurnover,
+  })
 
   const failedByChatId: Array<{ chatId: string; reason: string }> = []
 
