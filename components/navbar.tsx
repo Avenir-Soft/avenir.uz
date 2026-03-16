@@ -128,7 +128,7 @@ export function Navbar() {
   return (
     <>
       <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.35rem] sm:rounded-full">
           <div
             ref={liquidRef}
             onMouseMove={handleLiquidMove}
@@ -136,7 +136,7 @@ export function Navbar() {
             className={`liquid-glass transition-transform duration-300 ${
               isGlassActive ? 'liquid-glass-active scale-100' : 'scale-[0.995]'
             }`}
-            style={{ borderRadius: '2.1rem' }}
+            style={{ borderRadius: 'inherit' }}
           >
             <div
               aria-hidden="true"
