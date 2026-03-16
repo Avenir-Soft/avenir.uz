@@ -269,6 +269,7 @@ export function Contact() {
                     placeholder={t.contact.form.telegram}
                     value={formData.telegramUsername}
                     onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 bg-transparent border transition-colors"
                     style={{
                       borderColor: 'rgba(201, 168, 76, 0.3)',
@@ -285,6 +286,7 @@ export function Contact() {
                     placeholder={t.contact.form.employeesCount}
                     value={formData.employeeCount}
                     onChange={handleChange}
+                    required
                     min="1"
                     inputMode="numeric"
                     className="w-full px-4 py-3 bg-transparent border transition-colors"
@@ -301,6 +303,7 @@ export function Contact() {
                     name="annualTurnover"
                     value={formData.annualTurnover}
                     onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 bg-transparent border transition-colors"
                     style={{
                       borderColor: 'rgba(201, 168, 76, 0.3)',

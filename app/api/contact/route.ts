@@ -92,7 +92,7 @@ function buildTelegramMessage(data: {
     '',
     `Имя: ${data.name}`,
     `Телефон номер: ${data.phone}`,
-    `ТГ юзер: ${data.telegramUsername || '—'}`,
+    `Telegram username: ${data.telegramUsername || '—'}`,
     `Сотрудники кол-во: ${data.employeeCount || '—'}`,
     `Годовой оборот: ${data.annualTurnover || '—'}`,
     `Время: ${timestamp}`,
@@ -120,8 +120,8 @@ export async function POST(request: Request) {
   const employeeCount = cleanString(payload.employeeCount)
   const annualTurnover = cleanString(payload.annualTurnover)
 
-  if (!name || !phone) {
-    return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 })
+  if (!name || !phone || !telegramUsername || !employeeCount || !annualTurnover) {
+    return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
   }
 
   if (!UZ_PHONE_PATTERN.test(phone)) {
