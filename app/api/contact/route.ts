@@ -99,6 +99,50 @@ function buildTelegramMessage(data: {
   ].join('\n')
 }
 
+const TURNOVER_TO_VALUE: Record<string, number> = {
+  '$10k - $100k': 55_000,
+  '$100k - $1m': 550_000,
+  '$1m - < $5m': 3_000_000,
+}
+
+async function sendToCRM(data: {
+  name: string
+  phone: string
+  telegramUsername: string
+  employeeCount: string
+  annualTurnover: string
+}) {
+  const crmUrl = process.env.CRM_INTAKE_URL
+  const crmKey = process.env.CRM_API_KEY
+  if (!crmUrl || !crmKey) return
+
+  const notes = [
+    `Сотрудники: ${data.employeeCount}`,
+    `Годовой оборот: ${data.annualTurnover}`,
+  ].join('\n')
+
+  try {
+    await fetch(crmUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': crmKey,
+      },
+      body: JSON.stringify({
+        contact_name: data.name,
+        contact_phone: data.phone,
+        contact_telegram: data.telegramUsername,
+        source: 'website',
+        value_estimate: TURNOVER_TO_VALUE[data.annualTurnover] ?? 0,
+        notes,
+      }),
+      signal: AbortSignal.timeout(10_000),
+    })
+  } catch (error) {
+    console.error('CRM intake failed:', error instanceof Error ? error.message : error)
+  }
+}
+
 export const runtime = 'nodejs'
 
 export async function POST(request: Request) {
@@ -167,6 +211,9 @@ export async function POST(request: Request) {
       { status: 502 },
     )
   }
+
+  // Fire-and-forget: send lead to CRM (don't block response)
+  sendToCRM({ name, phone, telegramUsername, employeeCount, annualTurnover }).catch(() => {})
 
   return NextResponse.json({ ok: true, delivered: chatIds.length, total: chatIds.length })
 }
