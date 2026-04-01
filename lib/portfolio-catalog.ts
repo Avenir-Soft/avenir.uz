@@ -1,10 +1,10 @@
 export type PortfolioSlug =
-  | 'saffron-market'
-  | 'medlink-uz'
-  | 'tashtrack'
-  | 'educore'
-  | 'halal-finance'
-  | 'textile-hub'
+  | 'vac-uz'
+  | 'avenir-os'
+  | 'yakov-partners'
+  | 'defi-technologies'
+  | 'apec-asia'
+  | 'dagestantur'
 
 export type ProjectLayout = 'feature' | 'wide' | 'tile'
 
@@ -19,44 +19,44 @@ export interface PortfolioProject {
 export const portfolioCatalog: PortfolioProject[] = [
   {
     id: 1,
-    slug: 'saffron-market',
+    slug: 'vac-uz',
     year: 2025,
-    image: '/portfolio/saffron-market.webp',
+    image: '/portfolio/vac-uz.webp',
     layout: 'feature',
   },
   {
     id: 2,
-    slug: 'medlink-uz',
-    year: 2024,
-    image: '/portfolio/medlink-uz.webp',
+    slug: 'avenir-os',
+    year: 2025,
+    image: '/portfolio/avenir-os.webp',
     layout: 'wide',
   },
   {
     id: 3,
-    slug: 'tashtrack',
-    year: 2024,
-    image: '/portfolio/tashtrack.webp',
+    slug: 'yakov-partners',
+    year: 2025,
+    image: '/portfolio/yakov-partners.webp',
     layout: 'wide',
   },
   {
     id: 4,
-    slug: 'educore',
-    year: 2024,
-    image: '/portfolio/educore.webp',
+    slug: 'defi-technologies',
+    year: 2026,
+    image: '/portfolio/defi-technologies.webp',
     layout: 'tile',
   },
   {
     id: 5,
-    slug: 'halal-finance',
-    year: 2024,
-    image: '/portfolio/halal-finance.webp',
+    slug: 'apec-asia',
+    year: 2025,
+    image: '/portfolio/apec-asia.webp',
     layout: 'tile',
   },
   {
     id: 6,
-    slug: 'textile-hub',
-    year: 2023,
-    image: '/portfolio/textile-hub.webp',
+    slug: 'dagestantur',
+    year: 2025,
+    image: '/portfolio/dagestantur.webp',
     layout: 'tile',
   },
 ]

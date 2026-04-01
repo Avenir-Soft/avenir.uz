@@ -34,12 +34,11 @@ function ProjectCard({
   imageAltSuffix,
   isVisible,
 }: ProjectCardProps) {
-  const layoutClass =
-    project.layout === 'feature'
-      ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[360px] lg:min-h-[560px]'
-      : project.layout === 'wide'
-        ? 'md:col-span-1 lg:col-span-5 min-h-[260px]'
-        : 'md:col-span-1 lg:col-span-4 min-h-[240px]'
+  const isFeature = project.layout === 'feature'
+
+  const layoutClass = isFeature
+    ? 'md:col-span-2 lg:col-span-2 lg:row-span-2'
+    : 'md:col-span-1 lg:col-span-1'
 
   const transitionStyle: CSSProperties = {
     transitionDelay: `${120 + index * 75}ms`,
@@ -48,7 +47,7 @@ function ProjectCard({
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-3xl transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${layoutClass} ${
+      className={`group relative overflow-hidden rounded-3xl aspect-[4/5] transform-gpu transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none ${layoutClass} ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{
@@ -63,18 +62,24 @@ function ProjectCard({
         fill
         loading="lazy"
         quality={78}
-        sizes="(min-width: 1280px) 34vw, (min-width: 768px) 50vw, 100vw"
+        sizes={
+          isFeature
+            ? '(min-width: 1280px) 56vw, (min-width: 768px) 66vw, 100vw'
+            : '(min-width: 1280px) 28vw, (min-width: 768px) 50vw, 100vw'
+        }
         className="object-cover transform-gpu transition-transform duration-700 ease-out group-hover:scale-[1.04]"
       />
 
+      {/* Dark overlay */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(4, 33, 71, 0.06) 16%, rgba(4, 33, 71, 0.44) 68%, rgba(4, 33, 71, 0.78) 100%)',
+            'linear-gradient(180deg, rgba(4, 33, 71, 0.08) 0%, rgba(4, 33, 71, 0.35) 50%, rgba(4, 33, 71, 0.82) 75%, rgba(4, 33, 71, 0.95) 100%)',
         }}
       />
 
+      {/* Hover gold glow */}
       <div
         className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
@@ -83,6 +88,7 @@ function ProjectCard({
         }}
       />
 
+      {/* Hover gold line */}
       <div
         className="pointer-events-none absolute left-5 right-5 top-5 h-px scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
         style={{
@@ -112,7 +118,7 @@ function ProjectCard({
         <div>
           <h3
             className={`font-serif font-semibold leading-tight ${
-              project.layout === 'feature' ? 'text-4xl md:text-5xl' : 'text-3xl'
+              isFeature ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
             }`}
             style={{ color: '#F5F4F0' }}
           >
@@ -209,7 +215,7 @@ export function Portfolio() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(220px,auto)] gap-5 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {localizedProjects.map((project, idx) => (
             <ProjectCard
               key={project.id}
