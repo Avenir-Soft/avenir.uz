@@ -1,13 +1,23 @@
 import { NextResponse } from 'next/server'
 
 const UZ_PHONE_PATTERN = /^\+998 \(\d{2}\) \d{3} \d{2} \d{2}$/
+const DEFAULT_CRM_INTAKE_URL = 'https://api-avenir.uz/api/v1/intake/leads'
 const TELEGRAM_API_BASE = (process.env.TELEGRAM_API_BASE ?? 'https://api.telegram.org').replace(/\/$/, '')
+const CRM_REQUEST_TIMEOUT_MS = Number(process.env.CRM_REQUEST_TIMEOUT_MS ?? 10_000)
 const TELEGRAM_REQUEST_TIMEOUT_MS = Number(process.env.TELEGRAM_REQUEST_TIMEOUT_MS ?? 10_000)
 const TELEGRAM_RETRY_COUNT = Number(process.env.TELEGRAM_RETRY_COUNT ?? 2)
 
 type TelegramSendMessageResponse = {
   ok: boolean
   description?: string
+}
+
+type ContactFormData = {
+  name: string
+  phone: string
+  telegramUsername: string
+  employeeCount: string
+  annualTurnover: string
 }
 
 function cleanString(value: unknown) {
@@ -23,7 +33,18 @@ function parseChatIds(source: string | undefined) {
 }
 
 function toErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message
+  if (error instanceof Error) {
+    const cause = 'cause' in error ? error.cause : undefined
+    if (cause instanceof Error && cause.message) {
+      return `${error.message}: ${cause.message}`
+    }
+
+    if (typeof cause === 'string' && cause) {
+      return `${error.message}: ${cause}`
+    }
+
+    return error.message
+  }
   return String(error)
 }
 
@@ -74,13 +95,7 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
   throw new Error(`Telegram sendMessage failed for chat "${chatId}": ${toErrorMessage(lastError)}`)
 }
 
-function buildTelegramMessage(data: {
-  name: string
-  phone: string
-  telegramUsername: string
-  employeeCount: string
-  annualTurnover: string
-}) {
+function buildTelegramMessage(data: ContactFormData) {
   const timestamp = new Intl.DateTimeFormat('ru-RU', {
     dateStyle: 'medium',
     timeStyle: 'medium',
@@ -105,42 +120,42 @@ const TURNOVER_TO_VALUE: Record<string, number> = {
   '$1m - < $5m': 3_000_000,
 }
 
-async function sendToCRM(data: {
-  name: string
-  phone: string
-  telegramUsername: string
-  employeeCount: string
-  annualTurnover: string
-}) {
-  const crmUrl = process.env.CRM_INTAKE_URL
-  const crmKey = process.env.CRM_API_KEY
-  if (!crmUrl || !crmKey) return
-
-  const notes = [
-    `Сотрудники: ${data.employeeCount}`,
-    `Годовой оборот: ${data.annualTurnover}`,
+function buildCrmNotes(data: ContactFormData) {
+  return [
+    `Telegram username: ${data.telegramUsername || '—'}`,
+    `Сотрудники: ${data.employeeCount || '—'}`,
+    `Годовой оборот: ${data.annualTurnover || '—'}`,
   ].join('\n')
+}
 
-  try {
-    await fetch(crmUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': crmKey,
-      },
-      body: JSON.stringify({
-        contact_name: data.name,
-        contact_phone: data.phone,
-        contact_telegram: data.telegramUsername,
-        source: 'website',
-        value_estimate: TURNOVER_TO_VALUE[data.annualTurnover] ?? 0,
-        notes,
-      }),
-      signal: AbortSignal.timeout(10_000),
-    })
-  } catch (error) {
-    console.error('CRM intake failed:', error instanceof Error ? error.message : error)
+async function sendToCRM(data: ContactFormData) {
+  const crmKey = process.env.CRM_API_KEY?.trim()
+  if (!crmKey) return false
+
+  const crmUrl = (process.env.CRM_INTAKE_URL?.trim() || DEFAULT_CRM_INTAKE_URL).replace(/\/$/, '')
+  const response = await fetch(crmUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': crmKey,
+    },
+    body: JSON.stringify({
+      title: 'Заявка с сайта avenir.uz',
+      contact_name: data.name,
+      contact_phone: data.phone,
+      source: 'website',
+      value_estimate: TURNOVER_TO_VALUE[data.annualTurnover] ?? 0,
+      notes: buildCrmNotes(data),
+    }),
+    signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
+  })
+
+  if (!response.ok) {
+    const responseText = await response.text().catch(() => '')
+    throw new Error(`CRM intake failed with HTTP ${response.status}${responseText ? `: ${responseText}` : ''}`)
   }
+
+  return true
 }
 
 export const runtime = 'nodejs'
@@ -163,6 +178,13 @@ export async function POST(request: Request) {
   const telegramUsername = cleanString(payload.telegramUsername)
   const employeeCount = cleanString(payload.employeeCount)
   const annualTurnover = cleanString(payload.annualTurnover)
+  const formData: ContactFormData = {
+    name,
+    phone,
+    telegramUsername,
+    employeeCount,
+    annualTurnover,
+  }
 
   if (!name || !phone || !telegramUsername || !employeeCount || !annualTurnover) {
     return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
@@ -172,48 +194,64 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Phone format is invalid' }, { status: 400 })
   }
 
-  const botToken = process.env.TELEGRAM_BOT_TOKEN
+  const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim()
   const chatIds = parseChatIds(process.env.TELEGRAM_CHAT_IDS)
+  const hasTelegramTargets = Boolean(botToken && chatIds.length > 0)
+  const hasCrmTarget = Boolean(process.env.CRM_API_KEY?.trim())
 
-  if (!botToken || chatIds.length === 0) {
-    console.error('Contact form Telegram config is missing')
+  if (!hasTelegramTargets && !hasCrmTarget) {
+    console.error('Contact form integrations are not configured')
     return NextResponse.json({ error: 'Server is not configured' }, { status: 500 })
   }
 
-  const message = buildTelegramMessage({
-    name,
-    phone,
-    telegramUsername,
-    employeeCount,
-    annualTurnover,
-  })
+  if (hasCrmTarget) {
+    try {
+      await sendToCRM(formData)
+    } catch (error) {
+      console.error('CRM intake failed:', toErrorMessage(error))
+      return NextResponse.json({ error: 'Failed to create lead in CRM' }, { status: 502 })
+    }
+  }
 
   const failedByChatId: Array<{ chatId: string; reason: string }> = []
+  let delivered = 0
 
-  for (const chatId of chatIds) {
-    try {
-      await sendTelegramMessage(botToken, chatId, message)
-    } catch (error) {
-      failedByChatId.push({
-        chatId,
-        reason: toErrorMessage(error),
-      })
+  if (hasTelegramTargets) {
+    const message = buildTelegramMessage(formData)
+    const telegramToken = botToken as string
+
+    for (const chatId of chatIds) {
+      try {
+        await sendTelegramMessage(telegramToken, chatId, message)
+        delivered += 1
+      } catch (error) {
+        failedByChatId.push({
+          chatId,
+          reason: toErrorMessage(error),
+        })
+      }
     }
   }
 
   if (failedByChatId.length > 0) {
-    console.error('Failed to deliver contact form to all Telegram recipients:', failedByChatId)
-    return NextResponse.json(
-      {
-        error: 'Failed to deliver message to all recipients',
-        failedRecipients: failedByChatId.map(item => item.chatId),
-      },
-      { status: 502 },
-    )
+    console.error('Failed to deliver contact form to some Telegram recipients:', failedByChatId)
+
+    if (!hasCrmTarget) {
+      return NextResponse.json(
+        {
+          error: 'Failed to deliver message to all recipients',
+          failedRecipients: failedByChatId.map(item => item.chatId),
+        },
+        { status: 502 },
+      )
+    }
   }
 
-  // Fire-and-forget: send lead to CRM (don't block response)
-  sendToCRM({ name, phone, telegramUsername, employeeCount, annualTurnover }).catch(() => {})
-
-  return NextResponse.json({ ok: true, delivered: chatIds.length, total: chatIds.length })
+  return NextResponse.json({
+    ok: true,
+    crm: hasCrmTarget ? 'created' : 'skipped',
+    delivered,
+    total: hasTelegramTargets ? chatIds.length : 0,
+    telegramFailedRecipients: failedByChatId.map(item => item.chatId),
+  })
 }
