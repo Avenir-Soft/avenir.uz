@@ -74,13 +74,11 @@
 
 @layer components {
   .section-shell {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 900px;
+    position: relative;
   }
 
   .section-shell-dark {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 820px;
+    position: relative;
   }
 
   .ornament-spin,
