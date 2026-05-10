@@ -93,8 +93,6 @@ export interface Dictionary {
       phone: string
       telegram: string
       employeesCount: string
-      annualTurnover: string
-      annualTurnoverOptions: string[]
       submit: string
       responseTime: string
     }
@@ -300,8 +298,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         phone: 'Телефон номер',
         telegram: 'Telegram username',
         employeesCount: 'Сотрудники кол-во',
-        annualTurnover: 'Годовой оборот',
-        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Xabar yuborish',
         responseTime: '24 soat ichida javob beramiz',
       },
@@ -505,8 +501,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         phone: 'Телефон номер',
         telegram: 'Telegram username',
         employeesCount: 'Сотрудники кол-во',
-        annualTurnover: 'Годовой оборот',
-        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Отправить сообщение',
         responseTime: 'Ответим в течение 24 часов',
       },
@@ -710,8 +704,6 @@ export const dictionaries: Record<Language, Dictionary> = {
         phone: 'Phone',
         telegram: 'Telegram username',
         employeesCount: 'Employees count',
-        annualTurnover: 'Annual turnover',
-        annualTurnoverOptions: ['$10k - $100k', '$100k - $1m', '$1m - < $5m'],
         submit: 'Send Message',
         responseTime: "We'll respond within 24 hours",
       },

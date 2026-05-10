@@ -17,7 +17,6 @@ type ContactFormData = {
   phone: string
   telegramUsername: string
   employeeCount: string
-  annualTurnover: string
 }
 
 function cleanString(value: unknown) {
@@ -109,22 +108,14 @@ function buildTelegramMessage(data: ContactFormData) {
     `Телефон номер: ${data.phone}`,
     `Telegram username: ${data.telegramUsername || '—'}`,
     `Сотрудники кол-во: ${data.employeeCount || '—'}`,
-    `Годовой оборот: ${data.annualTurnover || '—'}`,
     `Время: ${timestamp}`,
   ].join('\n')
-}
-
-const TURNOVER_TO_VALUE: Record<string, number> = {
-  '$10k - $100k': 55_000,
-  '$100k - $1m': 550_000,
-  '$1m - < $5m': 3_000_000,
 }
 
 function buildCrmNotes(data: ContactFormData) {
   return [
     `Telegram username: ${data.telegramUsername || '—'}`,
     `Сотрудники: ${data.employeeCount || '—'}`,
-    `Годовой оборот: ${data.annualTurnover || '—'}`,
   ].join('\n')
 }
 
@@ -144,7 +135,6 @@ async function sendToCRM(data: ContactFormData) {
       contact_name: data.name,
       contact_phone: data.phone,
       source: 'website',
-      value_estimate: TURNOVER_TO_VALUE[data.annualTurnover] ?? 0,
       notes: buildCrmNotes(data),
     }),
     signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
@@ -177,16 +167,14 @@ export async function POST(request: Request) {
   const phone = cleanString(payload.phone)
   const telegramUsername = cleanString(payload.telegramUsername)
   const employeeCount = cleanString(payload.employeeCount)
-  const annualTurnover = cleanString(payload.annualTurnover)
   const formData: ContactFormData = {
     name,
     phone,
     telegramUsername,
     employeeCount,
-    annualTurnover,
   }
 
-  if (!name || !phone || !telegramUsername || !employeeCount || !annualTurnover) {
+  if (!name || !phone || !telegramUsername || !employeeCount) {
     return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
   }
 

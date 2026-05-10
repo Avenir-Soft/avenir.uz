@@ -23,7 +23,6 @@ function isGaDebugEnabled() {
 function trackLeadSubmit(params: {
   hasTelegram: boolean
   hasEmployees: boolean
-  hasAnnualTurnover: boolean
   language: string
 }) {
   if (typeof window === 'undefined') return
@@ -37,7 +36,6 @@ function trackLeadSubmit(params: {
     lead_type: 'contact_form',
     has_telegram: params.hasTelegram ? 1 : 0,
     has_employees: params.hasEmployees ? 1 : 0,
-    has_annual_turnover: params.hasAnnualTurnover ? 1 : 0,
     ui_language: params.language,
     debug_mode: isGaDebugEnabled(),
   })
@@ -72,7 +70,6 @@ export function Contact() {
     phone: UZ_PHONE_PREFIX,
     telegramUsername: '',
     employeeCount: '',
-    annualTurnover: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -80,7 +77,7 @@ export function Contact() {
   const { t, language } = useLanguage()
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target
 
@@ -121,7 +118,6 @@ export function Contact() {
       trackLeadSubmit({
         hasTelegram: Boolean(formData.telegramUsername.trim()),
         hasEmployees: Boolean(formData.employeeCount.trim()),
-        hasAnnualTurnover: Boolean(formData.annualTurnover.trim()),
         language,
       })
 
@@ -133,7 +129,6 @@ export function Contact() {
           phone: UZ_PHONE_PREFIX,
           telegramUsername: '',
           employeeCount: '',
-          annualTurnover: '',
         })
       }, 5000)
     } catch (error) {
@@ -296,30 +291,6 @@ export function Contact() {
                       borderRadius: '4px',
                     }}
                   />
-                </div>
-
-                <div>
-                  <select
-                    name="annualTurnover"
-                    value={formData.annualTurnover}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border transition-colors"
-                    style={{
-                      borderColor: 'rgba(201, 168, 76, 0.3)',
-                      color: '#F5F4F0',
-                      borderRadius: '4px',
-                    }}
-                  >
-                    <option value="" style={{ color: '#042147' }}>
-                      {t.contact.form.annualTurnover}
-                    </option>
-                    {t.contact.form.annualTurnoverOptions.map(option => (
-                      <option key={option} value={option} style={{ color: '#042147' }}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
                 </div>
 
                 <button
