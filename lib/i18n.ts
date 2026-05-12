@@ -294,10 +294,10 @@ export const dictionaries: Record<Language, Dictionary> = {
       successTitle: 'Rahmat!',
       successMessage: 'Xabaringizni oldik va tez orada siz bilan bog`lanamiz.',
       form: {
-        name: 'Имя',
-        phone: 'Телефон номер',
+        name: 'Ismingiz',
+        phone: 'Telefon raqam',
         telegram: 'Telegram username',
-        employeesCount: 'Сотрудники кол-во',
+        employeesCount: 'Xodimlar soni',
         submit: 'Xabar yuborish',
         responseTime: '24 soat ichida javob beramiz',
       },
