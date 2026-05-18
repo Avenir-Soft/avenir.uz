@@ -8,6 +8,11 @@ const UZ_PHONE_PREFIX = '+998'
 const UZ_PHONE_PATTERN_SOURCE = String.raw`\+998 \(\d{2}\) \d{3} \d{2} \d{2}`
 
 type GtagEvent = (command: 'event', eventName: string, params?: Record<string, unknown>) => void
+type FbqEvent = (
+  command: 'track' | 'trackCustom',
+  eventName: string,
+  params?: Record<string, unknown>,
+) => void
 
 function isGaDebugEnabled() {
   if (typeof window === 'undefined') return false
@@ -38,6 +43,25 @@ function trackLeadSubmit(params: {
     has_employees: params.hasEmployees ? 1 : 0,
     ui_language: params.language,
     debug_mode: isGaDebugEnabled(),
+  })
+}
+
+function trackMetaPixelLead(params: {
+  hasTelegram: boolean
+  hasEmployees: boolean
+  language: string
+}) {
+  if (typeof window === 'undefined') return
+
+  const fbq = (window as Window & { fbq?: FbqEvent }).fbq
+  if (typeof fbq !== 'function') return
+
+  fbq('track', 'Lead', {
+    content_name: 'contact_form',
+    content_category: 'engagement',
+    has_telegram: params.hasTelegram ? 1 : 0,
+    has_employees: params.hasEmployees ? 1 : 0,
+    ui_language: params.language,
   })
 }
 
@@ -116,6 +140,12 @@ export function Contact() {
       }
 
       trackLeadSubmit({
+        hasTelegram: Boolean(formData.telegramUsername.trim()),
+        hasEmployees: Boolean(formData.employeeCount.trim()),
+        language,
+      })
+
+      trackMetaPixelLead({
         hasTelegram: Boolean(formData.telegramUsername.trim()),
         hasEmployees: Boolean(formData.employeeCount.trim()),
         language,
