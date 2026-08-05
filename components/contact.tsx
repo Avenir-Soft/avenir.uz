@@ -365,7 +365,7 @@ export function Contact() {
                   {t.contact.labels.phone}
                 </p>
                 <a
-                  href="tel:+998712345678"
+                  href="tel:+998935298807"
                   className="text-lg transition-colors"
                   style={{ color: '#F5F4F0' }}
                 >

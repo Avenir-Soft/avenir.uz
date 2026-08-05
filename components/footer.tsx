@@ -35,12 +35,29 @@ export function Footer() {
 					style={{ backgroundColor: 'rgba(201, 168, 76, 0.2)' }}
 				/>
 
-				<div className='flex flex-col md:flex-row items-center justify-between'>
-					<p className='text-sm' style={{ color: 'rgba(245, 244, 240, 0.6)' }}>
-						© {currentYear} Avenir.uz · {t.footer.rightsSuffix}
-					</p>
+				<div className='flex flex-col md:flex-row md:items-end justify-between gap-6'>
+					<div className='text-center md:text-left'>
+						<p
+							className='text-sm'
+							style={{ color: 'rgba(245, 244, 240, 0.75)' }}
+						>
+							{t.footer.legalEntity}
+						</p>
+						<p
+							className='text-xs mt-1 leading-relaxed'
+							style={{ color: 'rgba(245, 244, 240, 0.55)' }}
+						>
+							{t.footer.legalAddress}
+						</p>
+						<p
+							className='text-xs mt-3'
+							style={{ color: 'rgba(245, 244, 240, 0.5)' }}
+						>
+							© {currentYear} Avenir.uz · {t.footer.rightsSuffix}
+						</p>
+					</div>
 
-					<div className='flex gap-6 mt-6 md:mt-0'>
+					<div className='flex gap-6 justify-center md:justify-end'>
 						<a
 							href='/privacy'
 							className='text-sm transition-colors'

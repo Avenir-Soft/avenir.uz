@@ -118,6 +118,8 @@ export interface Dictionary {
     }
     locationValue: string
     rightsSuffix: string
+    legalEntity: string
+    legalAddress: string
     legalLinks: {
       privacy: string
       terms: string
@@ -323,6 +325,10 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Toshkent, O`zbekiston',
       rightsSuffix: 'Barcha huquqlar himoyalangan',
+      legalEntity:
+        'Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O\'g\'li',
+      legalAddress:
+        'Chust ko\'chasi 1, Ulug\'bek, 100214 Toshkent shahri, O\'zbekiston · +998 93 529 88 07 · info@avenir.uz',
       legalLinks: {
         privacy: 'Maxfiylik siyosati',
         terms: 'Foydalanish shartlari',
@@ -526,6 +532,10 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Ташкент, Узбекистан',
       rightsSuffix: 'Все права защищены',
+      legalEntity:
+        'Avenir Soft — ИП Choriyev Xojiakbar Shuxrat O\'g\'li',
+      legalAddress:
+        'Chust ko\'chasi 1, Ulug\'bek, 100214 Ташкент, Узбекистан · +998 93 529 88 07 · info@avenir.uz',
       legalLinks: {
         privacy: 'Политика конфиденциальности',
         terms: 'Условия использования',
@@ -729,6 +739,10 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Tashkent, Uzbekistan',
       rightsSuffix: 'All rights reserved',
+      legalEntity:
+        'Avenir Soft — Sole proprietor Choriyev Xojiakbar Shuxrat O\'g\'li',
+      legalAddress:
+        'Chust ko\'chasi 1, Ulug\'bek, 100214 Tashkent, Uzbekistan · +998 93 529 88 07 · info@avenir.uz',
       legalLinks: {
         privacy: 'Privacy Policy',
         terms: 'Terms of Service',
