@@ -1,0 +1,1779 @@
+<title>Avenir.uz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+
+<style>
+/* ==========================================================================
+   AVENIR — oq + to'q ko'k
+   Til: aiba.uz uslubi — gradient chegarali kartalar, katta radiuslar,
+   markazlashgan yorliq-pilllar, yakunda ulkan CTA bloki.
+   ========================================================================== */
+:root {
+  --bg:        #020B16;
+  --bg-2:      #04121F;
+  --card:      #071426;
+  --card-2:    #0A1B31;
+
+  --line:      rgba(255, 255, 255, 0.08);
+  --line-2:    rgba(255, 255, 255, 0.14);
+
+  --white:     #FFFFFF;
+  --w-72:      rgba(255, 255, 255, 0.72);
+  --w-52:      rgba(255, 255, 255, 0.52);
+  --w-34:      rgba(255, 255, 255, 0.34);
+  --w-18:      rgba(255, 255, 255, 0.18);
+
+  --b1:        #1D4ED8;
+  --b2:        #2563EB;
+  --b3:        #60A5FA;
+  --grad:      linear-gradient(118deg, #2563EB 0%, #60A5FA 100%);
+  --grad-soft: linear-gradient(140deg, rgba(96,165,250,0.9) 0%, rgba(37,99,235,0.28) 38%, rgba(255,255,255,0.05) 72%);
+
+  --r-xl: 40px;
+  --r-lg: 24px;
+  --r-md: 16px;
+
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --shell: 1216px;
+  --gut: clamp(1.25rem, 4vw, 2.5rem);
+  --sec: clamp(4.5rem, 9vw, 7.5rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.06; letter-spacing: -0.035em; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--b3); outline-offset: 4px; border-radius: 8px; }
+
+.shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--gut); }
+.section { padding-block: var(--sec); position: relative; }
+.center { text-align: center; }
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---- fon nurlari ------------------------------------------------------ */
+.aura { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+.aura--a { background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.16) 28%, rgba(37,99,235,0.06) 48%, rgba(37,99,235,0.015) 66%, rgba(37,99,235,0) 80%); }
+.aura--b { background: radial-gradient(circle, rgba(96,165,250,0.20) 0%, rgba(96,165,250,0.11) 28%, rgba(96,165,250,0.04) 50%, rgba(96,165,250,0.01) 68%, rgba(96,165,250,0) 82%); }
+.aura--drift { animation: drift 22s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(3%,-5%,0) scale(1.1); } }
+
+/* ---- hero fon qatlami ------------------------------------------------ */
+.hero__fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.aura--pulse { animation: drift 22s ease-in-out infinite alternate, breathe 9s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+
+/* ---- don ------------------------------------------------------------- */
+.grain {
+  position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes grain {
+  0%,100% { transform: translate(0,0); } 16% { transform: translate(-3%,2%); }
+  33% { transform: translate(2%,-3%); } 50% { transform: translate(-2%,-2%); }
+  66% { transform: translate(3%,1%); } 83% { transform: translate(-1%,3%); }
+}
+
+/* ==========================================================================
+   Kursor
+   ========================================================================== */
+.cur { display: none; }
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  body { cursor: none; }
+  input, textarea { cursor: text; }
+  .cur {
+    display: block; position: fixed; left: 0; top: 0; z-index: 95; pointer-events: none;
+    width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 0 18px 4px rgba(96,165,250,0.55);
+    transform: translate3d(var(--cx,-60px), var(--cy,-60px), 0) scale(var(--cs,1));
+    transition: transform 0.12s linear, opacity 0.3s, background 0.3s;
+  }
+  .cur.is-big { --cs: 2.8; background: rgba(96,165,250,0.4); box-shadow: 0 0 26px 8px rgba(37,99,235,0.35); }
+  .cur.is-hidden { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { body { cursor: auto; } .cur { display: none !important; } .grain { animation: none; } }
+
+/* ==========================================================================
+   Yorliq-pill va sarlavhalar
+   ========================================================================== */
+.chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+  font-size: 0.8125rem; color: var(--w-72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.24);
+}
+.chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--b3); box-shadow: 0 0 10px 2px rgba(96,165,250,0.7); flex: none; }
+
+.h-sec { font-size: clamp(1.75rem, 3.6vw, 2.75rem); margin-top: 1.4rem; }
+.p-sec { color: var(--w-52); margin: 1.1rem auto 0; max-width: 56ch; font-size: 1.0625rem; }
+
+/* ==========================================================================
+   Tugmalar — liquid glass pill
+   ========================================================================== */
+.btn {
+  --gx: 50%; --gy: 50%;
+  position: relative; display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.95rem 1.75rem; border-radius: 999px;
+  font-size: 0.9375rem; font-weight: 500;
+  border: 1px solid var(--line-2); overflow: hidden; cursor: none; isolation: isolate;
+  backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%);
+  transition: transform 0.4s var(--out), border-color 0.4s var(--ease), box-shadow 0.45s var(--ease);
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(150px circle at var(--gx) var(--gy), rgba(255,255,255,0.3), transparent 68%);
+  opacity: 0; transition: opacity 0.4s var(--ease);
+}
+.btn::after {
+  content: ''; position: absolute; top: -60%; bottom: -60%; left: -38%; width: 24%; z-index: -1;
+  transform: skewX(-18deg); pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  transition: left 0.85s var(--out);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:hover::before { opacity: 1; }
+.btn:hover::after { left: 124%; }
+
+.btn--w {
+  background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255,255,255,0.86));
+  color: var(--bg); border-color: rgba(255,255,255,0.8);
+  box-shadow: inset 0 1px 0 #fff, 0 16px 36px -18px rgba(255,255,255,0.4);
+}
+.btn--w::before { background: radial-gradient(150px circle at var(--gx) var(--gy), rgba(255,255,255,0.9), transparent 66%); }
+.btn--w::after { background: linear-gradient(90deg, transparent, rgba(2,11,22,0.15), transparent); }
+.btn--w:hover { box-shadow: inset 0 1px 0 #fff, 0 24px 48px -18px rgba(255,255,255,0.5); }
+
+.btn--d {
+  background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035));
+  color: var(--white);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 14px 32px -20px rgba(2,11,22,1);
+}
+.btn--d:hover { border-color: rgba(96,165,250,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 20px 40px -18px rgba(37,99,235,0.6); }
+
+.btn--sm { padding: 0.65rem 1.2rem; font-size: 0.8125rem; }
+.btn__ar { transition: transform 0.35s var(--out); }
+.btn:hover .btn__ar { transform: translateX(4px); }
+
+/* ==========================================================================
+   Gradient chegarali karta — sahifaning asosiy shakli
+   ========================================================================== */
+.gc {
+  position: relative;
+  border-radius: var(--r-lg);
+  background: linear-gradient(170deg, var(--card) 0%, var(--bg-2) 100%);
+  isolation: isolate;
+  box-shadow: 0 0 0 0 rgba(37,99,235,0);
+  transition: transform 0.5s var(--out), box-shadow 0.55s var(--ease);
+}
+.gc::before {                       /* 1px gradient chegara */
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: var(--grad-soft);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.5; transition: opacity 0.5s var(--ease);
+  pointer-events: none;
+}
+.gc:hover { transform: translateY(-3px); box-shadow: 0 26px 62px -24px rgba(37,99,235,0.55); }
+.gc:hover::before { opacity: 1; }
+.gc.is-lit::before { opacity: 1; }
+
+/* ==========================================================================
+   Yuqori panel
+   ========================================================================== */
+.top {
+  position: fixed; inset-inline: 0; top: 0; z-index: 60;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.5s var(--ease);
+}
+.top.is-stuck { background: rgba(2,11,22,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--line); }
+.top.is-away { transform: translateY(-100%); }
+.top__in { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 78px; }
+
+.brand { display: inline-flex; align-items: center; }
+.brand__svg { display: block; height: 42px; width: auto; color: var(--white); overflow: visible; }
+.brand__svg .lg-axis { stroke: currentColor; stroke-width: 2.2; }
+.brand__svg .lg-tip { fill: none; stroke: currentColor; stroke-width: 1.9; }
+.brand__svg .lg-star { fill: currentColor; transform-origin: 60px 60px; transition: fill 0.4s var(--ease), transform 0.75s var(--out); }
+.brand__svg .lg-word { fill: currentColor; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: 2.6px; }
+.brand:hover .brand__svg .lg-star { fill: var(--b3); transform: rotate(90deg) scale(1.05); }
+.brand:hover .brand__svg .lg-tip { stroke: var(--b3); }
+.foot .brand__svg { height: 38px; }
+
+.nav { display: none; gap: 0.4rem; }
+@media (min-width: 980px) { .nav { display: flex; } }
+.nav a { position: relative; padding: 0.55rem 1rem; border-radius: 999px; font-size: 0.9375rem; color: var(--w-52); transition: color 0.3s var(--ease), background 0.3s var(--ease); }
+.nav a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+.nav a.is-on { color: var(--white); background: rgba(255,255,255,0.08); }
+
+.top__side { display: flex; align-items: center; gap: 0.6rem; }
+.lang { display: flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+ }
+.lang button { border: 0; background: transparent; cursor: none; padding: 0.4rem 0.7rem; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 500; color: var(--w-34); transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+.lang button.is-active { background: var(--white); color: var(--bg); }
+.lang button:not(.is-active):hover { color: var(--white); }
+.top__cta { display: none; }
+@media (min-width: 980px) { .top__cta { display: inline-flex; } }
+
+.burger { display: grid; place-content: center; gap: 5px; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(255,255,255,0.05); }
+@media (min-width: 980px) { .burger { display: none; } }
+.burger i { display: block; width: 15px; height: 1.5px; background: var(--white); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
+.burger.is-open i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.is-open i:nth-child(2) { opacity: 0; }
+.burger.is-open i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.drawer {
+  position: fixed; inset: 78px 0 auto 0; z-index: 55;
+  background: rgba(2,11,22,0.97); backdrop-filter: blur(22px);
+  border-bottom: 1px solid var(--line);
+  padding: 1rem var(--gut) 2rem; display: grid; gap: 0.2rem;
+  transform: translateY(-12px); opacity: 0; pointer-events: none;
+  transition: opacity 0.32s var(--ease), transform 0.32s var(--ease);
+}
+.drawer.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.drawer a { font-size: 1.5rem; font-weight: 500; padding-block: 0.85rem; border-bottom: 1px solid var(--line); }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero { position: relative; padding-top: clamp(8rem, 15vw, 11rem); padding-bottom: var(--sec); text-align: center; overflow: hidden; }
+.hero .aura--a { width: 980px; height: 980px; left: 50%; top: -420px; transform: translateX(-50%); }
+.hero .aura--b { width: 620px; height: 620px; right: -180px; top: 180px; }
+.hero__in { position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(2.65rem, 6.6vw, 5rem);
+  font-weight: 700; letter-spacing: -0.045em; line-height: 1.02;
+  margin: 1.9rem auto 0; max-width: 17ch;
+}
+.hero__lead { color: var(--w-52); margin: 1.6rem auto 0; max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.125rem); }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 2.4rem; }
+
+/* mahsulot sahnasi */
+.stage { position: relative; margin-top: clamp(3rem, 6vw, 4.5rem); }
+.stage__glow { position: absolute; inset: 12% 6% -10%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.5) 0%, rgba(37,99,235,0.26) 26%, rgba(37,99,235,0.08) 48%, rgba(37,99,235,0.02) 66%, rgba(37,99,235,0) 80%); z-index: 0; }
+.stage__box { position: relative; z-index: 1; border-radius: var(--r-xl); padding: 10px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
+  box-shadow: 0 60px 130px -55px rgba(37,99,235,0.9); }
+.stage__win { border-radius: 32px; overflow: hidden; background: var(--card); border: 1px solid var(--line); }
+.stage__bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.8rem 1.1rem; border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+.stage__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--w-18); }
+.stage__url { margin-left: 0.7rem; font-size: 0.75rem; color: var(--w-34); }
+.tiltwrap { perspective: 1600px; }
+.tilt { transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transform-style: preserve-3d; transition: transform 0.6s var(--out); will-change: transform; }
+
+/* dashboard */
+.dash { text-align: left; display: grid; grid-template-columns: 58px minmax(0,1fr); min-height: clamp(300px, 32vw, 430px); background: linear-gradient(160deg, var(--card-2) 0%, var(--bg-2) 100%); }
+.dash__rail { border-right: 1px solid var(--line); padding: 1rem 0; display: grid; gap: 0.65rem; justify-items: center; align-content: start; background: rgba(0,0,0,0.22); }
+.dash__logo { width: 22px; height: 22px; border-radius: 7px; background: var(--grad); margin-bottom: 0.5rem; }
+.dash__ico { width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,0.06); }
+.dash__ico.is-on { background: rgba(37,99,235,0.4); }
+.dash__body { padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: clamp(0.7rem, 1.5vw, 1.05rem); align-content: start; }
+.dash__head { display: flex; align-items: center; justify-content: space-between; }
+.dash__title { width: 132px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.26); }
+.dash__btn { width: 90px; height: 26px; border-radius: 999px; background: var(--grad); }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0.6rem; }
+.kpi { border: 1px solid var(--line); border-radius: 14px; padding: 0.7rem 0.8rem; background: rgba(255,255,255,0.04); display: grid; gap: 0.1rem; }
+.kpi b { font-size: clamp(0.95rem, 1.45vw, 1.2rem); font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.kpi em { font-style: normal; font-size: 0.625rem; color: var(--w-34); }
+.plate { border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,0.03); padding: 0.75rem 0.85rem 0.5rem; display: grid; gap: 0.5rem; }
+.plate__h { display: flex; align-items: center; justify-content: space-between; }
+.plate__h em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--w-34); }
+.up { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: #6EE7A8; font-variant-numeric: tabular-nums; }
+.up::before { content: ''; width: 0; height: 0; border: 3px solid transparent; border-bottom-color: #6EE7A8; margin-bottom: 2px; }
+.lc { display: block; width: 100%; height: clamp(64px, 9vw, 104px); }
+.lc__line { fill: none; stroke: var(--b3); stroke-width: 1.7; stroke-linejoin: round; stroke-linecap: round; }
+.lc__dot { fill: #fff; } .lc__halo { fill: rgba(96,165,250,0.35); }
+.lc__grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.feed { display: grid; gap: 0.4rem; }
+.feed__row { display: flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.7rem; border-radius: 12px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--line); font-size: 0.6875rem; color: var(--w-52);
+  animation: feed-in 0.6s var(--out) both; }
+.feed__row i { width: 5px; height: 5px; border-radius: 50%; background: var(--b3); flex: none; }
+.feed__row b { color: var(--white); font-weight: 500; }
+.feed__row span { margin-left: auto; color: var(--w-18); font-variant-numeric: tabular-nums; }
+@keyframes feed-in { from { opacity: 0; transform: translateY(-9px); } to { opacity: 1; transform: none; } }
+
+/* ==========================================================================
+   Ishonch tasmasi
+   ========================================================================== */
+.trust { padding-block: clamp(2.5rem, 5vw, 3.5rem); border-block: 1px solid var(--line); overflow: hidden; position: relative; z-index: 2; }
+.trust__l { text-align: center; color: var(--w-34); font-size: 0.875rem; }
+.trust__l b { color: var(--white); font-weight: 600; }
+.mq { margin-top: 1.6rem; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+.mq__t { display: flex; gap: 3.5rem; width: max-content; will-change: transform; }
+.mq__i { display: flex; align-items: center; gap: 3.5rem; font-size: clamp(1.25rem, 2.2vw, 1.875rem); font-weight: 500; letter-spacing: -0.03em; color: var(--w-18); white-space: nowrap; transition: color 0.4s var(--ease); }
+.mq__i:hover { color: var(--white); }
+.mq__i::after { content: ''; width: 6px; height: 6px; background: var(--b2); transform: rotate(45deg); flex: none; }
+
+/* ==========================================================================
+   Yechimlar — matn chapda / karta o'ngda
+   ========================================================================== */
+.sol { display: grid; gap: clamp(3.5rem, 7vw, 6rem); margin-top: clamp(3rem, 6vw, 4.5rem); position: relative; z-index: 2; }
+.sol__row { display: grid; gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+@media (min-width: 940px) { .sol__row { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); } }
+.sol__t h3 { font-size: clamp(1.5rem, 2.7vw, 2.05rem); margin-top: 1rem; }
+.sol__t p { color: var(--w-52); margin-top: 0.9rem; max-width: 40ch; }
+.sol__t .btn { margin-top: 1.5rem; }
+.sol__c { position: relative; padding: clamp(1.2rem, 2.6vw, 1.9rem); min-height: 330px; display: grid; align-content: center; gap: 0.75rem; overflow: hidden; }
+.sol__c .aura { inset: -20%; filter: blur(80px); opacity: 0.65; }
+
+/* maketlar */
+.m-rows { display: grid; gap: 0.5rem; }
+.m-row { position: relative; display: grid; grid-template-columns: 1.6fr 1fr 0.7fr; gap: 0.65rem; align-items: center;
+  padding: 0.65rem 0.8rem; border-radius: 12px; background: rgba(255,255,255,0.045); border: 1px solid var(--line); overflow: hidden; }
+.m-row i { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.2); display: block; }
+.m-row .chipbar { height: 18px; border-radius: 999px; background: rgba(37,99,235,0.45); }
+.m-row::after { content: ''; position: absolute; inset: 0; pointer-events: none; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(96,165,250,0.16), transparent); }
+.is-play .m-row::after { animation: scan 3.6s var(--ease) infinite; }
+.is-play .m-row:nth-of-type(2)::after { animation-delay: 0.5s; }
+@keyframes scan { 0% { transform: translateX(-100%); } 45%,100% { transform: translateX(100%); } }
+.m-chart { display: flex; align-items: flex-end; gap: 6px; height: 92px; padding: 0.75rem; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+.m-chart i { flex: 1; border-radius: 5px 5px 2px 2px; background: linear-gradient(180deg, var(--b3), rgba(37,99,235,0.15)); height: 10%; transition: height 0.95s var(--out); }
+.is-play .m-chart i { height: var(--h); }
+
+.m-msg { max-width: 80%; padding: 0.7rem 0.95rem; border-radius: 14px; font-size: 0.875rem; line-height: 1.45; opacity: 0; transform: translateY(10px); }
+.is-play .m-msg { animation: msg 0.55s var(--out) forwards; }
+.is-play .m-msg:nth-of-type(2) { animation-delay: 0.32s; }
+.is-play .m-msg:nth-of-type(3) { animation-delay: 0.64s; }
+@keyframes msg { to { opacity: 1; transform: none; } }
+.m-msg--in { background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--w-72); }
+.m-msg--out { background: var(--grad); color: #fff; margin-left: auto; }
+.m-dots { display: inline-flex; gap: 4px; }
+.m-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--w-52); animation: bob 1.2s ease-in-out infinite; }
+.m-dots i:nth-child(2) { animation-delay: .15s; } .m-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes bob { 0%,100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(-4px); opacity: 1; } }
+
+.m-site { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+.m-site__b { display: flex; gap: 5px; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
+.m-site__b i { width: 6px; height: 6px; border-radius: 50%; background: var(--w-18); }
+.m-site__c { padding: 1.05rem; display: grid; gap: 0.6rem; }
+.m-l { height: 9px; border-radius: 5px; background: rgba(255,255,255,0.12); position: relative; overflow: hidden; }
+.m-l::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent); animation: shim 2.6s ease-in-out infinite; }
+@keyframes shim { 0% { transform: translateX(-100%); } 60%,100% { transform: translateX(100%); } }
+.m-l--xl { height: 20px; width: 58%; background: rgba(255,255,255,0.24); }
+.m-l--md { width: 82%; } .m-l--sm { width: 44%; }
+.m-cta { height: 28px; width: 124px; border-radius: 999px; background: var(--grad); margin-top: 0.35rem; }
+.m-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; margin-top: 0.35rem; }
+.m-tiles i { height: 46px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--line); opacity: 0; transform: scale(0.86); }
+.is-play .m-tiles i { animation: tile 0.55s var(--out) forwards; }
+.is-play .m-tiles i:nth-child(2) { animation-delay: .08s; } .is-play .m-tiles i:nth-child(3) { animation-delay: .16s; }
+.is-play .m-tiles i:nth-child(4) { animation-delay: .24s; } .is-play .m-tiles i:nth-child(5) { animation-delay: .32s; }
+.is-play .m-tiles i:nth-child(6) { animation-delay: .4s; }
+@keyframes tile { to { opacity: 1; transform: none; } }
+
+.m-keys { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+.m-keys span { padding: 0.55rem; text-align: center; font-size: 0.75rem; border-radius: 10px;
+  border: 1px solid rgba(37,99,235,0.45); background: rgba(37,99,235,0.14); }
+.is-play .m-keys span { animation: lit 4.4s var(--ease) infinite; }
+.is-play .m-keys span:nth-child(2) { animation-delay: .35s; }
+.is-play .m-keys span:nth-child(3) { animation-delay: .7s; }
+.is-play .m-keys span:nth-child(4) { animation-delay: 1.05s; }
+@keyframes lit {
+  0%,14%,100% { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.45); }
+  6% { background: rgba(59,130,246,0.55); border-color: rgba(96,165,250,0.9); }
+}
+.m-bubble { padding: 0.6rem 0.85rem; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); font-size: 0.8125rem; color: var(--w-72); }
+.metrics { display: flex; align-items: center; gap: 1.2rem; }
+.metric b { display: block; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.metric em { font-style: normal; font-size: 0.625rem; color: var(--w-34); letter-spacing: 0.08em; text-transform: uppercase; }
+.ring { width: 48px; height: 48px; flex: none; }
+.ring circle { fill: none; stroke-width: 5; }
+.ring__bg { stroke: rgba(255,255,255,0.1); }
+.ring__fg { stroke: var(--b3); stroke-linecap: round; stroke-dasharray: 132; stroke-dashoffset: 132; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.is-play .ring__fg { animation: ring 1.5s var(--out) forwards; }
+@keyframes ring { to { stroke-dashoffset: 14; } }
+.m-phone { position: relative; width: 168px; margin-inline: auto; border: 1px solid var(--line-2); border-radius: 22px;
+  background: rgba(255,255,255,0.03); padding: 0.7rem 0.65rem 2.8rem; display: grid; gap: 0.45rem; overflow: hidden; }
+.m-phone .hd { height: 36px; border-radius: 10px; background: var(--grad); }
+.m-phone i { height: 9px; border-radius: 4px; background: rgba(255,255,255,0.14); display: block; opacity: 0; transform: translateX(-10px); }
+.is-play .m-phone i { animation: ph 0.5s var(--out) forwards; }
+.is-play .m-phone i:nth-of-type(2) { animation-delay: .12s; } .is-play .m-phone i:nth-of-type(3) { animation-delay: .24s; }
+.is-play .m-phone i:nth-of-type(4) { animation-delay: .36s; } .is-play .m-phone i:nth-of-type(5) { animation-delay: .48s; }
+@keyframes ph { to { opacity: 1; transform: none; } }
+.m-tabs { position: absolute; inset-inline: 0.65rem; bottom: 0.6rem; height: 28px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-around; padding-top: 0.4rem; }
+.m-tabs u { width: 16px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.16); }
+.m-tabs__b { position: absolute; bottom: 0; height: 2px; width: 24px; border-radius: 2px; background: var(--b3); left: 8%; }
+.is-play .m-tabs__b { animation: tabs 5.5s var(--out) infinite; }
+@keyframes tabs { 0%,22% { left: 8%; } 30%,52% { left: 38%; } 60%,82% { left: 69%; } 90%,100% { left: 8%; } }
+
+
+/* ==========================================================================
+   YECHIM KARTALARI — ichki kartochkalar navbat bilan almashadi
+   ========================================================================== */
+.sol__c {
+  position: relative; overflow: hidden;
+  min-height: 372px; display: grid; place-items: center;
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  background: linear-gradient(152deg, rgba(37,99,235,0.46) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%);
+}
+.sol__c--b { background: linear-gradient(152deg, rgba(96,165,250,0.40) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
+.sol__c--c { background: linear-gradient(152deg, rgba(29,78,216,0.56) 0%, rgba(9,26,48,0.94) 54%, rgba(4,18,31,1) 100%); }
+.sol__c--d { background: linear-gradient(152deg, rgba(59,130,246,0.44) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
+.sol__c--e { background: linear-gradient(152deg, rgba(37,99,235,0.38) 0%, rgba(13,34,60,0.92) 50%, rgba(4,18,31,1) 100%); }
+/* yuqori chekkadagi yumshoq nur */
+.sol__c::after {
+  content: ''; position: absolute; inset: -45% -25% auto -25%; height: 85%;
+  background: radial-gradient(55% 100% at 30% 0%, rgba(255,255,255,0.13), transparent 68%);
+  pointer-events: none;
+  animation: sheen 16s ease-in-out infinite alternate;
+}
+@keyframes sheen {
+  from { transform: translate3d(-6%, 0, 0) scale(1); }
+  to   { transform: translate3d(10%, 4%, 0) scale(1.12); }
+}
+
+/* almashinuvchi stack */
+/* kartochkalar taxlanadi: yangisi oldinda, eskilari orqada ko'rinib turadi */
+.cyc { position: relative; width: 100%; max-width: 430px; height: 214px; z-index: 1; }
+.cyc__i {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  transform-origin: 50% 100%; pointer-events: none;
+  transition: opacity 0.8s var(--out), transform 0.9s var(--out), filter 0.8s var(--out);
+}
+.cyc__i.p0 { transform: none;                           opacity: 1;    filter: none;        z-index: 4; }
+.cyc__i.p1 { transform: translateY(-38px) scale(0.945); opacity: 0.42; z-index: 3; }
+/* orqadagi kartochkalarda faqat shakl qolsin — matn aralashmasin (blur o'rniga, u og'ir edi) */
+.cyc__i .gp > *, .cyc__i .pn__b, .cyc__i .pn__t, .cyc__i .pn__ic { transition: opacity 0.45s var(--ease); }
+.cyc__i:not(.p0) .gp > *, .cyc__i:not(.p0) .pn__b, .cyc__i:not(.p0) .pn__t, .cyc__i:not(.p0) .pn__ic { opacity: 0; }
+.cyc__i.p2 { transform: translateY(-68px) scale(0.895); opacity: 0.16; z-index: 2; }
+.cyc__i.p3 { transform: translateY(-92px) scale(0.855); opacity: 0.07; z-index: 1; }
+.cyc__i.px { transform: translateY(46px)  scale(0.97);  opacity: 0;    z-index: 0; }
+
+/* shisha panel */
+.gp {
+  border-radius: 18px; padding: 1rem 1.15rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 26px 54px -28px rgba(0,0,0,0.95);
+  display: grid; gap: 0.55rem;
+}
+.gp__top { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--w-52); }
+.gp__top b { color: var(--white); font-weight: 500; }
+.gp__t { font-size: 0.9375rem; font-weight: 500; line-height: 1.35; }
+.gp__f { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.75rem; color: var(--w-34); }
+.gp__f b { font-size: 0.9375rem; font-weight: 600; color: var(--white); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.bdg { margin-left: auto; font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.25rem 0.55rem; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.bdg--b { color: #9DC4FF; border-color: rgba(96,165,250,0.5); background: rgba(37,99,235,0.22); }
+.bdg--g { color: #86EFAC; border-color: rgba(110,231,168,0.45); background: rgba(110,231,168,0.14); }
+.bdg--a { color: #FCD9A0; border-color: rgba(252,217,160,0.42); background: rgba(252,217,160,0.12); }
+
+/* buyruq paneli (AI) */
+.cmd { display: grid; gap: 0.85rem; }
+.cmd__q { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
+.cmd__r { display: flex; align-items: center; gap: 0.5rem; }
+.cmd__plus, .cmd__chip { border-radius: 999px; border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08); color: var(--w-72); }
+.cmd__plus { width: 30px; height: 30px; display: grid; place-content: center; font-size: 1rem; line-height: 1; }
+.cmd__chip { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+.cmd__go { margin-left: auto; width: 54px; height: 30px; border-radius: 999px; background: var(--grad);
+  display: grid; place-content: center; gap: 2px; grid-auto-flow: column; }
+.cmd__go i { display: block; width: 2px; border-radius: 2px; background: #fff; animation: wave 1.1s ease-in-out infinite; }
+.cmd__go i:nth-child(1) { height: 8px; animation-delay: 0s; }
+.cmd__go i:nth-child(2) { height: 14px; animation-delay: .12s; }
+.cmd__go i:nth-child(3) { height: 10px; animation-delay: .24s; }
+.cmd__go i:nth-child(4) { height: 16px; animation-delay: .36s; }
+@keyframes wave { 0%,100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
+
+/* ko'rsatkich paneli */
+.mt { display: flex; align-items: center; gap: 1.4rem; }
+.mt__v { display: grid; gap: 0.1rem; }
+.mt__v b { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.mt__v em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--w-34); }
+.mt__bar { flex: 1; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
+.mt__bar u { display: block; height: 100%; border-radius: 999px; background: var(--grad); width: 0; transition: width 1.2s var(--out); }
+.cyc__i.is-on .mt__bar u { width: var(--w, 90%); }
+
+/* bildirishnoma */
+.nt { display: flex; align-items: flex-start; gap: 0.7rem; }
+.nt__ic { width: 34px; height: 34px; border-radius: 10px; background: var(--grad); flex: none; display: grid; place-content: center; }
+.nt__ic svg { width: 17px; height: 17px; color: #fff; }
+.nt__b { display: grid; gap: 0.15rem; }
+.nt__b b { font-size: 0.875rem; font-weight: 600; }
+.nt__b span { font-size: 0.8125rem; color: var(--w-52); }
+.nt__t { margin-left: auto; font-size: 0.6875rem; color: var(--w-34); flex: none; }
+
+
+/* ==========================================================================
+   HAR KARTA — O'Z INTERFEYSI
+   ========================================================================== */
+/* fonlar har xil burchakdan yonadi */
+.sol__c--b { background: linear-gradient(228deg, rgba(96,165,250,0.42) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
+.sol__c--c { background: linear-gradient(20deg,  rgba(29,78,216,0.50) 0%, rgba(9,26,48,0.94) 56%, rgba(4,18,31,1) 100%); }
+.sol__c--d { background: linear-gradient(180deg, rgba(59,130,246,0.40) 0%, rgba(12,32,58,0.92) 54%, rgba(4,18,31,1) 100%); }
+.sol__c--e { background: linear-gradient(272deg, rgba(37,99,235,0.42) 0%, rgba(13,34,60,0.92) 52%, rgba(4,18,31,1) 100%); }
+.sol__c--b::after { inset: -45% -25% auto -25%; background: radial-gradient(55% 100% at 72% 0%, rgba(255,255,255,0.13), transparent 68%); }
+.sol__c--c::after { inset: auto -25% -45% -25%; background: radial-gradient(55% 100% at 24% 100%, rgba(255,255,255,0.12), transparent 68%); }
+.sol__c--d::after { inset: -45% -25% auto -25%; background: radial-gradient(50% 100% at 50% 0%, rgba(255,255,255,0.14), transparent 66%); }
+.sol__c--e::after { inset: -30% -25% auto -25%; background: radial-gradient(50% 100% at 88% 10%, rgba(255,255,255,0.13), transparent 66%); }
+
+/* --- fade rejimi: joyida almashadi, taxlanmaydi --- */
+.cyc--fade { height: auto; }
+.cyc--fade .cyc__i { position: absolute; inset: 0; }
+.cyc--fade .cyc__i.p0 { opacity: 1; transform: none; filter: none; z-index: 3; }
+.cyc--fade .cyc__i.p1,
+.cyc--fade .cyc__i.p2,
+.cyc--fade .cyc__i.p3,
+.cyc--fade .cyc__i.px { opacity: 0; transform: translateY(14px) scale(0.99); z-index: 1; }
+
+/* ==========================================================================
+   02 · AI botlar — buyruq paneli va javob
+   ========================================================================== */
+.ai { width: 100%; max-width: 430px; display: grid; gap: 0.7rem; }
+.ai__box { position: relative; height: 128px; }
+.ai__caret { display: inline-block; width: 2px; height: 1em; background: var(--b3); vertical-align: -0.15em;
+  margin-left: 2px; animation: caret 1.05s steps(2) infinite; }
+@keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.ai__res { position: relative; height: 84px; }
+.ai__rc { position: absolute; inset: 0; border-radius: 14px; padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05);
+  display: grid; gap: 0.35rem; align-content: center;
+  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
+.ai__rc.p0 { opacity: 1; transform: none; }
+.ai__rc.p1, .ai__rc.p2, .ai__rc.p3, .ai__rc.px { opacity: 0; transform: translateY(10px); }
+.ai__rc em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--b3); }
+.ai__rc p { font-size: 0.8125rem; color: var(--w-72); line-height: 1.45; }
+
+/* ==========================================================================
+   03 · Veb saytlar — brauzer oynasi va ballar
+   ========================================================================== */
+.bw { width: 100%; max-width: 430px; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 26px 54px -28px rgba(0,0,0,0.95); }
+.bw__bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.bw__bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+.bw__url { position: relative; margin-left: 0.5rem; height: 1em; flex: 1; }
+.bw__url span { position: absolute; left: 0; top: 0; font-size: 0.6875rem; color: var(--w-52);
+  transition: opacity 0.6s var(--out), transform 0.6s var(--out); }
+.bw__url span.p0 { opacity: 1; transform: none; }
+.bw__url span.p1, .bw__url span.p2, .bw__url span.p3, .bw__url span.px { opacity: 0; transform: translateY(8px); }
+.bw__body { padding: 0.95rem 1rem 1.1rem; display: grid; gap: 0.85rem; }
+.gauges { position: relative; height: 74px; }
+.gset { position: absolute; inset: 0; display: flex; justify-content: space-around; align-items: center;
+  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
+.gset.p0 { opacity: 1; transform: none; }
+.gset.p1, .gset.p2, .gset.p3, .gset.px { opacity: 0; transform: translateY(12px); }
+.gg { display: grid; justify-items: center; gap: 0.3rem; }
+.gg__c { position: relative; width: 46px; height: 46px; }
+.gg__c svg { width: 46px; height: 46px; transform: rotate(-90deg); }
+.gg__c circle { fill: none; stroke-width: 4; }
+.gg__bg { stroke: rgba(255,255,255,0.1); }
+.gg__fg { stroke: var(--b3); stroke-linecap: round; stroke-dasharray: 126; stroke-dashoffset: 126;
+  transition: stroke-dashoffset 1.3s var(--out) 0.15s; }
+.gset.p0 .gg__fg { stroke-dashoffset: calc(126 - 126 * var(--v, 0.9)); }
+.gg__n { position: absolute; inset: 0; display: grid; place-content: center; font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.gg em { font-style: normal; font-size: 0.5625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--w-34); }
+.bw__page { display: grid; gap: 0.4rem; }
+.bw__page i { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.12); display: block; }
+.bw__page i:first-child { height: 15px; width: 54%; background: rgba(255,255,255,0.22); }
+
+/* ==========================================================================
+   04 · Telegram — suhbat oynasi
+   ========================================================================== */
+.tg { width: 100%; max-width: 400px; border-radius: 18px; padding: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 26px 54px -28px rgba(0,0,0,0.95); }
+.tg__h { display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.65rem; margin-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: var(--w-52); }
+.tg__av { width: 22px; height: 22px; border-radius: 50%; background: var(--grad); flex: none; }
+.tg__h b { color: var(--white); font-weight: 500; }
+.tg__h u { margin-left: auto; text-decoration: none; font-size: 0.625rem; color: #6EE7A8; }
+.tg__scene { position: relative; height: 168px; }
+.tg__s { position: absolute; inset: 0; display: grid; gap: 0.42rem; align-content: start;
+  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
+.tg__s.p0 { opacity: 1; transform: none; }
+.tg__s.p1, .tg__s.p2, .tg__s.p3, .tg__s.px { opacity: 0; transform: translateY(12px); }
+.tg__in, .tg__out { max-width: 84%; padding: 0.55rem 0.8rem; font-size: 0.8125rem; line-height: 1.4; }
+.tg__in { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.13); color: var(--w-72);
+  border-radius: 14px 14px 14px 4px; }
+.tg__out { background: var(--grad); color: #fff; margin-left: auto; border-radius: 14px 14px 4px 14px; }
+.tg__kb { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; margin-top: 0.15rem; }
+.tg__kb span { padding: 0.42rem; text-align: center; font-size: 0.6875rem; border-radius: 9px;
+  border: 1px solid rgba(59,130,246,0.45); background: rgba(37,99,235,0.16); }
+
+/* ==========================================================================
+   05 · Mobil — telefon ekrani va bildirishnomalar
+   ========================================================================== */
+.ph { position: relative; width: 208px; height: 316px; margin-inline: auto; border-radius: 28px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.03));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 32px 64px -30px rgba(0,0,0,0.95); }
+.ph__notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 62px; height: 5px;
+  border-radius: 999px; background: rgba(255,255,255,0.2); }
+.ph__t { padding: 1.6rem 0.8rem 0; text-align: center; }
+.ph__t b { display: block; font-size: 2.1rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ph__t span { font-size: 0.625rem; color: var(--w-34); }
+.ph__n { position: absolute; left: 0.6rem; right: 0.6rem; bottom: 0.7rem; height: 168px; width: auto; }
+.ph__n .cyc__i.p1 { transform: translateY(-30px) scale(0.94); }
+.ph__n .cyc__i.p2 { transform: translateY(-54px) scale(0.885); }
+.ph__n .cyc__i.p3 { transform: translateY(-74px) scale(0.845); }
+.pn { border-radius: 14px; padding: 0.6rem 0.7rem; display: flex; align-items: flex-start; gap: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); }
+.pn__ic { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); flex: none; display: grid; place-content: center; }
+.pn__ic svg { width: 14px; height: 14px; color: #fff; }
+.pn__b { display: grid; gap: 0.1rem; min-width: 0; }
+.pn__b b { font-size: 0.75rem; font-weight: 600; }
+.pn__b span { font-size: 0.6875rem; color: var(--w-52); line-height: 1.3; }
+.pn__t { margin-left: auto; font-size: 0.5625rem; color: var(--w-34); flex: none; }
+
+/* almashinuvda ikki holat ustma-ust tushmasin: eskisi tez so'nadi, yangisi kechikib chiqadi */
+.tg__s, .ai__rc, .gset, .bw__url span, .cyc--fade .cyc__i {
+  transition: opacity 0.42s var(--ease), transform 0.6s var(--out), filter 0.5s var(--ease);
+}
+.tg__s.p0, .ai__rc.p0, .gset.p0, .bw__url span.p0, .cyc--fade .cyc__i.p0 {
+  transition-delay: 0.24s;
+}
+
+/* ==========================================================================
+   Loyihalar
+   ========================================================================== */
+.work { display: grid; gap: 1.5rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); position: relative; z-index: 2; }
+@media (min-width: 760px) { .work { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 1080px) { .work { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.wc { padding: 12px; display: grid; align-content: start; }
+.wc__img { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: var(--bg-2); position: relative; }
+.wc__img img { width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  filter: grayscale(0.5) brightness(0.58) contrast(1.06); transition: transform 0.9s var(--out), filter 0.6s var(--ease); }
+.wc__img::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 0%, rgba(37,99,235,0.3) 0%, rgba(2,11,22,0.72) 78%); transition: opacity 0.55s var(--ease); }
+.wc:hover .wc__img img { transform: scale(1.05); filter: none; }
+.wc:hover .wc__img::after { opacity: 0; }
+.wc__b { padding: 1.1rem 0.6rem 0.5rem; display: grid; gap: 0.45rem; }
+.wc__m { display: flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; color: var(--b3); }
+.wc__m span { color: var(--w-34); margin-left: auto; }
+.wc h3 { font-size: 1.1875rem; }
+.wc p { font-size: 0.875rem; color: var(--w-52); }
+.wc__t { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
+.wc__t b { font-size: 0.6875rem; font-weight: 400; color: var(--w-52); padding: 0.22rem 0.6rem; border-radius: 999px; border: 1px solid var(--line-2); }
+
+/* ==========================================================================
+   Jarayon
+   ========================================================================== */
+.steps { display: grid; gap: 1.25rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); position: relative; z-index: 2; }
+@media (min-width: 900px) { .steps { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.step { padding: clamp(1.5rem, 3vw, 2.1rem); display: grid; gap: 0.6rem; align-content: start; }
+.step__n { width: 40px; height: 40px; border-radius: 999px; display: grid; place-content: center;
+  font-size: 0.8125rem; font-weight: 600; color: var(--b3);
+  border: 1px solid rgba(96,165,250,0.4); background: rgba(37,99,235,0.16); margin-bottom: 0.5rem; }
+.step h4 { font-size: 1.1875rem; }
+.step p { color: var(--w-52); font-size: 0.9375rem; }
+
+/* ==========================================================================
+   Raqamlar
+   ========================================================================== */
+.nums { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; margin-top: clamp(2.5rem,5vw,3.5rem); position: relative; z-index: 2; }
+@media (min-width: 860px) { .nums { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.nums__c { background: linear-gradient(170deg, var(--card) 0%, var(--bg-2) 100%); padding: clamp(1.9rem,4vw,2.8rem) 1.5rem; text-align: center; transition: background 0.4s var(--ease); }
+.nums__c:hover { background: var(--card-2); }
+.od { display: inline-flex; align-items: flex-start; font-size: clamp(2.4rem, 5.2vw, 3.6rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.od__d { display: block; height: 1em; overflow: hidden; }
+.od__d u { display: block; text-decoration: none; transform: translateY(0); transition: transform 1.2s var(--out); }
+.od__d u i { display: block; height: 1em; font-style: normal; }
+.od sup { font-size: 0.42em; line-height: 1; margin-top: 0.1em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nums__k { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--w-34); }
+
+/* ==========================================================================
+   Yakuniy CTA bloki
+   ========================================================================== */
+.final { position: relative; border-radius: var(--r-xl); overflow: hidden; padding: clamp(2rem, 5vw, 4.5rem);
+  background: linear-gradient(155deg, var(--card) 0%, var(--bg-2) 55%, var(--bg) 100%); isolation: isolate; }
+.final::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(135deg, rgba(96,165,250,0.95) 0%, rgba(37,99,235,0.35) 30%, rgba(255,255,255,0.04) 58%, rgba(37,99,235,0.4) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; pointer-events: none; }
+.final .aura--a { width: 700px; height: 700px; left: -180px; top: -260px; opacity: 0.7; }
+.final__in { position: relative; z-index: 2; }
+.final h2 { font-size: clamp(2.2rem, 6.4vw, 4.5rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1.02; max-width: 15ch; }
+.final__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+@media (min-width: 940px) { .final__grid { grid-template-columns: minmax(0,1fr) minmax(0,0.92fr); } }
+.cols { display: grid; gap: 2rem; }
+@media (min-width: 620px) { .cols { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.col h5 { margin: 0 0 0.85rem; font-size: 0.8125rem; font-weight: 400; color: var(--w-34); }
+.col a, .col p { display: block; color: var(--w-72); font-size: 1rem; transition: color 0.25s var(--ease); }
+.col a:hover { color: var(--white); }
+.col b { font-weight: 600; color: var(--white); }
+.socials { display: flex; gap: 0.6rem; margin-top: 0.2rem; }
+.socials a { width: 44px; height: 44px; border-radius: 999px; display: grid; place-content: center;
+  border: 1px solid var(--line-2); background: rgba(255,255,255,0.04); transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.35s var(--out); }
+.socials a:hover { background: rgba(37,99,235,0.3); border-color: rgba(96,165,250,0.6); transform: translateY(-3px); }
+.socials svg { width: 18px; height: 18px; }
+
+.form { display: grid; gap: 0.9rem; align-content: start; padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: linear-gradient(170deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 34px 70px -38px rgba(2,11,22,1); }
+.form__s { display: flex; align-items: center; gap: 0.55rem; font-size: 0.75rem; color: var(--w-52); padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
+.form__s .dot { position: relative; width: 7px; height: 7px; flex: none; }
+.form__s .dot::before, .form__s .dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #6EE7A8; }
+.form__s .dot::after { animation: ping 2.4s var(--out) infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(3.4); opacity: 0; } }
+.form__s b { color: var(--white); font-weight: 500; font-variant-numeric: tabular-nums; }
+.field { display: grid; gap: 0.4rem; }
+.field label { font-size: 0.75rem; color: var(--w-34); }
+.field input { border: 1px solid var(--line-2); border-radius: 14px; padding: 0.85rem 1rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease); }
+.field input::placeholder { color: var(--w-18); }
+.field input:focus { outline: none; border-color: rgba(96,165,250,0.7);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 4px rgba(37,99,235,0.18); }
+.form .btn { justify-content: center; margin-top: 0.3rem; }
+.form__n { text-align: center; font-size: 0.75rem; color: var(--w-34); }
+
+/* ==========================================================================
+   Futer
+   ========================================================================== */
+.foot { padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.foot__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.foot p { font-size: 0.8125rem; color: var(--w-34); line-height: 1.8; }
+.foot nav { display: flex; gap: 1.5rem; }
+.foot nav a { font-size: 0.8125rem; color: var(--w-34); transition: color 0.25s var(--ease); }
+.foot nav a:hover { color: var(--b3); }
+
+/* ==========================================================================
+   Ochilish harakatlari
+   ========================================================================== */
+.rise { opacity: 0; transform: translateY(24px); }
+.is-in .rise, .rise.is-in { opacity: 1; transform: none;
+  transition: opacity 0.9s var(--out), transform 0.9s var(--out); transition-delay: var(--d, 0ms); }
+.mask { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; }
+.mask > i { display: inline-block; font-style: normal; transform: translateY(115%);
+  transition: transform 1s var(--out); transition-delay: var(--wd, 0ms); }
+.is-in .mask > i { transform: none; }
+.unmask .mask { overflow: visible; }
+
+/* ==========================================================================
+   KIRISH ANIMATSIYASI
+   ========================================================================== */
+body.intro-on { overflow: hidden; }
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); cursor: none; }
+.intro::after { content: ''; position: absolute; width: 780px; height: 780px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.15) 30%, rgba(37,99,235,0.05) 54%, rgba(37,99,235,0) 82%);
+  filter: blur(110px); opacity: 0; animation: halo 2.6s var(--ease) 0.75s forwards; pointer-events: none; }
+.intro.is-out { animation: intro-out 0.6s var(--ease) forwards; pointer-events: none; }
+.intro__s { position: relative; width: 300px; height: 110px; }
+@media (max-width: 560px) { .intro__s { transform: scale(0.72); } }
+.intro__drop { position: absolute; left: 150px; top: 55px; width: 22px; height: 22px; margin: -11px 0 0 -11px;
+  border-radius: 0 50% 50% 50%; background: var(--b2); box-shadow: 0 0 28px 7px rgba(37,99,235,0.5);
+  transform: rotate(45deg) translate3d(0,-520px,0) scale(1);
+  animation: fall 0.66s cubic-bezier(0.55,0,0.3,1) 0.12s forwards, burst 0.24s var(--ease) 0.78s forwards; }
+.intro__rip { position: absolute; left: 150px; top: 55px; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border-radius: 50%; border: 1.5px solid rgba(37,99,235,0.85); transform: scale(0.2); opacity: 0;
+  animation: rip 0.85s var(--ease) 0.8s forwards; }
+.intro__rip--2 { animation-delay: 0.94s; border-color: rgba(37,99,235,0.45); }
+.intro__m { position: absolute; left: 0; top: 50%; width: 68px; height: 68px; transform: translate(116px,-50%);
+  animation: settle 0.66s var(--ease) 1.62s forwards; }
+.intro__m svg { width: 100%; height: 100%; overflow: visible; }
+.intro__m .ax { stroke: var(--b2); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 176; stroke-dashoffset: 176;
+  animation: draw 0.6s var(--ease) 0.92s forwards; }
+.intro__m .cap { fill: var(--b2); opacity: 0; animation: capin 0.3s var(--ease) 1.34s forwards; }
+.intro__m .st { fill: var(--b2); transform-origin: 100px 100px; transform: scale(0.2) rotate(-40deg); opacity: 0;
+  animation: pop 0.62s var(--ease) 1.14s forwards; }
+.intro__r { position: absolute; left: 64px; top: 50%; height: 3px; width: 236px; margin-top: -1.5px;
+  background: var(--b2); box-shadow: 0 0 18px rgba(37,99,235,0.5); transform: scaleX(0); transform-origin: left center;
+  animation: rule 0.72s var(--ease) 1.66s forwards; }
+.intro__w { position: absolute; left: 84px; bottom: calc(50% + 5px); display: flex; font-size: 34px; font-weight: 600;
+  letter-spacing: 0.2em; line-height: 0.74; color: var(--white); }
+.intro__w i { font-style: normal; opacity: 0; transform: translateY(-26px);
+  animation: drop-l 0.5s cubic-bezier(0.3,1.5,0.5,1) forwards; }
+.intro__w i:nth-child(1) { animation-delay: 2.14s; } .intro__w i:nth-child(2) { animation-delay: 2.20s; }
+.intro__w i:nth-child(3) { animation-delay: 2.26s; } .intro__w i:nth-child(4) { animation-delay: 2.32s; }
+.intro__w i:nth-child(5) { animation-delay: 2.38s; } .intro__w i:nth-child(6) { animation-delay: 2.44s; }
+
+@keyframes fall { 0% { transform: rotate(45deg) translate3d(0,-520px,0) scale(1,1); } 72% { transform: rotate(45deg) translate3d(0,-40px,0) scale(0.86,1.18); } 100% { transform: rotate(45deg) translate3d(0,0,0) scale(1,1); } }
+@keyframes burst { 0% { opacity: 1; transform: rotate(45deg) scale(1); } 100% { opacity: 0; transform: rotate(45deg) scale(2.1); } }
+@keyframes rip { 0% { opacity: 0.9; transform: scale(0.2); } 100% { opacity: 0; transform: scale(4.2); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes capin { to { opacity: 1; } }
+@keyframes pop { to { opacity: 1; transform: scale(1) rotate(0deg); } }
+@keyframes settle { to { transform: translate(0,-50%); } }
+@keyframes rule { to { transform: scaleX(1); } }
+@keyframes drop-l { to { opacity: 1; transform: none; } }
+@keyframes halo { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0.85; } }
+@keyframes intro-out { to { opacity: 0; transform: scale(1.06); visibility: hidden; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .mask > i { opacity: 1 !important; transform: none !important; }
+  .m-chart i { height: var(--h) !important; }
+  .m-msg, .m-tiles i, .m-phone i { opacity: 1 !important; transform: none !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+
+<!-- ===================== KIRISH ===================== -->
+<div class="intro" id="intro" role="presentation" aria-hidden="true">
+  <div class="intro__s">
+    <span class="intro__rip"></span><span class="intro__rip intro__rip--2"></span><span class="intro__drop"></span>
+    <span class="intro__m">
+      <svg viewBox="0 0 200 200" fill="none">
+        <line class="ax" x1="100" y1="14" x2="100" y2="186"/><line class="ax" x1="14" y1="100" x2="186" y2="100"/>
+        <circle class="cap" cx="100" cy="10" r="9"/><circle class="cap" cx="100" cy="190" r="9"/>
+        <circle class="cap" cx="10" cy="100" r="9"/><circle class="cap" cx="190" cy="100" r="9"/>
+        <path class="st" d="M100 52 L114 86 L148 100 L114 114 L100 148 L86 114 L52 100 L86 86 Z"/>
+      </svg>
+    </span>
+    <span class="intro__r"></span>
+    <span class="intro__w"><i>A</i><i>V</i><i>E</i><i>N</i><i>I</i><i>R</i></span>
+  </div>
+</div>
+
+<!-- ===================== TOP ===================== -->
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="#hero" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang">
+        <button class="is-active" type="button">UZ</button><button type="button">RU</button><button type="button">EN</button>
+      </div>
+      <a class="btn btn--w btn--sm top__cta" href="#aloqa">Loyiha boshlash</a>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="#yechimlar">Yechimlar</a><a href="#loyihalar">Loyihalar</a>
+  <a href="#jarayon">Jarayon</a><a href="#aloqa">Aloqa</a>
+</div>
+
+<main>
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero" data-sec="hero">
+  <canvas class="hero__fx" id="fx" aria-hidden="true"></canvas>
+  <span class="aura aura--a aura--drift aura--pulse"></span>
+  <span class="aura aura--b aura--drift"></span>
+
+  <div class="shell hero__in">
+    <span class="chip rise"><i></i>Avenir IT-agentligi</span>
+
+    <h1 data-split>Biznesingizni <span class="grad-text">raqamli</span> tizimga o'tkazamiz.</h1>
+
+    <p class="hero__lead rise" style="--d:520ms">
+      Sayt, CRM, ERP va botlar — bir jamoada. G'oyadan ishga tushirishgacha,
+      keyin esa o'sish va qo'llab-quvvatlash.
+    </p>
+
+    <div class="hero__cta rise" style="--d:620ms">
+      <a class="btn btn--w" href="#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+      <a class="btn btn--d" href="#loyihalar">Ishlarimizni ko'rish</a>
+    </div>
+
+    <div class="stage rise tiltwrap" style="--d:720ms">
+      <span class="stage__glow"></span>
+      <div class="stage__box tilt" id="tilt">
+        <div class="stage__win">
+          <div class="stage__bar"><i></i><i></i><i></i><span class="stage__url">os.avenir.uz</span></div>
+          <div class="dash">
+            <aside class="dash__rail">
+              <span class="dash__logo"></span>
+              <span class="dash__ico is-on"></span><span class="dash__ico"></span>
+              <span class="dash__ico"></span><span class="dash__ico"></span>
+            </aside>
+            <div class="dash__body">
+              <div class="dash__head"><span class="dash__title"></span><span class="dash__btn"></span></div>
+              <div class="kpis">
+                <div class="kpi"><b data-live="34" data-min="28" data-max="46">34</b><em>Ochiq bitimlar</em></div>
+                <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Oylik daromad</em></div>
+                <div class="kpi"><b data-live="92" data-min="86" data-max="97" data-suffix="%">92%</b><em>Bajarilgan vazifa</em></div>
+              </div>
+              <div class="plate">
+                <div class="plate__h"><em>Lidlar oqimi · 30 kun</em><span class="up"><b data-live="18.2" data-min="9" data-max="24" data-dec="1" data-suffix="%">18.2%</b></span></div>
+                <svg class="lc" data-chart viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true">
+                  <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#3B82F6" stop-opacity="0.4"/><stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
+                  </linearGradient></defs>
+                  <line class="lc__grid" x1="0" y1="23" x2="300" y2="23"/><line class="lc__grid" x1="0" y1="46" x2="300" y2="46"/>
+                  <line class="lc__grid" x1="0" y1="69" x2="300" y2="69"/>
+                  <path class="lc__area" fill="url(#lg)"/><path class="lc__line"/>
+                  <circle class="lc__halo" r="5"/><circle class="lc__dot" r="2.4"/>
+                </svg>
+              </div>
+              <div class="feed" data-feed></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ISHONCH ===================== -->
+<section class="trust">
+  <div class="shell"><p class="trust__l rise"><b>50+</b> kompaniya bizga ishonadi</p></div>
+  <div class="mq rise" style="--d:80ms">
+    <div class="mq__t" id="mq">
+      <span class="mq__i">VAC.UZ</span><span class="mq__i">Avenir OS</span><span class="mq__i">Yakov and Partners</span>
+      <span class="mq__i">DeFi Technologies</span><span class="mq__i">APEC Asia UAE</span><span class="mq__i">Dagestantur</span>
+      <span class="mq__i">VAC.UZ</span><span class="mq__i">Avenir OS</span><span class="mq__i">Yakov and Partners</span>
+      <span class="mq__i">DeFi Technologies</span><span class="mq__i">APEC Asia UAE</span><span class="mq__i">Dagestantur</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YECHIMLAR ===================== -->
+<section class="section" id="yechimlar" data-sec="yechimlar">
+  <span class="aura aura--b aura--drift" style="width:640px;height:640px;right:-240px;top:6%;opacity:0.5"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Yechimlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Biznesingiz uchun raqamli yechimlar</h2>
+      <p class="p-sec rise" style="--d:160ms">Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.</p>
+    </div>
+
+    <div class="sol">
+      <!-- 01 · CRM va ERP — taxlangan yozuvlar -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>CRM va ERP</span>
+          <h3>Sotuv, ombor va moliya — bitta tizimda</h3>
+          <p>Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.</p>
+          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c rise" style="--d:90ms">
+          <div class="cyc" data-cyc>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Bitim</b> · B-4821 <span class="bdg bdg--b">Taklif yuborildi</span></p>
+              <p class="gp__t">VAC.UZ — korporativ sayt va hisob-kitob moduli</p>
+              <p class="gp__f"><span>Muddat: 12 hafta</span><b>48 000 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Shartnoma</b> · SH-1174 <span class="bdg bdg--g">Imzolandi</span></p>
+              <p class="gp__t">APEC Asia UAE — ulgurji katalog platformasi</p>
+              <p class="gp__f"><span>Muddat: 18 hafta</span><b>126 400 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Hisob-faktura</b> · #2481 <span class="bdg bdg--a">To'lov kutilmoqda</span></p>
+              <p class="gp__t">Yakov and Partners — analitik platforma, 2-bosqich</p>
+              <p class="gp__f"><span>Muddat: 5 kun</span><b>32 000 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Ombor</b> · KIR-318 <span class="bdg bdg--g">Qabul qilindi</span></p>
+              <p class="gp__t">Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC</p>
+              <p class="gp__f"><span>Skladga kiritildi</span><b>18 400 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Xarajat</b> · X-0925 <span class="bdg bdg--b">Tasdiqlandi</span></p>
+              <p class="gp__t">Jamoa oyligi va litsenziyalar — iyul 2026</p>
+              <p class="gp__f"><span>Moliya bo'limi</span><b>74 200 000 so'm</b></p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 · AI botlar — buyruq va javob -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>AI botlar</span>
+          <h3>Buyruqni tushunadigan yordamchi</h3>
+          <p>Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.</p>
+          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--b rise" style="--d:90ms">
+          <div class="ai">
+            <div class="ai__box cyc cyc--fade" data-cyc>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Kelasi haftadagi uchrashuvlarni ko'rsat<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Tezkor</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Iyul oyidagi xarajatlar hisobotini tayyorla<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Hisobot</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Qarzdor mijozlar ro'yxatini chiqar<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Moliya</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Yangi lidga taklif xatini yoz<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Sotuv</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+            </div>
+
+            <div class="ai__res" data-cyc-link>
+              <div class="ai__rc"><em>Javob</em><p>Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).</p></div>
+              <div class="ai__rc"><em>Javob</em><p>Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).</p></div>
+              <div class="ai__rc"><em>Javob</em><p>4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.</p></div>
+              <div class="ai__rc"><em>Javob</em><p>Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · Veb saytlar — brauzer va ballar -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Veb saytlar</span>
+          <h3>Ishonch uyg'otadigan va sotadigan sayt</h3>
+          <p>Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.</p>
+          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--c rise" style="--d:90ms">
+          <div class="bw">
+            <div class="bw__bar">
+              <i></i><i></i><i></i>
+              <span class="bw__url" data-cyc-link><span>vac.uz</span><span>apecasia.ae</span><span>yakovpartners.com</span><span>dagestantur.ru</span></span>
+            </div>
+            <div class="bw__body">
+              <div class="bw__page"><i></i><i style="width:88%"></i><i style="width:62%"></i></div>
+              <div class="gauges" data-cyc>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.98"/></svg><span class="gg__n">98</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:1"/></svg><span class="gg__n">100</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.96"/></svg><span class="gg__n">96</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.95"/></svg><span class="gg__n">95</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:1"/></svg><span class="gg__n">100</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.99"/></svg><span class="gg__n">99</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.97"/></svg><span class="gg__n">97</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.98"/></svg><span class="gg__n">98</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.96"/></svg><span class="gg__n">96</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.94"/></svg><span class="gg__n">94</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.99"/></svg><span class="gg__n">99</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.95"/></svg><span class="gg__n">95</span></span><em>A11y</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 · Telegram — suhbat -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Telegram bot va mini-app</span>
+          <h3>Mijoz Telegramdan chiqmasdan buyurtma beradi</h3>
+          <p>Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.</p>
+          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--d rise" style="--d:90ms">
+          <div class="tg">
+            <p class="tg__h"><span class="tg__av"></span><b>VAC bot</b><u>onlayn</u></p>
+            <div class="tg__scene" data-cyc>
+              <div class="tg__s">
+                <p class="tg__in">Assalomu alaykum! Nima qilishim mumkin?</p>
+                <div class="tg__kb"><span>Buyurtma berish</span><span>Katalog</span><span>Holat</span><span>Operator</span></div>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">Ventilyatsiya kanali, 24 m</p>
+                <p class="tg__in">Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.</p>
+                <div class="tg__kb"><span>To'lov qilish</span><span>Manzilni o'zgartirish</span></div>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">To'lov qildim</p>
+                <p class="tg__in">To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.</p>
+                <p class="tg__in">CRM da bitim avtomatik yopildi.</p>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">Katalogni ko'rsat</p>
+                <p class="tg__in">Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.</p>
+                <div class="tg__kb"><span>Mini-app ochish</span><span>Qidirish</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 · Mobil — telefon ekrani -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Mobil ilovalar</span>
+          <h3>Android va iOS uchun barqaror ilova</h3>
+          <p>Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.</p>
+          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--e rise" style="--d:90ms">
+          <div class="ph">
+            <span class="ph__notch"></span>
+            <div class="ph__t"><b>09:41</b><span>Payshanba, 21-avgust</span></div>
+            <div class="ph__n" data-cyc>
+              <div class="cyc__i"><div class="pn">
+                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 00-6 6v4l-2 3h16l-2-3V9a6 6 0 00-6-6z"/><path d="M10 20a2 2 0 004 0"/></svg></span>
+                <span class="pn__b"><b>Yangi bitim</b><span>VAC.UZ — taklif yuborildi</span></span><span class="pn__t">hozir</span>
+              </div></div>
+              <div class="cyc__i"><div class="pn">
+                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 9.5h16"/></svg></span>
+                <span class="pn__b"><b>To'lov qabul qilindi</b><span>#2481 · 32 000 000 so'm</span></span><span class="pn__t">3 daq</span>
+              </div></div>
+              <div class="cyc__i"><div class="pn">
+                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                <span class="pn__b"><b>Vazifa yopildi</b><span>Dizayn sprint · 12/12</span></span><span class="pn__t">12 daq</span>
+              </div></div>
+              <div class="cyc__i"><div class="pn">
+                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
+                <span class="pn__b"><b>Eslatma</b><span>Shartnoma 3 kunda tugaydi</span></span><span class="pn__t">1 soat</span>
+              </div></div>
+              <div class="cyc__i"><div class="pn">
+                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V9M12 19V5M19 19v-6"/></svg></span>
+                <span class="pn__b"><b>Hisobot tayyor</b><span>Iyul oyi P&amp;L</span></span><span class="pn__t">2 soat</span>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOYIHALAR ===================== -->
+<section class="section" id="loyihalar" data-sec="loyihalar">
+  <span class="aura aura--a aura--drift" style="width:620px;height:620px;left:-240px;top:10%;opacity:0.45"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Loyihalar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Haqiqiy natija bergan mahsulotlar</h2>
+    </div>
+
+    <div class="work">
+      <article class="gc wc rise">
+        <div class="wc__img"><img src="/portfolio/vac-uz.webp" alt="VAC.UZ" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Ishlab chiqarish<span>2025</span></p>
+          <h3>VAC.UZ</h3>
+          <p>Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.</p>
+          <div class="wc__t"><b>Next.js</b><b>CRM</b><b>Avtomatlashtirish</b></div>
+        </div>
+      </article>
+      <article class="gc wc rise" style="--d:80ms">
+        <div class="wc__img"><img src="/portfolio/avenir-os.webp" alt="Avenir OS" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">ERP + CRM + Moliya<span>2025</span></p>
+          <h3>Avenir OS</h3>
+          <p>Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.</p>
+          <div class="wc__t"><b>ERP</b><b>CRM</b><b>Moliya</b></div>
+        </div>
+      </article>
+      <article class="gc wc rise" style="--d:160ms">
+        <div class="wc__img"><img src="/portfolio/yakov-partners.webp" alt="Yakov and Partners" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Konsalting<span>2025</span></p>
+          <h3>Yakov and Partners</h3>
+          <p>Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.</p>
+          <div class="wc__t"><b>Korporativ sayt</b><b>SEO</b></div>
+        </div>
+      </article>
+      <article class="gc wc rise">
+        <div class="wc__img"><img src="/portfolio/defi-technologies.webp" alt="DeFi Technologies" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">TradFi platforma<span>2026</span></p>
+          <h3>DeFi Technologies</h3>
+          <p>Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.</p>
+          <div class="wc__t"><b>FinTech</b><b>Web3</b><b>UI/UX</b></div>
+        </div>
+      </article>
+      <article class="gc wc rise" style="--d:80ms">
+        <div class="wc__img"><img src="/portfolio/apec-asia.webp" alt="APEC Asia UAE" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">E-commerce<span>2025</span></p>
+          <h3>APEC Asia UAE</h3>
+          <p>BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.</p>
+          <div class="wc__t"><b>Katalog</b><b>SEO</b></div>
+        </div>
+      </article>
+      <article class="gc wc rise" style="--d:160ms">
+        <div class="wc__img"><img src="/portfolio/dagestantur.webp" alt="Dagestantur" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Turizm<span>2025</span></p>
+          <h3>Dagestantur</h3>
+          <p>Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.</p>
+          <div class="wc__t"><b>Landing</b><b>Bronirovanie</b></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JARAYON ===================== -->
+<section class="section" id="jarayon" data-sec="jarayon">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Jarayon</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>G'oyadan ishga tushirishgacha</h2>
+      <p class="p-sec rise" style="--d:160ms">Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.</p>
+    </div>
+
+    <div class="steps">
+      <div class="gc step rise"><span class="step__n">01</span><h4>Kashfiyot</h4><p>Maqsadlar, foydalanuvchilar va mahsulot doirasini aniqlaymiz.</p></div>
+      <div class="gc step rise" style="--d:100ms"><span class="step__n">02</span><h4>Dizayn va ishlab chiqish</h4><p>UI tizimlari va masshtablanuvchi injiniring.</p></div>
+      <div class="gc step rise" style="--d:200ms"><span class="step__n">03</span><h4>Ishga tushirish va o'sish</h4><p>Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.</p></div>
+    </div>
+
+    <div class="nums">
+      <div class="nums__c rise"><span class="od" data-od="50" data-sup="+"></span><p class="nums__k">Topshirilgan loyihalar</p></div>
+      <div class="nums__c rise" style="--d:80ms"><span class="od" data-od="30" data-sup="+"></span><p class="nums__k">Mamnun mijozlar</p></div>
+      <div class="nums__c rise" style="--d:160ms"><span class="od" data-od="5"></span><p class="nums__k">Bozordagi yillar</p></div>
+      <div class="nums__c rise" style="--d:240ms"><span class="od" data-od="4"></span><p class="nums__k">Qamrab olingan mamlakatlar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YAKUNIY BLOK ===================== -->
+<section class="section" id="aloqa" data-sec="aloqa" style="padding-bottom:0">
+  <div class="shell">
+    <div class="final rise">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in">
+        <h2 data-split>Loyihangizni <span class="grad-text">bugun</span> boshlang</h2>
+
+        <div class="final__grid">
+          <div>
+            <div class="cols">
+              <div class="col">
+                <h5>Aloqa</h5>
+                <a href="tel:+998935298807"><b>+998</b> 93 529 88 07</a>
+                <a href="mailto:info@avenir.uz" style="margin-top:0.5rem">info@avenir.uz</a>
+                <p style="margin-top:0.5rem;color:var(--w-34)">Toshkent, O'zbekiston</p>
+              </div>
+              <div class="col">
+                <h5>Ijtimoiy tarmoqlar</h5>
+                <div class="socials">
+                  <a href="https://www.instagram.com/avenir.uz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                  </a>
+                  <a href="https://t.me/" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21.5 4L2.8 11.2l5.6 1.8L19 6.5l-8.2 8.1.3 5.9 2.8-4 4.4 3.2z"/></svg>
+                  </a>
+                  <a href="mailto:info@avenir.uz" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M3 6l9 6 9-6"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="form" onsubmit="return false;">
+            <p class="form__s"><span class="dot"></span>Bugun qabul qilingan so'rovlar: <b data-live="7" data-min="4" data-max="12">7</b></p>
+            <div class="field"><label for="fn">Ismingiz</label><input id="fn" type="text" placeholder="Ism familiya" required></div>
+            <div class="field"><label for="fp">Telefon raqam</label><input id="fp" type="tel" value="+998 " required></div>
+            <div class="field"><label for="ft">Telegram username</label><input id="ft" type="text" placeholder="@username" required></div>
+            <button class="btn btn--w" type="submit">Xabar yuborish <span class="btn__ar">→</span></button>
+            <p class="form__n">24 soat ichida javob beramiz</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 1024;
+
+  /* ---------- sarlavhalarni so'zlarga bo'lish ---------- */
+  document.querySelectorAll('[data-split]').forEach(function (h) {
+    var frag = document.createDocumentFragment(), i = 0;
+    Array.prototype.slice.call(h.childNodes).forEach(function (node) {
+      if (node.nodeType === 3) {
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part.trim()) { if (part) frag.appendChild(document.createTextNode(part)); return; }
+          var m = document.createElement('span'); m.className = 'mask';
+          var inner = document.createElement('i'); inner.textContent = part;
+          inner.style.setProperty('--wd', (i++ * 70) + 'ms');
+          m.appendChild(inner); frag.appendChild(m);
+        });
+      } else {
+        var m2 = document.createElement('span'); m2.className = 'mask';
+        var in2 = document.createElement('i'); in2.style.setProperty('--wd', (i++ * 70) + 'ms');
+        in2.appendChild(node.cloneNode(true)); m2.appendChild(in2); frag.appendChild(m2);
+      }
+    });
+    h.textContent = ''; h.appendChild(frag);
+  });
+
+  /* ---------- odometr ---------- */
+  document.querySelectorAll('[data-od]').forEach(function (el) {
+    var val = el.getAttribute('data-od'), sup = el.getAttribute('data-sup');
+    val.split('').forEach(function (d) {
+      var wrap = document.createElement('span'); wrap.className = 'od__d';
+      var roll = document.createElement('u');
+      for (var n = 0; n <= 9; n++) { var g = document.createElement('i'); g.textContent = String(n); roll.appendChild(g); }
+      roll.setAttribute('data-to', d); wrap.appendChild(roll); el.appendChild(wrap);
+    });
+    if (sup) { var s = document.createElement('sup'); s.textContent = sup; el.appendChild(s); }
+  });
+  function rollOd(el) {
+    Array.prototype.slice.call(el.querySelectorAll('u')).forEach(function (u, i) {
+      var to = parseInt(u.getAttribute('data-to'), 10);
+      setTimeout(function () { u.style.transform = 'translateY(-' + to + 'em)'; }, i * 110);
+    });
+  }
+
+  /* ---------- ochilish ---------- */
+  var io;
+  function startReveals() {
+    io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        (function (t) { setTimeout(function () { t.classList.add('unmask'); }, 1400); })(e.target);
+        if (e.target.classList.contains('nums__c')) { var od = e.target.querySelector('[data-od]'); if (od) rollOd(od); }
+        if (e.target.classList.contains('sol__c') || e.target.classList.contains('gc')) e.target.classList.add('is-play');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rise, [data-split], .nums__c, .sol__c, .center, .final')
+      .forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- kirish ---------- */
+  var intro = document.getElementById('intro'), hero = document.querySelector('.hero'), done = false;
+  function endIntro() {
+    if (done) return; done = true;
+    intro.classList.add('is-out');
+    document.body.classList.remove('intro-on');
+    setTimeout(function () { if (intro.parentNode) intro.parentNode.removeChild(intro); }, 650);
+    hero.classList.add('is-in');
+    setTimeout(function () { hero.classList.add('unmask'); }, 1500);
+    startReveals();
+  }
+  if (intro) {
+    if (reduce) {
+      if (intro.parentNode) intro.parentNode.removeChild(intro);
+      document.body.classList.remove('intro-on'); done = true;
+      hero.classList.add('is-in'); startReveals();
+    } else {
+      document.body.classList.add('intro-on');
+      setTimeout(endIntro, 3050);
+      intro.addEventListener('click', endIntro);
+      window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === ' ') endIntro(); });
+    }
+  } else { hero.classList.add('is-in'); startReveals(); }
+
+  /* ---------- kursor ---------- */
+  if (fine && !reduce) {
+    var cur = document.getElementById('cur'), cx = -60, cy = -60, tx = -60, ty = -60;
+    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest ? e.target.closest('a, button, input, label') : null;
+      cur.classList.toggle('is-big', !!t);
+      cur.classList.remove('is-hidden');
+    });
+    document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) cur.classList.add('is-hidden'); });
+    window.addEventListener('blur', function () { cur.classList.add('is-hidden'); });
+    window.addEventListener('focus', function () { cur.classList.remove('is-hidden'); });
+
+    (function loop() {
+      cx += (tx - cx) * 0.24; cy += (ty - cy) * 0.24;
+      cur.style.setProperty('--cx', cx.toFixed(1) + 'px');
+      cur.style.setProperty('--cy', cy.toFixed(1) + 'px');
+      requestAnimationFrame(loop);
+    })();
+  }
+
+
+  /* ======================================================================
+     HERO FONI — "signal maydoni"
+     Xira nuqtalar to'ri bir marta offscreen canvasga chiziladi va har kadrda
+     rasm sifatida qo'yiladi; faqat to'lqin va kursor tegib turgan nuqtalar
+     qaytadan chiziladi. Shu bilan kadr ichidagi chizish 1100 dan ~150 ga tushdi.
+     ====================================================================== */
+  var fx = document.getElementById('fx');
+  if (fx && fx.getContext && !reduce) {
+    var fc = fx.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var FW = 0, FH = 0, dots = [], stars = [], waves = [], nextWave = 0;
+    var px = -9999, py = -9999, fxOn = true;
+    var GAP = 38, R_MAX = 1500, BAND = 115;
+    var base = document.createElement('canvas'), bc = base.getContext('2d');
+
+    function fxSize() {
+      var r = fx.getBoundingClientRect();
+      FW = r.width; FH = r.height;
+      if (!FW || !FH) return;
+      fx.width = Math.round(FW * dpr); fx.height = Math.round(FH * dpr);
+      fc.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      dots = [];
+      var cols = Math.ceil(FW / GAP) + 1, rowsN = Math.ceil(FH / GAP) + 1;
+      var ox = (FW - (cols - 1) * GAP) / 2, oy = (FH - (rowsN - 1) * GAP) / 2;
+      for (var i = 0; i < cols; i++)
+        for (var j = 0; j < rowsN; j++)
+          dots.push({ x: ox + i * GAP, y: oy + j * GAP });
+
+      /* xira to'r — bir marta */
+      base.width = fx.width; base.height = fx.height;
+      bc.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bc.clearRect(0, 0, FW, FH);
+      bc.fillStyle = 'rgba(255,255,255,0.055)';
+      for (var k = 0; k < dots.length; k++) bc.fillRect(dots[k].x - 0.6, dots[k].y - 0.6, 1.2, 1.2);
+
+      stars = [];
+      var n = Math.max(6, Math.round(FW / 170));
+      for (var m = 0; m < n; m++) {
+        stars.push({
+          x: Math.random() * FW, y: Math.random() * FH,
+          s: 2.4 + Math.random() * 4.6,
+          vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
+          a: 0.16 + Math.random() * 0.3, tw: Math.random() * 6.28
+        });
+      }
+    }
+
+    function star4(x, y, s) {
+      fc.beginPath();
+      fc.moveTo(x, y - s);
+      fc.quadraticCurveTo(x, y, x + s, y);
+      fc.quadraticCurveTo(x, y, x, y + s);
+      fc.quadraticCurveTo(x, y, x - s, y);
+      fc.quadraticCurveTo(x, y, x, y - s);
+      fc.fill();
+    }
+
+    function fxDraw(now) {
+      if (!fxOn) { requestAnimationFrame(fxDraw); return; }
+      fc.clearRect(0, 0, FW, FH);
+      fc.drawImage(base, 0, 0, FW, FH);
+
+      if (now > nextWave) { waves.push({ x: FW / 2, y: FH * 0.34, born: now, r: 0 }); nextWave = now + 3400; }
+      for (var w = waves.length - 1; w >= 0; w--) {
+        waves[w].r = ((now - waves[w].born) / 3600) * R_MAX;
+        if (waves[w].r > R_MAX) waves.splice(w, 1);
+      }
+
+      var nw = waves.length;
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i], a = 0, blue = 0;
+
+        for (var v = 0; v < nw; v++) {
+          var wv = waves[v], dx = d.x - wv.x, dy = d.y - wv.y;
+          var dist = Math.sqrt(dx * dx + dy * dy), off = dist - wv.r;
+          if (off < 0) off = -off;
+          if (off < BAND) {
+            var k = 1 - off / BAND, fade = 1 - wv.r / R_MAX;
+            a += k * k * 0.62 * fade;
+            if (k * fade > blue) blue = k * fade;
+          }
+        }
+
+        var mx = d.x - px, my = d.y - py, md2 = mx * mx + my * my;
+        if (md2 < 28900) {                       /* 170px */
+          var mk = 1 - Math.sqrt(md2) / 170;
+          a += mk * mk * 0.45;
+          if (mk * 0.7 > blue) blue = mk * 0.7;
+        }
+
+        if (a < 0.03) continue;                  /* xira nuqta allaqachon fonda bor */
+
+        var al = a > 0.85 ? 0.85 : a;
+        fc.fillStyle = blue > 0.15
+          ? 'rgba(' + ((96 + 159 * (1 - blue)) | 0) + ',' + ((165 + 90 * (1 - blue)) | 0) + ',250,' + al + ')'
+          : 'rgba(255,255,255,' + al + ')';
+        fc.beginPath();
+        fc.arc(d.x, d.y, 0.7 + a * 2.1, 0, 6.2832);
+        fc.fill();
+      }
+
+      for (var s2 = 0; s2 < stars.length; s2++) {
+        var st = stars[s2];
+        st.x += st.vx; st.y += st.vy; st.tw += 0.012;
+        if (st.x < -30) st.x = FW + 30; if (st.x > FW + 30) st.x = -30;
+        if (st.y < -30) st.y = FH + 30; if (st.y > FH + 30) st.y = -30;
+        fc.fillStyle = 'rgba(96,165,250,' + (st.a * (0.72 + Math.sin(st.tw) * 0.28)).toFixed(3) + ')';
+        star4(st.x, st.y, st.s);
+      }
+
+      requestAnimationFrame(fxDraw);
+    }
+
+    fxSize();
+    window.addEventListener('resize', fxSize);
+    window.addEventListener('mousemove', function (e) {
+      var r = fx.getBoundingClientRect();
+      px = e.clientX - r.left; py = e.clientY - r.top;
+    }, { passive: true });
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { fxOn = e.isIntersecting; });
+    }, { rootMargin: '120px' }).observe(fx);
+    requestAnimationFrame(fxDraw);
+  }
+
+  /* ---------- hero kartasi qiyshayadi ---------- */
+  var tilt = document.getElementById('tilt');
+  if (tilt && fine && !reduce) {
+    var wrap = tilt.closest('.tiltwrap');
+    wrap.addEventListener('mousemove', function (e) {
+      var r = tilt.getBoundingClientRect();
+      tilt.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 8).toFixed(2) + 'deg');
+      tilt.style.setProperty('--rx', ((0.5 - (e.clientY - r.top) / r.height) * 6).toFixed(2) + 'deg');
+    });
+    wrap.addEventListener('mouseleave', function () {
+      tilt.style.setProperty('--ry', '0deg'); tilt.style.setProperty('--rx', '0deg');
+    });
+  }
+
+  /* ---------- jonli maketlar ---------- */
+  var heroVis = true, trustVis = true;
+  (function () {
+    var h = document.querySelector('.hero'), t = document.querySelector('.trust');
+    if (h) new IntersectionObserver(function (es) { es.forEach(function (e) { heroVis = e.isIntersecting; }); }, { rootMargin: '200px' }).observe(h);
+    if (t) new IntersectionObserver(function (es) { es.forEach(function (e) { trustVis = e.isIntersecting; }); }, { rootMargin: '200px' }).observe(t);
+  })();
+
+  if (!reduce) {
+    var nums = Array.prototype.slice.call(document.querySelectorAll('[data-live]')).map(function (el) {
+      var v = parseFloat(el.getAttribute('data-live'));
+      return { el: el, cur: v, from: v, to: v, t: 1, t0: 0, dur: 1500,
+        min: parseFloat(el.getAttribute('data-min')), max: parseFloat(el.getAttribute('data-max')),
+        dec: parseInt(el.getAttribute('data-dec') || '0', 10), sfx: el.getAttribute('data-suffix') || '' };
+    });
+    var nextNum = 0;
+    function retarget(n, now) {
+      var sp = n.max - n.min, nx = n.cur + (Math.random() - 0.45) * sp * 0.32;
+      if (nx < n.min) nx = n.min + Math.random() * sp * 0.2;
+      if (nx > n.max) nx = n.max - Math.random() * sp * 0.2;
+      n.from = n.cur; n.to = nx; n.t = 0; n.t0 = now; n.dur = 1300 + Math.random() * 900;
+    }
+
+    var charts = Array.prototype.slice.call(document.querySelectorAll('[data-chart]')).map(function (svg) {
+      var N = 26, vals = [];
+      for (var i = 0; i <= N; i++) vals.push(0.35 + Math.random() * 0.4);
+      return { N: N, vals: vals, t: 0, step: 950, last: 0,
+        area: svg.querySelector('.lc__area'), line: svg.querySelector('.lc__line'),
+        dot: svg.querySelector('.lc__dot'), halo: svg.querySelector('.lc__halo') };
+    });
+    function drawChart(c) {
+      var W = 300, H = 92, dx = W / (c.N - 1), d = '', pts = [];
+      for (var i = 0; i <= c.N; i++) {
+        var x = (i - c.t) * dx, y = H - 6 - c.vals[i] * (H - 20);
+        pts.push([x, y]); d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+      }
+      c.line.setAttribute('d', d);
+      c.area.setAttribute('d', d + 'L' + pts[c.N][0].toFixed(1) + ' ' + H + 'L' + pts[0][0].toFixed(1) + ' ' + H + 'Z');
+      var a = pts[c.N - 1], b = pts[c.N], k = (W - a[0]) / Math.max(0.001, b[0] - a[0]);
+      var ey = a[1] + (b[1] - a[1]) * Math.min(1, Math.max(0, k));
+      c.dot.setAttribute('cx', W); c.dot.setAttribute('cy', ey.toFixed(1));
+      c.halo.setAttribute('cx', W); c.halo.setAttribute('cy', ey.toFixed(1));
+    }
+
+    var items = [
+      ['Yangi lid', 'VAC.UZ — korporativ sayt'], ['Hisob-faktura', '#2481 to’landi'],
+      ['Vazifa yopildi', 'Dizayn sprint · 12/12'], ['Bitim bosqichi', 'Taklif yuborildi'],
+      ['Yangi mijoz', 'APEC Asia UAE'], ['Hisobot', 'Oylik P&L tayyor']
+    ];
+    var feeds = Array.prototype.slice.call(document.querySelectorAll('[data-feed]')), fi = 0, nextFeed = 0;
+    function pushFeed() {
+      feeds.forEach(function (f) {
+        var it = items[fi % items.length], row = document.createElement('div');
+        row.className = 'feed__row';
+        row.innerHTML = '<i></i><b>' + it[0] + '</b>' + it[1] + '<span>hozir</span>';
+        f.insertBefore(row, f.firstChild);
+        var rows = f.querySelectorAll('.feed__row');
+        for (var i = 3; i < rows.length; i++) rows[i].remove();
+        var st = f.querySelectorAll('.feed__row span');
+        for (var j = 1; j < st.length; j++) st[j].textContent = j + ' daq';
+      });
+      fi++;
+    }
+
+    var bars = Array.prototype.slice.call(document.querySelectorAll('.m-chart')), nextBars = 0;
+    function morph() {
+      bars.forEach(function (set) {
+        Array.prototype.slice.call(set.children).forEach(function (b, i) {
+          setTimeout(function () { b.style.setProperty('--h', (26 + Math.random() * 68).toFixed(0) + '%'); }, i * 60);
+        });
+      });
+    }
+
+    requestAnimationFrame(function loop(now) {
+      if (!heroVis) { requestAnimationFrame(loop); return; }   /* ko'rinmasa — hisoblamaymiz */
+      if (now > nextNum) { nums.forEach(function (n) { retarget(n, now); }); nextNum = now + 3600; }
+      nums.forEach(function (n) {
+        if (n.t >= 1) return;
+        var p = Math.min(1, (now - n.t0) / n.dur); n.t = p;
+        var e = 1 - Math.pow(1 - p, 3);
+        n.cur = n.from + (n.to - n.from) * e;
+        n.el.textContent = n.cur.toFixed(n.dec) + n.sfx;
+      });
+      charts.forEach(function (c) {
+        if (!c.last) c.last = now;
+        c.t += (now - c.last) / c.step; c.last = now;
+        while (c.t >= 1) {
+          c.t -= 1; c.vals.shift();
+          var pv = c.vals[c.vals.length - 1];
+          c.vals.push(Math.min(0.92, Math.max(0.08, pv + (Math.random() - 0.5) * 0.26 + (0.5 - pv) * 0.12)));
+        }
+        drawChart(c);
+      });
+      if (now > nextFeed) { pushFeed(); nextFeed = now + 3400; }
+      if (now > nextBars) { morph(); nextBars = now + 3200; }
+      requestAnimationFrame(loop);
+    });
+  }
+
+  /* ---------- kartalar ichidagi holatlar navbat bilan almashadi ---------- */
+  var POS = ['p0', 'p1', 'p2', 'p3', 'px'];
+  function setPos(el, cls) {
+    for (var q = 0; q < POS.length; q++) el.classList.remove(POS[q]);
+    el.classList.add(cls);
+  }
+
+  document.querySelectorAll('[data-cyc]').forEach(function (c, ci) {
+    var items = Array.prototype.slice.call(c.children);
+    var n = items.length;
+    if (!n) return;
+
+    /* shu kartadagi bog'liq bloklar — javob matni, URL va h.k. */
+    var host = c.closest('.sol__c');
+    var links = host ? Array.prototype.slice.call(host.querySelectorAll('[data-cyc-link]')) : [];
+    var i = 0;
+
+    function place() {
+      for (var k = 0; k < n; k++) {
+        var d = (i - k + n) % n;              /* 0 — oldinda, 1..3 — orqada */
+        setPos(items[k], d < 4 ? 'p' + d : 'px');
+      }
+      links.forEach(function (lk) {
+        var kids = Array.prototype.slice.call(lk.children);
+        for (var m = 0; m < kids.length; m++) {
+          var dd = (i - m + kids.length) % kids.length;
+          setPos(kids[m], dd === 0 ? 'p0' : 'px');
+        }
+      });
+    }
+    place();
+
+    if (reduce || n < 2) return;
+    setTimeout(function () {
+      setInterval(function () {
+        var r = c.getBoundingClientRect();
+        if (r.bottom < -260 || r.top > window.innerHeight + 260) return;   /* ko'rinmasa — tinch */
+        i = (i + 1) % n;
+        place();
+      }, 3400);
+    }, ci * 540);
+  });
+
+  /* ---------- tasma ---------- */
+  var mq = document.getElementById('mq'), off = 0, half = 0, boost = 0;
+  function measure() { if (mq) half = mq.scrollWidth / 2; }
+  measure(); window.addEventListener('resize', measure);
+  (function tick() {
+    if (!reduce && half && mq && trustVis) {
+      off -= 0.6 + boost; boost *= 0.92;
+      if (-off >= half) off += half;
+      mq.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- scroll ---------- */
+  var top = document.getElementById('top');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[data-sec]'));
+  var secs = Array.prototype.slice.call(document.querySelectorAll('[data-sec]'));
+  var lastY = window.scrollY, ticking = false;
+  function onFrame() {
+    var y = window.scrollY, dy = y - lastY;
+    top.classList.toggle('is-stuck', y > 24);
+    top.classList.toggle('is-away', dy > 4 && y > 500);
+    var mid = y + window.innerHeight * 0.4, cur = '';
+    secs.forEach(function (s) { if (s.offsetTop <= mid) cur = s.getAttribute('data-sec'); });
+    links.forEach(function (a) { a.classList.toggle('is-on', a.getAttribute('data-sec') === cur); });
+    boost = Math.min(9, Math.abs(dy) * 0.35);
+    lastY = y; ticking = false;
+  }
+  window.addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(onFrame); }, { passive: true });
+
+  /* ---------- shisha tugmalar ---------- */
+  document.querySelectorAll('.btn').forEach(function (b) {
+    b.addEventListener('mousemove', function (e) {
+      var r = b.getBoundingClientRect();
+      b.style.setProperty('--gx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
+      b.style.setProperty('--gy', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
+    });
+  });
+
+  /* ---------- menyu / til ---------- */
+  var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function () {
+    var open = drawer.classList.toggle('is-open');
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  drawer.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      drawer.classList.remove('is-open'); burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.lang button').forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+    });
+  });
+})();
+</script>
