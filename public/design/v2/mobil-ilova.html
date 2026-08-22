@@ -1,0 +1,183 @@
+<script>
+  /* saqlangan mavzu — sahifa chizilishidan oldin */
+  try {
+    var t = localStorage.getItem('avenir-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<title>Mobil ilovalar — Avenir.uz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang">
+        <button class="is-active" type="button">UZ</button><button type="button">RU</button><button type="button">EN</button>
+      </div>
+      <button class="thm" id="thm" type="button" aria-label="Mavzuni almashtirish" title="Yorug' / qorong'i">
+        <svg class="thm__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z"/>
+        </svg>
+        <svg class="thm__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.1"/>
+          <path d="M12 2.4v2.1M12 19.5v2.1M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2.4 12h2.1M19.5 12h2.1M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
+        </svg>
+      </button>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#yechimlar">Yechimlar</a><span>/</span><b>Mobil ilovalar</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#yechimlar"><i></i>Yechimlarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>Mobil ilovalar</span>
+        <h1 class="rise" style="--d:120ms" data-split>Android va iOS uchun barqaror ilova</h1>
+        <p class="sv-lead rise" style="--d:200ms">Bitta kod bazasidan ikkala platforma. Push bildirishnoma, oflayn rejim va ichki tizimlaringizga ulanish — xodim internetsiz ham ishlay oladi, aloqa tiklanganda hammasi sinxronlanadi.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="index.html#loyihalar">Ishlarimizni ko'rish</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Taxminiy muddat</p>
+        <p class="spec__v">6–14 hafta</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Texnologiyalar</p>
+        <div class="chips"><span>React Native</span><span>Expo</span><span>TypeScript</span><span>REST / GraphQL</span><span>Firebase</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Mobil ilovalar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimalar kiradi</h2>
+    </div>
+    <div class="ilist">
+      <div class="gc ilist__i rise"><b>01</b><p>Ssenariylar va prototip</p></div>
+      <div class="gc ilist__i rise" style="--d:60ms"><b>02</b><p>iOS va Android uchun UI</p></div>
+      <div class="gc ilist__i rise" style="--d:120ms"><b>03</b><p>Push va chuqur havolalar</p></div>
+      <div class="gc ilist__i rise" style="--d:180ms"><b>04</b><p>Oflayn rejim va sinxronizatsiya</p></div>
+      <div class="gc ilist__i rise" style="--d:240ms"><b>05</b><p>ERP va CRM bilan integratsiya</p></div>
+      <div class="gc ilist__i rise" style="--d:300ms"><b>06</b><p>Do'konlarga chiqarish va yangilanishlar</p></div>
+    </div>
+
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>Ikki platforma</b><p>Bitta jamoa va bitta kod bazasi — ikki barobar xarajat emas.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Oflayn</b><p>Aloqa yo'qolsa ham ilova ishlayveradi, keyin o'zi sinxronlanadi.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Push</b><p>Muhim voqea telefonga darhol tushadi — pochta kutilmaydi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Loyihalardan ekranlar</h2>
+    </div>
+    <div class="work work--1">
+        <article class="gc wc rise">
+          <div class="wc__img"><img src="/portfolio/avenir-os.webp" alt="Avenir OS" loading="lazy"></div>
+          <div class="wc__b"><p class="wc__m">Mobil versiya · vazifalar va bildirishnomalar</p><h3>Avenir OS</h3></div>
+        </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Qanday ishlaymiz</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>G'oyadan ishga tushirishgacha</h2>
+    </div>
+    <div class="steps steps--4">
+      <div class="gc step rise"><span class="step__n">01</span><h4>Chuqur audit</h4><p>Jarayonni ichidan o'rganamiz va aniq talablar ro'yxatini yig'amiz.</p></div>
+      <div class="gc step rise" style="--d:80ms"><span class="step__n">02</span><h4>Prototip</h4><p>Ekranlar va ssenariylarni ishga tushirishdan oldin kelishib olamiz.</p></div>
+      <div class="gc step rise" style="--d:160ms"><span class="step__n">03</span><h4>Bosqichma-bosqich ishga tushirish</h4><p>Har 2 haftada ishlaydigan qism topshiriladi — natijani darhol ko'rasiz.</p></div>
+      <div class="gc step rise" style="--d:240ms"><span class="step__n">04</span><h4>Qo'llab-quvvatlash</h4><p>Ishga tushgandan keyin ham monitoring, yangilanish va rivojlantirish.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa yechimlar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="crm-erp.html"><b>CRM va ERP</b><p>Sotuv, ombor va moliya — bitta tizimda</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="ai-botlar.html" style="--d:60ms"><b>AI botlar</b><p>Buyruqni tushunadigan yordamchi</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="veb-saytlar.html" style="--d:120ms"><b>Veb saytlar</b><p>Ishonch uyg'otadigan va sotadigan sayt</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="telegram-bot.html" style="--d:180ms"><b>Telegram bot va mini-app</b><p>Mijoz Telegramdan chiqmasdan buyurtma beradi</p><span>Batafsil <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Loyihani muhokama qilamiz</h2>
+        <p class="p-sec rise" style="--d:80ms">Brif to'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>

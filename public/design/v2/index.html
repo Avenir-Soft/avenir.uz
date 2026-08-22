@@ -1,841 +1,16 @@
+<script>
+  /* saqlangan mavzu — sahifa chizilishidan oldin */
+  try {
+    var t = localStorage.getItem('avenir-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
 <title>Avenir.uz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-<style>
-/* ==========================================================================
-   AVENIR — oq + to'q ko'k
-   Til: aiba.uz uslubi — gradient chegarali kartalar, katta radiuslar,
-   markazlashgan yorliq-pilllar, yakunda ulkan CTA bloki.
-   ========================================================================== */
-:root {
-  --bg:        #020B16;
-  --bg-2:      #04121F;
-  --card:      #071426;
-  --card-2:    #0A1B31;
-
-  --line:      rgba(255, 255, 255, 0.08);
-  --line-2:    rgba(255, 255, 255, 0.14);
-
-  --white:     #FFFFFF;
-  --w-72:      rgba(255, 255, 255, 0.72);
-  --w-52:      rgba(255, 255, 255, 0.52);
-  --w-34:      rgba(255, 255, 255, 0.34);
-  --w-18:      rgba(255, 255, 255, 0.18);
-
-  --b1:        #1D4ED8;
-  --b2:        #2563EB;
-  --b3:        #60A5FA;
-  --grad:      linear-gradient(118deg, #2563EB 0%, #60A5FA 100%);
-  --grad-soft: linear-gradient(140deg, rgba(96,165,250,0.9) 0%, rgba(37,99,235,0.28) 38%, rgba(255,255,255,0.05) 72%);
-
-  --r-xl: 40px;
-  --r-lg: 24px;
-  --r-md: 16px;
-
-  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --shell: 1216px;
-  --gut: clamp(1.25rem, 4vw, 2.5rem);
-  --sec: clamp(4.5rem, 9vw, 7.5rem);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: clip; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--white);
-  font-family: var(--font);
-  font-size: 16px;
-  line-height: 1.6;
-  letter-spacing: -0.011em;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
-}
-
-h1, h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.06; letter-spacing: -0.035em; }
-p { margin: 0; }
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-button, input { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--b3); outline-offset: 4px; border-radius: 8px; }
-
-.shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--gut); }
-.section { padding-block: var(--sec); position: relative; }
-.center { text-align: center; }
-
-.grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-
-/* ---- fon nurlari ------------------------------------------------------ */
-.aura { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
-.aura--a { background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.16) 28%, rgba(37,99,235,0.06) 48%, rgba(37,99,235,0.015) 66%, rgba(37,99,235,0) 80%); }
-.aura--b { background: radial-gradient(circle, rgba(96,165,250,0.20) 0%, rgba(96,165,250,0.11) 28%, rgba(96,165,250,0.04) 50%, rgba(96,165,250,0.01) 68%, rgba(96,165,250,0) 82%); }
-.aura--drift { animation: drift 22s ease-in-out infinite alternate; }
-@keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(3%,-5%,0) scale(1.1); } }
-
-/* ---- hero fon qatlami ------------------------------------------------ */
-.hero__fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-.aura--pulse { animation: drift 22s ease-in-out infinite alternate, breathe 9s ease-in-out infinite; }
-@keyframes breathe { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
-
-/* ---- don ------------------------------------------------------------- */
-.grain {
-  position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@keyframes grain {
-  0%,100% { transform: translate(0,0); } 16% { transform: translate(-3%,2%); }
-  33% { transform: translate(2%,-3%); } 50% { transform: translate(-2%,-2%); }
-  66% { transform: translate(3%,1%); } 83% { transform: translate(-1%,3%); }
-}
-
-/* ==========================================================================
-   Kursor
-   ========================================================================== */
-.cur { display: none; }
-@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
-  body { cursor: none; }
-  input, textarea { cursor: text; }
-  .cur {
-    display: block; position: fixed; left: 0; top: 0; z-index: 95; pointer-events: none;
-    width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
-    background: var(--white);
-    box-shadow: 0 0 18px 4px rgba(96,165,250,0.55);
-    transform: translate3d(var(--cx,-60px), var(--cy,-60px), 0) scale(var(--cs,1));
-    transition: transform 0.12s linear, opacity 0.3s, background 0.3s;
-  }
-  .cur.is-big { --cs: 2.8; background: rgba(96,165,250,0.4); box-shadow: 0 0 26px 8px rgba(37,99,235,0.35); }
-  .cur.is-hidden { opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { body { cursor: auto; } .cur { display: none !important; } .grain { animation: none; } }
-
-/* ==========================================================================
-   Yorliq-pill va sarlavhalar
-   ========================================================================== */
-.chip {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.5rem 1rem 0.5rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--line-2);
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
-  font-size: 0.8125rem; color: var(--w-72);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.24);
-}
-.chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--b3); box-shadow: 0 0 10px 2px rgba(96,165,250,0.7); flex: none; }
-
-.h-sec { font-size: clamp(1.75rem, 3.6vw, 2.75rem); margin-top: 1.4rem; }
-.p-sec { color: var(--w-52); margin: 1.1rem auto 0; max-width: 56ch; font-size: 1.0625rem; }
-
-/* ==========================================================================
-   Tugmalar — liquid glass pill
-   ========================================================================== */
-.btn {
-  --gx: 50%; --gy: 50%;
-  position: relative; display: inline-flex; align-items: center; gap: 0.55rem;
-  padding: 0.95rem 1.75rem; border-radius: 999px;
-  font-size: 0.9375rem; font-weight: 500;
-  border: 1px solid var(--line-2); overflow: hidden; cursor: none; isolation: isolate;
-  backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%);
-  transition: transform 0.4s var(--out), border-color 0.4s var(--ease), box-shadow 0.45s var(--ease);
-}
-.btn::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(150px circle at var(--gx) var(--gy), rgba(255,255,255,0.3), transparent 68%);
-  opacity: 0; transition: opacity 0.4s var(--ease);
-}
-.btn::after {
-  content: ''; position: absolute; top: -60%; bottom: -60%; left: -38%; width: 24%; z-index: -1;
-  transform: skewX(-18deg); pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
-  transition: left 0.85s var(--out);
-}
-.btn:hover { transform: translateY(-2px); }
-.btn:hover::before { opacity: 1; }
-.btn:hover::after { left: 124%; }
-
-.btn--w {
-  background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255,255,255,0.86));
-  color: var(--bg); border-color: rgba(255,255,255,0.8);
-  box-shadow: inset 0 1px 0 #fff, 0 16px 36px -18px rgba(255,255,255,0.4);
-}
-.btn--w::before { background: radial-gradient(150px circle at var(--gx) var(--gy), rgba(255,255,255,0.9), transparent 66%); }
-.btn--w::after { background: linear-gradient(90deg, transparent, rgba(2,11,22,0.15), transparent); }
-.btn--w:hover { box-shadow: inset 0 1px 0 #fff, 0 24px 48px -18px rgba(255,255,255,0.5); }
-
-.btn--d {
-  background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035));
-  color: var(--white);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 14px 32px -20px rgba(2,11,22,1);
-}
-.btn--d:hover { border-color: rgba(96,165,250,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 20px 40px -18px rgba(37,99,235,0.6); }
-
-.btn--sm { padding: 0.65rem 1.2rem; font-size: 0.8125rem; }
-.btn__ar { transition: transform 0.35s var(--out); }
-.btn:hover .btn__ar { transform: translateX(4px); }
-
-/* ==========================================================================
-   Gradient chegarali karta — sahifaning asosiy shakli
-   ========================================================================== */
-.gc {
-  position: relative;
-  border-radius: var(--r-lg);
-  background: linear-gradient(170deg, var(--card) 0%, var(--bg-2) 100%);
-  isolation: isolate;
-  box-shadow: 0 0 0 0 rgba(37,99,235,0);
-  transition: transform 0.5s var(--out), box-shadow 0.55s var(--ease);
-}
-.gc::before {                       /* 1px gradient chegara */
-  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
-  background: var(--grad-soft);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0.5; transition: opacity 0.5s var(--ease);
-  pointer-events: none;
-}
-.gc:hover { transform: translateY(-3px); box-shadow: 0 26px 62px -24px rgba(37,99,235,0.55); }
-.gc:hover::before { opacity: 1; }
-.gc.is-lit::before { opacity: 1; }
-
-/* ==========================================================================
-   Yuqori panel
-   ========================================================================== */
-.top {
-  position: fixed; inset-inline: 0; top: 0; z-index: 60;
-  border-bottom: 1px solid transparent;
-  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.5s var(--ease);
-}
-.top.is-stuck { background: rgba(2,11,22,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--line); }
-.top.is-away { transform: translateY(-100%); }
-.top__in { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 78px; }
-
-.brand { display: inline-flex; align-items: center; }
-.brand__svg { display: block; height: 42px; width: auto; color: var(--white); overflow: visible; }
-.brand__svg .lg-axis { stroke: currentColor; stroke-width: 2.2; }
-.brand__svg .lg-tip { fill: none; stroke: currentColor; stroke-width: 1.9; }
-.brand__svg .lg-star { fill: currentColor; transform-origin: 60px 60px; transition: fill 0.4s var(--ease), transform 0.75s var(--out); }
-.brand__svg .lg-word { fill: currentColor; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: 2.6px; }
-.brand:hover .brand__svg .lg-star { fill: var(--b3); transform: rotate(90deg) scale(1.05); }
-.brand:hover .brand__svg .lg-tip { stroke: var(--b3); }
-.foot .brand__svg { height: 38px; }
-
-.nav { display: none; gap: 0.4rem; }
-@media (min-width: 980px) { .nav { display: flex; } }
-.nav a { position: relative; padding: 0.55rem 1rem; border-radius: 999px; font-size: 0.9375rem; color: var(--w-52); transition: color 0.3s var(--ease), background 0.3s var(--ease); }
-.nav a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
-.nav a.is-on { color: var(--white); background: rgba(255,255,255,0.08); }
-
-.top__side { display: flex; align-items: center; gap: 0.6rem; }
-.lang { display: flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line-2);
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
- }
-.lang button { border: 0; background: transparent; cursor: none; padding: 0.4rem 0.7rem; border-radius: 999px;
-  font-size: 0.75rem; font-weight: 500; color: var(--w-34); transition: background 0.3s var(--ease), color 0.3s var(--ease); }
-.lang button.is-active { background: var(--white); color: var(--bg); }
-.lang button:not(.is-active):hover { color: var(--white); }
-.top__cta { display: none; }
-@media (min-width: 980px) { .top__cta { display: inline-flex; } }
-
-.burger { display: grid; place-content: center; gap: 5px; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(255,255,255,0.05); }
-@media (min-width: 980px) { .burger { display: none; } }
-.burger i { display: block; width: 15px; height: 1.5px; background: var(--white); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
-.burger.is-open i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.burger.is-open i:nth-child(2) { opacity: 0; }
-.burger.is-open i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-.drawer {
-  position: fixed; inset: 78px 0 auto 0; z-index: 55;
-  background: rgba(2,11,22,0.97); backdrop-filter: blur(22px);
-  border-bottom: 1px solid var(--line);
-  padding: 1rem var(--gut) 2rem; display: grid; gap: 0.2rem;
-  transform: translateY(-12px); opacity: 0; pointer-events: none;
-  transition: opacity 0.32s var(--ease), transform 0.32s var(--ease);
-}
-.drawer.is-open { opacity: 1; transform: none; pointer-events: auto; }
-.drawer a { font-size: 1.5rem; font-weight: 500; padding-block: 0.85rem; border-bottom: 1px solid var(--line); }
-
-/* ==========================================================================
-   HERO
-   ========================================================================== */
-.hero { position: relative; padding-top: clamp(8rem, 15vw, 11rem); padding-bottom: var(--sec); text-align: center; overflow: hidden; }
-.hero .aura--a { width: 980px; height: 980px; left: 50%; top: -420px; transform: translateX(-50%); }
-.hero .aura--b { width: 620px; height: 620px; right: -180px; top: 180px; }
-.hero__in { position: relative; z-index: 2; }
-.hero h1 {
-  font-size: clamp(2.65rem, 6.6vw, 5rem);
-  font-weight: 700; letter-spacing: -0.045em; line-height: 1.02;
-  margin: 1.9rem auto 0; max-width: 17ch;
-}
-.hero__lead { color: var(--w-52); margin: 1.6rem auto 0; max-width: 54ch; font-size: clamp(1rem, 1.35vw, 1.125rem); }
-.hero__cta { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 2.4rem; }
-
-/* mahsulot sahnasi */
-.stage { position: relative; margin-top: clamp(3rem, 6vw, 4.5rem); }
-.stage__glow { position: absolute; inset: 12% 6% -10%; border-radius: 50%;
-  background: radial-gradient(circle, rgba(37,99,235,0.5) 0%, rgba(37,99,235,0.26) 26%, rgba(37,99,235,0.08) 48%, rgba(37,99,235,0.02) 66%, rgba(37,99,235,0) 80%); z-index: 0; }
-.stage__box { position: relative; z-index: 1; border-radius: var(--r-xl); padding: 10px;
-  background: linear-gradient(160deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
-  box-shadow: 0 60px 130px -55px rgba(37,99,235,0.9); }
-.stage__win { border-radius: 32px; overflow: hidden; background: var(--card); border: 1px solid var(--line); }
-.stage__bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.8rem 1.1rem; border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.03); }
-.stage__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--w-18); }
-.stage__url { margin-left: 0.7rem; font-size: 0.75rem; color: var(--w-34); }
-.tiltwrap { perspective: 1600px; }
-.tilt { transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transform-style: preserve-3d; transition: transform 0.6s var(--out); will-change: transform; }
-
-/* dashboard */
-.dash { text-align: left; display: grid; grid-template-columns: 58px minmax(0,1fr); min-height: clamp(300px, 32vw, 430px); background: linear-gradient(160deg, var(--card-2) 0%, var(--bg-2) 100%); }
-.dash__rail { border-right: 1px solid var(--line); padding: 1rem 0; display: grid; gap: 0.65rem; justify-items: center; align-content: start; background: rgba(0,0,0,0.22); }
-.dash__logo { width: 22px; height: 22px; border-radius: 7px; background: var(--grad); margin-bottom: 0.5rem; }
-.dash__ico { width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,0.06); }
-.dash__ico.is-on { background: rgba(37,99,235,0.4); }
-.dash__body { padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: clamp(0.7rem, 1.5vw, 1.05rem); align-content: start; }
-.dash__head { display: flex; align-items: center; justify-content: space-between; }
-.dash__title { width: 132px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.26); }
-.dash__btn { width: 90px; height: 26px; border-radius: 999px; background: var(--grad); }
-.kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0.6rem; }
-.kpi { border: 1px solid var(--line); border-radius: 14px; padding: 0.7rem 0.8rem; background: rgba(255,255,255,0.04); display: grid; gap: 0.1rem; }
-.kpi b { font-size: clamp(0.95rem, 1.45vw, 1.2rem); font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.kpi em { font-style: normal; font-size: 0.625rem; color: var(--w-34); }
-.plate { border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,0.03); padding: 0.75rem 0.85rem 0.5rem; display: grid; gap: 0.5rem; }
-.plate__h { display: flex; align-items: center; justify-content: space-between; }
-.plate__h em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--w-34); }
-.up { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: #6EE7A8; font-variant-numeric: tabular-nums; }
-.up::before { content: ''; width: 0; height: 0; border: 3px solid transparent; border-bottom-color: #6EE7A8; margin-bottom: 2px; }
-.lc { display: block; width: 100%; height: clamp(64px, 9vw, 104px); }
-.lc__line { fill: none; stroke: var(--b3); stroke-width: 1.7; stroke-linejoin: round; stroke-linecap: round; }
-.lc__dot { fill: #fff; } .lc__halo { fill: rgba(96,165,250,0.35); }
-.lc__grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
-.feed { display: grid; gap: 0.4rem; }
-.feed__row { display: flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.7rem; border-radius: 12px;
-  background: rgba(255,255,255,0.04); border: 1px solid var(--line); font-size: 0.6875rem; color: var(--w-52);
-  animation: feed-in 0.6s var(--out) both; }
-.feed__row i { width: 5px; height: 5px; border-radius: 50%; background: var(--b3); flex: none; }
-.feed__row b { color: var(--white); font-weight: 500; }
-.feed__row span { margin-left: auto; color: var(--w-18); font-variant-numeric: tabular-nums; }
-@keyframes feed-in { from { opacity: 0; transform: translateY(-9px); } to { opacity: 1; transform: none; } }
-
-/* ==========================================================================
-   Ishonch tasmasi
-   ========================================================================== */
-.trust { padding-block: clamp(2.5rem, 5vw, 3.5rem); border-block: 1px solid var(--line); overflow: hidden; position: relative; z-index: 2; }
-.trust__l { text-align: center; color: var(--w-34); font-size: 0.875rem; }
-.trust__l b { color: var(--white); font-weight: 600; }
-.mq { margin-top: 1.6rem; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
-.mq__t { display: flex; gap: 3.5rem; width: max-content; will-change: transform; }
-.mq__i { display: flex; align-items: center; gap: 3.5rem; font-size: clamp(1.25rem, 2.2vw, 1.875rem); font-weight: 500; letter-spacing: -0.03em; color: var(--w-18); white-space: nowrap; transition: color 0.4s var(--ease); }
-.mq__i:hover { color: var(--white); }
-.mq__i::after { content: ''; width: 6px; height: 6px; background: var(--b2); transform: rotate(45deg); flex: none; }
-
-/* ==========================================================================
-   Yechimlar — matn chapda / karta o'ngda
-   ========================================================================== */
-.sol { display: grid; gap: clamp(3.5rem, 7vw, 6rem); margin-top: clamp(3rem, 6vw, 4.5rem); position: relative; z-index: 2; }
-.sol__row { display: grid; gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
-@media (min-width: 940px) { .sol__row { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); } }
-.sol__t h3 { font-size: clamp(1.5rem, 2.7vw, 2.05rem); margin-top: 1rem; }
-.sol__t p { color: var(--w-52); margin-top: 0.9rem; max-width: 40ch; }
-.sol__t .btn { margin-top: 1.5rem; }
-.sol__c { position: relative; padding: clamp(1.2rem, 2.6vw, 1.9rem); min-height: 330px; display: grid; align-content: center; gap: 0.75rem; overflow: hidden; }
-.sol__c .aura { inset: -20%; filter: blur(80px); opacity: 0.65; }
-
-/* maketlar */
-.m-rows { display: grid; gap: 0.5rem; }
-.m-row { position: relative; display: grid; grid-template-columns: 1.6fr 1fr 0.7fr; gap: 0.65rem; align-items: center;
-  padding: 0.65rem 0.8rem; border-radius: 12px; background: rgba(255,255,255,0.045); border: 1px solid var(--line); overflow: hidden; }
-.m-row i { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.2); display: block; }
-.m-row .chipbar { height: 18px; border-radius: 999px; background: rgba(37,99,235,0.45); }
-.m-row::after { content: ''; position: absolute; inset: 0; pointer-events: none; transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(96,165,250,0.16), transparent); }
-.is-play .m-row::after { animation: scan 3.6s var(--ease) infinite; }
-.is-play .m-row:nth-of-type(2)::after { animation-delay: 0.5s; }
-@keyframes scan { 0% { transform: translateX(-100%); } 45%,100% { transform: translateX(100%); } }
-.m-chart { display: flex; align-items: flex-end; gap: 6px; height: 92px; padding: 0.75rem; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
-.m-chart i { flex: 1; border-radius: 5px 5px 2px 2px; background: linear-gradient(180deg, var(--b3), rgba(37,99,235,0.15)); height: 10%; transition: height 0.95s var(--out); }
-.is-play .m-chart i { height: var(--h); }
-
-.m-msg { max-width: 80%; padding: 0.7rem 0.95rem; border-radius: 14px; font-size: 0.875rem; line-height: 1.45; opacity: 0; transform: translateY(10px); }
-.is-play .m-msg { animation: msg 0.55s var(--out) forwards; }
-.is-play .m-msg:nth-of-type(2) { animation-delay: 0.32s; }
-.is-play .m-msg:nth-of-type(3) { animation-delay: 0.64s; }
-@keyframes msg { to { opacity: 1; transform: none; } }
-.m-msg--in { background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--w-72); }
-.m-msg--out { background: var(--grad); color: #fff; margin-left: auto; }
-.m-dots { display: inline-flex; gap: 4px; }
-.m-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--w-52); animation: bob 1.2s ease-in-out infinite; }
-.m-dots i:nth-child(2) { animation-delay: .15s; } .m-dots i:nth-child(3) { animation-delay: .3s; }
-@keyframes bob { 0%,100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(-4px); opacity: 1; } }
-
-.m-site { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
-.m-site__b { display: flex; gap: 5px; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
-.m-site__b i { width: 6px; height: 6px; border-radius: 50%; background: var(--w-18); }
-.m-site__c { padding: 1.05rem; display: grid; gap: 0.6rem; }
-.m-l { height: 9px; border-radius: 5px; background: rgba(255,255,255,0.12); position: relative; overflow: hidden; }
-.m-l::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent); animation: shim 2.6s ease-in-out infinite; }
-@keyframes shim { 0% { transform: translateX(-100%); } 60%,100% { transform: translateX(100%); } }
-.m-l--xl { height: 20px; width: 58%; background: rgba(255,255,255,0.24); }
-.m-l--md { width: 82%; } .m-l--sm { width: 44%; }
-.m-cta { height: 28px; width: 124px; border-radius: 999px; background: var(--grad); margin-top: 0.35rem; }
-.m-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; margin-top: 0.35rem; }
-.m-tiles i { height: 46px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--line); opacity: 0; transform: scale(0.86); }
-.is-play .m-tiles i { animation: tile 0.55s var(--out) forwards; }
-.is-play .m-tiles i:nth-child(2) { animation-delay: .08s; } .is-play .m-tiles i:nth-child(3) { animation-delay: .16s; }
-.is-play .m-tiles i:nth-child(4) { animation-delay: .24s; } .is-play .m-tiles i:nth-child(5) { animation-delay: .32s; }
-.is-play .m-tiles i:nth-child(6) { animation-delay: .4s; }
-@keyframes tile { to { opacity: 1; transform: none; } }
-
-.m-keys { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-.m-keys span { padding: 0.55rem; text-align: center; font-size: 0.75rem; border-radius: 10px;
-  border: 1px solid rgba(37,99,235,0.45); background: rgba(37,99,235,0.14); }
-.is-play .m-keys span { animation: lit 4.4s var(--ease) infinite; }
-.is-play .m-keys span:nth-child(2) { animation-delay: .35s; }
-.is-play .m-keys span:nth-child(3) { animation-delay: .7s; }
-.is-play .m-keys span:nth-child(4) { animation-delay: 1.05s; }
-@keyframes lit {
-  0%,14%,100% { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.45); }
-  6% { background: rgba(59,130,246,0.55); border-color: rgba(96,165,250,0.9); }
-}
-.m-bubble { padding: 0.6rem 0.85rem; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); font-size: 0.8125rem; color: var(--w-72); }
-.metrics { display: flex; align-items: center; gap: 1.2rem; }
-.metric b { display: block; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.metric em { font-style: normal; font-size: 0.625rem; color: var(--w-34); letter-spacing: 0.08em; text-transform: uppercase; }
-.ring { width: 48px; height: 48px; flex: none; }
-.ring circle { fill: none; stroke-width: 5; }
-.ring__bg { stroke: rgba(255,255,255,0.1); }
-.ring__fg { stroke: var(--b3); stroke-linecap: round; stroke-dasharray: 132; stroke-dashoffset: 132; transform: rotate(-90deg); transform-origin: 50% 50%; }
-.is-play .ring__fg { animation: ring 1.5s var(--out) forwards; }
-@keyframes ring { to { stroke-dashoffset: 14; } }
-.m-phone { position: relative; width: 168px; margin-inline: auto; border: 1px solid var(--line-2); border-radius: 22px;
-  background: rgba(255,255,255,0.03); padding: 0.7rem 0.65rem 2.8rem; display: grid; gap: 0.45rem; overflow: hidden; }
-.m-phone .hd { height: 36px; border-radius: 10px; background: var(--grad); }
-.m-phone i { height: 9px; border-radius: 4px; background: rgba(255,255,255,0.14); display: block; opacity: 0; transform: translateX(-10px); }
-.is-play .m-phone i { animation: ph 0.5s var(--out) forwards; }
-.is-play .m-phone i:nth-of-type(2) { animation-delay: .12s; } .is-play .m-phone i:nth-of-type(3) { animation-delay: .24s; }
-.is-play .m-phone i:nth-of-type(4) { animation-delay: .36s; } .is-play .m-phone i:nth-of-type(5) { animation-delay: .48s; }
-@keyframes ph { to { opacity: 1; transform: none; } }
-.m-tabs { position: absolute; inset-inline: 0.65rem; bottom: 0.6rem; height: 28px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-around; padding-top: 0.4rem; }
-.m-tabs u { width: 16px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.16); }
-.m-tabs__b { position: absolute; bottom: 0; height: 2px; width: 24px; border-radius: 2px; background: var(--b3); left: 8%; }
-.is-play .m-tabs__b { animation: tabs 5.5s var(--out) infinite; }
-@keyframes tabs { 0%,22% { left: 8%; } 30%,52% { left: 38%; } 60%,82% { left: 69%; } 90%,100% { left: 8%; } }
-
-
-/* ==========================================================================
-   YECHIM KARTALARI — ichki kartochkalar navbat bilan almashadi
-   ========================================================================== */
-.sol__c {
-  position: relative; overflow: hidden;
-  min-height: 372px; display: grid; place-items: center;
-  padding: clamp(1.4rem, 3vw, 2.4rem);
-  background: linear-gradient(152deg, rgba(37,99,235,0.46) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%);
-}
-.sol__c--b { background: linear-gradient(152deg, rgba(96,165,250,0.40) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
-.sol__c--c { background: linear-gradient(152deg, rgba(29,78,216,0.56) 0%, rgba(9,26,48,0.94) 54%, rgba(4,18,31,1) 100%); }
-.sol__c--d { background: linear-gradient(152deg, rgba(59,130,246,0.44) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
-.sol__c--e { background: linear-gradient(152deg, rgba(37,99,235,0.38) 0%, rgba(13,34,60,0.92) 50%, rgba(4,18,31,1) 100%); }
-/* yuqori chekkadagi yumshoq nur */
-.sol__c::after {
-  content: ''; position: absolute; inset: -45% -25% auto -25%; height: 85%;
-  background: radial-gradient(55% 100% at 30% 0%, rgba(255,255,255,0.13), transparent 68%);
-  pointer-events: none;
-  animation: sheen 16s ease-in-out infinite alternate;
-}
-@keyframes sheen {
-  from { transform: translate3d(-6%, 0, 0) scale(1); }
-  to   { transform: translate3d(10%, 4%, 0) scale(1.12); }
-}
-
-/* almashinuvchi stack */
-/* kartochkalar taxlanadi: yangisi oldinda, eskilari orqada ko'rinib turadi */
-.cyc { position: relative; width: 100%; max-width: 430px; height: 214px; z-index: 1; }
-.cyc__i {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  transform-origin: 50% 100%; pointer-events: none;
-  transition: opacity 0.8s var(--out), transform 0.9s var(--out), filter 0.8s var(--out);
-}
-.cyc__i.p0 { transform: none;                           opacity: 1;    filter: none;        z-index: 4; }
-.cyc__i.p1 { transform: translateY(-38px) scale(0.945); opacity: 0.42; z-index: 3; }
-/* orqadagi kartochkalarda faqat shakl qolsin — matn aralashmasin (blur o'rniga, u og'ir edi) */
-.cyc__i .gp > *, .cyc__i .pn__b, .cyc__i .pn__t, .cyc__i .pn__ic { transition: opacity 0.45s var(--ease); }
-.cyc__i:not(.p0) .gp > *, .cyc__i:not(.p0) .pn__b, .cyc__i:not(.p0) .pn__t, .cyc__i:not(.p0) .pn__ic { opacity: 0; }
-.cyc__i.p2 { transform: translateY(-68px) scale(0.895); opacity: 0.16; z-index: 2; }
-.cyc__i.p3 { transform: translateY(-92px) scale(0.855); opacity: 0.07; z-index: 1; }
-.cyc__i.px { transform: translateY(46px)  scale(0.97);  opacity: 0;    z-index: 0; }
-
-/* shisha panel */
-.gp {
-  border-radius: 18px; padding: 1rem 1.15rem;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 26px 54px -28px rgba(0,0,0,0.95);
-  display: grid; gap: 0.55rem;
-}
-.gp__top { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--w-52); }
-.gp__top b { color: var(--white); font-weight: 500; }
-.gp__t { font-size: 0.9375rem; font-weight: 500; line-height: 1.35; }
-.gp__f { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.75rem; color: var(--w-34); }
-.gp__f b { font-size: 0.9375rem; font-weight: 600; color: var(--white); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-.bdg { margin-left: auto; font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 0.25rem 0.55rem; border-radius: 999px; border: 1px solid; white-space: nowrap; }
-.bdg--b { color: #9DC4FF; border-color: rgba(96,165,250,0.5); background: rgba(37,99,235,0.22); }
-.bdg--g { color: #86EFAC; border-color: rgba(110,231,168,0.45); background: rgba(110,231,168,0.14); }
-.bdg--a { color: #FCD9A0; border-color: rgba(252,217,160,0.42); background: rgba(252,217,160,0.12); }
-
-/* buyruq paneli (AI) */
-.cmd { display: grid; gap: 0.85rem; }
-.cmd__q { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
-.cmd__r { display: flex; align-items: center; gap: 0.5rem; }
-.cmd__plus, .cmd__chip { border-radius: 999px; border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.08); color: var(--w-72); }
-.cmd__plus { width: 30px; height: 30px; display: grid; place-content: center; font-size: 1rem; line-height: 1; }
-.cmd__chip { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
-.cmd__go { margin-left: auto; width: 54px; height: 30px; border-radius: 999px; background: var(--grad);
-  display: grid; place-content: center; gap: 2px; grid-auto-flow: column; }
-.cmd__go i { display: block; width: 2px; border-radius: 2px; background: #fff; animation: wave 1.1s ease-in-out infinite; }
-.cmd__go i:nth-child(1) { height: 8px; animation-delay: 0s; }
-.cmd__go i:nth-child(2) { height: 14px; animation-delay: .12s; }
-.cmd__go i:nth-child(3) { height: 10px; animation-delay: .24s; }
-.cmd__go i:nth-child(4) { height: 16px; animation-delay: .36s; }
-@keyframes wave { 0%,100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
-
-/* ko'rsatkich paneli */
-.mt { display: flex; align-items: center; gap: 1.4rem; }
-.mt__v { display: grid; gap: 0.1rem; }
-.mt__v b { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
-.mt__v em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--w-34); }
-.mt__bar { flex: 1; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
-.mt__bar u { display: block; height: 100%; border-radius: 999px; background: var(--grad); width: 0; transition: width 1.2s var(--out); }
-.cyc__i.is-on .mt__bar u { width: var(--w, 90%); }
-
-/* bildirishnoma */
-.nt { display: flex; align-items: flex-start; gap: 0.7rem; }
-.nt__ic { width: 34px; height: 34px; border-radius: 10px; background: var(--grad); flex: none; display: grid; place-content: center; }
-.nt__ic svg { width: 17px; height: 17px; color: #fff; }
-.nt__b { display: grid; gap: 0.15rem; }
-.nt__b b { font-size: 0.875rem; font-weight: 600; }
-.nt__b span { font-size: 0.8125rem; color: var(--w-52); }
-.nt__t { margin-left: auto; font-size: 0.6875rem; color: var(--w-34); flex: none; }
-
-
-/* ==========================================================================
-   HAR KARTA — O'Z INTERFEYSI
-   ========================================================================== */
-/* fonlar har xil burchakdan yonadi */
-.sol__c--b { background: linear-gradient(228deg, rgba(96,165,250,0.42) 0%, rgba(12,32,58,0.92) 52%, rgba(4,18,31,1) 100%); }
-.sol__c--c { background: linear-gradient(20deg,  rgba(29,78,216,0.50) 0%, rgba(9,26,48,0.94) 56%, rgba(4,18,31,1) 100%); }
-.sol__c--d { background: linear-gradient(180deg, rgba(59,130,246,0.40) 0%, rgba(12,32,58,0.92) 54%, rgba(4,18,31,1) 100%); }
-.sol__c--e { background: linear-gradient(272deg, rgba(37,99,235,0.42) 0%, rgba(13,34,60,0.92) 52%, rgba(4,18,31,1) 100%); }
-.sol__c--b::after { inset: -45% -25% auto -25%; background: radial-gradient(55% 100% at 72% 0%, rgba(255,255,255,0.13), transparent 68%); }
-.sol__c--c::after { inset: auto -25% -45% -25%; background: radial-gradient(55% 100% at 24% 100%, rgba(255,255,255,0.12), transparent 68%); }
-.sol__c--d::after { inset: -45% -25% auto -25%; background: radial-gradient(50% 100% at 50% 0%, rgba(255,255,255,0.14), transparent 66%); }
-.sol__c--e::after { inset: -30% -25% auto -25%; background: radial-gradient(50% 100% at 88% 10%, rgba(255,255,255,0.13), transparent 66%); }
-
-/* --- fade rejimi: joyida almashadi, taxlanmaydi --- */
-.cyc--fade { height: auto; }
-.cyc--fade .cyc__i { position: absolute; inset: 0; }
-.cyc--fade .cyc__i.p0 { opacity: 1; transform: none; filter: none; z-index: 3; }
-.cyc--fade .cyc__i.p1,
-.cyc--fade .cyc__i.p2,
-.cyc--fade .cyc__i.p3,
-.cyc--fade .cyc__i.px { opacity: 0; transform: translateY(14px) scale(0.99); z-index: 1; }
-
-/* ==========================================================================
-   02 · AI botlar — buyruq paneli va javob
-   ========================================================================== */
-.ai { width: 100%; max-width: 430px; display: grid; gap: 0.7rem; }
-.ai__box { position: relative; height: 128px; }
-.ai__caret { display: inline-block; width: 2px; height: 1em; background: var(--b3); vertical-align: -0.15em;
-  margin-left: 2px; animation: caret 1.05s steps(2) infinite; }
-@keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
-.ai__res { position: relative; height: 84px; }
-.ai__rc { position: absolute; inset: 0; border-radius: 14px; padding: 0.7rem 0.9rem;
-  border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05);
-  display: grid; gap: 0.35rem; align-content: center;
-  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
-.ai__rc.p0 { opacity: 1; transform: none; }
-.ai__rc.p1, .ai__rc.p2, .ai__rc.p3, .ai__rc.px { opacity: 0; transform: translateY(10px); }
-.ai__rc em { font-style: normal; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--b3); }
-.ai__rc p { font-size: 0.8125rem; color: var(--w-72); line-height: 1.45; }
-
-/* ==========================================================================
-   03 · Veb saytlar — brauzer oynasi va ballar
-   ========================================================================== */
-.bw { width: 100%; max-width: 430px; border-radius: 16px; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 26px 54px -28px rgba(0,0,0,0.95); }
-.bw__bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
-.bw__bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
-.bw__url { position: relative; margin-left: 0.5rem; height: 1em; flex: 1; }
-.bw__url span { position: absolute; left: 0; top: 0; font-size: 0.6875rem; color: var(--w-52);
-  transition: opacity 0.6s var(--out), transform 0.6s var(--out); }
-.bw__url span.p0 { opacity: 1; transform: none; }
-.bw__url span.p1, .bw__url span.p2, .bw__url span.p3, .bw__url span.px { opacity: 0; transform: translateY(8px); }
-.bw__body { padding: 0.95rem 1rem 1.1rem; display: grid; gap: 0.85rem; }
-.gauges { position: relative; height: 74px; }
-.gset { position: absolute; inset: 0; display: flex; justify-content: space-around; align-items: center;
-  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
-.gset.p0 { opacity: 1; transform: none; }
-.gset.p1, .gset.p2, .gset.p3, .gset.px { opacity: 0; transform: translateY(12px); }
-.gg { display: grid; justify-items: center; gap: 0.3rem; }
-.gg__c { position: relative; width: 46px; height: 46px; }
-.gg__c svg { width: 46px; height: 46px; transform: rotate(-90deg); }
-.gg__c circle { fill: none; stroke-width: 4; }
-.gg__bg { stroke: rgba(255,255,255,0.1); }
-.gg__fg { stroke: var(--b3); stroke-linecap: round; stroke-dasharray: 126; stroke-dashoffset: 126;
-  transition: stroke-dashoffset 1.3s var(--out) 0.15s; }
-.gset.p0 .gg__fg { stroke-dashoffset: calc(126 - 126 * var(--v, 0.9)); }
-.gg__n { position: absolute; inset: 0; display: grid; place-content: center; font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-.gg em { font-style: normal; font-size: 0.5625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--w-34); }
-.bw__page { display: grid; gap: 0.4rem; }
-.bw__page i { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.12); display: block; }
-.bw__page i:first-child { height: 15px; width: 54%; background: rgba(255,255,255,0.22); }
-
-/* ==========================================================================
-   04 · Telegram — suhbat oynasi
-   ========================================================================== */
-.tg { width: 100%; max-width: 400px; border-radius: 18px; padding: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 26px 54px -28px rgba(0,0,0,0.95); }
-.tg__h { display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.65rem; margin-bottom: 0.7rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: var(--w-52); }
-.tg__av { width: 22px; height: 22px; border-radius: 50%; background: var(--grad); flex: none; }
-.tg__h b { color: var(--white); font-weight: 500; }
-.tg__h u { margin-left: auto; text-decoration: none; font-size: 0.625rem; color: #6EE7A8; }
-.tg__scene { position: relative; height: 168px; }
-.tg__s { position: absolute; inset: 0; display: grid; gap: 0.42rem; align-content: start;
-  transition: opacity 0.7s var(--out), transform 0.8s var(--out); }
-.tg__s.p0 { opacity: 1; transform: none; }
-.tg__s.p1, .tg__s.p2, .tg__s.p3, .tg__s.px { opacity: 0; transform: translateY(12px); }
-.tg__in, .tg__out { max-width: 84%; padding: 0.55rem 0.8rem; font-size: 0.8125rem; line-height: 1.4; }
-.tg__in { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.13); color: var(--w-72);
-  border-radius: 14px 14px 14px 4px; }
-.tg__out { background: var(--grad); color: #fff; margin-left: auto; border-radius: 14px 14px 4px 14px; }
-.tg__kb { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; margin-top: 0.15rem; }
-.tg__kb span { padding: 0.42rem; text-align: center; font-size: 0.6875rem; border-radius: 9px;
-  border: 1px solid rgba(59,130,246,0.45); background: rgba(37,99,235,0.16); }
-
-/* ==========================================================================
-   05 · Mobil — telefon ekrani va bildirishnomalar
-   ========================================================================== */
-.ph { position: relative; width: 208px; height: 316px; margin-inline: auto; border-radius: 28px; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.03));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 32px 64px -30px rgba(0,0,0,0.95); }
-.ph__notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 62px; height: 5px;
-  border-radius: 999px; background: rgba(255,255,255,0.2); }
-.ph__t { padding: 1.6rem 0.8rem 0; text-align: center; }
-.ph__t b { display: block; font-size: 2.1rem; font-weight: 600; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
-.ph__t span { font-size: 0.625rem; color: var(--w-34); }
-.ph__n { position: absolute; left: 0.6rem; right: 0.6rem; bottom: 0.7rem; height: 168px; width: auto; }
-.ph__n .cyc__i.p1 { transform: translateY(-30px) scale(0.94); }
-.ph__n .cyc__i.p2 { transform: translateY(-54px) scale(0.885); }
-.ph__n .cyc__i.p3 { transform: translateY(-74px) scale(0.845); }
-.pn { border-radius: 14px; padding: 0.6rem 0.7rem; display: flex; align-items: flex-start; gap: 0.5rem;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); }
-.pn__ic { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); flex: none; display: grid; place-content: center; }
-.pn__ic svg { width: 14px; height: 14px; color: #fff; }
-.pn__b { display: grid; gap: 0.1rem; min-width: 0; }
-.pn__b b { font-size: 0.75rem; font-weight: 600; }
-.pn__b span { font-size: 0.6875rem; color: var(--w-52); line-height: 1.3; }
-.pn__t { margin-left: auto; font-size: 0.5625rem; color: var(--w-34); flex: none; }
-
-/* almashinuvda ikki holat ustma-ust tushmasin: eskisi tez so'nadi, yangisi kechikib chiqadi */
-.tg__s, .ai__rc, .gset, .bw__url span, .cyc--fade .cyc__i {
-  transition: opacity 0.42s var(--ease), transform 0.6s var(--out), filter 0.5s var(--ease);
-}
-.tg__s.p0, .ai__rc.p0, .gset.p0, .bw__url span.p0, .cyc--fade .cyc__i.p0 {
-  transition-delay: 0.24s;
-}
-
-/* ==========================================================================
-   Loyihalar
-   ========================================================================== */
-.work { display: grid; gap: 1.5rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); position: relative; z-index: 2; }
-@media (min-width: 760px) { .work { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (min-width: 1080px) { .work { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.wc { padding: 12px; display: grid; align-content: start; }
-.wc__img { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: var(--bg-2); position: relative; }
-.wc__img img { width: 100%; height: 100%; object-fit: cover; object-position: top center;
-  filter: grayscale(0.5) brightness(0.58) contrast(1.06); transition: transform 0.9s var(--out), filter 0.6s var(--ease); }
-.wc__img::after { content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 0%, rgba(37,99,235,0.3) 0%, rgba(2,11,22,0.72) 78%); transition: opacity 0.55s var(--ease); }
-.wc:hover .wc__img img { transform: scale(1.05); filter: none; }
-.wc:hover .wc__img::after { opacity: 0; }
-.wc__b { padding: 1.1rem 0.6rem 0.5rem; display: grid; gap: 0.45rem; }
-.wc__m { display: flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; color: var(--b3); }
-.wc__m span { color: var(--w-34); margin-left: auto; }
-.wc h3 { font-size: 1.1875rem; }
-.wc p { font-size: 0.875rem; color: var(--w-52); }
-.wc__t { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
-.wc__t b { font-size: 0.6875rem; font-weight: 400; color: var(--w-52); padding: 0.22rem 0.6rem; border-radius: 999px; border: 1px solid var(--line-2); }
-
-/* ==========================================================================
-   Jarayon
-   ========================================================================== */
-.steps { display: grid; gap: 1.25rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); position: relative; z-index: 2; }
-@media (min-width: 900px) { .steps { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.step { padding: clamp(1.5rem, 3vw, 2.1rem); display: grid; gap: 0.6rem; align-content: start; }
-.step__n { width: 40px; height: 40px; border-radius: 999px; display: grid; place-content: center;
-  font-size: 0.8125rem; font-weight: 600; color: var(--b3);
-  border: 1px solid rgba(96,165,250,0.4); background: rgba(37,99,235,0.16); margin-bottom: 0.5rem; }
-.step h4 { font-size: 1.1875rem; }
-.step p { color: var(--w-52); font-size: 0.9375rem; }
-
-/* ==========================================================================
-   Raqamlar
-   ========================================================================== */
-.nums { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; background: var(--line);
-  border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; margin-top: clamp(2.5rem,5vw,3.5rem); position: relative; z-index: 2; }
-@media (min-width: 860px) { .nums { grid-template-columns: repeat(4, minmax(0,1fr)); } }
-.nums__c { background: linear-gradient(170deg, var(--card) 0%, var(--bg-2) 100%); padding: clamp(1.9rem,4vw,2.8rem) 1.5rem; text-align: center; transition: background 0.4s var(--ease); }
-.nums__c:hover { background: var(--card-2); }
-.od { display: inline-flex; align-items: flex-start; font-size: clamp(2.4rem, 5.2vw, 3.6rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
-.od__d { display: block; height: 1em; overflow: hidden; }
-.od__d u { display: block; text-decoration: none; transform: translateY(0); transition: transform 1.2s var(--out); }
-.od__d u i { display: block; height: 1em; font-style: normal; }
-.od sup { font-size: 0.42em; line-height: 1; margin-top: 0.1em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nums__k { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--w-34); }
-
-/* ==========================================================================
-   Yakuniy CTA bloki
-   ========================================================================== */
-.final { position: relative; border-radius: var(--r-xl); overflow: hidden; padding: clamp(2rem, 5vw, 4.5rem);
-  background: linear-gradient(155deg, var(--card) 0%, var(--bg-2) 55%, var(--bg) 100%); isolation: isolate; }
-.final::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
-  background: linear-gradient(135deg, rgba(96,165,250,0.95) 0%, rgba(37,99,235,0.35) 30%, rgba(255,255,255,0.04) 58%, rgba(37,99,235,0.4) 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; pointer-events: none; }
-.final .aura--a { width: 700px; height: 700px; left: -180px; top: -260px; opacity: 0.7; }
-.final__in { position: relative; z-index: 2; }
-.final h2 { font-size: clamp(2.2rem, 6.4vw, 4.5rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1.02; max-width: 15ch; }
-.final__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
-@media (min-width: 940px) { .final__grid { grid-template-columns: minmax(0,1fr) minmax(0,0.92fr); } }
-.cols { display: grid; gap: 2rem; }
-@media (min-width: 620px) { .cols { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-.col h5 { margin: 0 0 0.85rem; font-size: 0.8125rem; font-weight: 400; color: var(--w-34); }
-.col a, .col p { display: block; color: var(--w-72); font-size: 1rem; transition: color 0.25s var(--ease); }
-.col a:hover { color: var(--white); }
-.col b { font-weight: 600; color: var(--white); }
-.socials { display: flex; gap: 0.6rem; margin-top: 0.2rem; }
-.socials a { width: 44px; height: 44px; border-radius: 999px; display: grid; place-content: center;
-  border: 1px solid var(--line-2); background: rgba(255,255,255,0.04); transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.35s var(--out); }
-.socials a:hover { background: rgba(37,99,235,0.3); border-color: rgba(96,165,250,0.6); transform: translateY(-3px); }
-.socials svg { width: 18px; height: 18px; }
-
-.form { display: grid; gap: 0.9rem; align-content: start; padding: clamp(1.4rem, 3vw, 2rem);
-  border: 1px solid var(--line-2); border-radius: var(--r-lg);
-  background: linear-gradient(170deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 34px 70px -38px rgba(2,11,22,1); }
-.form__s { display: flex; align-items: center; gap: 0.55rem; font-size: 0.75rem; color: var(--w-52); padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
-.form__s .dot { position: relative; width: 7px; height: 7px; flex: none; }
-.form__s .dot::before, .form__s .dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #6EE7A8; }
-.form__s .dot::after { animation: ping 2.4s var(--out) infinite; }
-@keyframes ping { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(3.4); opacity: 0; } }
-.form__s b { color: var(--white); font-weight: 500; font-variant-numeric: tabular-nums; }
-.field { display: grid; gap: 0.4rem; }
-.field label { font-size: 0.75rem; color: var(--w-34); }
-.field input { border: 1px solid var(--line-2); border-radius: 14px; padding: 0.85rem 1rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease); }
-.field input::placeholder { color: var(--w-18); }
-.field input:focus { outline: none; border-color: rgba(96,165,250,0.7);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 4px rgba(37,99,235,0.18); }
-.form .btn { justify-content: center; margin-top: 0.3rem; }
-.form__n { text-align: center; font-size: 0.75rem; color: var(--w-34); }
-
-/* ==========================================================================
-   Futer
-   ========================================================================== */
-.foot { padding-block: clamp(2.5rem, 5vw, 3.5rem); }
-.foot__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
-.foot p { font-size: 0.8125rem; color: var(--w-34); line-height: 1.8; }
-.foot nav { display: flex; gap: 1.5rem; }
-.foot nav a { font-size: 0.8125rem; color: var(--w-34); transition: color 0.25s var(--ease); }
-.foot nav a:hover { color: var(--b3); }
-
-/* ==========================================================================
-   Ochilish harakatlari
-   ========================================================================== */
-.rise { opacity: 0; transform: translateY(24px); }
-.is-in .rise, .rise.is-in { opacity: 1; transform: none;
-  transition: opacity 0.9s var(--out), transform 0.9s var(--out); transition-delay: var(--d, 0ms); }
-.mask { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; }
-.mask > i { display: inline-block; font-style: normal; transform: translateY(115%);
-  transition: transform 1s var(--out); transition-delay: var(--wd, 0ms); }
-.is-in .mask > i { transform: none; }
-.unmask .mask { overflow: visible; }
-
-/* ==========================================================================
-   KIRISH ANIMATSIYASI
-   ========================================================================== */
-body.intro-on { overflow: hidden; }
-.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); cursor: none; }
-.intro::after { content: ''; position: absolute; width: 780px; height: 780px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.15) 30%, rgba(37,99,235,0.05) 54%, rgba(37,99,235,0) 82%);
-  filter: blur(110px); opacity: 0; animation: halo 2.6s var(--ease) 0.75s forwards; pointer-events: none; }
-.intro.is-out { animation: intro-out 0.6s var(--ease) forwards; pointer-events: none; }
-.intro__s { position: relative; width: 300px; height: 110px; }
-@media (max-width: 560px) { .intro__s { transform: scale(0.72); } }
-.intro__drop { position: absolute; left: 150px; top: 55px; width: 22px; height: 22px; margin: -11px 0 0 -11px;
-  border-radius: 0 50% 50% 50%; background: var(--b2); box-shadow: 0 0 28px 7px rgba(37,99,235,0.5);
-  transform: rotate(45deg) translate3d(0,-520px,0) scale(1);
-  animation: fall 0.66s cubic-bezier(0.55,0,0.3,1) 0.12s forwards, burst 0.24s var(--ease) 0.78s forwards; }
-.intro__rip { position: absolute; left: 150px; top: 55px; width: 26px; height: 26px; margin: -13px 0 0 -13px;
-  border-radius: 50%; border: 1.5px solid rgba(37,99,235,0.85); transform: scale(0.2); opacity: 0;
-  animation: rip 0.85s var(--ease) 0.8s forwards; }
-.intro__rip--2 { animation-delay: 0.94s; border-color: rgba(37,99,235,0.45); }
-.intro__m { position: absolute; left: 0; top: 50%; width: 68px; height: 68px; transform: translate(116px,-50%);
-  animation: settle 0.66s var(--ease) 1.62s forwards; }
-.intro__m svg { width: 100%; height: 100%; overflow: visible; }
-.intro__m .ax { stroke: var(--b2); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 176; stroke-dashoffset: 176;
-  animation: draw 0.6s var(--ease) 0.92s forwards; }
-.intro__m .cap { fill: var(--b2); opacity: 0; animation: capin 0.3s var(--ease) 1.34s forwards; }
-.intro__m .st { fill: var(--b2); transform-origin: 100px 100px; transform: scale(0.2) rotate(-40deg); opacity: 0;
-  animation: pop 0.62s var(--ease) 1.14s forwards; }
-.intro__r { position: absolute; left: 64px; top: 50%; height: 3px; width: 236px; margin-top: -1.5px;
-  background: var(--b2); box-shadow: 0 0 18px rgba(37,99,235,0.5); transform: scaleX(0); transform-origin: left center;
-  animation: rule 0.72s var(--ease) 1.66s forwards; }
-.intro__w { position: absolute; left: 84px; bottom: calc(50% + 5px); display: flex; font-size: 34px; font-weight: 600;
-  letter-spacing: 0.2em; line-height: 0.74; color: var(--white); }
-.intro__w i { font-style: normal; opacity: 0; transform: translateY(-26px);
-  animation: drop-l 0.5s cubic-bezier(0.3,1.5,0.5,1) forwards; }
-.intro__w i:nth-child(1) { animation-delay: 2.14s; } .intro__w i:nth-child(2) { animation-delay: 2.20s; }
-.intro__w i:nth-child(3) { animation-delay: 2.26s; } .intro__w i:nth-child(4) { animation-delay: 2.32s; }
-.intro__w i:nth-child(5) { animation-delay: 2.38s; } .intro__w i:nth-child(6) { animation-delay: 2.44s; }
-
-@keyframes fall { 0% { transform: rotate(45deg) translate3d(0,-520px,0) scale(1,1); } 72% { transform: rotate(45deg) translate3d(0,-40px,0) scale(0.86,1.18); } 100% { transform: rotate(45deg) translate3d(0,0,0) scale(1,1); } }
-@keyframes burst { 0% { opacity: 1; transform: rotate(45deg) scale(1); } 100% { opacity: 0; transform: rotate(45deg) scale(2.1); } }
-@keyframes rip { 0% { opacity: 0.9; transform: scale(0.2); } 100% { opacity: 0; transform: scale(4.2); } }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes capin { to { opacity: 1; } }
-@keyframes pop { to { opacity: 1; transform: scale(1) rotate(0deg); } }
-@keyframes settle { to { transform: translate(0,-50%); } }
-@keyframes rule { to { transform: scaleX(1); } }
-@keyframes drop-l { to { opacity: 1; transform: none; } }
-@keyframes halo { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0.85; } }
-@keyframes intro-out { to { opacity: 0; transform: scale(1.06); visibility: hidden; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .rise, .mask > i { opacity: 1 !important; transform: none !important; }
-  .m-chart i { height: var(--h) !important; }
-  .m-msg, .m-tiles i, .m-phone i { opacity: 1 !important; transform: none !important; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
-</style>
+<link rel="stylesheet" href="assets/v2.css">
 
 <div class="grain" aria-hidden="true"></div>
 <div class="cur" id="cur" aria-hidden="true"></div>
@@ -848,11 +23,11 @@ body.intro-on { overflow: hidden; }
       <svg viewBox="0 0 200 200" fill="none">
         <line class="ax" x1="100" y1="14" x2="100" y2="186"/><line class="ax" x1="14" y1="100" x2="186" y2="100"/>
         <circle class="cap" cx="100" cy="10" r="9"/><circle class="cap" cx="100" cy="190" r="9"/>
-        <circle class="cap" cx="10" cy="100" r="9"/><circle class="cap" cx="190" cy="100" r="9"/>
+        <circle class="cap" cx="10" cy="100" r="9"/><circle class="cap cap--r" cx="190" cy="100" r="9"/>
+        <line class="rl" x1="186" y1="100" x2="882" y2="100"/>
         <path class="st" d="M100 52 L114 86 L148 100 L114 114 L100 148 L86 114 L52 100 L86 86 Z"/>
       </svg>
     </span>
-    <span class="intro__r"></span>
     <span class="intro__w"><i>A</i><i>V</i><i>E</i><i>N</i><i>I</i><i>R</i></span>
   </div>
 </div>
@@ -877,6 +52,7 @@ body.intro-on { overflow: hidden; }
       <a href="#yechimlar" data-sec="yechimlar">Yechimlar</a>
       <a href="#loyihalar" data-sec="loyihalar">Loyihalar</a>
       <a href="#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="#jamoa" data-sec="jamoa">Jamoa</a>
       <a href="#aloqa" data-sec="aloqa">Aloqa</a>
     </nav>
 
@@ -884,7 +60,15 @@ body.intro-on { overflow: hidden; }
       <div class="lang">
         <button class="is-active" type="button">UZ</button><button type="button">RU</button><button type="button">EN</button>
       </div>
-      <a class="btn btn--w btn--sm top__cta" href="#aloqa">Loyiha boshlash</a>
+      <button class="thm" id="thm" type="button" aria-label="Mavzuni almashtirish" title="Yorug' / qorong'i">
+        <svg class="thm__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z"/>
+        </svg>
+        <svg class="thm__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.1"/>
+          <path d="M12 2.4v2.1M12 19.5v2.1M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2.4 12h2.1M19.5 12h2.1M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
+        </svg>
+      </button>
       <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -892,7 +76,7 @@ body.intro-on { overflow: hidden; }
 
 <div class="drawer" id="drawer">
   <a href="#yechimlar">Yechimlar</a><a href="#loyihalar">Loyihalar</a>
-  <a href="#jarayon">Jarayon</a><a href="#aloqa">Aloqa</a>
+  <a href="#jarayon">Jarayon</a><a href="#jamoa">Jamoa</a><a href="#aloqa">Aloqa</a>
 </div>
 
 <main>
@@ -908,7 +92,7 @@ body.intro-on { overflow: hidden; }
     <h1 data-split>Biznesingizni <span class="grad-text">raqamli</span> tizimga o'tkazamiz.</h1>
 
     <p class="hero__lead rise" style="--d:520ms">
-      Sayt, CRM, ERP va botlar — bir jamoada. G'oyadan ishga tushirishgacha,
+      Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha,
       keyin esa o'sish va qo'llab-quvvatlash.
     </p>
 
@@ -921,33 +105,210 @@ body.intro-on { overflow: hidden; }
       <span class="stage__glow"></span>
       <div class="stage__box tilt" id="tilt">
         <div class="stage__win">
-          <div class="stage__bar"><i></i><i></i><i></i><span class="stage__url">os.avenir.uz</span></div>
+          <div class="stage__bar"><i></i><i></i><i></i><span class="stage__url"><i class="is-on">avenir-erp.uz/dashboard</i><i>avenir-erp.uz/projects</i><i>avenir-erp.uz/finance</i><i>avenir-erp.uz/brainstorm</i><i>avenir-erp.uz/crm</i><i>avenir-erp.uz/reports</i><i>avenir-erp.uz/people</i></span></div>
           <div class="dash">
             <aside class="dash__rail">
               <span class="dash__logo"></span>
-              <span class="dash__ico is-on"></span><span class="dash__ico"></span>
-              <span class="dash__ico"></span><span class="dash__ico"></span>
+              <span class="dash__ico is-on" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 11v5M15 11v3"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v19"/><path d="M16.5 6.8H9.8a2.8 2.8 0 0 0 0 5.6h4.4a2.8 2.8 0 0 1 0 5.6H7"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21.5h4"/><path d="M12 2.5a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6H14.7c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 2.5z"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M16.5 5.2a3.2 3.2 0 0 1 0 5.9"/><path d="M18 19.5a5.4 5.4 0 0 0-2.2-4.3"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5v-3.2a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4v3.2"/><circle cx="12" cy="7" r="4"/></svg></span>
             </aside>
             <div class="dash__body">
-              <div class="dash__head"><span class="dash__title"></span><span class="dash__btn"></span></div>
-              <div class="kpis">
-                <div class="kpi"><b data-live="34" data-min="28" data-max="46">34</b><em>Ochiq bitimlar</em></div>
-                <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Oylik daromad</em></div>
-                <div class="kpi"><b data-live="92" data-min="86" data-max="97" data-suffix="%">92%</b><em>Bajarilgan vazifa</em></div>
+              <div class="scr" data-screens>
+
+                <!-- 01 · Boshqaruv paneli -->
+                <section class="scr__i is-on">
+                  <div class="dash__head"><span class="dash__t">Boshqaruv paneli</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="34" data-min="28" data-max="46">34</b><em>Faol lidlar</em></div>
+                    <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Oylik tushum</em></div>
+                    <div class="kpi"><b data-live="92" data-min="86" data-max="97" data-suffix="%">92%</b><em>Jamoa yuklamasi</em></div>
+                  </div>
+                  <div class="plate">
+                    <div class="plate__h"><em>Lidlar oqimi · 30 kun</em><span class="up"><b data-live="18.2" data-min="9" data-max="24" data-dec="1" data-suffix="%">18.2%</b></span></div>
+                    <svg class="lc" data-chart viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true">
+                      <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#3B82F6" stop-opacity="0.4"/><stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
+                      </linearGradient></defs>
+                      <line class="lc__grid" x1="0" y1="23" x2="300" y2="23"/><line class="lc__grid" x1="0" y1="46" x2="300" y2="46"/>
+                      <line class="lc__grid" x1="0" y1="69" x2="300" y2="69"/>
+                      <path class="lc__area" fill="url(#lg)"/><path class="lc__line"/>
+                      <circle class="lc__halo" r="5"/><circle class="lc__dot" r="2.4"/>
+                    </svg>
+                  </div>
+                  <div class="feed" data-feed></div>
+                </section>
+
+                <!-- 02 · Loyihalar va kanallar -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Loyihalar</span><span class="dash__btn"></span></div>
+                  <div class="prj">
+                    <div class="prj__b">
+                      <div class="pcol">
+                        <em>Ishda</em>
+                        <div class="pc"><b>VAC.UZ — ERP</b><span>12 hafta · 48 mln</span><u style="--p:64%"></u></div>
+                        <div class="pc"><b>APEC — katalog</b><span>18 hafta · 126 mln</span><u style="--p:38%"></u></div>
+                      </div>
+                      <div class="pcol">
+                        <em>Tekshiruvda</em>
+                        <div class="pc"><b>Yakov — analitika</b><span>2-bosqich · 32 mln</span><u style="--p:88%"></u></div>
+                        <div class="pc"><b>DeFi — platforma</b><span>8 hafta · 96 mln</span><u style="--p:71%"></u></div>
+                      </div>
+                      <div class="pcol">
+                        <em>Yakunlandi</em>
+                        <div class="pc"><b>Dagestantur — sayt</b><span>Topshirildi · 19 mln</span><u style="--p:100%"></u></div>
+                      </div>
+                    </div>
+                    <div class="chn">
+                      <em>Kanallar</em>
+                      <div class="chn__m">
+                        <span><b data-live="1.24" data-min="1.1" data-max="1.4" data-dec="2" data-suffix=" mln">1.24 mln</b>Ko'rsatishlar</span>
+                        <span><b data-live="38.4" data-min="32" data-max="44" data-dec="1" data-suffix="K">38.4K</b>Kliklar</span>
+                        <span><b data-live="612" data-min="540" data-max="680">612</b>Lidlar</span>
+                        <span><b data-live="41" data-min="34" data-max="52">41</b>Mijozlar</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 03 · Moliya -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Moliya</span><span class="dash__btn"></span></div>
+                  <div class="ftabs"><span class="is-on">Hisob-fakturalar</span><span>Xarajatlar</span><span>P&amp;L hisobot</span></div>
+                  <div class="kpis kpis--4">
+                    <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Tushum · oy</em></div>
+                    <div class="kpi"><b data-live="74.2" data-min="66" data-max="82" data-dec="1" data-suffix=" mln">74.2 mln</b><em>Xarajat · oy</em></div>
+                    <div class="kpi"><b data-live="54.2" data-min="44" data-max="62" data-dec="1" data-suffix=" mln">54.2 mln</b><em>Foyda · oy</em></div>
+                    <div class="kpi"><b data-live="41.8" data-min="33" data-max="49" data-dec="1" data-suffix=" mln">41.8 mln</b><em>Debitorka</em></div>
+                  </div>
+                  <div class="fin2">
+                  <div class="plate">
+                    <div class="plate__h"><em>Tushum va xarajat · 6 oy</em><span class="up"><b>+12.4%</b></span></div>
+                    <div class="bars gbars">
+                      <span><i style="--h:58%"></i><i style="--h:39%"></i><s>Fev</s></span>
+                      <span><i style="--h:64%"></i><i style="--h:44%"></i><s>Mar</s></span>
+                      <span><i style="--h:53%"></i><i style="--h:41%"></i><s>Apr</s></span>
+                      <span><i style="--h:76%"></i><i style="--h:47%"></i><s>May</s></span>
+                      <span><i style="--h:71%"></i><i style="--h:52%"></i><s>Iyun</s></span>
+                      <span class="hi"><i style="--h:92%"></i><i style="--h:56%"></i><s>Iyul</s></span>
+                    </div>
+                    <div class="lg"><span><i style="background:#3B82F6"></i>Tushum</span><span><i style="background:#94A3B8"></i>Xarajat</span></div>
+                  </div>
+                  <div class="inv">
+                    <div class="inv__r"><em>VAC.UZ</em><span>· #2478</span><b>48 000 000</b><span class="bdg bdg--g">To'landi</span></div>
+                    <div class="inv__r"><em>APEC Asia UAE</em><span>· #2481</span><b>32 000 000</b><span class="bdg bdg--b">Yuborildi</span></div>
+                    <div class="inv__r"><em>Dagestantur</em><span>· #2470</span><b>9 600 000</b><span class="bdg bdg--a">Muddati o'tdi</span></div>
+                  </div>
+                  </div>
+                </section>
+
+                <!-- 04 · Breynstorming -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Breynstorming</span><span class="dash__btn"></span></div>
+                  <div class="bst">
+                    <div class="bst__c">
+                      <span class="stk stk--a">Telegram mini-app<u>7</u></span>
+                      <span class="stk stk--b">Referal dastur<u>5</u></span>
+                      <span class="stk stk--c">Video-keyslar<u>4</u></span>
+                      <span class="stk stk--d">Narx kalkulyatori<u>3</u></span>
+                      <span class="stk stk--e">SEO klaster<u>2</u></span>
+                      <span class="pcur pcur--a"><span><b>Xojiakbar</b></span></span>
+                      <span class="pcur pcur--b"><span><b>Dilnoza</b></span></span>
+                    </div>
+                    <p class="bst__f">Sessiya yakuni: <b>3 ta g'oya</b> tanlandi va vazifaga aylantirildi</p>
+                  </div>
+                </section>
+
+                <!-- 05 · CRM voronkasi -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">CRM va sotuv</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="128" data-min="112" data-max="146">128</b><em>Voronkadagi lidlar</em></div>
+                    <div class="kpi"><b data-live="386.5" data-min="340" data-max="430" data-dec="1" data-suffix=" mln">386.5 mln</b><em>Voronka qiymati</em></div>
+                    <div class="kpi"><b data-live="9.4" data-min="7" data-max="12" data-dec="1" data-suffix="%">9.4%</b><em>Konversiya</em></div>
+                  </div>
+                  <div class="fun">
+                    <div class="fun__r" style="--w:100%"><em>Yangi murojaat</em><u></u><b>128</b></div>
+                    <div class="fun__r" style="--w:73%"><em>Kvalifikatsiya</em><u></u><b>94</b></div>
+                    <div class="fun__r" style="--w:48%"><em>Taklif yuborildi</em><u></u><b>61</b></div>
+                    <div class="fun__r" style="--w:27%"><em>Muzokara</em><u></u><b>34</b></div>
+                    <div class="fun__r" style="--w:11%"><em>Bitim yopildi</em><u></u><b>12</b></div>
+                  </div>
+                  <div class="inv">
+                    <div class="inv__r"><em>Alfa Textile</em><span>· ERP</span><b>96 000 000</b><span class="bdg bdg--g">Muzokara</span></div>
+                    <div class="inv__r"><em>Orient Logistics</em><span>· CRM</span><b>54 000 000</b><span class="bdg bdg--b">Taklif yuborildi</span></div>
+                    <div class="inv__r"><em>Delta Market</em><span>· Sayt</span><b>22 400 000</b><span class="bdg bdg--a">Yangi murojaat</span></div>
+                  </div>
+                </section>
+
+                <!-- 06 · Hisobotlar -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Hisobotlar</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="42.6" data-min="36" data-max="48" data-dec="1" data-suffix="%">42.6%</b><em>Marja</em></div>
+                    <div class="kpi"><b data-live="38.4" data-min="31" data-max="44" data-dec="1" data-suffix=" mln">38.4 mln</b><em>O'rtacha chek</em></div>
+                    <div class="kpi"><b data-live="3.2" data-min="2.6" data-max="3.9" data-dec="1" data-suffix="x">3.2x</b><em>Mijoz LTV</em></div>
+                  </div>
+                  <div class="rep">
+                    <div class="plate">
+                      <div class="plate__h"><em>Tushum · 12 oy</em><span class="up"><b data-live="24.6" data-min="18" data-max="31" data-dec="1" data-suffix="%">24.6%</b></span></div>
+                      <div class="bars">
+                        <span><i style="--h:34%"></i><s>Yan</s></span>
+                        <span><i style="--h:41%"></i><s>Fev</s></span>
+                        <span><i style="--h:38%"></i><s>Mar</s></span>
+                        <span><i style="--h:52%"></i><s>Apr</s></span>
+                        <span><i style="--h:47%"></i><s>May</s></span>
+                        <span><i style="--h:61%"></i><s>Iyun</s></span>
+                        <span class="hi"><i style="--h:78%"></i><s>Iyul</s></span>
+                        <span><i style="--h:69%"></i><s>Avg</s></span>
+                        <span><i style="--h:74%"></i><s>Sen</s></span>
+                        <span><i style="--h:83%"></i><s>Okt</s></span>
+                        <span><i style="--h:79%"></i><s>Noy</s></span>
+                        <span><i style="--h:94%"></i><s>Dek</s></span>
+                      </div>
+                    </div>
+                    <div class="plate">
+                      <div class="plate__h"><em>Yo'nalishlar ulushi</em></div>
+                      <div class="dn">
+                        <svg viewBox="0 0 42 42" aria-hidden="true">
+                          <circle class="dn__t" cx="21" cy="21" r="15.9"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#2563EB" stroke-dasharray="41 59" stroke-dashoffset="0"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#60A5FA" stroke-dasharray="27 73" stroke-dashoffset="-41"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#93C5FD" stroke-dasharray="18 82" stroke-dashoffset="-68"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#C7DBFF" stroke-dasharray="14 86" stroke-dashoffset="-86"/>
+                        </svg>
+                        <ul class="dn__l">
+                          <li><i style="background:#2563EB"></i>ERP va CRM<b>41%</b></li>
+                          <li><i style="background:#60A5FA"></i>Veb saytlar<b>27%</b></li>
+                          <li><i style="background:#93C5FD"></i>Mobil ilovalar<b>18%</b></li>
+                          <li><i style="background:#C7DBFF"></i>Botlar<b>14%</b></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 07 · Jamoa -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Jamoa</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b>18</b><em>Xodimlar</em></div>
+                    <div class="kpi"><b data-live="86" data-min="78" data-max="94" data-suffix="%">86%</b><em>Bandlik</em></div>
+                    <div class="kpi"><b data-live="1284" data-min="1150" data-max="1400">1284</b><em>Soat · oy</em></div>
+                  </div>
+                  <div class="team">
+                    <div class="tm"><span class="tm__a" style="background:#2563EB">XC</span><span class="tm__b"><b>Xojiakbar Ch.</b><span>Loyiha rahbari</span></span><u style="--p:92%"></u><em>92%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#3B82F6">DA</span><span class="tm__b"><b>Dilnoza A.</b><span>Bosh dizayner</span></span><u style="--p:84%"></u><em>84%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#60A5FA">SR</span><span class="tm__b"><b>Sardor R.</b><span>Backend dasturchi</span></span><u style="--p:78%"></u><em>78%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#0EA5A5">MT</span><span class="tm__b"><b>Malika T.</b><span>Sotuv menejeri</span></span><u style="--p:71%"></u><em>71%</em></div>
+                  </div>
+                </section>
+
               </div>
-              <div class="plate">
-                <div class="plate__h"><em>Lidlar oqimi · 30 kun</em><span class="up"><b data-live="18.2" data-min="9" data-max="24" data-dec="1" data-suffix="%">18.2%</b></span></div>
-                <svg class="lc" data-chart viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true">
-                  <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#3B82F6" stop-opacity="0.4"/><stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
-                  </linearGradient></defs>
-                  <line class="lc__grid" x1="0" y1="23" x2="300" y2="23"/><line class="lc__grid" x1="0" y1="46" x2="300" y2="46"/>
-                  <line class="lc__grid" x1="0" y1="69" x2="300" y2="69"/>
-                  <path class="lc__area" fill="url(#lg)"/><path class="lc__line"/>
-                  <circle class="lc__halo" r="5"/><circle class="lc__dot" r="2.4"/>
-                </svg>
-              </div>
-              <div class="feed" data-feed></div>
             </div>
           </div>
         </div>
@@ -986,7 +347,7 @@ body.intro-on { overflow: hidden; }
           <span class="chip"><i></i>CRM va ERP</span>
           <h3>Sotuv, ombor va moliya — bitta tizimda</h3>
           <p>Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.</p>
-          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+          <a class="btn btn--d btn--sm" href="crm-erp.html">Batafsil <span class="btn__ar">→</span></a>
         </div>
         <div class="gc sol__c rise" style="--d:90ms">
           <div class="cyc" data-cyc>
@@ -1025,7 +386,7 @@ body.intro-on { overflow: hidden; }
           <span class="chip"><i></i>AI botlar</span>
           <h3>Buyruqni tushunadigan yordamchi</h3>
           <p>Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.</p>
-          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+          <a class="btn btn--d btn--sm" href="ai-botlar.html">Batafsil <span class="btn__ar">→</span></a>
         </div>
         <div class="gc sol__c sol__c--b rise" style="--d:90ms">
           <div class="ai">
@@ -1064,7 +425,7 @@ body.intro-on { overflow: hidden; }
           <span class="chip"><i></i>Veb saytlar</span>
           <h3>Ishonch uyg'otadigan va sotadigan sayt</h3>
           <p>Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.</p>
-          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+          <a class="btn btn--d btn--sm" href="veb-saytlar.html">Batafsil <span class="btn__ar">→</span></a>
         </div>
         <div class="gc sol__c sol__c--c rise" style="--d:90ms">
           <div class="bw">
@@ -1107,7 +468,7 @@ body.intro-on { overflow: hidden; }
           <span class="chip"><i></i>Telegram bot va mini-app</span>
           <h3>Mijoz Telegramdan chiqmasdan buyurtma beradi</h3>
           <p>Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.</p>
-          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+          <a class="btn btn--d btn--sm" href="telegram-bot.html">Batafsil <span class="btn__ar">→</span></a>
         </div>
         <div class="gc sol__c sol__c--d rise" style="--d:90ms">
           <div class="tg">
@@ -1143,7 +504,7 @@ body.intro-on { overflow: hidden; }
           <span class="chip"><i></i>Mobil ilovalar</span>
           <h3>Android va iOS uchun barqaror ilova</h3>
           <p>Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.</p>
-          <a class="btn btn--d btn--sm" href="#aloqa">Batafsil <span class="btn__ar">→</span></a>
+          <a class="btn btn--d btn--sm" href="mobil-ilova.html">Batafsil <span class="btn__ar">→</span></a>
         </div>
         <div class="gc sol__c sol__c--e rise" style="--d:90ms">
           <div class="ph">
@@ -1191,10 +552,9 @@ body.intro-on { overflow: hidden; }
       <article class="gc wc rise">
         <div class="wc__img"><img src="/portfolio/vac-uz.webp" alt="VAC.UZ" loading="lazy"></div>
         <div class="wc__b">
-          <p class="wc__m">Ishlab chiqarish<span>2025</span></p>
+          <p class="wc__m">Ishlab chiqarish · ERP<span>2025</span></p>
           <h3>VAC.UZ</h3>
           <p>Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.</p>
-          <div class="wc__t"><b>Next.js</b><b>CRM</b><b>Avtomatlashtirish</b></div>
         </div>
       </article>
       <article class="gc wc rise" style="--d:80ms">
@@ -1203,7 +563,6 @@ body.intro-on { overflow: hidden; }
           <p class="wc__m">ERP + CRM + Moliya<span>2025</span></p>
           <h3>Avenir OS</h3>
           <p>Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.</p>
-          <div class="wc__t"><b>ERP</b><b>CRM</b><b>Moliya</b></div>
         </div>
       </article>
       <article class="gc wc rise" style="--d:160ms">
@@ -1212,7 +571,6 @@ body.intro-on { overflow: hidden; }
           <p class="wc__m">Konsalting<span>2025</span></p>
           <h3>Yakov and Partners</h3>
           <p>Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.</p>
-          <div class="wc__t"><b>Korporativ sayt</b><b>SEO</b></div>
         </div>
       </article>
       <article class="gc wc rise">
@@ -1221,7 +579,6 @@ body.intro-on { overflow: hidden; }
           <p class="wc__m">TradFi platforma<span>2026</span></p>
           <h3>DeFi Technologies</h3>
           <p>Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.</p>
-          <div class="wc__t"><b>FinTech</b><b>Web3</b><b>UI/UX</b></div>
         </div>
       </article>
       <article class="gc wc rise" style="--d:80ms">
@@ -1230,7 +587,6 @@ body.intro-on { overflow: hidden; }
           <p class="wc__m">E-commerce<span>2025</span></p>
           <h3>APEC Asia UAE</h3>
           <p>BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.</p>
-          <div class="wc__t"><b>Katalog</b><b>SEO</b></div>
         </div>
       </article>
       <article class="gc wc rise" style="--d:160ms">
@@ -1239,7 +595,6 @@ body.intro-on { overflow: hidden; }
           <p class="wc__m">Turizm<span>2025</span></p>
           <h3>Dagestantur</h3>
           <p>Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.</p>
-          <div class="wc__t"><b>Landing</b><b>Bronirovanie</b></div>
         </div>
       </article>
     </div>
@@ -1256,7 +611,7 @@ body.intro-on { overflow: hidden; }
     </div>
 
     <div class="steps">
-      <div class="gc step rise"><span class="step__n">01</span><h4>Kashfiyot</h4><p>Maqsadlar, foydalanuvchilar va mahsulot doirasini aniqlaymiz.</p></div>
+      <div class="gc step rise"><span class="step__n">01</span><h4>Chuqur Audit</h4><p>Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.</p></div>
       <div class="gc step rise" style="--d:100ms"><span class="step__n">02</span><h4>Dizayn va ishlab chiqish</h4><p>UI tizimlari va masshtablanuvchi injiniring.</p></div>
       <div class="gc step rise" style="--d:200ms"><span class="step__n">03</span><h4>Ishga tushirish va o'sish</h4><p>Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.</p></div>
     </div>
@@ -1266,6 +621,91 @@ body.intro-on { overflow: hidden; }
       <div class="nums__c rise" style="--d:80ms"><span class="od" data-od="30" data-sup="+"></span><p class="nums__k">Mamnun mijozlar</p></div>
       <div class="nums__c rise" style="--d:160ms"><span class="od" data-od="5"></span><p class="nums__k">Bozordagi yillar</p></div>
       <div class="nums__c rise" style="--d:240ms"><span class="od" data-od="4"></span><p class="nums__k">Qamrab olingan mamlakatlar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JAMOA ===================== -->
+<section class="section" id="jamoa" data-sec="jamoa">
+  <span class="aura aura--b aura--drift" style="width:620px;height:620px;left:-220px;top:12%;opacity:0.45"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Jamoa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Loyihangiz ustida ishlaydigan odamlar</h2>
+      <p class="p-sec rise" style="--d:160ms">Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.</p>
+    </div>
+
+    <div class="crew rise" style="--d:220ms">
+      <button class="tmc is-on" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Ta'sischi</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Xojiakbar Choriyev</b>
+          <em class="tmc__r">Ta'sischi va rahbar</em>
+          <span class="tmc__b">Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.</span>
+          <span class="tmc__x">Strategiya · ERP · Mijozlar</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Loyihalar rahbari</span>
+        <span class="tmc__d">
+          <b class="tmc__n is-ph">Ism familiya</b>
+          <em class="tmc__r">Loyihalar rahbari</em>
+          <span class="tmc__b">Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.</span>
+          <span class="tmc__x">Jarayon · Rejalashtirish</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Bosh dizayner</span>
+        <span class="tmc__d">
+          <b class="tmc__n is-ph">Ism familiya</b>
+          <em class="tmc__r">Bosh dizayner</em>
+          <span class="tmc__b">Interfeys tuzilmasi, prototip va dizayn tizimi — foydalanuvchi yo'lini qisqartiradi.</span>
+          <span class="tmc__x">UX · UI · Dizayn tizimi</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Yetakchi dasturchi</span>
+        <span class="tmc__d">
+          <b class="tmc__n is-ph">Ism familiya</b>
+          <em class="tmc__r">Yetakchi dasturchi</em>
+          <span class="tmc__b">Arxitektura, integratsiyalar va tizim barqarorligi uning zimmasida.</span>
+          <span class="tmc__x">Backend · Integratsiya</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Qo'llab-quvvatlash</span>
+        <span class="tmc__d">
+          <b class="tmc__n is-ph">Ism familiya</b>
+          <em class="tmc__r">Sotuv va qo'llab-quvvatlash</em>
+          <span class="tmc__b">Ishga tushgandan keyin ham aloqada: savol, yangilanish va rivojlantirish.</span>
+          <span class="tmc__x">Support · Rivojlantirish</span>
+        </span>
+      </button>
     </div>
   </div>
 </section>
@@ -1305,7 +745,6 @@ body.intro-on { overflow: hidden; }
           </div>
 
           <form class="form" onsubmit="return false;">
-            <p class="form__s"><span class="dot"></span>Bugun qabul qilingan so'rovlar: <b data-live="7" data-min="4" data-max="12">7</b></p>
             <div class="field"><label for="fn">Ismingiz</label><input id="fn" type="text" placeholder="Ism familiya" required></div>
             <div class="field"><label for="fp">Telefon raqam</label><input id="fp" type="tel" value="+998 " required></div>
             <div class="field"><label for="ft">Telegram username</label><input id="ft" type="text" placeholder="@username" required></div>
@@ -1333,8 +772,613 @@ body.intro-on { overflow: hidden; }
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 1024;
 
-  /* ---------- sarlavhalarni so'zlarga bo'lish ---------- */
-  document.querySelectorAll('[data-split]').forEach(function (h) {
+  /* ---------- mavzu: canvas ham xuddi shu siyohda chiziladi ---------- */
+  var FXINK = '255, 255, 255', fxRefresh = null;
+  function readInk() {
+    var v = getComputedStyle(document.documentElement).getPropertyValue('--ink');
+    FXINK = (v || '255, 255, 255').trim();
+  }
+  readInk();
+
+  /* ==================================================================
+     TIL: uz / ru / en
+     Lug'at kaliti — o'zbekcha matnning o'zi. Sahifadagi har bir matn
+     tuguni bir marta yig'ib olinadi, keyin faqat qiymati almashtiriladi;
+     shu sababli razmetkada hech qanday qo'shimcha atribut kerak emas.
+     ================================================================== */
+  var LANGS = ['uz', 'ru', 'en'];
+  var I18N = {
+    "ru": {
+      "Yechimlar": "Решения",
+      "Loyihalar": "Проекты",
+      "Jarayon": "Процесс",
+      "Aloqa": "Контакты",
+      "Avenir IT-agentligi": "IT-агентство Avenir",
+      "Biznesingizni": "Переводим ваш бизнес в",
+      "raqamli": "цифровую",
+      "tizimga o'tkazamiz.": "систему.",
+      "Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha, keyin esa o'sish va qo'llab-quvvatlash.": "Сайт, CRM, ERP и мобильное приложение — одна команда. От идеи до запуска, а дальше — рост и поддержка.",
+      "Loyihani boshlash": "Начать проект",
+      "Ishlarimizni ko'rish": "Смотреть работы",
+      "Ochiq bitimlar": "Открытые сделки",
+      "Oylik daromad": "Выручка за месяц",
+      "Bajarilgan vazifa": "Задачи выполнены",
+      "Lidlar oqimi · 30 kun": "Поток лидов · 30 дней",
+      "mln": "млн",
+      "Yangi lid": "Новый лид",
+      "VAC.UZ — korporativ sayt": "VAC.UZ — корпоративный сайт",
+      "hozir": "сейчас",
+      "daq": "мин",
+      "#2481 to’landi": "#2481 оплачен",
+      "Bitim bosqichi": "Этап сделки",
+      "Yangi mijoz": "Новый клиент",
+      "Oylik P&L tayyor": "Месячный P&L готов",
+      "kompaniya bizga ishonadi": "компаний нам доверяют",
+      "Biznesingiz uchun raqamli yechimlar": "Цифровые решения для вашего бизнеса",
+      "Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.": "По каждому направлению — готовая команда и отлаженный процесс.",
+      "Batafsil": "Подробнее",
+      "CRM va ERP": "CRM и ERP",
+      "Sotuv, ombor va moliya — bitta tizimda": "Продажи, склад и финансы — в одной системе",
+      "Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.": "Сделки, счета, склад и команда — в одном месте. Каждое действие фиксируется в системе автоматически.",
+      "Bitim": "Сделка",
+      "Taklif yuborildi": "КП отправлено",
+      "VAC.UZ — korporativ sayt va hisob-kitob moduli": "VAC.UZ — корпоративный сайт и модуль расчётов",
+      "Muddat: 12 hafta": "Срок: 12 недель",
+      "48 000 000 so'm": "48 000 000 сум",
+      "Shartnoma": "Договор",
+      "Imzolandi": "Подписан",
+      "APEC Asia UAE — ulgurji katalog platformasi": "APEC Asia UAE — платформа оптового каталога",
+      "Muddat: 18 hafta": "Срок: 18 недель",
+      "126 400 000 so'm": "126 400 000 сум",
+      "Hisob-faktura": "Счёт",
+      "To'lov kutilmoqda": "Ожидает оплаты",
+      "Yakov and Partners — analitik platforma, 2-bosqich": "Yakov and Partners — аналитическая платформа, 2-й этап",
+      "Muddat: 5 kun": "Срок: 5 дней",
+      "32 000 000 so'm": "32 000 000 сум",
+      "Ombor": "Склад",
+      "Qabul qilindi": "Принято",
+      "Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC": "Воздуховод — 240 м · поставщик VAC",
+      "Skladga kiritildi": "Оприходовано на склад",
+      "18 400 000 so'm": "18 400 000 сум",
+      "Xarajat": "Расход",
+      "Tasdiqlandi": "Утверждён",
+      "Jamoa oyligi va litsenziyalar — iyul 2026": "Зарплата команды и лицензии — июль 2026",
+      "Moliya bo'limi": "Финансовый отдел",
+      "74 200 000 so'm": "74 200 000 сум",
+      "AI botlar": "AI-боты",
+      "Buyruqni tushunadigan yordamchi": "Ассистент, который понимает команды",
+      "Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.": "Спрашиваете обычными словами — бот готовит отчёт, ставит задачу, находит ответ.",
+      "Kelasi haftadagi uchrashuvlarni ko'rsat": "Покажи встречи на следующей неделе",
+      "Tezkor": "Быстро",
+      "Iyul oyidagi xarajatlar hisobotini tayyorla": "Подготовь отчёт по расходам за июль",
+      "Hisobot": "Отчёт",
+      "Qarzdor mijozlar ro'yxatini chiqar": "Выведи список должников",
+      "Moliya": "Финансы",
+      "Yangi lidga taklif xatini yoz": "Напиши КП новому лиду",
+      "Sotuv": "Продажи",
+      "Javob": "Ответ",
+      "Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).": "На следующей неделе 3 встречи: VAC.UZ (понедельник), APEC (среда), Yakov (пятница).",
+      "Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).": "Расходы за июль — 74 200 000 сум. Крупнейшая статья: зарплата команды (68%).",
+      "4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.": "Найдено 4 должника на общую сумму 41 800 000 сум. Самый давний — 18 дней.",
+      "Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.": "КП готово — 2 страницы с таблицей цен. Можно отправлять.",
+      "Veb saytlar": "Веб-сайты",
+      "Ishonch uyg'otadigan va sotadigan sayt": "Сайт, который вызывает доверие и продаёт",
+      "Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.": "Корпоративный сайт, лендинг и e-commerce. Быстро загружается, находится в поиске, удобен на телефоне.",
+      "Telegram bot va mini-app": "Telegram-бот и mini-app",
+      "Mijoz Telegramdan chiqmasdan buyurtma beradi": "Клиент оформляет заказ, не выходя из Telegram",
+      "Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.": "Каталог, оплата и связь с CRM — в одном окне. С mini-app — полноценный интерфейс.",
+      "onlayn": "в сети",
+      "Assalomu alaykum! Nima qilishim mumkin?": "Здравствуйте! Чем могу помочь?",
+      "Buyurtma berish": "Оформить заказ",
+      "Katalog": "Каталог",
+      "Holat": "Статус",
+      "Operator": "Оператор",
+      "Ventilyatsiya kanali, 24 m": "Воздуховод, 24 м",
+      "Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.": "Принято. Заказ #4821 · доставим сегодня до 18:00.",
+      "To'lov qilish": "Оплатить",
+      "Manzilni o'zgartirish": "Изменить адрес",
+      "To'lov qildim": "Оплатил",
+      "To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.": "Оплата подтверждена — 7 400 000 сум. Чек отправлен.",
+      "CRM da bitim avtomatik yopildi.": "Сделка в CRM закрыта автоматически.",
+      "Katalogni ko'rsat": "Покажи каталог",
+      "Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.": "Mini-app открыт: 142 позиции, цены из CRM.",
+      "Mini-app ochish": "Открыть mini-app",
+      "Qidirish": "Поиск",
+      "Mobil ilovalar": "Мобильные приложения",
+      "Android va iOS uchun barqaror ilova": "Стабильное приложение для Android и iOS",
+      "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, офлайн-режим и связь с вашими системами — из одной кодовой базы.",
+      "Payshanba, 21-avgust": "Четверг, 21 августа",
+      "Yangi bitim": "Новая сделка",
+      "VAC.UZ — taklif yuborildi": "VAC.UZ — КП отправлено",
+      "To'lov qabul qilindi": "Платёж получен",
+      "#2481 · 32 000 000 so'm": "#2481 · 32 000 000 сум",
+      "3 daq": "3 мин",
+      "Vazifa yopildi": "Задача закрыта",
+      "Dizayn sprint · 12/12": "Дизайн-спринт · 12/12",
+      "12 daq": "12 мин",
+      "Eslatma": "Напоминание",
+      "Shartnoma 3 kunda tugaydi": "Договор истекает через 3 дня",
+      "1 soat": "1 ч",
+      "Hisobot tayyor": "Отчёт готов",
+      "Iyul oyi P&L": "P&L за июль",
+      "2 soat": "2 ч",
+      "Haqiqiy natija bergan mahsulotlar": "Продукты, которые дали реальный результат",
+      "Ishlab chiqarish · ERP": "Производство · ERP",
+      "Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.": "Сайт и система расчётов для производителя вентиляционных воздуховодов.",
+      "ERP + CRM + Moliya": "ERP + CRM + финансы",
+      "Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.": "Система для управления всеми операционными задачами в одном приложении.",
+      "Konsalting": "Консалтинг",
+      "Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.": "Корпоративный сайт и аналитическая платформа для международной консалтинговой компании.",
+      "TradFi platforma": "TradFi-платформа",
+      "Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.": "Платформа институционального доступа к цифровым активам.",
+      "BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.": "Платформа глобальных оптовых поставок автозапчастей в ОАЭ.",
+      "Turizm": "Туризм",
+      "Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.": "Сайт с бронированием и маршрутами для туристического агентства.",
+      "G'oyadan ishga tushirishgacha": "От идеи до запуска",
+      "Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.": "Процесс, настроенный на скорость, качество и измеримый бизнес-результат.",
+      "Chuqur Audit": "Глубокий аудит",
+      "Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.": "Изучаем процессы изнутри: находим узкие места и лишние расходы и превращаем их в чёткие требования.",
+      "Dizayn va ishlab chiqish": "Дизайн и разработка",
+      "UI tizimlari va masshtablanuvchi injiniring.": "UI-системы и масштабируемая инженерия.",
+      "Ishga tushirish va o'sish": "Запуск и рост",
+      "Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.": "Оптимизация и долгосрочная поддержка.",
+      "Topshirilgan loyihalar": "Сданные проекты",
+      "Mamnun mijozlar": "Довольные клиенты",
+      "Bozordagi yillar": "Лет на рынке",
+      "Qamrab olingan mamlakatlar": "Стран охвата",
+      "Loyihangizni": "Начните свой проект",
+      "bugun": "сегодня",
+      "boshlang": "",
+      "Toshkent, O'zbekiston": "Ташкент, Узбекистан",
+      "Ijtimoiy tarmoqlar": "Социальные сети",
+      "Ismingiz": "Ваше имя",
+      "Ism familiya": "Имя и фамилия",
+      "Telefon raqam": "Номер телефона",
+      "Telegram username": "Telegram-username",
+      "Xabar yuborish": "Отправить заявку",
+      "24 soat ichida javob beramiz": "Ответим в течение 24 часов",
+      "Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li": "Avenir Soft — индивидуальный предприниматель Choriyev Xojiakbar Shuxrat O'g'li",
+      "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · Все права защищены",
+      "Maxfiylik siyosati": "Политика конфиденциальности",
+      "Foydalanish shartlari": "Условия использования",
+      "Mavzuni almashtirish": "Сменить тему",
+      "Yorug' / qorong'i": "Светлая / тёмная",
+      "Menyu": "Меню",
+      "Boshqaruv paneli": "Обзор",
+      "Faol lidlar": "Активные лиды",
+      "Oylik tushum": "Выручка MTD",
+      "Jamoa yuklamasi": "Загрузка команды",
+      "Ishda": "В работе",
+      "Tekshiruvda": "На проверке",
+      "Yakunlandi": "Завершён",
+      "12 hafta · 48 mln": "12 недель · 48 млн",
+      "18 hafta · 126 mln": "18 недель · 126 млн",
+      "2-bosqich · 32 mln": "2-й этап · 32 млн",
+      "Topshirildi · 19 mln": "Сдан · 19 млн",
+      "Kanallar": "Каналы",
+      "Ko'rsatishlar": "Показы",
+      "Kliklar": "Клики",
+      "Lidlar": "Лиды",
+      "Mijozlar": "Клиенты",
+      "Hisob-fakturalar": "Счета",
+      "Xarajatlar": "Расходы",
+      "P&L hisobot": "P&L отчёт",
+      "Tushum · oy": "Выручка · мес",
+      "Xarajat · oy": "Расходы · мес",
+      "Foyda · oy": "Прибыль · мес",
+      "Debitorka": "Дебиторка",
+      "To'landi": "Оплачен",
+      "Yuborildi": "Отправлен",
+      "Muddati o'tdi": "Просрочен",
+      "Breynstorming": "Брейнсторминг",
+      "Referal dastur": "Реферальная программа",
+      "Video-keyslar": "Видео-кейсы",
+      "Narx kalkulyatori": "Калькулятор цены",
+      "SEO klaster": "SEO-кластер",
+      "Sessiya yakuni:": "Итоги сессии:",
+      "3 ta g'oya": "3 идеи",
+      "tanlandi va vazifaga aylantirildi": "выбраны и превращены в задачи",
+      "CRM va sotuv": "CRM и продажи",
+      "Voronkadagi lidlar": "Лиды в воронке",
+      "Voronka qiymati": "Стоимость воронки",
+      "Konversiya": "Конверсия",
+      "Yangi murojaat": "Новое обращение",
+      "Kvalifikatsiya": "Квалификация",
+      "Muzokara": "Переговоры",
+      "Bitim yopildi": "Сделка закрыта",
+      "Hisobotlar": "Отчёты",
+      "Tushum · 12 oy": "Выручка · 12 мес",
+      "Yo'nalishlar ulushi": "Доли направлений",
+      "ERP va CRM": "ERP и CRM",
+      "Botlar": "Боты",
+      "Tushum va xarajat · 6 oy": "Выручка и расходы · 6 мес",
+      "Jamoa": "Команда",
+      "Xodimlar": "Сотрудники",
+      "Bandlik": "Загрузка",
+      "Soat · oy": "Часы · мес",
+      "Loyiha rahbari": "Руководитель проектов",
+      "Bosh dizayner": "Ведущий дизайнер",
+      "Backend dasturchi": "Backend-разработчик",
+      "Sotuv menejeri": "Менеджер по продажам",
+      "Yan": "Янв",
+      "Fev": "Фев",
+      "Mar": "Мар",
+      "Apr": "Апр",
+      "May": "Май",
+      "Iyun": "Июн",
+      "Iyul": "Июл",
+      "Avg": "Авг",
+      "Sen": "Сен",
+      "Okt": "Окт",
+      "Noy": "Ноя",
+      "Dek": "Дек",
+      "Marja": "Маржа",
+      "O'rtacha chek": "Средний чек",
+      "Mijoz LTV": "LTV клиента",
+      "Tushum": "Выручка",
+      "Sayt": "Сайт",
+      "Loyihangiz ustida ishlaydigan odamlar": "Люди, которые будут работать над вашим проектом",
+      "Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.": "На каждом проекте одна и та же команда: те, кто проводит аудит, проектирует и запускает.",
+      "Ta'sischi va rahbar": "Основатель и руководитель",
+      "Ta'sischi": "Основатель",
+      "Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.": "Ведёт проект от первого разговора с клиентом до сдачи.",
+      "Strategiya · ERP · Mijozlar": "Стратегия · ERP · Клиенты",
+      "Loyihalar rahbari": "Руководитель проектов",
+      "Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.": "Держит сроки, бюджет и загрузку команды, каждую неделю присылает статус.",
+      "Jarayon · Rejalashtirish": "Процесс · Планирование",
+      "Interfeys tuzilmasi, prototip va dizayn tizimi — foydalanuvchi yo'lini qisqartiradi.": "Структура интерфейса, прототип и дизайн-система — сокращает путь пользователя.",
+      "UX · UI · Dizayn tizimi": "UX · UI · Дизайн-система",
+      "Yetakchi dasturchi": "Ведущий разработчик",
+      "Arxitektura, integratsiyalar va tizim barqarorligi uning zimmasida.": "На нём архитектура, интеграции и стабильность системы.",
+      "Backend · Integratsiya": "Backend · Интеграции",
+      "Sotuv va qo'llab-quvvatlash": "Продажи и поддержка",
+      "Qo'llab-quvvatlash": "Поддержка",
+      "Ishga tushgandan keyin ham aloqada: savol, yangilanish va rivojlantirish.": "Остаётся на связи после запуска: вопросы, обновления и развитие.",
+      "Support · Rivojlantirish": "Поддержка · Развитие"
+    },
+    "en": {
+      "Yechimlar": "Solutions",
+      "Loyihalar": "Projects",
+      "Jarayon": "Process",
+      "Aloqa": "Contact",
+      "Avenir IT-agentligi": "Avenir IT agency",
+      "Biznesingizni": "We turn your business into a",
+      "raqamli": "digital",
+      "tizimga o'tkazamiz.": "system.",
+      "Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha, keyin esa o'sish va qo'llab-quvvatlash.": "Website, CRM, ERP and a mobile app — from one team. From idea to launch, then growth and support.",
+      "Loyihani boshlash": "Start a project",
+      "Ishlarimizni ko'rish": "See our work",
+      "Ochiq bitimlar": "Open deals",
+      "Oylik daromad": "Monthly revenue",
+      "Bajarilgan vazifa": "Tasks completed",
+      "Lidlar oqimi · 30 kun": "Lead flow · 30 days",
+      "mln": "M",
+      "Yangi lid": "New lead",
+      "VAC.UZ — korporativ sayt": "VAC.UZ — corporate website",
+      "hozir": "now",
+      "daq": "min",
+      "#2481 to’landi": "#2481 paid",
+      "Bitim bosqichi": "Deal stage",
+      "Yangi mijoz": "New client",
+      "Oylik P&L tayyor": "Monthly P&L ready",
+      "kompaniya bizga ishonadi": "companies trust us",
+      "Biznesingiz uchun raqamli yechimlar": "Digital solutions for your business",
+      "Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.": "A ready team and a proven process for every direction.",
+      "Batafsil": "Learn more",
+      "CRM va ERP": "CRM and ERP",
+      "Sotuv, ombor va moliya — bitta tizimda": "Sales, inventory and finance — in one system",
+      "Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.": "Deals, invoices, inventory and the team — in one place. Every action is logged automatically.",
+      "Bitim": "Deal",
+      "Taklif yuborildi": "Proposal sent",
+      "VAC.UZ — korporativ sayt va hisob-kitob moduli": "VAC.UZ — corporate website and calculation module",
+      "Muddat: 12 hafta": "Term: 12 weeks",
+      "48 000 000 so'm": "48,000,000 UZS",
+      "Shartnoma": "Contract",
+      "Imzolandi": "Signed",
+      "APEC Asia UAE — ulgurji katalog platformasi": "APEC Asia UAE — wholesale catalogue platform",
+      "Muddat: 18 hafta": "Term: 18 weeks",
+      "126 400 000 so'm": "126,400,000 UZS",
+      "Hisob-faktura": "Invoice",
+      "To'lov kutilmoqda": "Awaiting payment",
+      "Yakov and Partners — analitik platforma, 2-bosqich": "Yakov and Partners — analytics platform, phase 2",
+      "Muddat: 5 kun": "Term: 5 days",
+      "32 000 000 so'm": "32,000,000 UZS",
+      "Ombor": "Inventory",
+      "Qabul qilindi": "Received",
+      "Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC": "Ventilation duct — 240 m · supplier VAC",
+      "Skladga kiritildi": "Added to stock",
+      "18 400 000 so'm": "18,400,000 UZS",
+      "Xarajat": "Expense",
+      "Tasdiqlandi": "Approved",
+      "Jamoa oyligi va litsenziyalar — iyul 2026": "Team payroll and licences — July 2026",
+      "Moliya bo'limi": "Finance department",
+      "74 200 000 so'm": "74,200,000 UZS",
+      "AI botlar": "AI bots",
+      "Buyruqni tushunadigan yordamchi": "An assistant that understands commands",
+      "Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.": "Ask in plain words — the bot builds the report, opens the task, finds the answer.",
+      "Kelasi haftadagi uchrashuvlarni ko'rsat": "Show next week's meetings",
+      "Tezkor": "Quick",
+      "Iyul oyidagi xarajatlar hisobotini tayyorla": "Prepare the July expense report",
+      "Hisobot": "Report",
+      "Qarzdor mijozlar ro'yxatini chiqar": "List the clients in arrears",
+      "Moliya": "Finance",
+      "Yangi lidga taklif xatini yoz": "Draft a proposal for the new lead",
+      "Sotuv": "Sales",
+      "Javob": "Answer",
+      "Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).": "Three meetings next week: VAC.UZ (Monday), APEC (Wednesday), Yakov (Friday).",
+      "Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).": "July expenses — 74,200,000 UZS. Largest item: team payroll (68%).",
+      "4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.": "Four debtors found, 41,800,000 UZS in total. The oldest is 18 days.",
+      "Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.": "The proposal is ready — two pages with a price table. Ready to send.",
+      "Veb saytlar": "Websites",
+      "Ishonch uyg'otadigan va sotadigan sayt": "A site that earns trust and sells",
+      "Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.": "Corporate sites, landing pages and e-commerce. Fast to load, easy to find in search, comfortable on mobile.",
+      "Telegram bot va mini-app": "Telegram bot and mini app",
+      "Mijoz Telegramdan chiqmasdan buyurtma beradi": "Customers order without leaving Telegram",
+      "Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.": "Catalogue, payment and CRM sync — in one window. A full interface with the mini app.",
+      "onlayn": "online",
+      "Assalomu alaykum! Nima qilishim mumkin?": "Hello! How can I help?",
+      "Buyurtma berish": "Place an order",
+      "Katalog": "Catalogue",
+      "Holat": "Status",
+      "Operator": "Operator",
+      "Ventilyatsiya kanali, 24 m": "Ventilation duct, 24 m",
+      "Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.": "Got it. Order #4821 · delivered today by 18:00.",
+      "To'lov qilish": "Pay",
+      "Manzilni o'zgartirish": "Change address",
+      "To'lov qildim": "I've paid",
+      "To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.": "Payment confirmed — 7,400,000 UZS. Receipt sent.",
+      "CRM da bitim avtomatik yopildi.": "The deal in CRM closed automatically.",
+      "Katalogni ko'rsat": "Show the catalogue",
+      "Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.": "Mini app opened: 142 items, prices from CRM.",
+      "Mini-app ochish": "Open mini app",
+      "Qidirish": "Search",
+      "Mobil ilovalar": "Mobile apps",
+      "Android va iOS uchun barqaror ilova": "A stable app for Android and iOS",
+      "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, offline mode and integration with your systems — from a single codebase.",
+      "Payshanba, 21-avgust": "Thursday, 21 August",
+      "Yangi bitim": "New deal",
+      "VAC.UZ — taklif yuborildi": "VAC.UZ — proposal sent",
+      "To'lov qabul qilindi": "Payment received",
+      "#2481 · 32 000 000 so'm": "#2481 · 32,000,000 UZS",
+      "3 daq": "3 min",
+      "Vazifa yopildi": "Task closed",
+      "Dizayn sprint · 12/12": "Design sprint · 12/12",
+      "12 daq": "12 min",
+      "Eslatma": "Reminder",
+      "Shartnoma 3 kunda tugaydi": "Contract expires in 3 days",
+      "1 soat": "1 h",
+      "Hisobot tayyor": "Report ready",
+      "Iyul oyi P&L": "July P&L",
+      "2 soat": "2 h",
+      "Haqiqiy natija bergan mahsulotlar": "Products that delivered real results",
+      "Ishlab chiqarish · ERP": "Manufacturing · ERP",
+      "Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.": "A website and calculation system for a ventilation duct manufacturer.",
+      "ERP + CRM + Moliya": "ERP + CRM + Finance",
+      "Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.": "A system to run all operational work in a single app.",
+      "Konsalting": "Consulting",
+      "Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.": "A corporate website and analytics platform for an international consulting firm.",
+      "TradFi platforma": "TradFi platform",
+      "Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.": "A platform for institutional access to digital assets.",
+      "BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.": "A global wholesale auto parts supply platform based in the UAE.",
+      "Turizm": "Tourism",
+      "Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.": "A booking and itinerary website for a travel agency.",
+      "G'oyadan ishga tushirishgacha": "From idea to launch",
+      "Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.": "A process tuned for speed, quality and measurable business results.",
+      "Chuqur Audit": "Deep audit",
+      "Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.": "We study your processes from the inside: we find bottlenecks and wasted spend, and turn them into clear requirements.",
+      "Dizayn va ishlab chiqish": "Design and development",
+      "UI tizimlari va masshtablanuvchi injiniring.": "UI systems and scalable engineering.",
+      "Ishga tushirish va o'sish": "Launch and growth",
+      "Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.": "Optimisation and long-term support.",
+      "Topshirilgan loyihalar": "Projects delivered",
+      "Mamnun mijozlar": "Happy clients",
+      "Bozordagi yillar": "Years on the market",
+      "Qamrab olingan mamlakatlar": "Countries covered",
+      "Loyihangizni": "Start your project",
+      "bugun": "today",
+      "boshlang": "",
+      "Toshkent, O'zbekiston": "Tashkent, Uzbekistan",
+      "Ijtimoiy tarmoqlar": "Social media",
+      "Ismingiz": "Your name",
+      "Ism familiya": "First and last name",
+      "Telefon raqam": "Phone number",
+      "Telegram username": "Telegram username",
+      "Xabar yuborish": "Send message",
+      "24 soat ichida javob beramiz": "We reply within 24 hours",
+      "Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li": "Avenir Soft — sole proprietor Choriyev Xojiakbar Shuxrat O'g'li",
+      "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · All rights reserved",
+      "Maxfiylik siyosati": "Privacy policy",
+      "Foydalanish shartlari": "Terms of use",
+      "Mavzuni almashtirish": "Switch theme",
+      "Yorug' / qorong'i": "Light / dark",
+      "Menyu": "Menu",
+      "Boshqaruv paneli": "Overview",
+      "Faol lidlar": "Active leads",
+      "Oylik tushum": "Revenue MTD",
+      "Jamoa yuklamasi": "Team utilisation",
+      "Ishda": "In progress",
+      "Tekshiruvda": "In review",
+      "Yakunlandi": "Done",
+      "12 hafta · 48 mln": "12 weeks · 48M",
+      "18 hafta · 126 mln": "18 weeks · 126M",
+      "2-bosqich · 32 mln": "phase 2 · 32M",
+      "Topshirildi · 19 mln": "Delivered · 19M",
+      "Kanallar": "Channels",
+      "Ko'rsatishlar": "Impressions",
+      "Kliklar": "Clicks",
+      "Lidlar": "Leads",
+      "Mijozlar": "Clients",
+      "Hisob-fakturalar": "Invoices",
+      "Xarajatlar": "Expenses",
+      "P&L hisobot": "P&L report",
+      "Tushum · oy": "Revenue · MTD",
+      "Xarajat · oy": "Expenses · MTD",
+      "Foyda · oy": "Profit · MTD",
+      "Debitorka": "Receivables",
+      "To'landi": "Paid",
+      "Yuborildi": "Sent",
+      "Muddati o'tdi": "Overdue",
+      "Breynstorming": "Brainstorming",
+      "Referal dastur": "Referral programme",
+      "Video-keyslar": "Video cases",
+      "Narx kalkulyatori": "Price calculator",
+      "SEO klaster": "SEO cluster",
+      "Sessiya yakuni:": "Session results:",
+      "3 ta g'oya": "3 ideas",
+      "tanlandi va vazifaga aylantirildi": "picked and turned into tasks",
+      "CRM va sotuv": "CRM and sales",
+      "Voronkadagi lidlar": "Leads in pipeline",
+      "Voronka qiymati": "Pipeline value",
+      "Konversiya": "Conversion",
+      "Yangi murojaat": "New enquiry",
+      "Kvalifikatsiya": "Qualification",
+      "Muzokara": "Negotiation",
+      "Bitim yopildi": "Deal won",
+      "Hisobotlar": "Reports",
+      "Tushum · 12 oy": "Revenue · 12 months",
+      "Yo'nalishlar ulushi": "Revenue by line",
+      "ERP va CRM": "ERP and CRM",
+      "Botlar": "Bots",
+      "Tushum va xarajat · 6 oy": "Revenue and expenses · 6 months",
+      "Jamoa": "Team",
+      "Xodimlar": "Employees",
+      "Bandlik": "Utilisation",
+      "Soat · oy": "Hours · month",
+      "Loyiha rahbari": "Project manager",
+      "Bosh dizayner": "Lead designer",
+      "Backend dasturchi": "Backend developer",
+      "Sotuv menejeri": "Sales manager",
+      "Yan": "Jan",
+      "Fev": "Feb",
+      "Mar": "Mar",
+      "Apr": "Apr",
+      "May": "May",
+      "Iyun": "Jun",
+      "Iyul": "Jul",
+      "Avg": "Aug",
+      "Sen": "Sep",
+      "Okt": "Oct",
+      "Noy": "Nov",
+      "Dek": "Dec",
+      "Marja": "Margin",
+      "O'rtacha chek": "Average deal",
+      "Mijoz LTV": "Client LTV",
+      "Tushum": "Revenue",
+      "Sayt": "Website",
+      "Loyihangiz ustida ishlaydigan odamlar": "The people who will work on your project",
+      "Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.": "The same team on every project: the people who run the audit, design it and ship it.",
+      "Ta'sischi va rahbar": "Founder and director",
+      "Ta'sischi": "Founder",
+      "Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.": "Runs the project from the first client conversation to hand-off.",
+      "Strategiya · ERP · Mijozlar": "Strategy · ERP · Clients",
+      "Loyihalar rahbari": "Delivery manager",
+      "Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.": "Keeps deadlines, budget and team load in check, and reports status every week.",
+      "Jarayon · Rejalashtirish": "Process · Planning",
+      "Interfeys tuzilmasi, prototip va dizayn tizimi — foydalanuvchi yo'lini qisqartiradi.": "Interface structure, prototype and design system — a shorter path for the user.",
+      "UX · UI · Dizayn tizimi": "UX · UI · Design system",
+      "Yetakchi dasturchi": "Lead developer",
+      "Arxitektura, integratsiyalar va tizim barqarorligi uning zimmasida.": "Architecture, integrations and system stability are on them.",
+      "Backend · Integratsiya": "Backend · Integrations",
+      "Sotuv va qo'llab-quvvatlash": "Sales and support",
+      "Qo'llab-quvvatlash": "Support",
+      "Ishga tushgandan keyin ham aloqada: savol, yangilanish va rivojlantirish.": "Stays in touch after launch: questions, updates and further work.",
+      "Support · Rivojlantirish": "Support · Growth"
+    }
+  };
+
+  var lang = 'uz';
+  try { var svLang = localStorage.getItem('avenir-language'); if (LANGS.indexOf(svLang) > -1) lang = svLang; } catch (e) {}
+
+  function norm(v) { return String(v).trim().replace(/\s+/g, ' '); }
+  function tr(v) {
+    if (lang === 'uz') return v;
+    var d = I18N[lang]; if (!d) return v;
+    var k = norm(v);
+    return Object.prototype.hasOwnProperty.call(d, k) ? d[k] : v;
+  }
+
+  /* matn tugunlarini yig'ish (sarlavhalar ichi bundan mustasno — ular alohida) */
+  function collectNodes(root, skipSplit) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while ((n = w.nextNode())) {
+      if (!n.nodeValue || !/\S/.test(n.nodeValue)) continue;
+      var p = n.parentNode;
+      if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
+      if (skipSplit && p.closest && p.closest('[data-split]')) continue;
+      out.push({ n: n, uz: n.nodeValue });
+    }
+    return out;
+  }
+
+  function paintNodes(list) {
+    for (var i = 0; i < list.length; i++) {
+      var it = list[i], raw = it.uz;
+      if (lang === 'uz') { it.n.nodeValue = raw; continue; }
+      var key = norm(raw), out = tr(key);
+      if (out === key) { it.n.nodeValue = raw; continue; }
+      it.n.nodeValue = raw.match(/^\s*/)[0] + out + raw.match(/\s*$/)[0];
+    }
+  }
+
+  var i18nRoots = ['#top', '#drawer', 'main', 'footer']
+    .map(function (q) { return document.querySelector(q); }).filter(Boolean);
+  var baseNodes = [];
+  i18nRoots.forEach(function (r) { baseNodes = baseNodes.concat(collectNodes(r, true)); });
+
+  /* sarlavhalar: asl razmetkasi eslab qolinadi */
+  var splitEls = Array.prototype.slice.call(document.querySelectorAll('[data-split]'))
+    .map(function (h) { return { el: h, html: h.innerHTML }; });
+
+  /* atributlar */
+  var i18nAttrs = [];
+  [['#fn', 'placeholder'], ['#thm', 'aria-label'], ['#thm', 'title'],
+   ['#burger', 'aria-label'], ['[data-suffix]', 'data-suffix']].forEach(function (pair) {
+    document.querySelectorAll(pair[0]).forEach(function (el) {
+      var v = el.getAttribute(pair[1]);
+      if (v) i18nAttrs.push({ el: el, a: pair[1], uz: v });
+    });
+  });
+
+  function applyLang(l) {
+    if (LANGS.indexOf(l) < 0) l = 'uz';
+    lang = l;
+    document.documentElement.setAttribute('lang', l);
+
+    paintNodes(baseNodes);
+    splitEls.forEach(function (s) {
+      s.el.innerHTML = s.html;                 /* asl (o'zbekcha) holat */
+      paintNodes(collectNodes(s.el, false));
+      splitOne(s.el);
+    });
+    i18nAttrs.forEach(function (at) {
+      var raw = at.uz, prev = at.el.getAttribute(at.a), val = raw;
+      if (lang !== 'uz') {
+        var key = norm(raw), out = tr(key);
+        if (out !== key) val = raw.match(/^\s*/)[0] + out + raw.match(/\s*$/)[0];
+      }
+      at.el.setAttribute(at.a, val);
+      /* jonli raqamning qo'shimchasi keyingi kadrni kutib turmasin */
+      if (at.a === 'data-suffix' && prev && prev !== val) {
+        var txt = at.el.textContent;
+        if (txt.slice(-prev.length) === prev) at.el.textContent = txt.slice(0, -prev.length) + val;
+      }
+    });
+
+    /* eski tildagi lenta qatorlari qolib ketmasin — o'zi qaytadan to'ladi */
+    document.querySelectorAll('[data-feed]').forEach(function (f) { f.innerHTML = ''; });
+
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.classList.toggle('is-active', b.textContent.trim().toLowerCase() === lang);
+      b.setAttribute('aria-pressed', String(b.textContent.trim().toLowerCase() === lang));
+    });
+  }
+
+  applyLang(lang);
+
+  /* ---------- sarlavhalarni so'zlarga bo'lish ----------
+     tilni almashtirganda sarlavha asl holatiga qaytarilib, qaytadan bo'linadi */
+  function splitOne(h) {
     var frag = document.createDocumentFragment(), i = 0;
     Array.prototype.slice.call(h.childNodes).forEach(function (node) {
       if (node.nodeType === 3) {
@@ -1352,7 +1396,7 @@ body.intro-on { overflow: hidden; }
       }
     });
     h.textContent = ''; h.appendChild(frag);
-  });
+  }
 
   /* ---------- odometr ---------- */
   document.querySelectorAll('[data-od]').forEach(function (el) {
@@ -1468,7 +1512,7 @@ body.intro-on { overflow: hidden; }
       base.width = fx.width; base.height = fx.height;
       bc.setTransform(dpr, 0, 0, dpr, 0, 0);
       bc.clearRect(0, 0, FW, FH);
-      bc.fillStyle = 'rgba(255,255,255,0.055)';
+      bc.fillStyle = 'rgba(' + FXINK + ',0.055)';
       for (var k = 0; k < dots.length; k++) bc.fillRect(dots[k].x - 0.6, dots[k].y - 0.6, 1.2, 1.2);
 
       stars = [];
@@ -1531,7 +1575,7 @@ body.intro-on { overflow: hidden; }
         var al = a > 0.85 ? 0.85 : a;
         fc.fillStyle = blue > 0.15
           ? 'rgba(' + ((96 + 159 * (1 - blue)) | 0) + ',' + ((165 + 90 * (1 - blue)) | 0) + ',250,' + al + ')'
-          : 'rgba(255,255,255,' + al + ')';
+          : 'rgba(' + FXINK + ',' + al + ')';
         fc.beginPath();
         fc.arc(d.x, d.y, 0.7 + a * 2.1, 0, 6.2832);
         fc.fill();
@@ -1550,6 +1594,7 @@ body.intro-on { overflow: hidden; }
     }
 
     fxSize();
+    fxRefresh = function () { readInk(); fxSize(); };
     window.addEventListener('resize', fxSize);
     window.addEventListener('mousemove', function (e) {
       var r = fx.getBoundingClientRect();
@@ -1629,12 +1674,12 @@ body.intro-on { overflow: hidden; }
       feeds.forEach(function (f) {
         var it = items[fi % items.length], row = document.createElement('div');
         row.className = 'feed__row';
-        row.innerHTML = '<i></i><b>' + it[0] + '</b>' + it[1] + '<span>hozir</span>';
+        row.innerHTML = '<i></i><b>' + tr(it[0]) + '</b>' + tr(it[1]) + '<span>' + tr('hozir') + '</span>';
         f.insertBefore(row, f.firstChild);
         var rows = f.querySelectorAll('.feed__row');
         for (var i = 3; i < rows.length; i++) rows[i].remove();
         var st = f.querySelectorAll('.feed__row span');
-        for (var j = 1; j < st.length; j++) st[j].textContent = j + ' daq';
+        for (var j = 1; j < st.length; j++) st[j].textContent = j + ' ' + tr('daq');
       });
       fi++;
     }
@@ -1656,7 +1701,11 @@ body.intro-on { overflow: hidden; }
         var p = Math.min(1, (now - n.t0) / n.dur); n.t = p;
         var e = 1 - Math.pow(1 - p, 3);
         n.cur = n.from + (n.to - n.from) * e;
-        n.el.textContent = n.cur.toFixed(n.dec) + n.sfx;
+        var txt = n.cur.toFixed(n.dec);
+        /* mingliklarni ajratamiz — ERP dagidek "1 284" */
+        var dot = txt.indexOf('.'), head = dot < 0 ? txt : txt.slice(0, dot), tail = dot < 0 ? '' : txt.slice(dot);
+        if (head.length > 3) head = head.replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
+        n.el.textContent = head + tail + (n.el.getAttribute('data-suffix') || '');
       });
       charts.forEach(function (c) {
         if (!c.last) c.last = now;
@@ -1717,6 +1766,66 @@ body.intro-on { overflow: hidden; }
     }, ci * 540);
   });
 
+  /* ---------- hero maketi: ERP modullari navbat bilan almashadi ---------- */
+  (function () {
+    var wrap = document.querySelector('[data-screens]');
+    if (!wrap) return;
+    var scr = Array.prototype.slice.call(wrap.children);
+    var icons = Array.prototype.slice.call(document.querySelectorAll('.dash__ico'));
+    var urls = Array.prototype.slice.call(document.querySelectorAll('.stage__url i'));
+    var stage = document.querySelector('.stage');
+    if (scr.length < 2 || reduce) return;
+    var cur = 0;
+    function fit() { wrap.style.height = scr[cur].offsetHeight + 'px'; }
+    function show(n) {
+      cur = n;
+      for (var k = 0; k < scr.length; k++) scr[k].classList.toggle('is-on', k === n);
+      for (var m = 0; m < icons.length; m++) icons[m].classList.toggle('is-on', m === n);
+      for (var u = 0; u < urls.length; u++) urls[u].classList.toggle('is-on', u === n);
+      fit();
+    }
+    /* shrift yuklangach o'lchov o'zgaradi — bir necha marta qayta o'lchaymiz */
+    fit();
+    window.addEventListener('load', fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    setTimeout(fit, 600); setTimeout(fit, 1600);
+    /* lenta yangi qator qo'shsa yoki matn qayta o'ralsa — balandlik ergashsin */
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { fit(); });
+      scr.forEach(function (x) { ro.observe(x); });
+    }
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fit, 120); }, { passive: true });
+    setInterval(function () {
+      var r = stage.getBoundingClientRect();
+      if (r.bottom < 60 || r.top > window.innerHeight - 60) return;   /* ko'rinmasa — turaveradi */
+      show((cur + 1) % scr.length);
+    }, 4600);
+  })();
+
+  /* ---------- jamoa akkordeoni ---------- */
+  (function () {
+    var wrap = document.querySelector('.crew');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-team]'));
+    if (!wrap || cards.length < 2) return;
+    var wide = window.matchMedia('(min-width: 861px)');
+    function open(c) {
+      if (!wide.matches) return;
+      cards.forEach(function (x) { x.classList.toggle('is-on', x === c); });
+    }
+    cards.forEach(function (c) {
+      c.addEventListener('mouseenter', function () { open(c); });
+      c.addEventListener('focus', function () { open(c); });
+      /* sensorli ekran uchun — bosilganda ochiladi va ochiq qoladi */
+      c.addEventListener('click', function () { open(c); });
+    });
+    /* kursor jamoa blokidan chiqsa — hamma panel yopiladi */
+    wrap.addEventListener('mouseleave', function () {
+      if (!wide.matches) return;
+      cards.forEach(function (x) { x.classList.remove('is-on'); });
+    });
+  })();
+
   /* ---------- tasma ---------- */
   var mq = document.getElementById('mq'), off = 0, half = 0, boost = 0;
   function measure() { if (mq) half = mq.scrollWidth / 2; }
@@ -1748,7 +1857,7 @@ body.intro-on { overflow: hidden; }
   window.addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(onFrame); }, { passive: true });
 
   /* ---------- shisha tugmalar ---------- */
-  document.querySelectorAll('.btn').forEach(function (b) {
+  document.querySelectorAll('.btn, .thm').forEach(function (b) {
     b.addEventListener('mousemove', function (e) {
       var r = b.getBoundingClientRect();
       b.style.setProperty('--gx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
@@ -1769,10 +1878,22 @@ body.intro-on { overflow: hidden; }
       burger.setAttribute('aria-expanded', 'false');
     });
   });
+  var thm = document.getElementById('thm');
+  if (thm) {
+    thm.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('avenir-theme', next); } catch (e) {}
+      if (fxRefresh) fxRefresh();
+    });
+  }
+
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () {
-      document.querySelectorAll('.lang button').forEach(function (x) { x.classList.remove('is-active'); });
-      b.classList.add('is-active');
+      var l = b.textContent.trim().toLowerCase();
+      if (l === lang) return;
+      applyLang(l);
+      try { localStorage.setItem('avenir-language', l); } catch (e) {}
     });
   });
 })();
