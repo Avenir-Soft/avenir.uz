@@ -21,14 +21,17 @@
     <span class="intro__rip"></span><span class="intro__rip intro__rip--2"></span><span class="intro__drop"></span>
     <span class="intro__m">
       <svg viewBox="0 0 200 200" fill="none">
-        <line class="ax" x1="100" y1="14" x2="100" y2="186"/><line class="ax" x1="14" y1="100" x2="186" y2="100"/>
-        <circle class="cap" cx="100" cy="10" r="9"/><circle class="cap" cx="100" cy="190" r="9"/>
-        <circle class="cap" cx="10" cy="100" r="9"/><circle class="cap cap--r" cx="190" cy="100" r="9"/>
-        <line class="rl" x1="186" y1="100" x2="882" y2="100"/>
-        <path class="st" d="M100 52 L114 86 L148 100 L114 114 L100 148 L86 114 L52 100 L86 86 Z"/>
+        <line class="ax" x1="100" y1="100" x2="100" y2="24"/>
+        <line class="ax" x1="100" y1="100" x2="176" y2="100"/>
+        <line class="ax" x1="100" y1="100" x2="100" y2="176"/>
+        <line class="ax" x1="100" y1="100" x2="24" y2="100"/>
+        <rect class="cap" x="95.5" y="19.5" width="9" height="9" transform="rotate(45 100 24)"/>
+        <rect class="cap" x="171.5" y="95.5" width="9" height="9" transform="rotate(45 176 100)"/>
+        <rect class="cap" x="95.5" y="171.5" width="9" height="9" transform="rotate(45 100 176)"/>
+        <rect class="cap" x="19.5" y="95.5" width="9" height="9" transform="rotate(45 24 100)"/>
+        <path class="st" d="M100 42 Q100 100 158 100 Q100 100 100 158 Q100 100 42 100 Q100 100 100 42 Z"/>
       </svg>
     </span>
-    <span class="intro__w"><i>A</i><i>V</i><i>E</i><i>N</i><i>I</i><i>R</i></span>
   </div>
 </div>
 
@@ -1543,7 +1546,7 @@
       hero.classList.add('is-in'); startReveals();
     } else {
       document.body.classList.add('intro-on');
-      setTimeout(endIntro, 3050);
+      setTimeout(endIntro, 1350);
       intro.addEventListener('click', endIntro);
       window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === ' ') endIntro(); });
     }

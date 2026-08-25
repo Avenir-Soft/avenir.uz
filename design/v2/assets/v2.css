@@ -1214,50 +1214,38 @@ body.intro-on { overflow: hidden; }
 .intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); cursor: none; }
 .intro::after { content: ''; position: absolute; width: 780px; height: 780px; border-radius: 50%;
   background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.15) 30%, rgba(37,99,235,0.05) 54%, rgba(37,99,235,0) 82%);
-  filter: blur(110px); opacity: 0; animation: halo 2.6s var(--ease) 0.75s forwards; pointer-events: none; }
+  filter: blur(110px); opacity: 0; animation: halo 1.2s var(--ease) 0.4s forwards; pointer-events: none; }
 .intro.is-out { animation: intro-out 0.6s var(--ease) forwards; pointer-events: none; }
-.intro__s { position: relative; width: 300px; height: 110px; }
-@media (max-width: 479px) { .intro__s { transform: scale(0.72); } }
-.intro__drop { position: absolute; left: 150px; top: 55px; width: 22px; height: 22px; margin: -11px 0 0 -11px;
+/* Belgi — favicondagi bilan bir xil: markazdagi botiq yulduz, to'rt o'q va
+   uchlarida bo'sh romblar. Chiziq qalinligi brend logotipidagi nisbatda
+   (o'q uzunligining ~4,4%). */
+.intro__s { position: relative; width: 240px; height: 240px; }
+@media (max-width: 479px) { .intro__s { transform: scale(0.7); } }
+.intro__drop { position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px;
   border-radius: 0 50% 50% 50%; background: var(--b2); box-shadow: 0 0 28px 7px rgba(37,99,235,0.5);
-  transform: translate3d(0,-520px,0) scale(1) rotate(45deg);
-  animation: fall 0.66s cubic-bezier(0.55,0,0.3,1) 0.12s forwards, burst 0.24s var(--ease) 0.78s forwards; }
-.intro__rip { position: absolute; left: 150px; top: 55px; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  transform: translate3d(0,-420px,0) scale(1) rotate(45deg);
+  animation: fall 0.42s cubic-bezier(0.55,0,0.3,1) 0.08s forwards, burst 0.2s var(--ease) 0.5s forwards; }
+.intro__rip { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px;
   border-radius: 50%; border: 1.5px solid rgba(37,99,235,0.85); transform: scale(0.2); opacity: 0;
-  animation: rip 0.85s var(--ease) 0.8s forwards; }
-.intro__rip--2 { animation-delay: 0.94s; border-color: rgba(37,99,235,0.45); }
-.intro__m { position: absolute; left: 0; top: 50%; width: 68px; height: 68px; transform: translate(116px,-50%);
-  animation: settle 0.66s var(--ease) 1.62s forwards; }
+  animation: rip 0.6s var(--ease) 0.52s forwards; }
+.intro__rip--2 { animation-delay: 0.62s; border-color: rgba(37,99,235,0.45); }
+.intro__m { position: absolute; inset: 0; }
 .intro__m svg { width: 100%; height: 100%; overflow: visible; }
-.intro__m .ax { stroke: var(--b2); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 176; stroke-dashoffset: 176;
-  animation: draw 0.6s var(--ease) 0.92s forwards; }
-.intro__m .cap { fill: var(--b2); opacity: 0; animation: capin 0.3s var(--ease) 1.34s forwards; }
-/* o'ng nuqta chiziq o'sha yerdan o'sa boshlaganda yo'qoladi */
-.intro__m .cap--r { animation: capin 0.3s var(--ease) 1.34s forwards, capout 0.22s var(--ease) 1.62s forwards; }
+/* o'qlar markazdan tashqariga chiziladi — «prit­sel» nishonga tushgandek */
+.intro__m .ax { stroke: var(--b2); stroke-width: 3.4; stroke-linecap: round;
+  stroke-dasharray: 76; stroke-dashoffset: 76;
+  animation: draw 0.4s var(--ease) 0.56s forwards; }
+.intro__m .cap { fill: none; stroke: var(--b2); stroke-width: 2.9; stroke-linejoin: round;
+  opacity: 0; animation: capin 0.24s var(--ease) 0.92s forwards; }
 .intro__m .st { fill: var(--b2); transform-origin: 100px 100px; transform: scale(0.2) rotate(-40deg); opacity: 0;
-  animation: pop 0.62s var(--ease) 1.14s forwards; }
-/* o'ngga cho'ziladigan chiziq — logotipning o'sha o'qi, davomi sifatida chiziladi:
-   bir xil stroke, bir xil rasterizator => ulanishda zinapoya yo'q */
-.intro__m .rl { stroke: var(--b2); stroke-width: 7; stroke-linecap: round;
-  stroke-dasharray: 700; stroke-dashoffset: 700;
-  animation: draw 0.72s var(--ease) 1.66s forwards; }
-.intro__w { position: absolute; left: 84px; bottom: calc(50% + 5px); display: flex; font-size: 34px; font-weight: 600;
-  letter-spacing: 0.2em; line-height: 0.74; color: var(--white); }
-.intro__w i { font-style: normal; opacity: 0; transform: translateY(-26px);
-  animation: drop-l 0.5s cubic-bezier(0.3,1.5,0.5,1) forwards; }
-.intro__w i:nth-child(1) { animation-delay: 2.14s; } .intro__w i:nth-child(2) { animation-delay: 2.20s; }
-.intro__w i:nth-child(3) { animation-delay: 2.26s; } .intro__w i:nth-child(4) { animation-delay: 2.32s; }
-.intro__w i:nth-child(5) { animation-delay: 2.38s; } .intro__w i:nth-child(6) { animation-delay: 2.44s; }
+  animation: pop 0.42s var(--ease) 0.72s forwards; }
 
-@keyframes fall { 0% { transform: translate3d(0,-520px,0) scale(1,1) rotate(45deg); } 72% { transform: translate3d(0,-40px,0) scale(0.86,1.18) rotate(45deg); } 100% { transform: translate3d(0,0,0) scale(1,1) rotate(45deg); } }
+@keyframes fall { 0% { transform: translate3d(0,-420px,0) scale(1,1) rotate(45deg); } 72% { transform: translate3d(0,-34px,0) scale(0.86,1.18) rotate(45deg); } 100% { transform: translate3d(0,0,0) scale(1,1) rotate(45deg); } }
 @keyframes burst { 0% { opacity: 1; transform: scale(1) rotate(45deg); } 100% { opacity: 0; transform: scale(2.1) rotate(45deg); } }
 @keyframes rip { 0% { opacity: 0.9; transform: scale(0.2); } 100% { opacity: 0; transform: scale(4.2); } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes capin { to { opacity: 1; } }
-@keyframes capout { from { opacity: 1; } to { opacity: 0; } }
 @keyframes pop { to { opacity: 1; transform: scale(1) rotate(0deg); } }
-@keyframes settle { to { transform: translate(0,-50%); } }
-@keyframes drop-l { to { opacity: 1; transform: none; } }
 @keyframes halo { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0.85; } }
 @keyframes intro-out { to { opacity: 0; transform: scale(1.06); visibility: hidden; } }
 
