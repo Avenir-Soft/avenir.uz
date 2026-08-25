@@ -1,65 +1,59 @@
 import type { MetadataRoute } from 'next'
+import { languages } from '@/lib/languages'
+import { localizedPath } from '@/lib/paths'
 import { portfolioCatalog } from '@/lib/portfolio-catalog'
 import { serviceCatalog } from '@/lib/service-catalog'
+import { siteUrl } from '@/lib/site-url'
 
-const defaultSiteUrl = 'https://avenir.uz'
+type Entry = MetadataRoute.Sitemap[number]
 
-function resolveSiteUrl(value: string | undefined) {
-  const candidate = value?.trim()
-  if (!candidate) return defaultSiteUrl
-
-  try {
-    const url = new URL(candidate)
-    if (url.protocol !== 'http:' && url.protocol !== 'https:') return defaultSiteUrl
-    return url.origin
-  } catch {
-    return defaultSiteUrl
-  }
+function alternatesFor(path: string) {
+  const map: Record<string, string> = {}
+  for (const language of languages) map[language] = `${siteUrl}${localizedPath(language, path)}`
+  return map
 }
 
-const siteUrl = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
+/** Har bir sahifa uchun uchala til — hreflang bilan. */
+function entriesFor(path: string, options: Pick<Entry, 'changeFrequency' | 'priority' | 'lastModified'>): Entry[] {
+  const languageMap = alternatesFor(path)
+
+  return languages.map(language => ({
+    url: `${siteUrl}${localizedPath(language, path)}`,
+    alternates: { languages: languageMap },
+    ...options,
+  }))
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseEntry: MetadataRoute.Sitemap[number] = {
-    url: siteUrl,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 1,
-  }
-
-  const serviceEntries: MetadataRoute.Sitemap = serviceCatalog.map(service => ({
-    url: `${siteUrl}/services/${service.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.9,
-  }))
-
-  const portfolioEntries: MetadataRoute.Sitemap = portfolioCatalog.map(project => ({
-    url: `${siteUrl}/portfolio/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.85,
-  }))
-
-  const legalEntries: MetadataRoute.Sitemap = [
-    {
-      url: `${siteUrl}/privacy`,
-      lastModified: new Date('2025-01-01'),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/terms`,
-      lastModified: new Date('2025-01-01'),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  ]
+  const now = new Date()
 
   return [
-    baseEntry,
-    ...serviceEntries,
-    ...portfolioEntries,
-    ...legalEntries,
+    ...entriesFor('/', { lastModified: now, changeFrequency: 'weekly', priority: 1 }),
+    ...entriesFor('/services', { lastModified: now, changeFrequency: 'monthly', priority: 0.9 }),
+    ...entriesFor('/portfolio', { lastModified: now, changeFrequency: 'monthly', priority: 0.9 }),
+    ...serviceCatalog.flatMap(service =>
+      entriesFor(`/services/${service.slug}`, {
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      }),
+    ),
+    ...portfolioCatalog.flatMap(project =>
+      entriesFor(`/portfolio/${project.slug}`, {
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.75,
+      }),
+    ),
+    ...entriesFor('/privacy', {
+      lastModified: new Date('2026-08-25'),
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    }),
+    ...entriesFor('/terms', {
+      lastModified: new Date('2026-08-25'),
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    }),
   ]
 }

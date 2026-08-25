@@ -1,4 +1,4 @@
-import type { Language } from '@/lib/i18n'
+import type { Language } from '@/lib/languages'
 
 export type ServiceSlug = 'web-sites' | 'mobile-apps' | 'crm-erp' | 'ai-bots' | 'telegram-bots' | 'mini-apps'
 export type ServiceIcon = 'globe' | 'smartphone' | 'database' | 'bot' | 'send' | 'app'
@@ -460,4 +460,21 @@ export const serviceCatalog: ServiceEntry[] = [
 
 export function getServiceBySlug(slug: string): ServiceEntry | undefined {
   return serviceCatalog.find(service => service.slug === slug)
+}
+
+export interface ServiceCard {
+  slug: ServiceSlug
+  icon: ServiceIcon
+  title: string
+  teaser: string
+}
+
+/** Bosh sahifadagi kartochkalar uchun — faqat tanlangan til. */
+export function getServiceCards(language: Language): ServiceCard[] {
+  return serviceCatalog.map(service => ({
+    slug: service.slug,
+    icon: service.icon,
+    title: service.content[language].title,
+    teaser: service.content[language].teaser,
+  }))
 }

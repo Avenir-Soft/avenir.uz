@@ -1,12 +1,12 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { type Language } from '@/lib/i18n'
+import { localizedPath } from '@/lib/paths'
 import { useLanguage } from '@/components/language-provider'
-
-const languageOptions: Language[] = ['uz', 'ru', 'en']
+import { LanguageSwitcher } from '@/components/language-switcher'
 
 function isDarkBackgroundColor(color: string) {
   const match = color.match(/rgba?\(([^)]+)\)/)
@@ -30,27 +30,33 @@ export function Navbar() {
   const [isOnDarkBackground, setIsOnDarkBackground] = useState(false)
   const liquidRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const { language, setLanguage, t } = useLanguage()
+  const { language, t } = useLanguage()
 
   useEffect(() => {
     let ticking = false
+    let lastProbe = 0
 
     const handleScroll = () => {
       if (ticking) return
       ticking = true
-      requestAnimationFrame(() => {
+      requestAnimationFrame(timestamp => {
         setIsScrolled(window.scrollY > 50)
 
-        const probeX = Math.floor(window.innerWidth / 2)
-        const probeY = Math.min(window.innerHeight - 1, 140)
-        const probeElement = document.elementFromPoint(probeX, probeY)
-        const section = probeElement?.closest('section, footer')
+        // elementFromPoint + getComputedStyle layout'ni qayta hisoblatadi,
+        // shuning uchun har kadrda emas, ~150 ms da bir marta o'lchaymiz.
+        if (timestamp - lastProbe > 150) {
+          lastProbe = timestamp
+          const probeX = Math.floor(window.innerWidth / 2)
+          const probeY = Math.min(window.innerHeight - 1, 140)
+          const probeElement = document.elementFromPoint(probeX, probeY)
+          const section = probeElement?.closest('section, footer')
 
-        if (section) {
-          const background = window.getComputedStyle(section).backgroundColor
-          setIsOnDarkBackground(isDarkBackgroundColor(background))
-        } else {
-          setIsOnDarkBackground(false)
+          if (section) {
+            const background = window.getComputedStyle(section).backgroundColor
+            setIsOnDarkBackground(isDarkBackgroundColor(background))
+          } else {
+            setIsOnDarkBackground(false)
+          }
         }
 
         ticking = false
@@ -80,8 +86,9 @@ export function Navbar() {
     }
   }, [isMenuOpen])
 
-  const isHomePage = pathname === '/'
-  const sectionPrefix = isHomePage ? '' : '/'
+  const homeHref = localizedPath(language)
+  const isHomePage = pathname === homeHref
+  const sectionPrefix = isHomePage ? '' : homeHref
 
   const navLinks = [
     { key: 'portfolio', label: t.nav.links.portfolio, href: `${sectionPrefix}#portfolio` },
@@ -89,14 +96,7 @@ export function Navbar() {
     { key: 'contact', label: t.nav.links.contact, href: `${sectionPrefix}#contact` },
   ]
 
-  const logoHref = isHomePage ? '#' : '/'
-
   const closeMenu = () => setIsMenuOpen(false)
-
-  const handleLanguageChange = (nextLanguage: Language) => {
-    setLanguage(nextLanguage)
-    closeMenu()
-  }
 
   const handleLiquidMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!liquidRef.current) return
@@ -115,18 +115,15 @@ export function Navbar() {
 
   const isGlassActive = isScrolled || isMenuOpen
   const useLightText = isOnDarkBackground && !isMenuOpen
-  const navTextColor = 'rgba(4, 33, 71, 0.9)'
-  const navMutedColor = 'rgba(4, 33, 71, 0.64)'
+  // To'q bo'limlar ustida menyu ham yorug' bo'lishi kerak — avval bu qiymat
+  // hisoblanardi-yu, havolalarga qo'llanmasdan qolib ketgan edi.
+  const navTextColor = useLightText ? 'rgba(245, 244, 240, 0.95)' : 'rgba(4, 33, 71, 0.9)'
   const navLineColor = useLightText ? '#F5F4F0' : '#042147'
   const logoSrc = '/Avenir-logo.png'
-  const languageIndex = Math.max(languageOptions.indexOf(language), 0)
-  const desktopIndicatorBackground = useLightText
-    ? 'linear-gradient(135deg, rgba(224, 199, 132, 0.56) 0%, rgba(224, 199, 132, 0.3) 100%)'
-    : 'linear-gradient(135deg, rgba(201, 168, 76, 0.34) 0%, rgba(201, 168, 76, 0.18) 100%)'
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
+      <nav aria-label={t.nav.languageLabel} className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4">
         <div className="relative mx-auto max-w-7xl rounded-[2.35rem] sm:rounded-full">
           <div
             ref={liquidRef}
@@ -152,8 +149,9 @@ export function Navbar() {
             </div>
 
             <div className="flex items-center justify-between gap-4 px-5 py-3.5 sm:px-6 sm:py-4">
-              <a
-                href={logoHref}
+              <Link
+                href={homeHref}
+                aria-label={t.nav.homeAria}
                 className="flex items-center transition-opacity duration-200 hover:opacity-80"
                 onClick={closeMenu}
               >
@@ -167,7 +165,7 @@ export function Navbar() {
                     className="object-contain"
                   />
                 </div>
-              </a>
+              </Link>
 
               <div className="hidden items-center gap-6 md:flex lg:gap-8">
                 {navLinks.map(link => (
@@ -175,10 +173,7 @@ export function Navbar() {
                     key={link.key}
                     href={link.href}
                     className="nav-link-gold text-[15px] lg:text-base font-semibold tracking-[0.01em] transition-colors duration-200"
-                    style={{
-                      color: navTextColor,
-                      textShadow: 'none',
-                    }}
+                    style={{ color: navTextColor }}
                   >
                     {link.label}
                   </a>
@@ -186,50 +181,11 @@ export function Navbar() {
               </div>
 
               <div className="flex items-center gap-3">
-                <div
-                  className="liquid-chip relative hidden w-42 grid-cols-3 rounded-full p-1 lg:grid"
-                  style={{
-                    borderColor: useLightText ? 'rgba(245, 244, 240, 0.26)' : 'rgba(4, 33, 71, 0.16)',
-                    backgroundColor: useLightText ? 'rgba(4, 33, 71, 0.3)' : 'rgba(255, 255, 255, 0.28)',
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute left-1 top-1 bottom-1 rounded-full border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                      width: 'calc((100% - 0.5rem) / 3)',
-                      transform: `translateX(${languageIndex * 100}%)`,
-                      background: desktopIndicatorBackground,
-                      borderColor: useLightText ? 'rgba(245, 244, 240, 0.24)' : 'rgba(201, 168, 76, 0.34)',
-                      boxShadow: useLightText
-                        ? '0 8px 16px -14px rgba(224, 199, 132, 0.9)'
-                        : '0 8px 16px -14px rgba(201, 168, 76, 0.84)',
-                    }}
-                  />
-                  {languageOptions.map(code => (
-                    <button
-                      key={code}
-                      type="button"
-                      onClick={() => handleLanguageChange(code)}
-                      className={`relative z-10 rounded-full px-0 py-1.5 text-[13px] font-semibold transition-[color,opacity,transform] duration-300 ${
-                        language === code
-                          ? 'opacity-100 scale-100'
-                          : 'opacity-80 hover:opacity-100 hover:scale-[1.04]'
-                      }`}
-                      style={{
-                        color:
-                          language === code
-                            ? '#7a5b1a'
-                            : navMutedColor,
-                        textShadow:
-                          language === code
-                            ? '0 1px 0 rgba(255, 255, 255, 0.45)'
-                            : 'none',
-                      }}
-                    >
-                      {code.toUpperCase()}
-                    </button>
-                  ))}
+                {/* Til tanlash: bosilganda tagidan ro'yxat ochiladi.
+                    md'dan boshlab ko'rinadi — 768-1023 px oralig'ida
+                    ilgari na gamburger, na til tugmasi ko'rinmasdi. */}
+                <div className="hidden md:block">
+                  <LanguageSwitcher onDark={useLightText} />
                 </div>
 
                 <button
@@ -310,47 +266,7 @@ export function Navbar() {
                 >
                   {t.nav.languageLabel}
                 </p>
-                <div
-                  className="relative grid w-42 grid-cols-3 rounded-full p-1 text-sm"
-                  style={{
-                    backgroundColor: 'rgba(4, 33, 71, 0.08)',
-                    border: '1px solid rgba(4, 33, 71, 0.14)',
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute left-1 top-1 bottom-1 rounded-full border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                      width: 'calc((100% - 0.5rem) / 3)',
-                      transform: `translateX(${languageIndex * 100}%)`,
-                      background:
-                        'linear-gradient(135deg, rgba(201, 168, 76, 0.36) 0%, rgba(201, 168, 76, 0.18) 100%)',
-                      borderColor: 'rgba(201, 168, 76, 0.35)',
-                      boxShadow: '0 8px 16px -14px rgba(201, 168, 76, 0.85)',
-                    }}
-                  />
-                  {languageOptions.map(code => (
-                    <button
-                      key={code}
-                      type="button"
-                      onClick={() => handleLanguageChange(code)}
-                      className={`relative z-10 rounded-full px-0 py-1.5 font-medium transition-[color,opacity,transform] duration-300 ${
-                        language === code
-                          ? 'opacity-100 scale-100'
-                          : 'opacity-75 hover:opacity-100 hover:scale-[1.04]'
-                      }`}
-                      style={{
-                        color: language === code ? '#7a5b1a' : 'rgba(4, 33, 71, 0.72)',
-                        textShadow:
-                          language === code
-                            ? '0 1px 0 rgba(255, 255, 255, 0.45)'
-                            : 'none',
-                      }}
-                    >
-                      {code.toUpperCase()}
-                    </button>
-                  ))}
-                </div>
+                <LanguageSwitcher size="menu" onNavigate={closeMenu} />
               </div>
             </div>
           </div>

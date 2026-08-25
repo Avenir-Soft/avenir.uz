@@ -5,8 +5,9 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2, Clock3, Layers3, Sparkles } from
 import { useLanguage } from '@/components/language-provider'
 import { Navbar } from '@/components/navbar'
 import { SectionOrnaments } from '@/components/section-ornaments'
-import { type Language } from '@/lib/i18n'
-import { getServiceBySlug, serviceCatalog, type ServiceSlug } from '@/lib/service-catalog'
+import { type Language } from '@/lib/languages'
+import { localizedPath } from '@/lib/paths'
+import type { ServiceCard, ServiceLocalizedContent } from '@/lib/service-catalog'
 
 const pageCopy: Record<
   Language,
@@ -50,18 +51,14 @@ const pageCopy: Record<
 }
 
 interface ServiceDetailPageProps {
-  slug: ServiceSlug
+  content: ServiceLocalizedContent
+  relatedServices: ServiceCard[]
 }
 
-export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
+export function ServiceDetailPage({ content, relatedServices }: ServiceDetailPageProps) {
   const { language } = useLanguage()
-  const service = getServiceBySlug(slug)
   const copy = pageCopy[language]
-
-  if (!service) return null
-
-  const content = service.content[language]
-  const relatedServices = serviceCatalog.filter(item => item.slug !== slug).slice(0, 4)
+  const homeHref = localizedPath(language)
 
   return (
     <main style={{ backgroundColor: '#F5F4F0' }}>
@@ -83,11 +80,11 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-7 flex items-center gap-2 text-sm" style={{ color: 'rgba(245, 244, 240, 0.64)' }}>
-            <Link href="/" className="transition-colors hover:text-[#F5F4F0]">
+            <Link href={homeHref} className="transition-colors hover:text-[#F5F4F0]">
               {copy.home}
             </Link>
             <span>/</span>
-            <Link href="/#services" className="transition-colors hover:text-[#F5F4F0]">
+            <Link href={`${homeHref}#services`} className="transition-colors hover:text-[#F5F4F0]">
               {copy.services}
             </Link>
             <span>/</span>
@@ -97,7 +94,7 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
           <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
             <div>
               <Link
-                href="/#services"
+                href={`${homeHref}#services`}
                 className="mb-6 inline-flex items-center gap-2 text-sm transition-colors"
                 style={{ color: 'rgba(232, 201, 122, 0.88)' }}
               >
@@ -112,7 +109,7 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
                 {content.intro}
               </p>
 
-              <Link href="/#contact" className="btn-avenir btn-avenir-on-dark mt-8 inline-flex px-8 py-3 text-base">
+              <Link href={`${homeHref}#contact`} className="btn-avenir btn-avenir-on-dark mt-8 inline-flex px-8 py-3 text-base">
                 {copy.cta}
               </Link>
             </div>
@@ -224,19 +221,17 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
             <h2 className="text-4xl font-serif font-bold md:text-5xl" style={{ color: '#042147' }}>
               {copy.relatedTitle}
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.68)' }}>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.74)' }}>
               {copy.relatedSubtitle}
             </p>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {relatedServices.map(item => {
-              const itemContent = item.content[language]
-
               return (
                 <Link
                   key={item.slug}
-                  href={`/services/${item.slug}`}
+                  href={localizedPath(language, `/services/${item.slug}`)}
                   className="group rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1"
                   style={{
                     background: 'linear-gradient(160deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 244, 240, 0.86) 100%)',
@@ -245,10 +240,10 @@ export function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
                   }}
                 >
                   <h3 className="text-2xl font-serif font-semibold" style={{ color: '#042147' }}>
-                    {itemContent.title}
+                    {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.66)' }}>
-                    {itemContent.teaser}
+                  <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.74)' }}>
+                    {item.teaser}
                   </p>
                   <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: '#7E6B2C' }}>
                     <span>{copy.viewDetails}</span>

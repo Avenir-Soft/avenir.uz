@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server'
 
-const UZ_PHONE_PATTERN = /^\+998 \(\d{2}\) \d{3} \d{2} \d{2}$/
 const DEFAULT_CRM_INTAKE_URL = 'https://api-avenir.uz/api/v1/intake/leads'
 const TELEGRAM_API_BASE = (process.env.TELEGRAM_API_BASE ?? 'https://api.telegram.org').replace(/\/$/, '')
 const CRM_REQUEST_TIMEOUT_MS = Number(process.env.CRM_REQUEST_TIMEOUT_MS ?? 10_000)
 const TELEGRAM_REQUEST_TIMEOUT_MS = Number(process.env.TELEGRAM_REQUEST_TIMEOUT_MS ?? 10_000)
 const TELEGRAM_RETRY_COUNT = Number(process.env.TELEGRAM_RETRY_COUNT ?? 2)
+
+/** Bir IP uchun chegaralar. Konteyner nusxasi ichida saqlanadi. */
+const RATE_WINDOW_MS = Number(process.env.CONTACT_RATE_WINDOW_MS ?? 10 * 60_000)
+const RATE_MAX_PER_WINDOW = Number(process.env.CONTACT_RATE_MAX ?? 5)
+const RATE_MIN_INTERVAL_MS = Number(process.env.CONTACT_RATE_MIN_INTERVAL_MS ?? 15_000)
+
+const MAX_BODY_BYTES = 8 * 1024
+const MAX_LENGTHS = {
+  name: 80,
+  phone: 24,
+  telegramUsername: 64,
+  employeeCount: 6,
+} as const
 
 type TelegramSendMessageResponse = {
   ok: boolean
@@ -17,10 +29,59 @@ type ContactFormData = {
   phone: string
   telegramUsername: string
   employeeCount: string
+  language: string
 }
 
-function cleanString(value: unknown) {
-  return typeof value === 'string' ? value.trim() : ''
+type RateEntry = { hits: number[]; }
+const rateBuckets = new Map<string, RateEntry>()
+
+function clientIp(request: Request) {
+  const forwarded = request.headers.get('x-forwarded-for')
+  if (forwarded) return forwarded.split(',')[0].trim()
+  return request.headers.get('x-real-ip')?.trim() || 'unknown'
+}
+
+/** null — ruxsat; son — necha soniyadan keyin qayta urinish mumkin. */
+function rateLimit(ip: string): number | null {
+  const now = Date.now()
+  const entry = rateBuckets.get(ip) ?? { hits: [] }
+  entry.hits = entry.hits.filter(at => now - at < RATE_WINDOW_MS)
+
+  const last = entry.hits[entry.hits.length - 1]
+  if (last !== undefined && now - last < RATE_MIN_INTERVAL_MS) {
+    rateBuckets.set(ip, entry)
+    return Math.ceil((RATE_MIN_INTERVAL_MS - (now - last)) / 1000)
+  }
+
+  if (entry.hits.length >= RATE_MAX_PER_WINDOW) {
+    rateBuckets.set(ip, entry)
+    return Math.ceil((RATE_WINDOW_MS - (now - entry.hits[0])) / 1000)
+  }
+
+  entry.hits.push(now)
+  rateBuckets.set(ip, entry)
+
+  // Xotira o'smasligi uchun eskirgan yozuvlarni tozalab turamiz.
+  if (rateBuckets.size > 5000) {
+    for (const [key, value] of rateBuckets) {
+      if (value.hits.every(at => now - at >= RATE_WINDOW_MS)) rateBuckets.delete(key)
+    }
+  }
+
+  return null
+}
+
+function cleanString(value: unknown, maxLength: number) {
+  return typeof value === 'string' ? value.trim().slice(0, maxLength) : ''
+}
+
+function normalizePhone(value: string) {
+  const compact = value.replace(/[^\d+]/g, '')
+  return compact.startsWith('+') ? `+${compact.slice(1).replace(/\D/g, '')}` : compact
+}
+
+function isValidPhone(value: string) {
+  return /^\+?\d{7,15}$/.test(normalizePhone(value))
 }
 
 function parseChatIds(source: string | undefined) {
@@ -34,14 +95,8 @@ function parseChatIds(source: string | undefined) {
 function toErrorMessage(error: unknown) {
   if (error instanceof Error) {
     const cause = 'cause' in error ? error.cause : undefined
-    if (cause instanceof Error && cause.message) {
-      return `${error.message}: ${cause.message}`
-    }
-
-    if (typeof cause === 'string' && cause) {
-      return `${error.message}: ${cause}`
-    }
-
+    if (cause instanceof Error && cause.message) return `${error.message}: ${cause.message}`
+    if (typeof cause === 'string' && cause) return `${error.message}: ${cause}`
     return error.message
   }
   return String(error)
@@ -58,14 +113,8 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
     try {
       const response = await fetch(`${TELEGRAM_API_BASE}/bot${token}/sendMessage`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          disable_web_page_preview: true,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
         cache: 'no-store',
         signal: AbortSignal.timeout(TELEGRAM_REQUEST_TIMEOUT_MS),
       })
@@ -78,16 +127,13 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
       }
 
       if (!response.ok || !payload?.ok) {
-        const reason = payload?.description ?? `HTTP ${response.status}`
-        throw new Error(reason)
+        throw new Error(payload?.description ?? `HTTP ${response.status}`)
       }
 
       return
     } catch (error) {
       lastError = error
-      if (attempt < TELEGRAM_RETRY_COUNT) {
-        await sleep(300 * (attempt + 1))
-      }
+      if (attempt < TELEGRAM_RETRY_COUNT) await sleep(300 * (attempt + 1))
     }
   }
 
@@ -108,6 +154,7 @@ function buildTelegramMessage(data: ContactFormData) {
     `Телефон номер: ${data.phone}`,
     `Telegram username: ${data.telegramUsername || '—'}`,
     `Сотрудники кол-во: ${data.employeeCount || '—'}`,
+    `Язык сайта: ${data.language || '—'}`,
     `Время: ${timestamp}`,
   ].join('\n')
 }
@@ -116,6 +163,7 @@ function buildCrmNotes(data: ContactFormData) {
   return [
     `Telegram username: ${data.telegramUsername || '—'}`,
     `Сотрудники: ${data.employeeCount || '—'}`,
+    `Язык сайта: ${data.language || '—'}`,
   ].join('\n')
 }
 
@@ -126,10 +174,7 @@ async function sendToCRM(data: ContactFormData) {
   const crmUrl = (process.env.CRM_INTAKE_URL?.trim() || DEFAULT_CRM_INTAKE_URL).replace(/\/$/, '')
   const response = await fetch(crmUrl, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': crmKey,
-    },
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': crmKey },
     body: JSON.stringify({
       title: 'Заявка с сайта avenir.uz',
       contact_name: data.name,
@@ -151,9 +196,23 @@ async function sendToCRM(data: ContactFormData) {
 export const runtime = 'nodejs'
 
 export async function POST(request: Request) {
+  const ip = clientIp(request)
+  const retryAfter = rateLimit(ip)
+  if (retryAfter !== null) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } },
+    )
+  }
+
+  const bodyText = await request.text()
+  if (bodyText.length > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: 'Payload too large' }, { status: 413 })
+  }
+
   let rawBody: unknown
   try {
-    rawBody = await request.json()
+    rawBody = JSON.parse(bodyText)
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
@@ -163,22 +222,26 @@ export async function POST(request: Request) {
   }
 
   const payload = rawBody as Record<string, unknown>
-  const name = cleanString(payload.name)
-  const phone = cleanString(payload.phone)
-  const telegramUsername = cleanString(payload.telegramUsername)
-  const employeeCount = cleanString(payload.employeeCount)
-  const formData: ContactFormData = {
-    name,
-    phone,
-    telegramUsername,
-    employeeCount,
+
+  // Honeypot: odam bu maydonni ko'rmaydi. To'ldirilgan bo'lsa — bot.
+  // Botga xato qaytarmaymiz, shunchaki hech narsa qilmaymiz.
+  if (cleanString(payload.company, 200)) {
+    return NextResponse.json({ ok: true, crm: 'skipped', delivered: 0, total: 0 })
   }
 
-  if (!name || !phone || !telegramUsername || !employeeCount) {
+  const formData: ContactFormData = {
+    name: cleanString(payload.name, MAX_LENGTHS.name),
+    phone: cleanString(payload.phone, MAX_LENGTHS.phone),
+    telegramUsername: cleanString(payload.telegramUsername, MAX_LENGTHS.telegramUsername),
+    employeeCount: cleanString(payload.employeeCount, MAX_LENGTHS.employeeCount),
+    language: cleanString(payload.language, 2),
+  }
+
+  if (!formData.name || !formData.phone || !formData.telegramUsername || !formData.employeeCount) {
     return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
   }
 
-  if (!UZ_PHONE_PATTERN.test(phone)) {
+  if (!isValidPhone(formData.phone)) {
     return NextResponse.json({ error: 'Phone format is invalid' }, { status: 400 })
   }
 
@@ -192,12 +255,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Server is not configured' }, { status: 500 })
   }
 
+  // CRM ham, Telegram ham urinib ko'riladi. Ilgari CRM yiqilsa Telegram
+  // bosqichiga umuman yetib borilmasdi va lid yo'qolardi.
+  let crmStatus: 'created' | 'failed' | 'skipped' = 'skipped'
+  let crmError: string | null = null
+
   if (hasCrmTarget) {
     try {
       await sendToCRM(formData)
+      crmStatus = 'created'
     } catch (error) {
-      console.error('CRM intake failed:', toErrorMessage(error))
-      return NextResponse.json({ error: 'Failed to create lead in CRM' }, { status: 502 })
+      crmStatus = 'failed'
+      crmError = toErrorMessage(error)
+      console.error('CRM intake failed:', crmError)
     }
   }
 
@@ -213,31 +283,26 @@ export async function POST(request: Request) {
         await sendTelegramMessage(telegramToken, chatId, message)
         delivered += 1
       } catch (error) {
-        failedByChatId.push({
-          chatId,
-          reason: toErrorMessage(error),
-        })
+        failedByChatId.push({ chatId, reason: toErrorMessage(error) })
       }
     }
   }
 
   if (failedByChatId.length > 0) {
     console.error('Failed to deliver contact form to some Telegram recipients:', failedByChatId)
+  }
 
-    if (!hasCrmTarget) {
-      return NextResponse.json(
-        {
-          error: 'Failed to deliver message to all recipients',
-          failedRecipients: failedByChatId.map(item => item.chatId),
-        },
-        { status: 502 },
-      )
-    }
+  // Kamida bitta kanal ishlagan bo'lsa — lid yo'qolmadi, muvaffaqiyat.
+  const anyDelivered = crmStatus === 'created' || delivered > 0
+
+  if (!anyDelivered) {
+    console.error('Contact form could not be delivered anywhere', { crmError, failedByChatId })
+    return NextResponse.json({ error: 'Failed to deliver the request' }, { status: 502 })
   }
 
   return NextResponse.json({
     ok: true,
-    crm: hasCrmTarget ? 'created' : 'skipped',
+    crm: crmStatus,
     delivered,
     total: hasTelegramTargets ? chatIds.length : 0,
     telegramFailedRecipients: failedByChatId.map(item => item.chatId),

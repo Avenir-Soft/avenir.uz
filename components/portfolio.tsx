@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { SectionOrnaments } from '@/components/section-ornaments'
 import { useLanguage } from '@/components/language-provider'
 import { portfolioCatalog, type ProjectLayout } from '@/lib/portfolio-catalog'
+import { localizedPath } from '@/lib/paths'
 import Image from 'next/image'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import type { Language } from '@/lib/languages'
 
 interface LocalizedProject {
   id: number
@@ -25,6 +27,7 @@ interface ProjectCardProps {
   viewCaseLabel: string
   imageAltSuffix: string
   isVisible: boolean
+  language: Language
 }
 
 function ProjectCard({
@@ -33,6 +36,7 @@ function ProjectCard({
   viewCaseLabel,
   imageAltSuffix,
   isVisible,
+  language,
 }: ProjectCardProps) {
   const isFeature = project.layout === 'feature'
 
@@ -61,7 +65,7 @@ function ProjectCard({
         alt={`${project.name} — ${imageAltSuffix}`}
         fill
         loading="lazy"
-        quality={78}
+        quality={75}
         sizes={
           isFeature
             ? '(min-width: 1280px) 56vw, (min-width: 768px) 66vw, 100vw'
@@ -143,7 +147,7 @@ function ProjectCard({
             ))}
           </div>
           <Link
-            href={`/portfolio/${project.slug}`}
+            href={localizedPath(language, `/portfolio/${project.slug}`)}
             className="btn-avenir btn-avenir-on-dark mt-6 inline-flex items-center gap-2 px-5 py-2 text-sm"
           >
             {viewCaseLabel}
@@ -156,7 +160,7 @@ function ProjectCard({
 }
 
 export function Portfolio() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -177,13 +181,11 @@ export function Portfolio() {
     return () => observer.disconnect()
   }, [])
 
-  const localizedProjects: LocalizedProject[] = portfolioCatalog.map((project, index) => ({
-    ...project,
-    name: t.portfolio.projects[index]?.name ?? t.portfolio.projects[0].name,
-    category: t.portfolio.projects[index]?.category ?? t.portfolio.projects[0].category,
-    summary: t.portfolio.projects[index]?.summary ?? t.portfolio.projects[0].summary,
-    tags: t.portfolio.projects[index]?.tags ?? t.portfolio.projects[0].tags,
-  }))
+  const localizedProjects: LocalizedProject[] = portfolioCatalog.flatMap((project, index) => {
+    const copy = t.portfolio.projects[index]
+    if (!copy) return []
+    return [{ ...project, name: copy.name, category: copy.category, summary: copy.summary, tags: copy.tags }]
+  })
 
   return (
     <section
@@ -210,7 +212,7 @@ export function Portfolio() {
           <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4" style={{ color: '#042147' }}>
             {t.portfolio.title}
           </h2>
-          <p className="text-lg max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.6)' }}>
+          <p className="text-lg max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(4, 33, 71, 0.72)' }}>
             {t.portfolio.subtitle}
           </p>
         </div>
@@ -224,6 +226,7 @@ export function Portfolio() {
               viewCaseLabel={t.portfolio.viewCase}
               imageAltSuffix={t.portfolio.imageAltSuffix}
               isVisible={isVisible}
+              language={language}
             />
           ))}
         </div>
