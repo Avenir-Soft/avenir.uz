@@ -1,0 +1,1240 @@
+<title>Avenir.uz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* ============================================================
+   AVENIR — design tokens
+   Brendning uch rangi saqlandi, ustiga ishlaydigan shkala qurildi.
+   ============================================================ */
+:root {
+  /* ink = navy, paper = krem, gold = aksent */
+  --ink:        #042147;
+  --ink-2:      #0A3358;   /* qorong'i bobda qatlamlash uchun */
+  --ink-3:      #123F69;
+  --paper:      #F5F4F0;
+  --paper-2:    #EDEBE4;   /* botiq panellar, tanlangan neytral */
+  --paper-3:    #FFFFFF;
+  --gold:       #C9A84C;
+  --gold-lift:  #E8C97A;   /* faqat qorong'i fonda kichik urg'u */
+
+  /* ink ustidagi matn darajalari */
+  --on-ink:      #F5F4F0;
+  --on-ink-mute: rgba(245, 244, 240, 0.66);
+  --on-ink-dim:  rgba(245, 244, 240, 0.42);
+  --rule-ink:    rgba(245, 244, 240, 0.16);
+
+  /* paper ustidagi matn darajalari */
+  --on-paper:      #042147;
+  --on-paper-mute: rgba(4, 33, 71, 0.66);
+  --on-paper-dim:  rgba(4, 33, 71, 0.42);
+  --rule:          rgba(4, 33, 71, 0.14);
+  --rule-soft:     rgba(4, 33, 71, 0.07);
+
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  --shell:  1280px;
+  --gut:    clamp(1.25rem, 4vw, 3rem);
+  --rail:   0px;
+
+  --ease:   cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (min-width: 1100px) { :root { --rail: 108px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--on-paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.04;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- takrorlanuvchi bo'laklar ---------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+/* mono yorliq — sahifaning "asboblar" tili */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section { padding-block: clamp(5rem, 11vw, 8.5rem); }
+
+/* bo'lim sarlavhasi: mono indeks + Cormorant nom */
+.head {
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.head__eyebrow { color: var(--gold); display: flex; align-items: center; gap: 0.75rem; }
+.head__eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  max-width: 220px;
+}
+.head__title { font-size: clamp(2.5rem, 5.4vw, 4.25rem); }
+.head__lead {
+  max-width: 46ch;
+  color: var(--on-paper-mute);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+}
+
+.on-ink .head__eyebrow { color: var(--gold-lift); }
+.on-ink .head__eyebrow::after { background: var(--rule-ink); }
+.on-ink .head__lead { color: var(--on-ink-mute); }
+
+/* tugmalar — gradient yo'q, faqat ikki daraja */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--on-ink);
+  cursor: pointer;
+  transition: background 0.28s var(--ease), color 0.28s var(--ease),
+              border-color 0.28s var(--ease), transform 0.28s var(--ease);
+}
+.btn:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); transform: translateY(-2px); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn--ghost:hover { background: transparent; border-color: var(--ink); color: var(--ink); }
+.btn--on-ink { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.btn--on-ink:hover { background: var(--gold-lift); border-color: var(--gold-lift); }
+.btn__arrow { transition: transform 0.28s var(--ease); }
+.btn:hover .btn__arrow { transform: translateX(3px); }
+
+/* ============================================================
+   Yon rail — logotipdagi nishon scroll bilan siljiydi
+   ============================================================ */
+.rail {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--rail);
+  display: none;
+  z-index: 40;
+  pointer-events: none;
+  border-right: 1px solid var(--rule-soft);
+}
+@media (min-width: 1100px) { .rail { display: block; } }
+
+.rail__list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: auto;
+}
+.rail__link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--on-paper-dim);
+  transition: color 0.3s var(--ease);
+}
+.rail__tick {
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s var(--ease), background 0.3s var(--ease);
+}
+.rail__link:hover { color: var(--on-paper-mute); }
+.rail__link.is-active { color: var(--ink); }
+.rail__link.is-active .rail__tick { width: 28px; background: var(--gold); }
+
+/* rail qorong'i bob ustida turganda */
+.rail.is-on-ink { border-right-color: var(--rule-ink); }
+.rail.is-on-ink .rail__link { color: var(--on-ink-dim); }
+.rail.is-on-ink .rail__link.is-active { color: var(--on-ink); }
+
+/* ============================================================
+   Yuqori panel
+   ============================================================ */
+.top {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  padding-left: var(--rail);
+  background: transparent;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.top.is-stuck {
+  background: rgba(245, 244, 240, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--rule);
+}
+.top.is-on-ink { background: rgba(4, 33, 71, 0.9); border-bottom-color: var(--rule-ink); color: var(--on-ink); }
+
+.top__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: 76px;
+}
+
+.brand { display: flex; align-items: center; gap: 0.7rem; }
+.brand__mark { width: 26px; height: 26px; flex: none; }
+.brand__word {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+}
+
+.top__nav { display: none; gap: 2rem; }
+@media (min-width: 860px) { .top__nav { display: flex; } }
+.top__link {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  position: relative;
+  padding-block: 0.4rem;
+}
+.top__link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s var(--ease);
+}
+.top__link:hover::after { transform: scaleX(1); }
+
+.top__side { display: flex; align-items: center; gap: 1rem; }
+
+/* til almashtirgich */
+.lang { display: flex; border: 1px solid var(--rule); }
+.top.is-on-ink .lang { border-color: var(--rule-ink); }
+.lang__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0.5rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.lang__btn:hover { opacity: 0.9; }
+.lang__btn.is-active { opacity: 1; background: var(--gold); color: var(--ink); }
+
+.burger {
+  appearance: none;
+  border: 1px solid var(--rule);
+  background: transparent;
+  width: 42px; height: 42px;
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+@media (min-width: 860px) { .burger { display: none; } }
+.burger span { display: block; width: 17px; height: 1px; background: currentColor; transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
+.burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.drawer {
+  position: fixed;
+  inset: 76px 0 auto 0;
+  z-index: 49;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem var(--gut) 2rem;
+  transform: translateY(-12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease);
+}
+.drawer.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.drawer a {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.page { padding-left: var(--rail); }
+
+.hero {
+  position: relative;
+  padding-top: clamp(8rem, 16vw, 11rem);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 1000px) {
+  .hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--on-paper-mute);
+  margin-bottom: 1.75rem;
+}
+.hero__eyebrow .dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex: none; }
+
+.hero__title {
+  font-size: clamp(3rem, 8.4vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.98;
+}
+.hero__title em {
+  font-style: normal;
+  position: relative;
+  white-space: nowrap;
+  padding-bottom: 0.14em;   /* chiziq "j" va "g" dumlaridan pastda tursin */
+}
+/* urg'u — matn ustidan kesib o'tmaydigan, ostidagi ingichka chiziq */
+.hero__title em::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: draw-x 0.9s var(--ease) 0.75s forwards;
+}
+
+.hero__lead {
+  margin-top: 2.25rem;
+  max-width: 44ch;
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  color: var(--on-paper-mute);
+}
+
+.hero__cta { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2.5rem; }
+
+/* nishon — logotipdan olingan, sahifa tarmog'ining markazi */
+.hero__mark { position: relative; display: none; }
+@media (min-width: 1000px) { .hero__mark { display: block; } }
+.hero__mark svg { width: 100%; height: auto; overflow: visible; }
+.hero__mark .axis {
+  stroke: var(--ink);
+  stroke-width: 1;
+  opacity: 0.42;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw-line 1.15s var(--ease) 0.15s forwards;
+}
+.hero__mark .cap { fill: var(--ink); opacity: 0; animation: fade-in 0.5s ease 1s forwards; }
+/* yulduz sarlavha bilan raqobatlashmasin — nishon markazi, bezak emas */
+.hero__mark .star {
+  fill: var(--gold);
+  transform-origin: 100px 100px;
+  transform: scale(0.4);
+  opacity: 0;
+  animation: pop 0.8s var(--ease) 0.55s forwards;
+}
+.hero__mark .ring {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+  opacity: 0.3;
+  stroke-dasharray: 3 7;
+  transform-origin: 100px 100px;
+  animation: spin 46s linear infinite;
+}
+
+/* hero ostidagi o'lchov paneli — suzuvchi badge'lar o'rniga */
+.gauge {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+}
+@media (min-width: 800px) { .gauge { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.gauge__cell {
+  padding: 1.6rem 1.25rem 1.6rem 0;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 800px) {
+  .gauge__cell { border-bottom: 0; padding-right: 1.75rem; }
+  .gauge__cell:last-child { border-right: 0; }
+}
+@media (max-width: 799px) {
+  .gauge__cell:nth-child(2n) { border-right: 0; padding-left: 1.25rem; }
+}
+.gauge__label { color: var(--on-paper-dim); }
+.gauge__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  line-height: 1.1;
+}
+.gauge__value span { color: var(--gold); }
+
+/* ============================================================
+   JARAYON — bu yerda 01/02/03 haqiqiy ketma-ketlik
+   ============================================================ */
+.flow { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.flow__step {
+  display: grid;
+  gap: 0.6rem 2.5rem;
+  padding-block: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+@media (min-width: 760px) {
+  .flow__step { grid-template-columns: 5.5rem minmax(0, 22ch) minmax(0, 1fr); gap: 2.5rem; }
+}
+.flow__idx { color: var(--gold); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em; }
+.flow__name { font-size: clamp(1.375rem, 2.4vw, 1.75rem); }
+.flow__detail { color: var(--on-paper-mute); max-width: 52ch; }
+
+/* ============================================================
+   XIZMATLAR — kartochka yo'q, chiziqli qatorlar
+   ============================================================ */
+.svc {
+  display: grid;
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 900px) { .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.svc__row {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr) 1.75rem;
+  gap: 0.35rem 1rem;
+  align-items: start;
+  padding: clamp(1.6rem, 3vw, 2.25rem) 0;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.3s var(--ease), padding-inline 0.3s var(--ease);
+}
+@media (min-width: 900px) {
+  .svc__row { padding-inline: 1.5rem; }
+  .svc__row:nth-child(2n) { border-left: 1px solid var(--rule); }
+  .svc__row:hover { background: var(--paper-2); }
+}
+.svc__idx { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; color: var(--on-paper-dim); padding-top: 0.55rem; }
+.svc__name { font-size: clamp(1.375rem, 2.2vw, 1.625rem); }
+.svc__text { grid-column: 2; color: var(--on-paper-mute); font-size: 0.9375rem; max-width: 40ch; margin-top: 0.35rem; }
+.svc__go {
+  align-self: center;
+  color: var(--on-paper-dim);
+  transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+}
+.svc__row:hover .svc__go { color: var(--gold); transform: translate(3px, -3px); }
+
+/* ============================================================
+   LOYIHALAR — sahifadagi yagona qorong'i bob
+   ============================================================ */
+.work {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.work .head__title { color: var(--on-ink); }
+
+.cases {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 860px) { .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.case { display: grid; gap: 1.25rem; }
+
+/* brauzer ramkasi — skrinshot ramka ichida, matn ramkadan tashqarida */
+.case__frame {
+  border: 1px solid var(--rule-ink);
+  background: var(--ink-2);
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.case:hover .case__frame { border-color: rgba(201, 168, 76, 0.5); transform: translateY(-4px); }
+
+.case__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--rule-ink);
+}
+.case__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--on-ink-dim); flex: none; }
+.case__url {
+  margin-left: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--on-ink-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.case__shot { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ink-2); }
+.case__shot img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.7s var(--ease);
+}
+.case:hover .case__shot img { transform: scale(1.035); }
+
+.case__meta { display: grid; gap: 0.6rem; }
+.case__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.case__name { font-size: clamp(1.5rem, 2.4vw, 1.875rem); color: var(--on-ink); }
+.case__year { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; color: var(--on-ink-dim); flex: none; }
+.case__cat { color: var(--gold-lift); }
+.case__sum { color: var(--on-ink-mute); font-size: 0.9375rem; max-width: 46ch; }
+.case__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+.case__tag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--rule-ink);
+  color: var(--on-ink-mute);
+}
+
+/* raqamlar — qorong'i bobning yakuniy tasmasi */
+.tally {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--rule-ink);
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+@media (min-width: 800px) { .tally { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.tally__cell {
+  padding: clamp(1.75rem, 3vw, 2.5rem) 1.25rem clamp(1.75rem, 3vw, 2.5rem) 0;
+  border-right: 1px solid var(--rule-ink);
+  border-bottom: 1px solid var(--rule-ink);
+}
+@media (min-width: 800px) {
+  .tally__cell { border-bottom: 0; }
+  .tally__cell:last-child { border-right: 0; }
+}
+@media (max-width: 799px) {
+  .tally__cell:nth-child(2n) { border-right: 0; padding-left: 1.25rem; }
+}
+.tally__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.tally__num sup { font-size: 0.45em; vertical-align: super; color: var(--gold-lift); }
+.tally__label { color: var(--on-ink-mute); margin-top: 0.7rem; font-size: 0.875rem; }
+
+/* ============================================================
+   ALOQA — forma endi ko'rinadi
+   ============================================================ */
+.contact__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+@media (min-width: 940px) { .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); } }
+
+.detail { display: grid; border-top: 1px solid var(--rule); margin-top: 2.5rem; }
+.detail__row {
+  display: grid;
+  gap: 0.15rem 1.5rem;
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 520px) { .detail__row { grid-template-columns: 10rem minmax(0, 1fr); align-items: baseline; } }
+.detail__k { color: var(--on-paper-dim); }
+.detail__v { font-size: 1.0625rem; transition: color 0.25s var(--ease); }
+a.detail__v:hover { color: var(--gold); }
+
+.social { display: flex; gap: 1.5rem; margin-top: 1.75rem; }
+.social a { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-paper-mute); position: relative; padding-bottom: 0.3rem; }
+.social a::after { content: ''; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
+.social a:hover { color: var(--ink); }
+.social a:hover::after { transform: scaleX(1); }
+
+.form {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  display: grid;
+  gap: 1.15rem;
+  align-content: start;
+}
+.field { display: grid; gap: 0.45rem; }
+.field label { color: var(--on-paper-mute); }
+.field input {
+  appearance: none;
+  border: 1px solid var(--rule);
+  background: var(--paper-3);
+  color: var(--on-paper);
+  font: inherit;
+  padding: 0.85rem 0.95rem;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.field input::placeholder { color: var(--on-paper-dim); }
+.field input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+}
+.form__note { color: var(--on-paper-dim); text-align: center; }
+.form .btn { justify-content: center; width: 100%; }
+
+/* ============================================================
+   FUTER
+   ============================================================ */
+.foot { background: var(--ink); color: var(--on-ink); padding-left: var(--rail); }
+.foot__top {
+  display: grid;
+  gap: 2.5rem;
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+@media (min-width: 800px) { .foot__top { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 3rem; } }
+.foot__desc { color: var(--on-ink-mute); max-width: 34ch; margin-top: 1.1rem; font-size: 0.9375rem; }
+.foot__col h4 { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-lift); font-weight: 500; margin-bottom: 1.1rem; }
+.foot__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+.foot__col a { color: var(--on-ink-mute); font-size: 0.9375rem; transition: color 0.25s var(--ease); }
+.foot__col a:hover { color: var(--gold-lift); }
+
+.foot__legal {
+  border-top: 1px solid var(--rule-ink);
+  padding-block: 1.75rem 2.5rem;
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 800px) { .foot__legal { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
+.foot__legal p { color: var(--on-ink-dim); font-size: 0.8125rem; line-height: 1.7; }
+.foot__legal strong { color: var(--on-ink-mute); font-weight: 500; }
+.foot__links { display: flex; gap: 1.5rem; }
+.foot__links a { color: var(--on-ink-dim); font-size: 0.8125rem; }
+.foot__links a:hover { color: var(--gold-lift); }
+
+/* ============================================================
+   Harakat
+   ============================================================ */
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+@keyframes draw-x    { to { transform: scaleX(1); } }
+@keyframes fade-in   { to { opacity: 1; } }
+@keyframes pop       { to { transform: scale(0.66); opacity: 1; } }
+@keyframes spin      { to { transform: rotate(360deg); } }
+
+.rise { opacity: 0; transform: translateY(14px); }
+.is-in .rise,
+.rise.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+
+/* sarlavha chizig'i chapdan o'ngga chiziladi */
+.head__eyebrow::after { transform: scaleX(0); transform-origin: left; transition: transform 0.8s var(--ease) 0.1s; }
+.is-in .head__eyebrow::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { opacity: 1; transform: none; }
+  .head__eyebrow::after { transform: scaleX(1); }
+  .hero__title em::after { transform: scaleX(1); animation: none; }
+  .hero__mark .axis { stroke-dashoffset: 0; animation: none; }
+  .hero__mark .cap { opacity: 1; animation: none; }
+  .hero__mark .star { opacity: 1; transform: scale(0.66); animation: none; }
+  .hero__mark .ring { animation: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<!-- ================= RAIL ================= -->
+<nav class="rail" aria-label="Bo'limlar">
+  <ul class="rail__list">
+    <li><a class="rail__link is-active" href="#hero" data-rail="hero"><span class="rail__tick"></span>00</a></li>
+    <li><a class="rail__link" href="#jarayon" data-rail="jarayon"><span class="rail__tick"></span>01</a></li>
+    <li><a class="rail__link" href="#xizmatlar" data-rail="xizmatlar"><span class="rail__tick"></span>02</a></li>
+    <li><a class="rail__link" href="#loyihalar" data-rail="loyihalar"><span class="rail__tick"></span>03</a></li>
+    <li><a class="rail__link" href="#aloqa" data-rail="aloqa"><span class="rail__tick"></span>04</a></li>
+  </ul>
+</nav>
+
+<!-- ================= TOP ================= -->
+<header class="top" id="top">
+  <div class="shell top__inner">
+    <a class="brand" href="#hero" aria-label="Avenir — bosh sahifa">
+      <svg class="brand__mark" viewBox="0 0 200 200" aria-hidden="true" fill="none">
+        <line x1="100" y1="14" x2="100" y2="186" stroke="currentColor" stroke-width="6"/>
+        <line x1="14" y1="100" x2="186" y2="100" stroke="currentColor" stroke-width="6"/>
+        <circle cx="100" cy="10" r="9" fill="currentColor"/>
+        <circle cx="100" cy="190" r="9" fill="currentColor"/>
+        <circle cx="10" cy="100" r="9" fill="currentColor"/>
+        <circle cx="190" cy="100" r="9" fill="currentColor"/>
+        <path d="M100 52 L114 86 L148 100 L114 114 L100 148 L86 114 L52 100 L86 86 Z" fill="currentColor"/>
+      </svg>
+      <span class="brand__word">AVENIR</span>
+    </a>
+
+    <nav class="top__nav" aria-label="Asosiy">
+      <a class="top__link" href="#loyihalar">Loyihalar</a>
+      <a class="top__link" href="#xizmatlar">Xizmatlar</a>
+      <a class="top__link" href="#aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" role="group" aria-label="Til">
+        <button class="lang__btn is-active" type="button">UZ</button>
+        <button class="lang__btn" type="button">RU</button>
+        <button class="lang__btn" type="button">EN</button>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="#loyihalar">Loyihalar</a>
+  <a href="#xizmatlar">Xizmatlar</a>
+  <a href="#aloqa">Aloqa</a>
+</div>
+
+<main class="page">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero" data-section="hero">
+    <div class="shell">
+      <div class="hero__grid">
+        <div>
+          <p class="mono hero__eyebrow rise"><span class="dot"></span>Avenir IT-agentligi · Toshkent</p>
+          <h1 class="hero__title rise" style="--d:80ms">
+            Biz bilan<br><em>kelajakni quring</em>.
+          </h1>
+          <p class="hero__lead rise" style="--d:180ms">
+            Biz katta maqsadli kompaniyalar bilan birga tezkor, nafis va tijoriy
+            jihatdan samarali veb mahsulotlar yaratamiz va rivojlantiramiz.
+          </p>
+          <div class="hero__cta rise" style="--d:260ms">
+            <a class="btn" href="#loyihalar">Loyihalarni ko'rish <span class="btn__arrow">→</span></a>
+            <a class="btn btn--ghost" href="#aloqa">Loyihani boshlash</a>
+          </div>
+        </div>
+
+        <div class="hero__mark" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none">
+            <circle class="ring" cx="100" cy="100" r="92"/>
+            <line class="axis" x1="100" y1="16" x2="100" y2="184"/>
+            <line class="axis" x1="16" y1="100" x2="184" y2="100"/>
+            <circle class="cap" cx="100" cy="12" r="3.5"/>
+            <circle class="cap" cx="100" cy="188" r="3.5"/>
+            <circle class="cap" cx="12" cy="100" r="3.5"/>
+            <circle class="cap" cx="188" cy="100" r="3.5"/>
+            <path class="star" d="M100 56 L113 87 L144 100 L113 113 L100 144 L87 113 L56 100 L87 87 Z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- o'lchov paneli: suzib yurgan badge'lar o'rniga -->
+      <div class="gauge rise" style="--d:340ms">
+        <div class="gauge__cell">
+          <p class="mono gauge__label">O'rtacha ishga tushirish</p>
+          <p class="gauge__value">2 hafta</p>
+        </div>
+        <div class="gauge__cell">
+          <p class="mono gauge__label">Hamkorlikni davom ettiradi</p>
+          <p class="gauge__value">98<span>%</span></p>
+        </div>
+        <div class="gauge__cell">
+          <p class="mono gauge__label">Topshirilgan loyihalar</p>
+          <p class="gauge__value">50<span>+</span></p>
+        </div>
+        <div class="gauge__cell">
+          <p class="mono gauge__label">Qamrab olingan mamlakatlar</p>
+          <p class="gauge__value">4</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= JARAYON ================= -->
+  <section class="section" id="jarayon" data-section="jarayon">
+    <div class="shell">
+      <div class="head">
+        <p class="mono head__eyebrow">Yetkazib berish tizimi</p>
+        <h2 class="head__title rise">G'oyadan ishga tushirishgacha</h2>
+        <p class="head__lead rise" style="--d:80ms">
+          Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan samarali jarayon.
+        </p>
+      </div>
+
+      <div class="flow">
+        <article class="flow__step rise">
+          <p class="flow__idx">01</p>
+          <h3 class="flow__name">Kashfiyot</h3>
+          <p class="flow__detail">Maqsadlar, foydalanuvchilar va mahsulot doirasini aniqlaymiz.</p>
+        </article>
+        <article class="flow__step rise" style="--d:90ms">
+          <p class="flow__idx">02</p>
+          <h3 class="flow__name">Dizayn va ishlab chiqish</h3>
+          <p class="flow__detail">UI tizimlari va masshtablanuvchi injiniring.</p>
+        </article>
+        <article class="flow__step rise" style="--d:180ms">
+          <p class="flow__idx">03</p>
+          <h3 class="flow__name">Ishga tushirish va o'sish</h3>
+          <p class="flow__detail">Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= XIZMATLAR ================= -->
+  <section class="section" id="xizmatlar" data-section="xizmatlar" style="background:var(--paper);">
+    <div class="shell">
+      <div class="head">
+        <p class="mono head__eyebrow">Mahsulotlar va xizmatlar</p>
+        <h2 class="head__title rise">Nimalar yaratamiz?</h2>
+        <p class="head__lead rise" style="--d:80ms">
+          Biznesingiz uchun ishlab chiqadigan asosiy raqamli yechimlar.
+        </p>
+      </div>
+
+      <div class="svc">
+        <a class="svc__row rise" href="#aloqa">
+          <span class="svc__idx">01</span>
+          <h3 class="svc__name">Veb saytlar</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Korporativ, landing va e-commerce saytlar zamonaviy dizayn bilan.</p>
+        </a>
+        <a class="svc__row rise" style="--d:60ms" href="#aloqa">
+          <span class="svc__idx">02</span>
+          <h3 class="svc__name">Mobil ilovalar</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Android va iOS uchun tezkor, qulay va barqaror mobil mahsulotlar.</p>
+        </a>
+        <a class="svc__row rise" style="--d:120ms" href="#aloqa">
+          <span class="svc__idx">03</span>
+          <h3 class="svc__name">CRM va ERP tizimlar</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Sotuv, ombor, moliya va ichki jarayonlarni yagona platformada boshqarish.</p>
+        </a>
+        <a class="svc__row rise" style="--d:180ms" href="#aloqa">
+          <span class="svc__idx">04</span>
+          <h3 class="svc__name">AI botlar</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Jarayonlarni avtomatlashtiruvchi va savollarni qayta ishlovchi intellektual botlar.</p>
+        </a>
+        <a class="svc__row rise" style="--d:240ms" href="#aloqa">
+          <span class="svc__idx">05</span>
+          <h3 class="svc__name">Telegram botlar</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Mijozlar bilan ishlash, buyurtma qabul qilish va CRM ulash uchun botlar.</p>
+        </a>
+        <a class="svc__row rise" style="--d:300ms" href="#aloqa">
+          <span class="svc__idx">06</span>
+          <h3 class="svc__name">Mini-app</h3>
+          <span class="svc__go" aria-hidden="true">↗</span>
+          <p class="svc__text">Telegram ichida ishlaydigan mini-ilovalar va interaktiv servislar.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOYIHALAR (qorong'i bob) ================= -->
+  <section class="section work on-ink" id="loyihalar" data-section="loyihalar" data-tone="ink">
+    <div class="shell">
+      <div class="head">
+        <p class="mono head__eyebrow">Ishlarimiz</p>
+        <h2 class="head__title rise">Bizning loyihalar</h2>
+        <p class="head__lead rise" style="--d:80ms">Haqiqiy natija bergan raqamli mahsulotlar.</p>
+      </div>
+
+      <div class="cases">
+        <article class="case rise">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">vac.uz</span></div>
+            <div class="case__shot"><img src="/portfolio/vac-uz.webp" alt="VAC.UZ — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">VAC.UZ</h3><span class="case__year">2025</span></div>
+            <p class="mono case__cat">Ishlab chiqarish va avtomatlashtirish</p>
+            <p class="case__sum">Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun veb-sayt va hisob-kitob avtomatlashtirish tizimi.</p>
+            <div class="case__tags"><span class="case__tag">Next.js</span><span class="case__tag">CRM</span><span class="case__tag">Avtomatlashtirish</span></div>
+          </div>
+        </article>
+
+        <article class="case rise" style="--d:80ms">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">os.avenir.uz</span></div>
+            <div class="case__shot"><img src="/portfolio/avenir-os.webp" alt="Avenir OS — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">Avenir OS</h3><span class="case__year">2025</span></div>
+            <p class="mono case__cat">ERP + CRM + Moliya</p>
+            <p class="case__sum">Barcha operatsion vazifalarni yagona ilovada boshqarish uchun operatsion tizim.</p>
+            <div class="case__tags"><span class="case__tag">ERP</span><span class="case__tag">CRM</span><span class="case__tag">Moliya</span></div>
+          </div>
+        </article>
+
+        <article class="case rise">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">yakovpartners.com</span></div>
+            <div class="case__shot"><img src="/portfolio/yakov-partners.webp" alt="Yakov and Partners — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">Yakov and Partners</h3><span class="case__year">2025</span></div>
+            <p class="mono case__cat">Konsalting va analitika</p>
+            <p class="case__sum">Xalqaro konsalting kompaniyasi uchun korporativ veb-sayt va analitik platforma.</p>
+            <div class="case__tags"><span class="case__tag">Korporativ sayt</span><span class="case__tag">SEO</span><span class="case__tag">Analitika</span></div>
+          </div>
+        </article>
+
+        <article class="case rise" style="--d:80ms">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">defi.tech</span></div>
+            <div class="case__shot"><img src="/portfolio/defi-technologies.webp" alt="DeFi Technologies — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">DeFi Technologies</h3><span class="case__year">2026</span></div>
+            <p class="mono case__cat">TradFi platforma</p>
+            <p class="case__sum">Raqamli aktivlarga institutsional kirish imkonini beruvchi xalqaro moliyaviy platforma.</p>
+            <div class="case__tags"><span class="case__tag">FinTech</span><span class="case__tag">Web3</span><span class="case__tag">UI/UX</span></div>
+          </div>
+        </article>
+
+        <article class="case rise">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">apecasia.ae</span></div>
+            <div class="case__shot"><img src="/portfolio/apec-asia.webp" alt="APEC Asia UAE — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">APEC Asia UAE</h3><span class="case__year">2025</span></div>
+            <p class="mono case__cat">Avtomobil ehtiyot qismlari</p>
+            <p class="case__sum">BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.</p>
+            <div class="case__tags"><span class="case__tag">E-commerce</span><span class="case__tag">Katalog</span><span class="case__tag">SEO</span></div>
+          </div>
+        </article>
+
+        <article class="case rise" style="--d:80ms">
+          <div class="case__frame">
+            <div class="case__bar"><span class="case__dot"></span><span class="case__dot"></span><span class="case__dot"></span><span class="case__url">dagestantur.ru</span></div>
+            <div class="case__shot"><img src="/portfolio/dagestantur.webp" alt="Dagestantur — loyiha skrinshoti" loading="lazy"></div>
+          </div>
+          <div class="case__meta">
+            <div class="case__top"><h3 class="case__name">Dagestantur</h3><span class="case__year">2025</span></div>
+            <p class="mono case__cat">Turizm agentligi</p>
+            <p class="case__sum">Rossiya Federatsiyasidagi tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi veb-sayt.</p>
+            <div class="case__tags"><span class="case__tag">Landing</span><span class="case__tag">Bronirovanie</span><span class="case__tag">SEO</span></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- raqamlar bobning yakuni sifatida -->
+      <div class="tally">
+        <div class="tally__cell rise">
+          <p class="tally__num" data-count="50">0<sup>+</sup></p>
+          <p class="tally__label">Topshirilgan loyihalar</p>
+        </div>
+        <div class="tally__cell rise" style="--d:70ms">
+          <p class="tally__num" data-count="30">0<sup>+</sup></p>
+          <p class="tally__label">Mamnun mijozlar</p>
+        </div>
+        <div class="tally__cell rise" style="--d:140ms">
+          <p class="tally__num" data-count="5">0</p>
+          <p class="tally__label">Bozordagi yillar</p>
+        </div>
+        <div class="tally__cell rise" style="--d:210ms">
+          <p class="tally__num" data-count="4">0</p>
+          <p class="tally__label">Qamrab olingan mamlakatlar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ALOQA ================= -->
+  <section class="section" id="aloqa" data-section="aloqa">
+    <div class="shell">
+      <div class="contact__grid">
+        <div>
+          <div class="head" style="padding-bottom:0">
+            <p class="mono head__eyebrow">Aloqa</p>
+            <h2 class="head__title rise">Loyihangizni boshlang</h2>
+            <p class="head__lead rise" style="--d:80ms">
+              Raqamli g'oyangizni hayotga tatbiq etish uchun qanday yordam bera olishimizni
+              muhokama qilaylik. Jamoamiz talablaringizni o'rganib, mos yechim tayyorlaydi.
+            </p>
+          </div>
+
+          <div class="detail rise" style="--d:140ms">
+            <div class="detail__row">
+              <p class="mono detail__k">Elektron pochta</p>
+              <a class="detail__v" href="mailto:info@avenir.uz">info@avenir.uz</a>
+            </div>
+            <div class="detail__row">
+              <p class="mono detail__k">Telefon</p>
+              <a class="detail__v" href="tel:+998935298807">+998 93 529 88 07</a>
+            </div>
+            <div class="detail__row">
+              <p class="mono detail__k">Manzil</p>
+              <p class="detail__v">Toshkent, O'zbekiston</p>
+            </div>
+          </div>
+
+          <div class="social rise" style="--d:200ms">
+            <a href="https://www.instagram.com/avenir.uz/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://t.me/" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="mailto:info@avenir.uz">Email</a>
+          </div>
+        </div>
+
+        <form class="form rise" style="--d:120ms" onsubmit="return false;">
+          <div class="field">
+            <label class="mono" for="f-name">Ismingiz</label>
+            <input id="f-name" name="name" type="text" placeholder="Ism familiya" required>
+          </div>
+          <div class="field">
+            <label class="mono" for="f-phone">Telefon raqam</label>
+            <input id="f-phone" name="phone" type="tel" value="+998 " required>
+          </div>
+          <div class="field">
+            <label class="mono" for="f-tg">Telegram username</label>
+            <input id="f-tg" name="telegram" type="text" placeholder="@username" required>
+          </div>
+          <div class="field">
+            <label class="mono" for="f-emp">Xodimlar soni</label>
+            <input id="f-emp" name="employees" type="number" min="1" placeholder="10" required>
+          </div>
+          <button class="btn" type="submit">Xabar yuborish <span class="btn__arrow">→</span></button>
+          <p class="mono form__note">24 soat ichida javob beramiz</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FUTER ================= -->
+<footer class="foot" data-tone="ink">
+  <div class="shell">
+    <div class="foot__top">
+      <div>
+        <a class="brand" href="#hero" aria-label="Avenir">
+          <svg class="brand__mark" viewBox="0 0 200 200" aria-hidden="true" fill="none">
+            <line x1="100" y1="14" x2="100" y2="186" stroke="currentColor" stroke-width="6"/>
+            <line x1="14" y1="100" x2="186" y2="100" stroke="currentColor" stroke-width="6"/>
+            <circle cx="100" cy="10" r="9" fill="currentColor"/>
+            <circle cx="100" cy="190" r="9" fill="currentColor"/>
+            <circle cx="10" cy="100" r="9" fill="currentColor"/>
+            <circle cx="190" cy="100" r="9" fill="currentColor"/>
+            <path d="M100 52 L114 86 L148 100 L114 114 L100 148 L86 114 L52 100 L86 86 Z" fill="currentColor"/>
+          </svg>
+          <span class="brand__word">AVENIR</span>
+        </a>
+        <p class="foot__desc">Dunyo bo'ylab katta maqsadli bizneslar uchun raqamli kelajaklarni yaratamiz.</p>
+      </div>
+
+      <div class="foot__col">
+        <h4>Xizmatlar</h4>
+        <ul>
+          <li><a href="#xizmatlar">Veb saytlar</a></li>
+          <li><a href="#xizmatlar">Mobil ilovalar</a></li>
+          <li><a href="#xizmatlar">CRM va ERP</a></li>
+          <li><a href="#xizmatlar">Telegram botlar</a></li>
+        </ul>
+      </div>
+
+      <div class="foot__col">
+        <h4>Aloqa</h4>
+        <ul>
+          <li><a href="mailto:info@avenir.uz">info@avenir.uz</a></li>
+          <li><a href="tel:+998935298807">+998 93 529 88 07</a></li>
+          <li><a href="#aloqa">Toshkent, O'zbekiston</a></li>
+          <li><a href="https://www.instagram.com/avenir.uz/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot__legal">
+      <p>
+        <strong>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li</strong><br>
+        Chust ko'chasi 1, Ulug'bek, 100214 Toshkent shahri, O'zbekiston<br>
+        © 2026 Avenir.uz · Barcha huquqlar himoyalangan
+      </p>
+      <div class="foot__links">
+        <a href="/privacy">Maxfiylik siyosati</a>
+        <a href="/terms">Foydalanish shartlari</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- scroll bo'yicha ochilish --- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.rise, .head').forEach(function (el) { io.observe(el); });
+
+  /* --- raqamlarni sanash --- */
+  var counters = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      counters.unobserve(el);
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var sup = el.querySelector('sup');
+      var suffix = sup ? sup.outerHTML : '';
+      if (reduce) { el.innerHTML = target + suffix; return; }
+      var start = null, dur = 1100;
+      function tick(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.innerHTML = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(function (el) { counters.observe(el); });
+
+  /* --- yuqori panel holati + rail markeri --- */
+  var top = document.getElementById('top');
+  var rail = document.querySelector('.rail');
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll('[data-rail]'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
+  var inkZones = Array.prototype.slice.call(document.querySelectorAll('[data-tone="ink"]'));
+  var ticking = false;
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      top.classList.toggle('is-stuck', y > 24);
+
+      /* panel qorong'i bob ustidami — elementFromPoint o'rniga oddiy geometriya */
+      var probe = y + 38;
+      var onInk = inkZones.some(function (z) {
+        var t = z.offsetTop, b = t + z.offsetHeight;
+        return probe >= t && probe < b;
+      });
+      top.classList.toggle('is-on-ink', onInk);
+      if (rail) {
+        var railProbe = y + window.innerHeight / 2;
+        rail.classList.toggle('is-on-ink', inkZones.some(function (z) {
+          var t = z.offsetTop, b = t + z.offsetHeight;
+          return railProbe >= t && railProbe < b;
+        }));
+      }
+
+      var mid = y + window.innerHeight * 0.42;
+      var current = sections[0];
+      sections.forEach(function (s) { if (s.offsetTop <= mid) current = s; });
+      var key = current.getAttribute('data-section');
+      railLinks.forEach(function (l) {
+        l.classList.toggle('is-active', l.getAttribute('data-rail') === key);
+      });
+
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* --- mobil menyu --- */
+  var burger = document.getElementById('burger');
+  var drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function () {
+    var open = drawer.classList.toggle('is-open');
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  drawer.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      drawer.classList.remove('is-open');
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* --- til (draftda faqat vizual) --- */
+  document.querySelectorAll('.lang__btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.lang__btn').forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+    });
+  });
+})();
+</script>
