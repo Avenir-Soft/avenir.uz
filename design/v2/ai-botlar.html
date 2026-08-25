@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
-<link rel="apple-touch-icon" href="/apple-icon.png">
-<script>
-  /* saqlangan mavzu — sahifa chizilishidan oldin */
-  try {
-    var t = localStorage.getItem('avenir-theme');
-    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-  } catch (e) {}
-</script>
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
 <title>AI botlar — Avenir.uz</title>
+<meta name="description" content="Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi. Biznes ma'lumotlaringiz ustida ishlaydigan AI yordamchi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -58,15 +52,6 @@
           <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
         </ul>
       </div>
-      <button class="thm" id="thm" type="button" aria-label="Mavzuni almashtirish" title="Yorug' / qorong'i">
-        <svg class="thm__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z"/>
-        </svg>
-        <svg class="thm__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4.1"/>
-          <path d="M12 2.4v2.1M12 19.5v2.1M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2.4 12h2.1M19.5 12h2.1M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
-        </svg>
-      </button>
       <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -139,10 +124,11 @@
       <h2 class="h-sec rise" style="--d:80ms" data-split>Loyihalardan ekranlar</h2>
     </div>
     <div class="work work--1">
-        <article class="gc wc rise">
+        <a class="gc wc rise" href="avenir-os.html">
           <div class="wc__img"><img src="/portfolio/avenir-os.webp" alt="Avenir OS" loading="lazy"></div>
-          <div class="wc__b"><p class="wc__m">AI brifing va hisobotlar</p><h3>Avenir OS</h3></div>
-        </article>
+          <div class="wc__b"><p class="wc__m">AI brifing va hisobotlar</p><h3>Avenir OS</h3>  <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+        </a>
     </div>
   </div>
 </section>

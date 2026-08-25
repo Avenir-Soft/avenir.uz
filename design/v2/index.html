@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
-<link rel="apple-touch-icon" href="/apple-icon.png">
-<script>
-  /* saqlangan mavzu — sahifa chizilishidan oldin */
-  try {
-    var t = localStorage.getItem('avenir-theme');
-    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-  } catch (e) {}
-</script>
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
 <title>Avenir.uz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,15 +70,6 @@
           <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
         </ul>
       </div>
-      <button class="thm" id="thm" type="button" aria-label="Mavzuni almashtirish" title="Yorug' / qorong'i">
-        <svg class="thm__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z"/>
-        </svg>
-        <svg class="thm__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4.1"/>
-          <path d="M12 2.4v2.1M12 19.5v2.1M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2.4 12h2.1M19.5 12h2.1M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/>
-        </svg>
-      </button>
       <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -524,29 +508,49 @@
         </div>
         <div class="gc sol__c sol__c--e rise" style="--d:90ms">
           <div class="ph">
-            <span class="ph__notch"></span>
-            <div class="ph__t"><b>09:41</b><span>Payshanba, 21-avgust</span></div>
-            <div class="ph__n" data-cyc>
-              <div class="cyc__i"><div class="pn">
-                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 00-6 6v4l-2 3h16l-2-3V9a6 6 0 00-6-6z"/><path d="M10 20a2 2 0 004 0"/></svg></span>
-                <span class="pn__b"><b>Yangi bitim</b><span>VAC.UZ — taklif yuborildi</span></span><span class="pn__t">hozir</span>
-              </div></div>
-              <div class="cyc__i"><div class="pn">
-                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 9.5h16"/></svg></span>
-                <span class="pn__b"><b>To'lov qabul qilindi</b><span>#2481 · 32 000 000 so'm</span></span><span class="pn__t">3 daq</span>
-              </div></div>
-              <div class="cyc__i"><div class="pn">
-                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-                <span class="pn__b"><b>Vazifa yopildi</b><span>Dizayn sprint · 12/12</span></span><span class="pn__t">12 daq</span>
-              </div></div>
-              <div class="cyc__i"><div class="pn">
-                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
-                <span class="pn__b"><b>Eslatma</b><span>Shartnoma 3 kunda tugaydi</span></span><span class="pn__t">1 soat</span>
-              </div></div>
-              <div class="cyc__i"><div class="pn">
-                <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V9M12 19V5M19 19v-6"/></svg></span>
-                <span class="pn__b"><b>Hisobot tayyor</b><span>Iyul oyi P&amp;L</span></span><span class="pn__t">2 soat</span>
-              </div></div>
+            <span class="ph__side ph__side--act" aria-hidden="true"></span>
+            <span class="ph__side ph__side--vu" aria-hidden="true"></span>
+            <span class="ph__side ph__side--vd" aria-hidden="true"></span>
+            <span class="ph__side ph__side--pw" aria-hidden="true"></span>
+            <span class="ph__side ph__side--cam" aria-hidden="true"></span>
+            <div class="ph__scr">
+              <span class="ph__island" aria-hidden="true"></span>
+              <div class="ph__st" aria-hidden="true" data-no-i18n>
+                <b class="ph__now">09:41</b>
+                <span class="ph__sig">
+                  <svg class="ph__cell" viewBox="0 0 16 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7.4" width="2.6" height="3.6" rx=".8"/><rect x="4.4" y="5.4" width="2.6" height="5.6" rx=".8"/><rect x="8.8" y="3.1" width="2.6" height="7.9" rx=".8"/><rect x="13.2" y=".7" width="2.6" height="10.3" rx=".8"/></svg>
+                  <svg class="ph__wifi" viewBox="0 0 15 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1.1 3.5a9.6 9.6 0 0 1 12.8 0"/><path d="M3.5 6.2a6.2 6.2 0 0 1 8 0"/><path d="M5.9 8.9a2.7 2.7 0 0 1 3.2 0"/></svg>
+                  <svg class="ph__bat" viewBox="0 0 25 11" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="20" height="10" rx="3.2" stroke="currentColor" stroke-opacity=".42"/><rect x="2" y="2" width="15.2" height="7" rx="2" fill="currentColor"/><path d="M22.4 3.9a2.1 2.1 0 0 1 0 3.2z" fill="currentColor" fill-opacity=".42"/></svg>
+                </span>
+              </div>
+              <div class="ph__t" data-no-i18n>
+                <svg class="ph__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/></svg>
+                <span class="ph__date">Payshanba, 21-avgust</span><b class="ph__clock">09:41</b>
+              </div>
+              <div class="ph__n" data-cyc>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 00-6 6v4l-2 3h16l-2-3V9a6 6 0 00-6-6z"/><path d="M10 20a2 2 0 004 0"/></svg></span>
+                  <span class="pn__b"><b>Yangi bitim</b><span>VAC.UZ — taklif yuborildi</span></span><span class="pn__t">hozir</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 9.5h16"/></svg></span>
+                  <span class="pn__b"><b>To'lov qabul qilindi</b><span>#2481 · 32 000 000 so'm</span></span><span class="pn__t">3 daq</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                  <span class="pn__b"><b>Vazifa yopildi</b><span>Dizayn sprint · 12/12</span></span><span class="pn__t">12 daq</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
+                  <span class="pn__b"><b>Eslatma</b><span>Shartnoma 3 kunda tugaydi</span></span><span class="pn__t">1 soat</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V9M12 19V5M19 19v-6"/></svg></span>
+                  <span class="pn__b"><b>Hisobot tayyor</b><span>Iyul oyi P&amp;L</span></span><span class="pn__t">2 soat</span>
+                </div></div>
+              </div>
+              <span class="ph__home" aria-hidden="true"></span>
+              <span class="ph__glass" aria-hidden="true"></span>
             </div>
           </div>
         </div>
@@ -565,54 +569,60 @@
     </div>
 
     <div class="work">
-      <article class="gc wc rise">
+      <a class="gc wc rise" href="vac-uz.html">
         <div class="wc__img"><img src="/portfolio/vac-uz.webp" alt="VAC.UZ" loading="lazy"></div>
         <div class="wc__b">
           <p class="wc__m">Ishlab chiqarish · ERP<span>2025</span></p>
           <h3>VAC.UZ</h3>
           <p>Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.</p>
-        </div>
-      </article>
-      <article class="gc wc rise" style="--d:80ms">
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:80ms" href="avenir-os.html">
         <div class="wc__img"><img src="/portfolio/avenir-os.webp" alt="Avenir OS" loading="lazy"></div>
         <div class="wc__b">
-          <p class="wc__m">ERP + CRM + Moliya<span>2025</span></p>
+          <p class="wc__m">ERP + CRM + Moliya<span>2026</span></p>
           <h3>Avenir OS</h3>
           <p>Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.</p>
-        </div>
-      </article>
-      <article class="gc wc rise" style="--d:160ms">
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:160ms" href="yakov-partners.html">
         <div class="wc__img"><img src="/portfolio/yakov-partners.webp" alt="Yakov and Partners" loading="lazy"></div>
         <div class="wc__b">
           <p class="wc__m">Konsalting<span>2025</span></p>
           <h3>Yakov and Partners</h3>
           <p>Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.</p>
-        </div>
-      </article>
-      <article class="gc wc rise">
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" href="defi-technologies.html">
         <div class="wc__img"><img src="/portfolio/defi-technologies.webp" alt="DeFi Technologies" loading="lazy"></div>
         <div class="wc__b">
           <p class="wc__m">TradFi platforma<span>2026</span></p>
           <h3>DeFi Technologies</h3>
           <p>Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.</p>
-        </div>
-      </article>
-      <article class="gc wc rise" style="--d:80ms">
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:80ms" href="apec-asia.html">
         <div class="wc__img"><img src="/portfolio/apec-asia.webp" alt="APEC Asia UAE" loading="lazy"></div>
         <div class="wc__b">
           <p class="wc__m">E-commerce<span>2025</span></p>
           <h3>APEC Asia UAE</h3>
           <p>BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.</p>
-        </div>
-      </article>
-      <article class="gc wc rise" style="--d:160ms">
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:160ms" href="dagestantur.html">
         <div class="wc__img"><img src="/portfolio/dagestantur.webp" alt="Dagestantur" loading="lazy"></div>
         <div class="wc__b">
           <p class="wc__m">Turizm<span>2025</span></p>
           <h3>Dagestantur</h3>
           <p>Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.</p>
-        </div>
-      </article>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
     </div>
   </div>
 </section>
@@ -764,6 +774,7 @@
             <div class="field"><label for="fn">Ismingiz</label><input id="fn" type="text" placeholder="Ism familiya" required></div>
             <div class="field"><label for="fp">Telefon raqam</label><input id="fp" type="tel" value="+998 " required></div>
             <div class="field"><label for="ft">Telegram username</label><input id="ft" type="text" placeholder="@username" required></div>
+            <div class="field"><label for="fo">Aylanmangiz</label><input id="fo" type="text" placeholder="Masalan: oyiga 300 mln"></div>
             <button class="btn btn--w" type="submit">Xabar yuborish <span class="btn__ar">→</span></button>
             <p class="form__n">24 soat ichida javob beramiz</p>
           </form>
@@ -914,7 +925,6 @@
       "Mobil ilovalar": "Мобильные приложения",
       "Android va iOS uchun barqaror ilova": "Стабильное приложение для Android и iOS",
       "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, офлайн-режим и связь с вашими системами — из одной кодовой базы.",
-      "Payshanba, 21-avgust": "Четверг, 21 августа",
       "Yangi bitim": "Новая сделка",
       "VAC.UZ — taklif yuborildi": "VAC.UZ — КП отправлено",
       "To'lov qabul qilindi": "Платёж получен",
@@ -968,8 +978,6 @@
       "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · Все права защищены",
       "Maxfiylik siyosati": "Политика конфиденциальности",
       "Foydalanish shartlari": "Условия использования",
-      "Mavzuni almashtirish": "Сменить тему",
-      "Yorug' / qorong'i": "Светлая / тёмная",
       "Menyu": "Меню",
       "Boshqaruv paneli": "Обзор",
       "Faol lidlar": "Активные лиды",
@@ -1061,7 +1069,10 @@
       "Sotuv va qo'llab-quvvatlash": "Продажи и поддержка",
       "Qo'llab-quvvatlash": "Поддержка",
       "Ishga tushgandan keyin ham aloqada: savol, yangilanish va rivojlantirish.": "Остаётся на связи после запуска: вопросы, обновления и развитие.",
-      "Support · Rivojlantirish": "Поддержка · Развитие"
+      "Support · Rivojlantirish": "Поддержка · Развитие",
+      "Keysni ochish": "Открыть кейс",
+      "Aylanmangiz": "Ваш оборот",
+      "Masalan: oyiga 300 mln": "Например: 300 млн/мес"
     },
     "en": {
       "Loyihangiz bormi?": "Got a project?",
@@ -1165,7 +1176,6 @@
       "Mobil ilovalar": "Mobile apps",
       "Android va iOS uchun barqaror ilova": "A stable app for Android and iOS",
       "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, offline mode and integration with your systems — from a single codebase.",
-      "Payshanba, 21-avgust": "Thursday, 21 August",
       "Yangi bitim": "New deal",
       "VAC.UZ — taklif yuborildi": "VAC.UZ — proposal sent",
       "To'lov qabul qilindi": "Payment received",
@@ -1219,8 +1229,6 @@
       "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · All rights reserved",
       "Maxfiylik siyosati": "Privacy policy",
       "Foydalanish shartlari": "Terms of use",
-      "Mavzuni almashtirish": "Switch theme",
-      "Yorug' / qorong'i": "Light / dark",
       "Menyu": "Menu",
       "Boshqaruv paneli": "Overview",
       "Faol lidlar": "Active leads",
@@ -1312,7 +1320,10 @@
       "Sotuv va qo'llab-quvvatlash": "Sales and support",
       "Qo'llab-quvvatlash": "Support",
       "Ishga tushgandan keyin ham aloqada: savol, yangilanish va rivojlantirish.": "Stays in touch after launch: questions, updates and further work.",
-      "Support · Rivojlantirish": "Support · Growth"
+      "Support · Rivojlantirish": "Support · Growth",
+      "Keysni ochish": "Open the case",
+      "Aylanmangiz": "Your turnover",
+      "Masalan: oyiga 300 mln": "e.g. 300M UZS / month"
     }
   };
 
@@ -1363,12 +1374,58 @@
 
   /* atributlar */
   var i18nAttrs = [];
-  [['#fn', 'placeholder'], ['#thm', 'aria-label'], ['#thm', 'title'],
-   ['#burger', 'aria-label'], ['#ctaX', 'aria-label'], ['[data-suffix]', 'data-suffix']].forEach(function (pair) {
+  [['#fn', 'placeholder'], ['#fo', 'placeholder'], ['#burger', 'aria-label'], ['#ctaX', 'aria-label'],
+   ['[data-suffix]', 'data-suffix']].forEach(function (pair) {
     document.querySelectorAll(pair[0]).forEach(function (el) {
       var v = el.getAttribute(pair[1]);
       if (v) i18nAttrs.push({ el: el, a: pair[1], uz: v });
     });
+  });
+
+  /* ---------- telefon maketidagi soat: haqiqiy vaqt ----------
+     Intl o'rniga qo'lda jadval: o'zbekcha "21-avgust" ko'rinishini brauzer
+     locale ma'lumotidan ishonchli olib bo'lmaydi. */
+  var PH_DAY = {
+    uz: ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
+    ru: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  };
+  var PH_MONTH = {
+    uz: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust',
+         'sentabr', 'oktabr', 'noyabr', 'dekabr'],
+    ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа',
+         'сентября', 'октября', 'ноября', 'декабря'],
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+         'September', 'October', 'November', 'December']
+  };
+  var phTimer = null;
+
+  function paintPhoneClock() {
+    var clock = document.querySelector('.ph__clock');
+    if (!clock) return;
+
+    var now = new Date();
+    var time = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+    clock.textContent = time;
+
+    var status = document.querySelector('.ph__now');
+    if (status) status.textContent = time;
+
+    var date = document.querySelector('.ph__date');
+    if (date) {
+      var l = PH_DAY[lang] ? lang : 'uz';
+      var d = now.getDate(), day = PH_DAY[l][now.getDay()], month = PH_MONTH[l][now.getMonth()];
+      date.textContent = day + ', ' + (l === 'uz' ? d + '-' + month : d + ' ' + month);
+    }
+
+    /* keyingi daqiqa boshida qayta chizamiz — har sekundda tekshirish shart emas */
+    clearTimeout(phTimer);
+    phTimer = setTimeout(paintPhoneClock, (60 - now.getSeconds()) * 1000 + 250);
+  }
+
+  /* fonda turgan varaqda taymer sekinlashadi — qaytganda darrov yangilaymiz */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) paintPhoneClock();
   });
 
   function applyLang(l) {
@@ -1407,6 +1464,8 @@
         li.setAttribute('aria-selected', String(!!b && b.getAttribute('data-lang') === lang));
       });
     });
+
+    paintPhoneClock();
   }
 
   applyLang(lang);
@@ -1766,7 +1825,7 @@
   window.addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(onFrame); }, { passive: true });
 
   /* ---------- shisha tugmalar ---------- */
-  document.querySelectorAll('.btn, .thm').forEach(function (b) {
+  document.querySelectorAll('.btn').forEach(function (b) {
     b.addEventListener('mousemove', function (e) {
       var r = b.getBoundingClientRect();
       b.style.setProperty('--gx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
@@ -1787,15 +1846,6 @@
       burger.setAttribute('aria-expanded', 'false');
     });
   });
-  var thm = document.getElementById('thm');
-  if (thm) {
-    thm.addEventListener('click', function () {
-      var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('avenir-theme', next); } catch (e) {}
-      if (window.__fxRefresh) window.__fxRefresh();
-    });
-  }
 
   document.querySelectorAll('.lang').forEach(function (box) {
     var trigger = box.querySelector('.lang__btn');

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>Dagestantur — tur operatori sayti | Avenir.uz</title>
+<meta name="description" content="«Пора ехать!» tur operatori uchun sayt: yo'nalishlar, mavsumiy sahifalar, marshrutlar va bir tegishda ariza qoldirish. Rossiya va Kavkaz bo'ylab mualliflik turlari.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#loyihalar">Loyihalar</a><span>/</span><b>Dagestantur</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#loyihalar"><i></i>Loyihalarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>Turizm</span>
+        <h1 class="rise" style="--d:120ms" data-split>Sayohatni birinchi ekranda sotish</h1>
+        <p class="sv-lead rise" style="--d:200ms">«Пора ехать!» — Rossiya va Kavkaz bo'ylab mualliflik turlari uyushtiruvchi rasmiy turoperator. Turizmda qaror hissiyot bilan qabul qilinadi, lekin pul faktlar bilan to'lanadi. Shuning uchun sayt ikkalasini bir vaqtda beradi: manzara va aniq javob.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Shunday sayt kerakmi? <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="veb-saytlar.html">Veb saytlar haqida</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Yil</p>
+        <p class="spec__v">2025</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Bizning ish</p>
+        <div class="chips"><span>Sayt</span><span>Dizayn</span><span>Frontend</span><span>Mavsumiy sahifalar</span><span>Ariza shakli</span><span>Adaptiv versiya</span></div>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Sayt bo'limlari</p>
+        <div class="chips"><span>Nega biz</span><span>Qishki turlar</span><span>Aksiyalar</span><span>Yo'nalishlar</span><span>Sharhlar</span><span>Foto</span><span>Blog</span></div>
+      </aside>
+    </div>
+
+    <div class="cover rise" style="--d:320ms">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>poraehat.ru</span></div>
+      <img src="assets/work/dagestantur/01-bosh-sahifa.jpg" alt="Dagestantur bosh sahifasi: to'liq ekranli manzara va katta sarlavha" width="1280" height="725" loading="eager">
+    </div>
+
+    <div class="kv">
+      <div class="gc kv__i rise"><b>7</b><span>sayt bo'limi</span></div>
+      <div class="gc kv__i rise" style="--d:60ms"><b>4</b><span>bog'lanish kanali</span></div>
+      <div class="gc kv__i rise" style="--d:120ms"><b>2–6</b><span>kun — tur davomiyligi</span></div>
+      <div class="gc kv__i rise" style="--d:180ms"><b>РТО</b><span>rasmiy turoperator reyestrida</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Vazifa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimadan boshladik</h2>
+    </div>
+
+    <div class="duo">
+      <div class="gc duo__i rise">
+        <em>Muammo</em>
+        <h3>Chiroyli rasm hali sotmaydi</h3>
+        <p>Turizmda o'nlab bir xil sayt bor: bir xil tog', bir xil «незабываемый отдых». Foydalanuvchi bir necha oynani parallel ochadi va sekundlar ichida qaysi biri jiddiy ekanini hal qiladi.</p>
+        <ul>
+          <li>Turoperator haqiqiymi — buni tekshirish kerak</li>
+          <li>Tur necha kun, qayerga va nima kiradi — javob darrov kerak</li>
+          <li>Qish va yoz butunlay boshqa taklif, lekin sayt bitta</li>
+          <li>Aloqa ko'pincha messenjerda, saytda emas</li>
+        </ul>
+      </div>
+
+      <div class="gc duo__i rise" style="--d:80ms">
+        <em>Yechim</em>
+        <h3>Manzara, dalil va harakat — bitta ekranda</h3>
+        <p>Birinchi ekranda manzil nomi ulkan harflarda va uning ustida haqiqiy fotosurat. Yonida — rasmiy reyestr raqami bilan belgi: bu ishonchni bir soniyada beradi. Pastda yashil tugma va marshrutga o'tish.</p>
+        <ul>
+          <li>Tur davomiyligi va nima kirishi hero matnida aytiladi</li>
+          <li>Video-doira — «Dagiston haqida video ko'rish»</li>
+          <li>Mavsumiy sahifalar o'z badiiy yo'nalishiga ega</li>
+          <li>Telegram, WhatsApp, VK va Dzen sarlavhada — bir tegishda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Sayt qanday ko'rinadi</h2>
+    </div>
+
+    <div class="shots">
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">01</span>
+            <h3>Bosh sahifa</h3>
+          </div>
+          <div>
+            <p>Butun ekranni egallagan fotosurat va uning ustida «ДАГЕСТАН» — shaffof, ammo o'qiladigan katta harflar. Matn qorong'i yarim shaffof plita ustida: rasm ham ko'rinadi, matn ham o'qiladi.</p>
+            <ul>
+              <li>Sariq belgi: rasmiy turoperator va reyestr raqami</li>
+              <li>Yashil tugma — sahifadagi yagona asosiy harakat</li>
+              <li>Video-doira o'ng tomonda, aylanma yozuv bilan</li>
+              <li>Pastda «pastga suring» ishorasi — sahifa davom etadi</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>poraehat.ru</span></div>
+          <img src="assets/work/dagestantur/01-bosh-sahifa.jpg" alt="Bosh sahifa: to'liq ekranli manzara, katta sarlavha, yashil tugma" width="1280" height="725" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">02</span>
+            <h3>Qishki turlar</h3>
+          </div>
+          <div>
+            <p>Mavsumiy sahifa o'z ko'rinishiga ega: qo'lyozma sarlavha, moviy fon va qor tepaliklari. Bu bir xil shablon emas — mavsum o'zgarganda saytning kayfiyati ham o'zgaradi.</p>
+            <ul>
+              <li>Yo'nalishlar kartochkalari: surat, tavsif va «batafsil»</li>
+              <li>Har bir kartochka alohida sahifaga olib boradi</li>
+              <li>Quyida format tanlash bloki — guruh yoki individual</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>poraehat.ru — зимние туры</span></div>
+          <img src="assets/work/dagestantur/02-qishki-turlar.jpg" alt="Qishki turlar sahifasi: qo'lyozma sarlavha, ikkita yo'nalish kartochkasi" width="1280" height="725" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot shot--tall shot--flip rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">03</span>
+            <h3>Telefondagi ko'rinish</h3>
+          </div>
+          <div>
+            <p>Telefonda tartib o'zgaradi: birinchi navbatda «ariza qoldirish» tugmasi va messenjerlar, keyin sarlavha. Turizmda ko'pchilik telefondan kiradi va darhol yozishni xohlaydi — shu yo'l qisqartirildi.</p>
+            <ul>
+              <li>To'rtta messenjer belgisi doim ko'rinadigan joyda</li>
+              <li>Reyestr belgisi hero ichida qoladi — ishonch yo'qolmaydi</li>
+              <li>Yashil tugma butun kenglikda, barmoq bilan bosishga qulay</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <img src="assets/work/dagestantur/03-mobil.webp" alt="Dagestantur sayti telefonda" width="630" height="1280" loading="lazy">
+        </div>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Natija</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nima o'zgardi</h2>
+    </div>
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>Ishonch darhol</b><p>Rasmiy turoperator belgisi birinchi ekranda — tekshirish uchun izlash shart emas.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Mavsumga moslashuv</b><p>Qishki taklif o'z sahifasi va o'z kayfiyati bilan keladi.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Qisqa yo'l</b><p>Telefondan messenjerga o'tish bir tegishda — ariza yo'qolmaydi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa loyihalar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="apec-asia.html"><b>E-commerce</b><p>APEC Asia UAE</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="yakov-partners.html" style="--d:60ms"><b>Konsalting</b><p>Yakov and Partners</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="vac-uz.html" style="--d:120ms"><b>Ishlab chiqarish · ERP</b><p>VAC.UZ</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="avenir-os.html" style="--d:180ms"><b>ERP + CRM + Moliya</b><p>Avenir OS</p><span>Keysni ochish <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Sizning xizmatingizni ham shunday ko'rsatamiz</h2>
+        <p class="p-sec rise" style="--d:80ms">Brif to'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>
