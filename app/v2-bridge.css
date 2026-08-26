@@ -1,10 +1,17 @@
 /* Ko'prik: v2.css maketdan bayt-ba-bayt ko'chirilgan va unga tegilmaydi.
    Ilovaga xos hamma narsa shu faylda, v2.css'dan KEYIN ulanadi. */
 
-/* next/font beradigan Inter'ni maketning --font o'zgaruvchisiga ulaymiz */
-:root {
-  --font: var(--font-inter), -apple-system, 'Segoe UI', sans-serif;
-}
+/* Shrift maket bilan bir xil Google Fonts havolasidan keladi;
+   --font ni v2.css o'zi belgilaydi, bu yerda tegmaymiz. */
+
+/* Minifikator (Lightning CSS) v2.css dagi «backdrop-filter + -webkit-»
+   juftligini faqat -webkit- variantiga qisqartiradi, Chrome 151 esa
+   -webkit- aliasni endi tushunmaydi — shisha effekt yo'qolardi.
+   Yakka prefikssiz e'lon minifikatsiyadan ikkala ko'rinishda chiqadi. */
+.btn { backdrop-filter: blur(18px) saturate(180%); }
+.top::before { backdrop-filter: blur(26px) saturate(160%); }
+.cta__in { backdrop-filter: blur(22px) saturate(170%); }
+.lang__menu { backdrop-filter: blur(22px) saturate(160%); }
 
 /* Klaviatura uchun "kontentga o'tish" havolasi (globals.css o'rniga) */
 .skip-link {

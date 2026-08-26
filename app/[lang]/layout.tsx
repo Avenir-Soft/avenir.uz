@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { LanguageProvider } from '@/components/language-provider'
@@ -11,14 +10,9 @@ import { siteUrl } from '@/lib/site-url'
 import '../v2.css'
 import '../v2-bridge.css'
 
-// Maketdagi yagona shrift. Kirill kichik to'plami majburiy — rus matni bor.
-const inter = Inter({
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-inter',
-  display: 'swap',
-  preload: true,
-})
+/* Shrift maketdagi bilan AYNAN bir xil manbadan yuklanadi (Google Fonts,
+   xuddi shu URL). next/font o'z Inter nusxasini olib keladi va metrikalar
+   subpiksel darajada farq qilib, piksel tekshiruvida ko'rinardi. */
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim() || 'G-7CDEEPTX0Q'
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1483877886713058'
@@ -163,8 +157,14 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={language} className={inter.variable}>
+    <html lang={language}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <script

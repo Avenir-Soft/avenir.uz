@@ -349,8 +349,11 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     {
       const wrap = $('[data-screens]')
       const stage = $('.stage')
-      if (wrap && stage) {
-        const scr = Array.prototype.slice.call(wrap.children) as HTMLElement[]
+      const scrAll = wrap ? (Array.prototype.slice.call(wrap.children) as HTMLElement[]) : []
+      /* maketdagidek: reduce yoki bitta ekran — butun modul ishlamaydi
+         (fit ham chaqirilmaydi, balandlik CSSdan qoladi) */
+      if (wrap && stage && scrAll.length >= 2 && !reduce) {
+        const scr = scrAll
         const icons = $$('.dash__ico')
         const urls = $$('.stage__url i')
         let cur = 0
@@ -374,13 +377,11 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         }
         let rt: ReturnType<typeof setTimeout> | undefined
         on(window, 'resize', () => { if (rt) clearTimeout(rt); rt = later(fit, 120) }, { passive: true })
-        if (scr.length >= 2 && !reduce) {
-          every(() => {
-            const r = stage.getBoundingClientRect()
-            if (r.bottom < 60 || r.top > window.innerHeight - 60) return
-            show((cur + 1) % scr.length)
-          }, 4600)
-        }
+        every(() => {
+          const r = stage.getBoundingClientRect()
+          if (r.bottom < 60 || r.top > window.innerHeight - 60) return
+          show((cur + 1) % scr.length)
+        }, 4600)
       }
     }
 
