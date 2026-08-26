@@ -1,0 +1,16 @@
+/* Ko'prik: v2.css maketdan bayt-ba-bayt ko'chirilgan va unga tegilmaydi.
+   Ilovaga xos hamma narsa shu faylda, v2.css'dan KEYIN ulanadi. */
+
+/* next/font beradigan Inter'ni maketning --font o'zgaruvchisiga ulaymiz */
+:root {
+  --font: var(--font-inter), -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Klaviatura uchun "kontentga o'tish" havolasi (globals.css o'rniga) */
+.skip-link {
+  position: fixed; top: -100px; left: 1rem; z-index: 200;
+  padding: 0.6rem 1rem; border-radius: 8px;
+  background: var(--grad); color: #fff; font-size: 0.875rem; font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 1rem; }

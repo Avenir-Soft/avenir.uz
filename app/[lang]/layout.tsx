@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Manrope } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { LanguageProvider } from '@/components/language-provider'
@@ -8,21 +8,14 @@ import { isLanguage, languages, type Language } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
 import { instagramUrl, seoKeywords, siteMeta } from '@/lib/seo'
 import { siteUrl } from '@/lib/site-url'
-import '../globals.css'
+import '../v2.css'
+import '../v2-bridge.css'
 
-const cormorant = Cormorant_Garamond({
+// Maketdagi yagona shrift. Kirill kichik to'plami majburiy — rus matni bor.
+const inter = Inter({
   subsets: ['latin', 'latin-ext', 'cyrillic'],
-  weight: ['400', '600', '700'],
-  variable: '--font-cormorant',
-  display: 'swap',
-  preload: true,
-})
-
-// DM Sans o'rniga Manrope: kirill alifbosi bor, aks holda rus tilidagi
-// butun matn Arial'ga tushib qolardi.
-const manrope = Manrope({
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  variable: '--font-sans-brand',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-inter',
   display: 'swap',
   preload: true,
 })
@@ -170,7 +163,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={language} className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang={language} className={inter.variable}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -179,14 +172,21 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify([websiteJsonLd, organizationJsonLd]) }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body>
         <a href="#main" className="skip-link">
           {dictionary.nav.skipToContent}
         </a>
 
+        {/* Maketning body darajasidagi qatlamlari: donadorlik, kursor, fon-kanvas */}
+        <div className="grain" aria-hidden="true" />
+        <span className="cur" id="cur" aria-hidden="true" />
+        <canvas className="fx" id="fx" aria-hidden="true" />
+
         <LanguageProvider language={language} dictionary={dictionary}>
           {children}
         </LanguageProvider>
+
+        <Script src="/fx.js" strategy="afterInteractive" />
 
         {gaId && (
           <>
