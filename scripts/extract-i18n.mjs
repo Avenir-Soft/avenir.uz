@@ -51,6 +51,9 @@ console.log(`ru: ${counts.ru} juft, en: ${counts.en} juft`)
 const header = `// AVTOGENERATSIYA: scripts/extract-i18n.mjs, manba — design/v2 maketi.
 // Kalit — maketdagi o'zbekcha satr (kanonik matn), qiymat — tarjima.
 // Qo'lda tahrir qilinmaydi; matn o'zgarsa, maketda o'zgartirib qayta generatsiya qilinadi.
+// Ilovaga xos satrlar (forma holatlari va h.k.) — lib/i18n-v2-extra.ts da.
+
+import { v2Extra } from './i18n-v2-extra'
 
 export type V2Language = 'uz' | 'ru' | 'en'
 
@@ -60,17 +63,18 @@ const body = JSON.stringify(merged, null, '\t')
 
 const footer = `
 
-/** Maket matni: uz — kalitning o'zi, ru/en — lug'atdan; topilmasa uz qaytadi. */
+/** Maket matni: uz — kalitning o'zi, ru/en — avval ilova lug'ati,
+ *  keyin maket lug'ati; topilmasa uz qaytadi (maketdagi tr() kabi). */
 export function tv(lang: V2Language, uz: string): string {
 \tif (lang === 'uz') return uz
-\treturn v2Dict[lang][uz] ?? uz
+\treturn v2Extra[lang][uz] ?? v2Dict[lang][uz] ?? uz
 }
 
 /** Atribut qiymati uchun: maketdagidek chetki bo'shliqlar saqlanadi. */
 export function tva(lang: V2Language, uz: string): string {
 \tif (lang === 'uz') return uz
 \tconst key = uz.trim().replace(/\\s+/g, ' ')
-\tconst out = v2Dict[lang][key]
+\tconst out = v2Extra[lang][key] ?? v2Dict[lang][key]
 \tif (out === undefined) return uz
 \tconst lead = uz.match(/^\\s*/)?.[0] ?? ''
 \tconst trail = uz.match(/\\s*$/)?.[0] ?? ''

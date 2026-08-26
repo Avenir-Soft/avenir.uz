@@ -11,7 +11,8 @@ export function V2Footer({ lang }: { lang: Language }) {
         <p>
           {tv(lang, "Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li")}
           <br />
-          © 2026 Avenir.uz · {tv(lang, 'Barcha huquqlar himoyalangan')}
+          {/* Lug'atdagi kalit — butun satr; bo'lib yuborilsa tarjima topilmaydi */}
+          {tv(lang, '© 2026 Avenir.uz · Barcha huquqlar himoyalangan')}
         </p>
         <nav>
           <Link href={localizedPath(lang, '/privacy')}>{tv(lang, 'Maxfiylik siyosati')}</Link>

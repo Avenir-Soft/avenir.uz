@@ -1,6 +1,9 @@
 // AVTOGENERATSIYA: scripts/extract-i18n.mjs, manba — design/v2 maketi.
 // Kalit — maketdagi o'zbekcha satr (kanonik matn), qiymat — tarjima.
 // Qo'lda tahrir qilinmaydi; matn o'zgarsa, maketda o'zgartirib qayta generatsiya qilinadi.
+// Ilovaga xos satrlar (forma holatlari va h.k.) — lib/i18n-v2-extra.ts da.
+
+import { v2Extra } from './i18n-v2-extra'
 
 export type V2Language = 'uz' | 'ru' | 'en'
 
@@ -1319,17 +1322,18 @@ export const v2Dict: Record<'ru' | 'en', Record<string, string>> = {
 	}
 }
 
-/** Maket matni: uz — kalitning o'zi, ru/en — lug'atdan; topilmasa uz qaytadi. */
+/** Maket matni: uz — kalitning o'zi, ru/en — avval ilova lug'ati,
+ *  keyin maket lug'ati; topilmasa uz qaytadi (maketdagi tr() kabi). */
 export function tv(lang: V2Language, uz: string): string {
 	if (lang === 'uz') return uz
-	return v2Dict[lang][uz] ?? uz
+	return v2Extra[lang][uz] ?? v2Dict[lang][uz] ?? uz
 }
 
 /** Atribut qiymati uchun: maketdagidek chetki bo'shliqlar saqlanadi. */
 export function tva(lang: V2Language, uz: string): string {
 	if (lang === 'uz') return uz
 	const key = uz.trim().replace(/\s+/g, ' ')
-	const out = v2Dict[lang][key]
+	const out = v2Extra[lang][key] ?? v2Dict[lang][key]
 	if (out === undefined) return uz
 	const lead = uz.match(/^\s*/)?.[0] ?? ''
 	const trail = uz.match(/\s*$/)?.[0] ?? ''
