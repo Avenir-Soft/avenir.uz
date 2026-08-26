@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import TermsContent from './terms-content'
+import { V2Behaviors } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
 import { isLanguage, languages } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
 
@@ -48,5 +51,14 @@ export default async function TermsPage({ params }: { params: Promise<{ lang: st
   const { lang } = await params
   if (!isLanguage(lang)) notFound()
 
-  return <TermsContent />
+  return (
+    <>
+      <V2Header lang={lang} />
+      <main id="main">
+        <TermsContent language={lang} />
+      </main>
+      <V2Footer lang={lang} />
+      <V2Behaviors key={lang} lang={lang} />
+    </>
+  )
 }

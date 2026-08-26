@@ -1,14 +1,32 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ServiceDetailPage } from '@/components/service-detail-page'
-import { isLanguage, languages } from '@/lib/languages'
+import { V2Behaviors } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
+import { SvcAiBots } from '@/components/v2/services/ai-bots'
+import { SvcCrmErp } from '@/components/v2/services/crm-erp'
+import { SvcMiniApps } from '@/components/v2/services/mini-apps'
+import { SvcMobileApps } from '@/components/v2/services/mobile-apps'
+import { SvcTelegramBots } from '@/components/v2/services/telegram-bots'
+import { SvcWebSites } from '@/components/v2/services/web-sites'
+import { isLanguage, languages, type Language } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
-import { getServiceBySlug, getServiceCards, serviceCatalog } from '@/lib/service-catalog'
+import { getServiceBySlug, serviceCatalog, type ServiceSlug } from '@/lib/service-catalog'
 import { siteUrl } from '@/lib/site-url'
 import { siteMeta } from '@/lib/seo'
 
 interface ServicePageProps {
   params: Promise<{ lang: string; slug: string }>
+}
+
+/* Har bir yechim sahifasi — maketdagi o'z komponenti */
+const VIEWS: Record<ServiceSlug, (props: { lang: Language }) => React.ReactNode> = {
+  'web-sites': SvcWebSites,
+  'crm-erp': SvcCrmErp,
+  'mobile-apps': SvcMobileApps,
+  'telegram-bots': SvcTelegramBots,
+  'ai-bots': SvcAiBots,
+  'mini-apps': SvcMiniApps,
 }
 
 export function generateStaticParams() {
@@ -57,11 +75,17 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   if (!isLanguage(lang) || !service) notFound()
 
-  const relatedServices = getServiceCards(lang).filter(card => card.slug !== service.slug).slice(0, 4)
+  const language = lang as Language
+  const View = VIEWS[service.slug]
 
   return (
-    <main id="main">
-      <ServiceDetailPage content={service.content[lang]} relatedServices={relatedServices} />
-    </main>
+    <>
+      <V2Header lang={language} />
+      <main id="main">
+        <View lang={language} />
+      </main>
+      <V2Footer lang={language} />
+      <V2Behaviors key={`${language}-${service.slug}`} lang={language} />
+    </>
   )
 }

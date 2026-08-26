@@ -1,8 +1,5 @@
-'use client'
-
-import { Navbar } from '@/components/navbar'
-import { Footer } from '@/components/footer'
-import { useLanguage } from '@/components/language-provider'
+/* Yuridik matn — so'zma-so'z, tegilmaydi. Faqat bezak v2 ga o'tkazildi. */
+import type { Language } from '@/lib/languages'
 
 const content = {
   uz: {
@@ -121,48 +118,23 @@ const content = {
   },
 } as const
 
-export default function PrivacyContent() {
-  const { language } = useLanguage()
+export default function PrivacyContent({ language }: { language: Language }) {
   const c = content[language]
 
   return (
-    <main id="main" style={{ backgroundColor: '#F5F4F0' }}>
-      <Navbar />
-      <section className="min-h-screen px-6 pt-40 pb-24">
-        <div className="max-w-3xl mx-auto">
-          <p
-            className="text-xs uppercase tracking-[0.18em] mb-4"
-            style={{ color: 'rgba(4, 33, 71, 0.72)' }}
-          >
-            {c.updated}
-          </p>
-          <h1
-            className="font-serif text-4xl sm:text-5xl font-bold mb-12"
-            style={{ color: '#042147' }}
-          >
-            {c.title}
-          </h1>
-          <div className="space-y-8">
-            {c.sections.map(section => (
-              <div key={section.heading}>
-                <h2
-                  className="font-serif text-lg font-bold mb-2"
-                  style={{ color: '#042147' }}
-                >
-                  {section.heading}
-                </h2>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: 'rgba(4, 33, 71, 0.78)' }}
-                >
-                  {section.body}
-                </p>
-              </div>
-            ))}
-          </div>
+    <section className="legal-v2">
+      <div className="shell">
+        <p className="legal-v2__updated">{c.updated}</p>
+        <h1>{c.title}</h1>
+        <div className="legal-v2__body">
+          {c.sections.map(section => (
+            <div key={section.heading}>
+              <h2>{section.heading}</h2>
+              <p>{section.body}</p>
+            </div>
+          ))}
         </div>
-      </section>
-      <Footer />
-    </main>
+      </div>
+    </section>
   )
 }

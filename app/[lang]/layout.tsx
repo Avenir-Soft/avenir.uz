@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Manrope } from 'next/font/google'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { LanguageProvider } from '@/components/language-provider'
@@ -8,24 +7,12 @@ import { isLanguage, languages, type Language } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
 import { instagramUrl, seoKeywords, siteMeta } from '@/lib/seo'
 import { siteUrl } from '@/lib/site-url'
-import '../globals.css'
+import '../v2.css'
+import '../v2-bridge.css'
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  weight: ['400', '600', '700'],
-  variable: '--font-cormorant',
-  display: 'swap',
-  preload: true,
-})
-
-// DM Sans o'rniga Manrope: kirill alifbosi bor, aks holda rus tilidagi
-// butun matn Arial'ga tushib qolardi.
-const manrope = Manrope({
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  variable: '--font-sans-brand',
-  display: 'swap',
-  preload: true,
-})
+/* Shrift maketdagi bilan AYNAN bir xil manbadan yuklanadi (Google Fonts,
+   xuddi shu URL). next/font o'z Inter nusxasini olib keladi va metrikalar
+   subpiksel darajada farq qilib, piksel tekshiruvida ko'rinardi. */
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim() || 'G-7CDEEPTX0Q'
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1483877886713058'
@@ -170,8 +157,14 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={language} className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang={language}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <script
@@ -179,14 +172,21 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify([websiteJsonLd, organizationJsonLd]) }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body>
         <a href="#main" className="skip-link">
           {dictionary.nav.skipToContent}
         </a>
 
+        {/* Maketning body darajasidagi qatlamlari: donadorlik, kursor, fon-kanvas */}
+        <div className="grain" aria-hidden="true" />
+        <span className="cur" id="cur" aria-hidden="true" />
+        <canvas className="fx" id="fx" aria-hidden="true" />
+
         <LanguageProvider language={language} dictionary={dictionary}>
           {children}
         </LanguageProvider>
+
+        <Script src="/fx.js" strategy="afterInteractive" />
 
         {gaId && (
           <>

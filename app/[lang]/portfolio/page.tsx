@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Navbar } from '@/components/navbar'
-import { Portfolio } from '@/components/portfolio'
-import { Contact } from '@/components/contact'
-import { Footer } from '@/components/footer'
+import { V2Behaviors } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
+import { HomeProjects } from '@/components/v2/home/projects'
 import { getDictionary } from '@/lib/i18n'
-import { isLanguage, languages } from '@/lib/languages'
+import { isLanguage, languages, type Language } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
 import { siteUrl } from '@/lib/site-url'
 import { siteMeta } from '@/lib/seo'
@@ -43,17 +43,24 @@ export async function generateMetadata({ params }: PortfolioIndexProps): Promise
   }
 }
 
+/* Maketda alohida ro'yxat sahifasi yo'q — bosh sahifaning «Loyihalar»
+   bo'limi to'liq qayta ishlatiladi, ustidan panel uchun joy qo'shiladi. */
 export default async function PortfolioIndexPage({ params }: PortfolioIndexProps) {
   const { lang } = await params
   if (!isLanguage(lang)) notFound()
 
+  const language = lang as Language
+
   return (
-    <main id="main" style={{ backgroundColor: '#F5F4F0' }}>
-      <Navbar />
-      <div className="pt-24" />
-      <Portfolio />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <V2Header lang={language} />
+      <main id="main">
+        <div className="index-v2">
+          <HomeProjects lang={language} />
+        </div>
+      </main>
+      <V2Footer lang={language} />
+      <V2Behaviors key={language} lang={language} />
+    </>
   )
 }
