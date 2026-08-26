@@ -6,7 +6,9 @@ import { localizedPath } from '@/lib/paths'
 /* Maket shapkasi (index.html:41-84 / crm-erp.html:20-64), so'zma-so'z.
    Bosh sahifada bo'lim havolalari #hash, ichki sahifalarda bosh sahifaga. */
 
-const SECTIONS = ['yechimlar', 'loyihalar', 'jarayon', 'jamoa', 'aloqa'] as const
+/* «jamoa» ro'yxatdan vaqtincha olib tashlangan — bo'lim fotolar
+   tayyor bo'lguncha yashirilgan (egasining qarori, 2026-08-26) */
+const SECTIONS = ['yechimlar', 'loyihalar', 'jarayon', 'aloqa'] as const
 
 function BrandSvg() {
   return (
@@ -27,7 +29,7 @@ export function V2Header({ lang, home }: { lang: Language; home?: boolean }) {
   const base = localizedPath(lang, '/')
   const secHref = (id: (typeof SECTIONS)[number]) => (home ? `#${id}` : `${base}#${id}`)
   const label = (id: (typeof SECTIONS)[number]) =>
-    tv(lang, id === 'yechimlar' ? 'Yechimlar' : id === 'loyihalar' ? 'Loyihalar' : id === 'jarayon' ? 'Jarayon' : id === 'jamoa' ? 'Jamoa' : 'Aloqa')
+    tv(lang, id === 'yechimlar' ? 'Yechimlar' : id === 'loyihalar' ? 'Loyihalar' : id === 'jarayon' ? 'Jarayon' : 'Aloqa')
 
   return (
     <>

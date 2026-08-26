@@ -9,7 +9,6 @@ import { HomeHero } from '@/components/v2/home/hero'
 import { HomeProcess } from '@/components/v2/home/process'
 import { HomeProjects } from '@/components/v2/home/projects'
 import { HomeSolutions } from '@/components/v2/home/solutions'
-import { HomeTeam } from '@/components/v2/home/team'
 import { HomeTrust } from '@/components/v2/home/trust'
 import { tv } from '@/lib/i18n-v2'
 import { isLanguage, type Language } from '@/lib/languages'
@@ -50,7 +49,9 @@ export default async function HomePage({
         <HomeSolutions lang={language} />
         <HomeProjects lang={language} />
         <HomeProcess lang={language} />
-        <HomeTeam lang={language} />
+        {/* «Jamoa» bo'limi vaqtincha yashirilgan: jamoa fotolari hali tayyor
+            emas (egasining qarori, 2026-08-26). Komponent joyida —
+            components/v2/home/team.tsx — fotolar kelgach shu yerga qaytariladi. */}
         <HomeContact lang={language} />
       </main>
       <V2Footer lang={language} />
