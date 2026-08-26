@@ -118,9 +118,29 @@ export function V2ContactForm({ lang }: { lang: Language }) {
 
   if (done) {
     return (
-      <div className="form" role="status" aria-live="polite">
-        <h5 style={{ marginBottom: '0.6rem' }}>{t.contact.successTitle}</h5>
-        <p className="form__n" style={{ textAlign: 'left', marginTop: 0 }}>{t.contact.successMessage}</p>
+      <div className="form sent" role="status" aria-live="polite">
+        <div className="sent__s" aria-hidden="true">
+          <span className="sent__rip" />
+          <span className="sent__rip sent__rip--2" />
+          <span className="sent__m">
+            {/* Kirish animatsiyasidagi belgi: to'rt o'q, uchlarida romblar,
+                markazda botiq yulduz — ustiga tasdiq belgisi chiziladi. */}
+            <svg viewBox="0 0 200 200" fill="none">
+              <line className="ax" x1="100" y1="100" x2="100" y2="24" />
+              <line className="ax" x1="100" y1="100" x2="176" y2="100" />
+              <line className="ax" x1="100" y1="100" x2="100" y2="176" />
+              <line className="ax" x1="100" y1="100" x2="24" y2="100" />
+              <rect className="cap" x="95.5" y="19.5" width="9" height="9" transform="rotate(45 100 24)" />
+              <rect className="cap" x="171.5" y="95.5" width="9" height="9" transform="rotate(45 176 100)" />
+              <rect className="cap" x="95.5" y="171.5" width="9" height="9" transform="rotate(45 100 176)" />
+              <rect className="cap" x="19.5" y="95.5" width="9" height="9" transform="rotate(45 24 100)" />
+              <path className="st" d="M100 42 Q100 100 158 100 Q100 100 100 158 Q100 100 42 100 Q100 100 100 42 Z" />
+              <path className="tick" d="M78 100 L94 116 L124 86" />
+            </svg>
+          </span>
+        </div>
+        <p className="sent__t">{t.contact.successTitle}</p>
+        <p className="sent__p">{t.contact.successMessage}</p>
       </div>
     )
   }

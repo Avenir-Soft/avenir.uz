@@ -39,3 +39,67 @@
 
 /* Ro'yxat sahifalari (yechimlar / loyihalar) sarlavha bloki */
 .index-v2 { padding-top: clamp(7.5rem, 14vh, 10rem); }
+
+/* ==========================================================================
+   Ariza yuborilgandan keyingi ekran. Maketda bunday holat yo'q (u yerdagi
+   forma jo'natmaydi), shuning uchun kirish animatsiyasi tilida yozildi:
+   o'sha yulduz, o'sha to'lqinlar, ustiga chizib chiqiladigan belgi.
+   ========================================================================== */
+.sent {
+  display: grid; place-items: center; gap: 0.2rem;
+  min-height: 320px; padding: 2.4rem 1.6rem; text-align: center;
+}
+.sent__s { position: relative; width: 120px; height: 120px; margin-bottom: 0.4rem; }
+.sent__rip {
+  position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border-radius: 50%; border: 1.5px solid rgba(37,99,235,0.85); transform: scale(0.2); opacity: 0;
+  animation: sent-rip 0.7s var(--ease) 0.1s forwards;
+}
+.sent__rip--2 { animation-delay: 0.24s; border-color: rgba(37,99,235,0.45); }
+.sent__m { position: absolute; inset: 0; }
+.sent__m svg { width: 100%; height: 100%; overflow: visible; }
+.sent__m .ax {
+  stroke: var(--b2); stroke-width: 3.4; stroke-linecap: round;
+  stroke-dasharray: 76; stroke-dashoffset: 76;
+  animation: sent-draw 0.4s var(--ease) 0.14s forwards;
+}
+.sent__m .cap {
+  fill: none; stroke: var(--b2); stroke-width: 2.9; stroke-linejoin: round;
+  opacity: 0; animation: sent-capin 0.24s var(--ease) 0.5s forwards;
+}
+.sent__m .st {
+  fill: var(--b2); transform-origin: 100px 100px; transform: scale(0.2) rotate(-40deg); opacity: 0;
+  animation: sent-pop 0.42s var(--ease) 0.3s forwards;
+}
+/* belgi — yulduz ichida, oxirida chiziladi */
+.sent__m .tick {
+  fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 60; stroke-dashoffset: 60;
+  animation: sent-draw 0.34s var(--out) 0.62s forwards;
+}
+.sent__t {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.02em;
+  color: var(--white); margin: 0;
+  opacity: 0; animation: sent-up 0.5s var(--out) 0.66s forwards;
+}
+.sent__p {
+  font-size: 0.9375rem; line-height: 1.6; color: var(--w-52); margin: 0.5rem 0 0; max-width: 22rem;
+  opacity: 0; animation: sent-up 0.5s var(--out) 0.78s forwards;
+}
+
+@keyframes sent-rip { 0% { opacity: 0.9; transform: scale(0.2); } 100% { opacity: 0; transform: scale(4.6); } }
+@keyframes sent-draw { to { stroke-dashoffset: 0; } }
+@keyframes sent-capin { to { opacity: 1; } }
+@keyframes sent-pop {
+  0% { transform: scale(0.2) rotate(-40deg); opacity: 0; }
+  70% { transform: scale(1.08) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes sent-up { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sent__rip { display: none; }
+  .sent__m .ax, .sent__m .cap, .sent__m .st, .sent__m .tick, .sent__t, .sent__p {
+    animation: none; opacity: 1; stroke-dashoffset: 0; transform: none;
+  }
+}
