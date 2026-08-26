@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import PrivacyContent from './privacy-content'
+import { V2Behaviors } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
 import { isLanguage, languages } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
 
@@ -49,5 +52,14 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
   const { lang } = await params
   if (!isLanguage(lang)) notFound()
 
-  return <PrivacyContent />
+  return (
+    <>
+      <V2Header lang={lang} />
+      <main id="main">
+        <PrivacyContent language={lang} />
+      </main>
+      <V2Footer lang={lang} />
+      <V2Behaviors key={lang} lang={lang} />
+    </>
+  )
 }

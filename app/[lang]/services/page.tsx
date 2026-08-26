@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Navbar } from '@/components/navbar'
-import { Services } from '@/components/services'
-import { Contact } from '@/components/contact'
-import { Footer } from '@/components/footer'
+import { V2Behaviors } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
+import { Split } from '@/components/v2/split'
+import { tv } from '@/lib/i18n-v2'
 import { getDictionary } from '@/lib/i18n'
-import { isLanguage, languages } from '@/lib/languages'
+import { isLanguage, languages, type Language } from '@/lib/languages'
 import { languageAlternates, localizedPath } from '@/lib/paths'
-import { getServiceCards } from '@/lib/service-catalog'
+import { serviceCatalog } from '@/lib/service-catalog'
 import { siteUrl } from '@/lib/site-url'
 import { siteMeta } from '@/lib/seo'
 
@@ -44,17 +45,73 @@ export async function generateMetadata({ params }: ServicesIndexProps): Promise<
   }
 }
 
+/* Maketda alohida ro'yxat sahifasi yo'q — bosh sahifadagi «Boshqa
+   yechimlar» kartochkalari uslubida yig'ilgan. */
 export default async function ServicesIndexPage({ params }: ServicesIndexProps) {
   const { lang } = await params
   if (!isLanguage(lang)) notFound()
 
+  const language = lang as Language
+  const base = localizedPath(language, '/')
+  const svc = (s: string) => localizedPath(language, `/services/${s}`)
+
   return (
-    <main id="main" style={{ backgroundColor: '#F5F4F0' }}>
-      <Navbar />
-      <div className="pt-24" />
-      <Services cards={getServiceCards(lang)} />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <V2Header lang={language} />
+      <main id="main">
+        <section className="section index-v2" data-sec="yechimlar">
+          <span className="aura aura--b aura--drift" style={{ width: '640px', height: '640px', right: '-240px', top: '6%', opacity: '0.5' }}></span>
+          <div className="shell">
+            <div className="center">
+              <span className="chip rise">
+                <i></i>
+                {tv(language, 'Yechimlar')}
+              </span>
+              <Split className="h-sec rise" style={{ '--d': '80ms' }}>
+                {tv(language, 'Biznesingiz uchun raqamli yechimlar')}
+              </Split>
+            </div>
+            <div className="other">
+              {serviceCatalog.map((service, i) => {
+                const c = service.content[language]
+                return (
+                  <a
+                    key={service.slug}
+                    className="gc other__i rise"
+                    href={svc(service.slug)}
+                    {...(i ? { style: { '--d': `${i * 60}ms` } } : {})}
+                  >
+                    <b>{c.title}</b>
+                    <p>{c.teaser}</p>
+                    <span>
+                      {tv(language, 'Batafsil')}{' '}
+                      <i>{'→'}</i>
+                    </span>
+                  </a>
+                )
+              })}
+            </div>
+            <div className="final rise" style={{ marginTop: 'clamp(2.5rem, 5vw, 4rem)' }}>
+              <span className="aura aura--a aura--drift"></span>
+              <div className="final__in center">
+                <Split>
+                  {tv(language, 'Loyihani muhokama qilamiz')}
+                </Split>
+                <p className="p-sec rise" style={{ '--d': '80ms' }}>{tv(language, 'Brif to\'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.')}</p>
+                <div className="hero__cta rise" style={{ '--d': '160ms' }}>
+                  <a className="btn btn--w" href={`${base}#aloqa`}>
+                    {tv(language, 'Loyihani boshlash')}{' '}
+                    <span className="btn__ar">→</span>
+                  </a>
+                  <a className="btn btn--d" href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">{tv(language, 'Telegram')}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <V2Footer lang={language} />
+      <V2Behaviors key={language} lang={language} />
+    </>
   )
 }

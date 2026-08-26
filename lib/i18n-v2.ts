@@ -1324,3 +1324,14 @@ export function tv(lang: V2Language, uz: string): string {
 	if (lang === 'uz') return uz
 	return v2Dict[lang][uz] ?? uz
 }
+
+/** Atribut qiymati uchun: maketdagidek chetki bo'shliqlar saqlanadi. */
+export function tva(lang: V2Language, uz: string): string {
+	if (lang === 'uz') return uz
+	const key = uz.trim().replace(/\s+/g, ' ')
+	const out = v2Dict[lang][key]
+	if (out === undefined) return uz
+	const lead = uz.match(/^\s*/)?.[0] ?? ''
+	const trail = uz.match(/\s*$/)?.[0] ?? ''
+	return lead + out + trail
+}

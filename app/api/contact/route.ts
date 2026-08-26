@@ -16,7 +16,9 @@ const MAX_LENGTHS = {
   name: 80,
   phone: 24,
   telegramUsername: 64,
-  employeeCount: 6,
+  // v2 formada bu maydon "oylik aylanma" bo'ldi — "oyiga 300 mln" kabi
+  // qiymatlar 6 belgidan uzun, jimgina kesilmasin
+  employeeCount: 32,
 } as const
 
 type TelegramSendMessageResponse = {

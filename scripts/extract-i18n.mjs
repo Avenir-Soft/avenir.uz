@@ -65,6 +65,17 @@ export function tv(lang: V2Language, uz: string): string {
 \tif (lang === 'uz') return uz
 \treturn v2Dict[lang][uz] ?? uz
 }
+
+/** Atribut qiymati uchun: maketdagidek chetki bo'shliqlar saqlanadi. */
+export function tva(lang: V2Language, uz: string): string {
+\tif (lang === 'uz') return uz
+\tconst key = uz.trim().replace(/\\s+/g, ' ')
+\tconst out = v2Dict[lang][key]
+\tif (out === undefined) return uz
+\tconst lead = uz.match(/^\\s*/)?.[0] ?? ''
+\tconst trail = uz.match(/\\s*$/)?.[0] ?? ''
+\treturn lead + out + trail
+}
 `
 
 writeFileSync(resolve(root, 'lib/i18n-v2.ts'), header + body + footer)

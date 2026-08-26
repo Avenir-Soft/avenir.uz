@@ -50,16 +50,18 @@ export function Split({
 /* Odometr: maketda [data-od] ichini skript quradi, bizda server quradi.
    rollOd (behaviors) ko'rinishga kirganda u'larni data-to raqamigacha buradi. */
 export function Odometer({
+  as: Tag = 'span',
   value,
   sup,
   className,
 }: {
+  as?: ElementType
   value: string
   sup?: string
   className?: string
 }) {
   return (
-    <span className={className} data-od={value} {...(sup ? { 'data-sup': sup } : {})}>
+    <Tag className={className} data-od={value} {...(sup ? { 'data-sup': sup } : {})}>
       {value.split('').map((d, k) => (
         <span className="od__d" key={k}>
           <u data-to={d}>
@@ -70,6 +72,6 @@ export function Odometer({
         </span>
       ))}
       {sup ? <sup>{sup}</sup> : null}
-    </span>
+    </Tag>
   )
 }

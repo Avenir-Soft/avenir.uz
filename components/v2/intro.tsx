@@ -1,8 +1,20 @@
 /* Kirish animatsiyasi (index.html:19-36) — faqat bosh sahifada.
-   Mantiq behaviors.tsx da: 1350ms dan keyin yoki klik/Esc bilan yopiladi. */
+   Mantiq behaviors.tsx da: 1350ms dan keyin yoki klik/Esc bilan yopiladi.
+   Sinxron skript gidratsiyani kutmasdan intro-on qo'yadi — birinchi kadr
+   miltillamasin; JS o'chiq bo'lsa intro umuman ko'rinmaydi. */
 export function V2Intro() {
   return (
-    <div className="intro" id="intro" role="presentation" aria-hidden="true">
+    <>
+      <noscript>
+        <style>{`#intro{display:none}`}</style>
+      </noscript>
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.body.classList.add('intro-on');",
+        }}
+      />
+      <div className="intro" id="intro" role="presentation" aria-hidden="true">
       <div className="intro__s">
         <span className="intro__rip"></span>
         <span className="intro__rip intro__rip--2"></span>
@@ -21,6 +33,7 @@ export function V2Intro() {
           </svg>
         </span>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

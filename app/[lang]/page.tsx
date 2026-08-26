@@ -1,31 +1,61 @@
 import { notFound } from 'next/navigation'
-import { Navbar } from '@/components/navbar'
-import { Hero } from '@/components/hero'
-import { Services } from '@/components/services'
-import { Portfolio } from '@/components/portfolio'
-import { Stats } from '@/components/stats'
-import { Contact } from '@/components/contact'
-import { Footer } from '@/components/footer'
-import { getServiceCards } from '@/lib/service-catalog'
-import { isLanguage } from '@/lib/languages'
+import { V2Behaviors, type FeedStrings } from '@/components/v2/behaviors'
+import { V2Footer } from '@/components/v2/footer'
+import { V2Header } from '@/components/v2/header'
+import { V2Intro } from '@/components/v2/intro'
+import { V2StickyCta } from '@/components/v2/sticky-cta'
+import { HomeContact } from '@/components/v2/home/contact'
+import { HomeHero } from '@/components/v2/home/hero'
+import { HomeProcess } from '@/components/v2/home/process'
+import { HomeProjects } from '@/components/v2/home/projects'
+import { HomeSolutions } from '@/components/v2/home/solutions'
+import { HomeTeam } from '@/components/v2/home/team'
+import { HomeTrust } from '@/components/v2/home/trust'
+import { tv } from '@/lib/i18n-v2'
+import { isLanguage, type Language } from '@/lib/languages'
 
-export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+/* Lenta satrlari maketdan (index.html:1641); serverda tarjima qilinadi,
+   behaviors ularni tayyor holda oladi. */
+const FEED_ITEMS: [string, string][] = [
+  ['Yangi lid', 'VAC.UZ — korporativ sayt'],
+  ['Hisob-faktura', "#2481 to’landi"],
+  ['Vazifa yopildi', 'Dizayn sprint · 12/12'],
+  ['Bitim bosqichi', 'Taklif yuborildi'],
+  ['Yangi mijoz', 'APEC Asia UAE'],
+  ['Hisobot', 'Oylik P&L tayyor'],
+]
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
   const { lang } = await params
   if (!isLanguage(lang)) notFound()
+  const language = lang as Language
 
-  // Xizmat kartochkalari server tomonda tanlanadi — katalogning uchala tildagi
-  // matni brauzerga tushmasligi uchun.
-  const serviceCards = getServiceCards(lang)
+  const feed: FeedStrings = {
+    items: FEED_ITEMS.map(([a, b]) => [tv(language, a), tv(language, b)] as [string, string]),
+    now: tv(language, 'hozir'),
+    min: tv(language, 'daq'),
+  }
 
   return (
-    <main id="main" style={{ backgroundColor: '#F5F4F0' }}>
-      <Navbar />
-      <Hero />
-      <Services cards={serviceCards} />
-      <Portfolio />
-      <Stats />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <V2Intro />
+      <V2Header lang={language} home />
+      <main id="main">
+        <HomeHero lang={language} />
+        <HomeTrust lang={language} />
+        <HomeSolutions lang={language} />
+        <HomeProjects lang={language} />
+        <HomeProcess lang={language} />
+        <HomeTeam lang={language} />
+        <HomeContact lang={language} />
+      </main>
+      <V2Footer lang={language} />
+      <V2StickyCta lang={language} />
+      <V2Behaviors key={language} lang={language} feed={feed} />
+    </>
   )
 }
