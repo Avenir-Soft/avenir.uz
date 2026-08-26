@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>Avenir OS — agentlik uchun ERP va CRM | Avenir.uz</title>
+<meta name="description" content="Avenir OS — marketing agentligi uchun ERP: loyihalar, vazifalar, kontent-reja, moliya, jamoa va bilimlar bazasi bitta ish maydonida. O'z mahsulotimiz, har kuni o'zimiz ishlatamiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#loyihalar">Loyihalar</a><span>/</span><b>Avenir OS</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#loyihalar"><i></i>Loyihalarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>ERP + CRM + Moliya</span>
+        <h1 class="rise" style="--d:120ms" data-split>Agentlikning butun ishi bitta maydonda</h1>
+        <p class="sv-lead rise" style="--d:200ms">Avenir OS — marketing agentligi uchun operatsion tizim: g'oyadan hisob-fakturagacha. Loyihalar, vazifalar, kontent-reja, mehnat sarfi, moliya, jamoa va bilimlar bazasi — 16 ta bo'limda. Bu bizning o'z mahsulotimiz: har kuni o'zimiz ishlatamiz va shu sababli u haqiqiy jarayonga moslashgan.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Demo so'rash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="crm-erp.html">CRM va ERP haqida</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Yil</p>
+        <p class="spec__v">2026</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Bizning ish</p>
+        <div class="chips"><span>Mahsulot</span><span>UX va UI</span><span>Backend</span><span>Frontend</span><span>DevOps</span><span>Rivojlantirish</span></div>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Texnologiyalar</p>
+        <div class="chips"><span>Next.js</span><span>React</span><span>TypeScript</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>MinIO</span><span>Docker</span></div>
+      </aside>
+    </div>
+
+    <div class="cover rise" style="--d:320ms">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Avenir OS — agentlik boshqaruv paneli</span></div>
+      <img src="assets/work/avenir-os/01-dashboard.jpg" alt="Avenir OS boshqaruv paneli: moliya ko'rsatkichlari, reja/fakt va 12 oylik dinamika" width="1280" height="724" loading="eager">
+    </div>
+
+    <div class="kv">
+      <div class="gc kv__i rise"><b>16</b><span>tizim bo'limi</span></div>
+      <div class="gc kv__i rise" style="--d:60ms"><b>7</b><span>foydalanuvchi roli</span></div>
+      <div class="gc kv__i rise" style="--d:120ms"><b>3</b><span>yo'nalish: ish, analitika, servis</span></div>
+      <div class="gc kv__i rise" style="--d:180ms"><b>1</b><span>ma'lumot manbai</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Vazifa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimadan boshladik</h2>
+    </div>
+
+    <div class="duo">
+      <div class="gc duo__i rise">
+        <em>Muammo</em>
+        <h3>Agentlik ishi o'nta joyga sochilgan</h3>
+        <p>Vazifalar bitta trekkerda, byudjet jadvalda, mijoz bilan kelishuv chatda, kontent-reja alohida faylda. Har biri o'zicha to'g'ri ishlaydi, lekin ular orasida bog'lanish yo'q.</p>
+        <ul>
+          <li>Loyiha foydali bo'ldimi — buni oy tugagach bilib olasiz</li>
+          <li>Xodim ketganda uning boshidagi bilim ham ketadi</li>
+          <li>Bir xil ma'lumot uch marta qo'lda kiritiladi</li>
+          <li>Rahbar holatni bilish uchun har biridan alohida so'raydi</li>
+        </ul>
+      </div>
+
+      <div class="gc duo__i rise" style="--d:80ms">
+        <em>Yechim</em>
+        <h3>G'oyadan hisob-fakturagacha bitta oqim</h3>
+        <p>Har bir vazifa loyihaga, har bir loyiha mijoz va pulga bog'langan. Brifing breynstormingda tug'iladi, vazifaga aylanadi, kontent-rejaga tushadi, mehnat sarfi hisoblanadi va oxirida hisob-fakturaga chiqadi.</p>
+        <ul>
+          <li>Loyiha va mijoz foydasi real vaqtda ko'rinadi</li>
+          <li>Bilimlar bazasi — reglament, shablon, chek-list va onbording</li>
+          <li>Rollar bo'yicha kirish: yetti xil rol, har biriga o'z ko'rinishi</li>
+          <li>Ma'lumot bir marta kiritiladi va hamma joyda ishlatiladi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Tizim ichida nima bor</h2>
+      <p class="p-sec rise" style="--d:140ms">Haqiqiy tizimning ekranlari. Raqamlar demo-hisobdan olingan.</p>
+    </div>
+
+    <div class="shots">
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">01</span>
+            <h3>Agentlik paneli</h3>
+          </div>
+          <div>
+            <p>Rahbarning bosh ekrani. Yuqorida moliya: tushum, foyda, marja, kesh-flou, debitorka va voronkadagi summa. Pastda — 2026 uchun reja/fakt: har bir ko'rsatkich bo'yicha fakt, maqsad va prognoz bitta qatorda.</p>
+            <ul>
+              <li>Davr: oy, chorak yoki yil</li>
+              <li>Reja bajarilishi rangli chiziq bilan — 108,7% yoki 51,9%</li>
+              <li>12 oylik dinamika: tushum va foyda alohida</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Дашборд агентства</span></div>
+          <img src="assets/work/avenir-os/01-dashboard.jpg" alt="Agentlik paneli: moliya ko'rsatkichlari, reja/fakt, 12 oylik dinamika" width="1280" height="724" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">02</span>
+            <h3>Moliya va foydalilik</h3>
+          </div>
+          <div>
+            <p>Hisob-fakturalar, to'lovlar, xarajatlar, byudjetlar, P&amp;L, tushum va oyliklar — bitta bo'limda. Eng muhimi pastda: qaysi mijoz va qaysi loyiha qancha foyda keltirgani ro'yxat bo'lib turadi.</p>
+            <ul>
+              <li>MTD ko'rsatkichlari va o'tgan oyga nisbatan o'zgarish</li>
+              <li>Debitorka muddati o'tgan hisoblar soni bilan</li>
+              <li>Runway — kompaniya zaxirasi necha oyga yetadi</li>
+              <li>6 oylik kesh-flou: tushum, xarajat va foyda bitta grafikda</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Финансы — P&amp;L, кэшфлоу, прибыльность</span></div>
+          <img src="assets/work/avenir-os/02-moliya.jpg" alt="Moliya bo'limi: kesh-flou, mijoz va loyiha foydaliligi" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">03</span>
+            <h3>Breynstorming taxtasi</h3>
+          </div>
+          <div>
+            <p>Cheksiz maydon: stikerlar, bog'lanishlar, chizish va matn. Sessiya qoralamadan boshlanadi, g'oyalar bir-biriga ulanadi, yakunda tanlangan g'oyalar to'g'ridan-to'g'ri vazifaga aylantiriladi.</p>
+            <ul>
+              <li>Jamoa birga ishlaydi — kim onlaynligi ko'rinib turadi</li>
+              <li>Sessiyani rejalashtirish va qoralama holatida saqlash</li>
+              <li>AI yordamchisi g'oyalarni guruhlashga yordam beradi</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Брейнсторминг — бесконечная доска</span></div>
+          <img src="assets/work/avenir-os/03-breynstorming.jpg" alt="Breynstorming taxtasi: stikerlar va bog'lanishlar" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">04</span>
+            <h3>Bilimlar bazasi</h3>
+          </div>
+          <div>
+            <p>Agentlikning yozilgan xotirasi. Yangi xodim birinchi kuni «Avenir'dan qanday foydalanish» qo'llanmasini ochadi va bosqichma-bosqich o'tadi — hech kimni chalg'itmasdan.</p>
+            <ul>
+              <li>Reglamentlar, shablon va TZ, chek-listlar, onbording</li>
+              <li>Yo'nalishlar bo'yicha: SMM, perfomans, prodakshn, influens</li>
+              <li>Mijoz uchun: tone of voice va brend-gaydlar</li>
+              <li>Yopiq bo'limlar — moliyaviy reglament va kelishuvlar</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>База знаний — регламенты и онбординг</span></div>
+          <img src="assets/work/avenir-os/04-bilimlar-bazasi.jpg" alt="Bilimlar bazasi: qo'llanma, reglamentlar, onbording" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">05</span>
+            <h3>Avenir AI — ishlab chiqilmoqda</h3>
+          </div>
+          <div>
+            <p>Keyingi bosqich: tizim to'plagan ma'lumot ustida ishlaydigan yordamchi. Tabiiy tilda savol berasiz — javobni kompaniya ma'lumotidan oladi. Ochiq ko'rsatamiz, chunki mijozlarimiz nimani kutishini bilishlari kerak.</p>
+            <ul>
+              <li>Xavf detektsiyasi: muddati o'tgan debitorka, qotib qolgan bitim</li>
+              <li>Prediktiv analitika: tushum va kesh-flou prognozi</li>
+              <li>Qaror izohlanishi: AI qaysi raqamga tayanganini ko'rsatadi</li>
+              <li>Texnologiyalar: NLP, ML Pipeline, RAG, API integratsiya</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Avenir AI — активная разработка</span></div>
+          <img src="assets/work/avenir-os/05-ai.jpg" alt="Avenir AI moduli: xavf detektsiyasi, prediktiv analitika" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Natija</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nima o'zgardi</h2>
+    </div>
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>Foyda ko'rinadi</b><p>Loyiha va mijoz foydaliligi oy tugashini kutmaydi — panelda turadi.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Bilim tizimda</b><p>Reglament va shablonlar yozilgan: yangi xodim birinchi kunidan ishga tushadi.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Bir marta kiritish</b><p>Vazifa, mehnat sarfi va hisob-faktura bitta ma'lumotdan o'sadi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa loyihalar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="vac-uz.html"><b>Ishlab chiqarish · ERP</b><p>VAC.UZ</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="yakov-partners.html" style="--d:60ms"><b>Konsalting</b><p>Yakov and Partners</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="defi-technologies.html" style="--d:120ms"><b>TradFi platforma</b><p>DeFi Technologies</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="dagestantur.html" style="--d:180ms"><b>Turizm</b><p>Dagestantur</p><span>Keysni ochish <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Shunday tizim sizga ham kerakmi?</h2>
+        <p class="p-sec rise" style="--d:80ms">Avenir OS ni ko'rsatamiz va sizning jarayoningizga qanday moslashini birga o'ylaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Demo so'rash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>

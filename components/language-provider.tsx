@@ -1,48 +1,30 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
-import { defaultLanguage, dictionaries, isLanguage, type Dictionary, type Language } from '@/lib/i18n'
-
-const LANGUAGE_STORAGE_KEY = 'avenir-language'
+import { createContext, useContext, useMemo, type ReactNode } from 'react'
+import type { Dictionary, Language } from '@/lib/languages'
 
 interface LanguageContextValue {
   language: Language
-  setLanguage: (language: Language) => void
   t: Dictionary
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(defaultLanguage)
-
-  useEffect(() => {
-    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY)
-    if (storedLanguage && isLanguage(storedLanguage)) {
-      setLanguage(storedLanguage)
-    }
-  }, [])
-
-  useEffect(() => {
-    document.documentElement.lang = language
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language)
-  }, [language])
-
-  const value = useMemo(
-    () => ({
-      language,
-      setLanguage,
-      t: dictionaries[language],
-    }),
-    [language],
-  )
+/**
+ * Til endi URL'dan keladi (`/uz`, `/ru`, `/en`), localStorage'dan emas.
+ * Lug'at server komponentida tanlanib, prop sifatida beriladi — shuning uchun
+ * brauzerga faqat bitta tilning matni tushadi.
+ */
+export function LanguageProvider({
+  language,
+  dictionary,
+  children,
+}: {
+  language: Language
+  dictionary: Dictionary
+  children: ReactNode
+}) {
+  const value = useMemo(() => ({ language, t: dictionary }), [language, dictionary])
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
 }

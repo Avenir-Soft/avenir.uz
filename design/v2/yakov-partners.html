@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>Yakov and Partners — konsalting kompaniyasi sayti | Avenir.uz</title>
+<meta name="description" content="Yakov and Partners uchun korporativ sayt: ikki tilli, vazmin tipografiya, sanoat yo'nalishlari va nashrlar bo'limi. Xalqaro konsalting kompaniyasi uchun ishonch uyg'otadigan sayt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#loyihalar">Loyihalar</a><span>/</span><b>Yakov and Partners</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#loyihalar"><i></i>Loyihalarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>Konsalting</span>
+        <h1 class="rise" style="--d:120ms" data-split>Ishonch sotadigan sayt</h1>
+        <p class="sv-lead rise" style="--d:200ms">Yakov and Partners — 200 dan ortiq xodimga ega xalqaro konsalting kompaniyasi. Bunday bozorda sayt mahsulot sotmaydi — u kompaniyaning og'irligini ko'rsatadi. Shuning uchun asosiy vazifa: ortiqcha shovqinsiz, ikki tilda va telefonda ham xuddi shunday vazmin ko'rinadigan sayt qilish.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Shunday sayt kerakmi? <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="veb-saytlar.html">Veb saytlar haqida</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Yil</p>
+        <p class="spec__v">2025</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Bizning ish</p>
+        <div class="chips"><span>Korporativ sayt</span><span>Dizayn</span><span>Frontend</span><span>Adaptiv versiya</span><span>Kontent tuzilmasi</span><span>Ikki til</span></div>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Sayt bo'limlari</p>
+        <div class="chips"><span>About us</span><span>Industries</span><span>Publications</span><span>In the media</span><span>Team</span><span>Career</span><span>Contacts</span></div>
+      </aside>
+    </div>
+
+    <div class="cover rise" style="--d:320ms">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>yakovpartners.com</span></div>
+      <img src="assets/work/yakov-partners/01-bosh-sahifa.jpg" alt="Yakov and Partners bosh sahifasi: qorong'i hero va uchta oq kartochka" width="1280" height="724" loading="eager">
+    </div>
+
+    <div class="kv">
+      <div class="gc kv__i rise"><b>200+</b><span>kompaniya xodimi</span></div>
+      <div class="gc kv__i rise" style="--d:60ms"><b>120+</b><span>mamlakat ekspert tarmog'i</span></div>
+      <div class="gc kv__i rise" style="--d:120ms"><b>7</b><span>sayt bo'limi</span></div>
+      <div class="gc kv__i rise" style="--d:180ms"><b>2</b><span>til: rus va ingliz</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Vazifa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimadan boshladik</h2>
+    </div>
+
+    <div class="duo">
+      <div class="gc duo__i rise">
+        <em>Muammo</em>
+        <h3>Konsaltingda sayt — vizitka emas, dalil</h3>
+        <p>Mijoz bu yerga narx qidirib kelmaydi. U kompaniya kimligini, kim bilan ishlaganini va qanday sohalarni tushunishini tekshirgani keladi. Bunday matn ko'p bo'ladi va uni chalkashtirmasdan joylashtirish kerak.</p>
+        <ul>
+          <li>Ko'p yo'nalish: metallurgiya, neft-gaz, qurilish, energetika, bank, telekom, riteyl</li>
+          <li>Nashrlar, matbuotdagi chiqishlar va jamoa — har biri alohida bo'lim</li>
+          <li>Ikki til, ikkalasida ham bir xil sifat</li>
+        </ul>
+      </div>
+
+      <div class="gc duo__i rise" style="--d:80ms">
+        <em>Yechim</em>
+        <h3>Vazmin tipografiya va aniq iyerarxiya</h3>
+        <p>Qorong'i hero va bitta kuchli jumla — kompaniya nima qilishini bir qarashda aytadi. Uning ostiga uchta oq kartochka chiqib turadi: tashkiliy tuzilma, soha ekspertizasi va analitika. Foydalanuvchi pastga tushishidan oldin asosiy javobni oladi.</p>
+        <ul>
+          <li>Serif sarlavhalar — konsalting bozorining tili</li>
+          <li>Hero ustiga chiqqan kartochkalar sahifani darrov «boshlaydi»</li>
+          <li>Uchta asosiy yo'nalish keyingi ekranda — matn va rasm juftligida</li>
+          <li>Til almashtirish sarlavhaning o'ng chekkasida, xalaqit bermaydi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Sayt qanday ko'rinadi</h2>
+    </div>
+
+    <div class="shots">
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">01</span>
+            <h3>Bosh sahifa</h3>
+          </div>
+          <div>
+            <p>Ekranni to'liq egallagan qorong'i hero va bitta jumla: «Strategies for the new reality». Uning ostidan uchta oq kartochka chiqib turadi — ular hero'ni «kesib», sahifani darhol mazmunga olib o'tadi.</p>
+            <ul>
+              <li>Tashkiliy tuzilma, soha ekspertizasi va analitika — uchta javob</li>
+              <li>«Uch asosiy yo'nalish» bloki: matn va rasm navbatlashadi</li>
+              <li>Yuqori panel: yettita bo'lim va RU / EN almashtirgichi</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>yakovpartners.com</span></div>
+          <img src="assets/work/yakov-partners/01-bosh-sahifa.jpg" alt="Bosh sahifa: hero, uchta oq kartochka, uch yo'nalish bloki" width="1280" height="724" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot shot--tall shot--flip rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">02</span>
+            <h3>Telefondagi ko'rinish</h3>
+          </div>
+          <div>
+            <p>Telefonda ham xuddi shu iyerarxiya saqlanadi: sarlavha, tavsif, so'ng oq kartochka. Matn kichraymaydi va siqilmaydi — shunchaki bitta ustunga tushadi, o'qish qulay qoladi.</p>
+            <ul>
+              <li>Menyu burger ostiga yig'iladi, logotip markazda qoladi</li>
+              <li>Hero rasmi kesilmaydi — matn uning ustida o'qiladi</li>
+              <li>Kartochka to'liq kenglikda, chekkalar bir xil</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <img src="assets/work/yakov-partners/02-mobil.webp" alt="Yakov and Partners sayti telefonda" width="630" height="1280" loading="lazy">
+        </div>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Natija</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nima o'zgardi</h2>
+    </div>
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>Bir qarashda tushunarli</b><p>Kompaniya nima qilishi va kim ekani birinchi ekranda aytiladi.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Ikki til teng</b><p>Rus va ingliz versiyalari bir xil tuzilma va bir xil sifatda.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Telefonda ham vazmin</b><p>Mobil versiya qisqartirilgan nusxa emas — o'sha saytning to'liq ko'rinishi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa loyihalar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="defi-technologies.html"><b>TradFi platforma</b><p>DeFi Technologies</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="apec-asia.html" style="--d:60ms"><b>E-commerce</b><p>APEC Asia UAE</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="dagestantur.html" style="--d:120ms"><b>Turizm</b><p>Dagestantur</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="vac-uz.html" style="--d:180ms"><b>Ishlab chiqarish · ERP</b><p>VAC.UZ</p><span>Keysni ochish <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Kompaniyangizga shunday sayt kerakmi?</h2>
+        <p class="p-sec rise" style="--d:80ms">Brif to'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>

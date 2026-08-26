@@ -14,7 +14,8 @@ import {
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useLanguage } from '@/components/language-provider'
 import { SectionOrnaments } from '@/components/section-ornaments'
-import { serviceCatalog, type ServiceIcon } from '@/lib/service-catalog'
+import { localizedPath } from '@/lib/paths'
+import type { ServiceCard, ServiceIcon } from '@/lib/service-catalog'
 
 const iconMap: Record<ServiceIcon, LucideIcon> = {
   globe: Globe,
@@ -25,13 +26,7 @@ const iconMap: Record<ServiceIcon, LucideIcon> = {
   app: AppWindow,
 }
 
-const detailsLabel = {
-  uz: 'Batafsil',
-  ru: 'Подробнее',
-  en: 'View details',
-} as const
-
-export function Services() {
+export function Services({ cards }: { cards: ServiceCard[] }) {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const { t, language } = useLanguage()
@@ -100,9 +95,8 @@ export function Services() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {serviceCatalog.map((service, idx) => {
-            const Icon = iconMap[service.icon]
-            const content = service.content[language]
+          {cards.map((card, idx) => {
+            const Icon = iconMap[card.icon]
             const cardDelay = 120 + idx * 70
             const transitionStyle: CSSProperties = {
               transitionDelay: `${cardDelay}ms`,
@@ -111,8 +105,8 @@ export function Services() {
 
             return (
               <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
+                key={card.slug}
+                href={localizedPath(language, `/services/${card.slug}`)}
                 className={`group relative overflow-hidden rounded-2xl p-6 transform-gpu transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
@@ -149,14 +143,14 @@ export function Services() {
                 </div>
 
                 <h3 className="mb-3 text-2xl font-serif font-semibold" style={{ color: '#F5F4F0' }}>
-                  {content.title}
+                  {card.title}
                 </h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.74)' }}>
-                  {content.teaser}
+                  {card.teaser}
                 </p>
 
                 <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium" style={{ color: '#E8C97A' }}>
-                  <span>{detailsLabel[language]}</span>
+                  <span>{t.services.detailsLabel}</span>
                   <ArrowUpRight size={16} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </Link>

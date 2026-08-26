@@ -2,11 +2,13 @@
 
 import { useLanguage } from '@/components/language-provider'
 import { SectionOrnaments } from '@/components/section-ornaments'
+import Link from 'next/link'
+import { localizedPath } from '@/lib/paths'
 import { Logo } from './logo'
 
 export function Footer() {
 	const currentYear = new Date().getFullYear()
-	const { t } = useLanguage()
+	const { t, language } = useLanguage()
 
 	return (
 		<footer
@@ -21,7 +23,9 @@ export function Footer() {
 
 			<div className='relative z-10 max-w-7xl mx-auto px-6 py-16'>
 				<div className='flex flex-col items-center gap-4 mb-12'>
-					<Logo />
+					<span style={{ color: '#F5F4F0' }}>
+						<Logo className='w-auto h-10' />
+					</span>
 					<p
 						className='text-sm leading-relaxed text-center max-w-sm'
 						style={{ color: 'rgba(245, 244, 240, 0.7)' }}
@@ -58,20 +62,20 @@ export function Footer() {
 					</div>
 
 					<div className='flex gap-6 justify-center md:justify-end'>
-						<a
-							href='/privacy'
+						<Link
+							href={localizedPath(language, '/privacy')}
 							className='text-sm transition-colors'
 							style={{ color: 'rgba(245, 244, 240, 0.6)' }}
 						>
 							{t.footer.legalLinks.privacy}
-						</a>
-						<a
-							href='/terms'
+						</Link>
+						<Link
+							href={localizedPath(language, '/terms')}
 							className='text-sm transition-colors'
 							style={{ color: 'rgba(245, 244, 240, 0.6)' }}
 						>
 							{t.footer.legalLinks.terms}
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>

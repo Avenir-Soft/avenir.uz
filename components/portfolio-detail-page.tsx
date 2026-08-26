@@ -6,7 +6,8 @@ import { ArrowLeft, ArrowUpRight, Clock3, Layers3, Sparkles, Target } from 'luci
 import { useLanguage } from '@/components/language-provider'
 import { Navbar } from '@/components/navbar'
 import { SectionOrnaments } from '@/components/section-ornaments'
-import { type Language } from '@/lib/i18n'
+import { type Language } from '@/lib/languages'
+import { localizedPath } from '@/lib/paths'
 import { getPortfolioBySlug, type PortfolioSlug } from '@/lib/portfolio-catalog'
 
 const detailCopy: Record<
@@ -116,6 +117,7 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
   const { language, t } = useLanguage()
   const project = getPortfolioBySlug(slug)
   const copy = detailCopy[language]
+  const homeHref = localizedPath(language)
 
   if (!project) return null
 
@@ -142,11 +144,11 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-7 flex items-center gap-2 text-sm" style={{ color: 'rgba(245, 244, 240, 0.64)' }}>
-            <Link href="/" className="transition-colors hover:text-[#F5F4F0]">
+            <Link href={homeHref} className="transition-colors hover:text-[#F5F4F0]">
               {copy.home}
             </Link>
             <span>/</span>
-            <Link href="/#portfolio" className="transition-colors hover:text-[#F5F4F0]">
+            <Link href={`${homeHref}#portfolio`} className="transition-colors hover:text-[#F5F4F0]">
               {copy.portfolio}
             </Link>
             <span>/</span>
@@ -154,7 +156,7 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
           </div>
 
           <Link
-            href="/#portfolio"
+            href={`${homeHref}#portfolio`}
             className="mb-6 inline-flex items-center gap-2 text-sm transition-colors"
             style={{ color: 'rgba(232, 201, 122, 0.9)' }}
           >
@@ -180,7 +182,7 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
               <p className="mt-5 max-w-2xl text-lg leading-relaxed" style={{ color: 'rgba(245, 244, 240, 0.78)' }}>
                 {localizedProject.summary}
               </p>
-              <Link href="/#contact" className="btn-avenir btn-avenir-on-dark mt-8 inline-flex px-8 py-3 text-base">
+              <Link href={`${homeHref}#contact`} className="btn-avenir btn-avenir-on-dark mt-8 inline-flex px-8 py-3 text-base">
                 {copy.cta}
               </Link>
             </div>
@@ -324,7 +326,7 @@ export function PortfolioDetailPage({ slug }: PortfolioDetailPageProps) {
               ))}
             </div>
             <Link
-              href="/#contact"
+              href={`${homeHref}#contact`}
               className="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition-[gap] duration-200 hover:gap-3"
               style={{ color: '#7E6B2C' }}
             >

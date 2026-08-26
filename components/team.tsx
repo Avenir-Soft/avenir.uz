@@ -107,7 +107,7 @@ function TeamCard({ member, index, isVisible }: TeamCardProps) {
 							alt={`${member.name} portrait`}
 							fill
 							loading='lazy'
-							quality={82}
+							quality={75}
 							placeholder='blur'
 							sizes='(min-width: 1280px) 24vw, (min-width: 768px) 30vw, 92vw'
 							className='object-contain object-bottom transform-gpu transition-transform duration-500 group-hover:scale-[1.02]'
@@ -134,7 +134,7 @@ function TeamCard({ member, index, isVisible }: TeamCardProps) {
 				</p>
 				<p
 					className='mt-4 text-sm leading-relaxed'
-					style={{ color: 'rgba(4, 33, 71, 0.66)' }}
+					style={{ color: 'rgba(4, 33, 71, 0.74)' }}
 				>
 					{member.bio}
 				</p>
@@ -211,7 +211,7 @@ export function Team() {
 					</h2>
 					<p
 						className='text-lg max-w-2xl mx-auto leading-relaxed'
-						style={{ color: 'rgba(4, 33, 71, 0.6)' }}
+						style={{ color: 'rgba(4, 33, 71, 0.72)' }}
 					>
 						{t.team.subtitle}
 					</p>

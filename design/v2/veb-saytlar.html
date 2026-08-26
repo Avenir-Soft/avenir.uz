@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>Veb saytlar — Avenir.uz</title>
+<meta name="description" content="Korporativ sayt, landing va e-commerce: tez yuklanadi, qidiruvda topiladi, telefonda qulay. Dizayndan ishga tushirishgacha — Avenir jamoasi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#yechimlar">Yechimlar</a><span>/</span><b>Veb saytlar</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#yechimlar"><i></i>Yechimlarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>Veb saytlar</span>
+        <h1 class="rise" style="--d:120ms" data-split>Ishonch uyg'otadigan va sotadigan sayt</h1>
+        <p class="sv-lead rise" style="--d:200ms">Korporativ sayt, landing yoki e-commerce — birinchi ekrandan mijozni ushlab qoladigan qilib quramiz. Tez yuklanadi, qidiruvda topiladi, telefonda qulay va CRM ga ulanadi.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="index.html#loyihalar">Ishlarimizni ko'rish</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Taxminiy muddat</p>
+        <p class="spec__v">2–6 hafta</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Texnologiyalar</p>
+        <div class="chips"><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>Headless CMS</span><span>Vercel</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Veb saytlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimalar kiradi</h2>
+    </div>
+    <div class="ilist">
+      <div class="gc ilist__i rise"><b>01</b><p>Struktura va interaktiv prototip</p></div>
+      <div class="gc ilist__i rise" style="--d:60ms"><b>02</b><p>Brendga mos UI dizayn</p></div>
+      <div class="gc ilist__i rise" style="--d:120ms"><b>03</b><p>Frontend va animatsiyalar</p></div>
+      <div class="gc ilist__i rise" style="--d:180ms"><b>04</b><p>Kontent boshqaruvi (CMS)</p></div>
+      <div class="gc ilist__i rise" style="--d:240ms"><b>05</b><p>Texnik SEO va yuklanish tezligi</p></div>
+      <div class="gc ilist__i rise" style="--d:300ms"><b>06</b><p>Analitika va CRM ga ulanish</p></div>
+    </div>
+
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>90+ ball</b><p>Lighthouse tezlik, SEO va qulaylik ko'rsatkichlari.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Uch til</b><p>O'zbek, rus va ingliz tillari bitta tizimda boshqariladi.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Avval mobil</b><p>Trafikning katta qismi telefondan keladi — sayt shunga qurilgan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Loyihalardan ekranlar</h2>
+    </div>
+    <div class="work work--4">
+        <a class="gc wc rise" href="yakov-partners.html">
+          <div class="wc__img"><img src="/portfolio/yakov-partners.webp" alt="Yakov and Partners" loading="lazy"></div>
+          <div class="wc__b"><p class="wc__m">Konsalting · korporativ sayt</p><h3>Yakov and Partners</h3>  <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+        </a>
+        <a class="gc wc rise" href="defi-technologies.html">
+          <div class="wc__img"><img src="/portfolio/defi-technologies.webp" alt="DeFi Technologies" loading="lazy"></div>
+          <div class="wc__b"><p class="wc__m">TradFi platforma</p><h3>DeFi Technologies</h3>  <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+        </a>
+        <a class="gc wc rise" href="apec-asia.html">
+          <div class="wc__img"><img src="/portfolio/apec-asia.webp" alt="APEC Asia UAE" loading="lazy"></div>
+          <div class="wc__b"><p class="wc__m">E-commerce · ulgurji katalog</p><h3>APEC Asia UAE</h3>  <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+        </a>
+        <a class="gc wc rise" href="dagestantur.html">
+          <div class="wc__img"><img src="/portfolio/dagestantur.webp" alt="Dagestantur" loading="lazy"></div>
+          <div class="wc__b"><p class="wc__m">Turizm · bronirovanie</p><h3>Dagestantur</h3>  <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+        </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Qanday ishlaymiz</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>G'oyadan ishga tushirishgacha</h2>
+    </div>
+    <div class="steps steps--4">
+      <div class="gc step rise"><span class="step__n">01</span><h4>Chuqur audit</h4><p>Jarayonni ichidan o'rganamiz va aniq talablar ro'yxatini yig'amiz.</p></div>
+      <div class="gc step rise" style="--d:80ms"><span class="step__n">02</span><h4>Prototip</h4><p>Ekranlar va ssenariylarni ishga tushirishdan oldin kelishib olamiz.</p></div>
+      <div class="gc step rise" style="--d:160ms"><span class="step__n">03</span><h4>Bosqichma-bosqich ishga tushirish</h4><p>Har 2 haftada ishlaydigan qism topshiriladi — natijani darhol ko'rasiz.</p></div>
+      <div class="gc step rise" style="--d:240ms"><span class="step__n">04</span><h4>Qo'llab-quvvatlash</h4><p>Ishga tushgandan keyin ham monitoring, yangilanish va rivojlantirish.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa yechimlar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="crm-erp.html"><b>CRM va ERP</b><p>Sotuv, ombor va moliya — bitta tizimda</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="ai-botlar.html" style="--d:60ms"><b>AI botlar</b><p>Buyruqni tushunadigan yordamchi</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="telegram-bot.html" style="--d:120ms"><b>Telegram bot va mini-app</b><p>Mijoz Telegramdan chiqmasdan buyurtma beradi</p><span>Batafsil <i>→</i></span></a>
+      <a class="gc other__i rise" href="mobil-ilova.html" style="--d:180ms"><b>Mobil ilovalar</b><p>Android va iOS uchun barqaror ilova</p><span>Batafsil <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Loyihani muhokama qilamiz</h2>
+        <p class="p-sec rise" style="--d:80ms">Brif to'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>

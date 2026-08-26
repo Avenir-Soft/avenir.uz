@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>Avenir.uz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+
+<!-- ===================== KIRISH ===================== -->
+<div class="intro" id="intro" role="presentation" aria-hidden="true">
+  <div class="intro__s">
+    <span class="intro__rip"></span><span class="intro__rip intro__rip--2"></span><span class="intro__drop"></span>
+    <span class="intro__m">
+      <svg viewBox="0 0 200 200" fill="none">
+        <line class="ax" x1="100" y1="100" x2="100" y2="24"/>
+        <line class="ax" x1="100" y1="100" x2="176" y2="100"/>
+        <line class="ax" x1="100" y1="100" x2="100" y2="176"/>
+        <line class="ax" x1="100" y1="100" x2="24" y2="100"/>
+        <rect class="cap" x="95.5" y="19.5" width="9" height="9" transform="rotate(45 100 24)"/>
+        <rect class="cap" x="171.5" y="95.5" width="9" height="9" transform="rotate(45 176 100)"/>
+        <rect class="cap" x="95.5" y="171.5" width="9" height="9" transform="rotate(45 100 176)"/>
+        <rect class="cap" x="19.5" y="95.5" width="9" height="9" transform="rotate(45 24 100)"/>
+        <path class="st" d="M100 42 Q100 100 158 100 Q100 100 100 158 Q100 100 42 100 Q100 100 100 42 Z"/>
+      </svg>
+    </span>
+  </div>
+</div>
+
+<!-- ===================== TOP ===================== -->
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="#hero" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="#yechimlar">Yechimlar</a><a href="#loyihalar">Loyihalar</a>
+  <a href="#jarayon">Jarayon</a><a href="#jamoa">Jamoa</a><a href="#aloqa">Aloqa</a>
+</div>
+
+<main>
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero" data-sec="hero">
+  <span class="aura aura--a aura--drift aura--pulse"></span>
+  <span class="aura aura--b aura--drift"></span>
+
+  <div class="shell hero__in">
+    <span class="chip rise"><i></i>Avenir IT-agentligi</span>
+
+    <h1 data-split>Biznesingizni <span class="grad-text">raqamli</span> tizimga o'tkazamiz.</h1>
+
+    <p class="hero__lead rise" style="--d:520ms">
+      Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha,
+      keyin esa o'sish va qo'llab-quvvatlash.
+    </p>
+
+    <div class="hero__cta rise" style="--d:620ms">
+      <a class="btn btn--w" href="#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+      <a class="btn btn--d" href="#loyihalar">Ishlarimizni ko'rish</a>
+    </div>
+
+    <div class="stage rise tiltwrap" style="--d:720ms">
+      <span class="stage__glow"></span>
+      <div class="stage__box tilt" id="tilt">
+        <div class="stage__win">
+          <div class="stage__bar"><i></i><i></i><i></i><span class="stage__url"><i class="is-on">avenir-erp.uz/dashboard</i><i>avenir-erp.uz/projects</i><i>avenir-erp.uz/finance</i><i>avenir-erp.uz/brainstorm</i><i>avenir-erp.uz/crm</i><i>avenir-erp.uz/reports</i><i>avenir-erp.uz/people</i></span></div>
+          <div class="dash">
+            <aside class="dash__rail">
+              <span class="dash__logo"></span>
+              <span class="dash__ico is-on" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 11v5M15 11v3"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v19"/><path d="M16.5 6.8H9.8a2.8 2.8 0 0 0 0 5.6h4.4a2.8 2.8 0 0 1 0 5.6H7"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21.5h4"/><path d="M12 2.5a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6H14.7c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 2.5z"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M16.5 5.2a3.2 3.2 0 0 1 0 5.9"/><path d="M18 19.5a5.4 5.4 0 0 0-2.2-4.3"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></span>
+              <span class="dash__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5v-3.2a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4v3.2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            </aside>
+            <div class="dash__body">
+              <div class="scr" data-screens>
+
+                <!-- 01 · Boshqaruv paneli -->
+                <section class="scr__i is-on">
+                  <div class="dash__head"><span class="dash__t">Boshqaruv paneli</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="34" data-min="28" data-max="46">34</b><em>Faol lidlar</em></div>
+                    <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Oylik tushum</em></div>
+                    <div class="kpi"><b data-live="92" data-min="86" data-max="97" data-suffix="%">92%</b><em>Jamoa yuklamasi</em></div>
+                  </div>
+                  <div class="plate">
+                    <div class="plate__h"><em>Lidlar oqimi · 30 kun</em><span class="up"><b data-live="18.2" data-min="9" data-max="24" data-dec="1" data-suffix="%">18.2%</b></span></div>
+                    <svg class="lc" data-chart viewBox="0 0 300 92" preserveAspectRatio="none" aria-hidden="true">
+                      <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#3B82F6" stop-opacity="0.4"/><stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
+                      </linearGradient></defs>
+                      <line class="lc__grid" x1="0" y1="23" x2="300" y2="23"/><line class="lc__grid" x1="0" y1="46" x2="300" y2="46"/>
+                      <line class="lc__grid" x1="0" y1="69" x2="300" y2="69"/>
+                      <path class="lc__area" fill="url(#lg)"/><path class="lc__line"/>
+                      <circle class="lc__halo" r="5"/><circle class="lc__dot" r="2.4"/>
+                    </svg>
+                  </div>
+                  <div class="feed" data-feed></div>
+                </section>
+
+                <!-- 02 · Loyihalar va kanallar -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Loyihalar</span><span class="dash__btn"></span></div>
+                  <div class="prj">
+                    <div class="prj__b">
+                      <div class="pcol">
+                        <em>Ishda</em>
+                        <div class="pc"><b>VAC.UZ — ERP</b><span>12 hafta · 48 mln</span><u style="--p:64%"></u></div>
+                        <div class="pc"><b>APEC — katalog</b><span>18 hafta · 126 mln</span><u style="--p:38%"></u></div>
+                      </div>
+                      <div class="pcol">
+                        <em>Tekshiruvda</em>
+                        <div class="pc"><b>Yakov — analitika</b><span>2-bosqich · 32 mln</span><u style="--p:88%"></u></div>
+                        <div class="pc"><b>DeFi — platforma</b><span>8 hafta · 96 mln</span><u style="--p:71%"></u></div>
+                      </div>
+                      <div class="pcol">
+                        <em>Yakunlandi</em>
+                        <div class="pc"><b>Dagestantur — sayt</b><span>Topshirildi · 19 mln</span><u style="--p:100%"></u></div>
+                      </div>
+                    </div>
+                    <div class="chn">
+                      <em>Kanallar</em>
+                      <div class="chn__m">
+                        <span><b data-live="1.24" data-min="1.1" data-max="1.4" data-dec="2" data-suffix=" mln">1.24 mln</b>Ko'rsatishlar</span>
+                        <span><b data-live="38.4" data-min="32" data-max="44" data-dec="1" data-suffix="K">38.4K</b>Kliklar</span>
+                        <span><b data-live="612" data-min="540" data-max="680">612</b>Lidlar</span>
+                        <span><b data-live="41" data-min="34" data-max="52">41</b>Mijozlar</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 03 · Moliya -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Moliya</span><span class="dash__btn"></span></div>
+                  <div class="ftabs"><span class="is-on">Hisob-fakturalar</span><span>Xarajatlar</span><span>P&amp;L hisobot</span></div>
+                  <div class="kpis kpis--4">
+                    <div class="kpi"><b data-live="128.4" data-min="119" data-max="141" data-dec="1" data-suffix=" mln">128.4 mln</b><em>Tushum · oy</em></div>
+                    <div class="kpi"><b data-live="74.2" data-min="66" data-max="82" data-dec="1" data-suffix=" mln">74.2 mln</b><em>Xarajat · oy</em></div>
+                    <div class="kpi"><b data-live="54.2" data-min="44" data-max="62" data-dec="1" data-suffix=" mln">54.2 mln</b><em>Foyda · oy</em></div>
+                    <div class="kpi"><b data-live="41.8" data-min="33" data-max="49" data-dec="1" data-suffix=" mln">41.8 mln</b><em>Debitorka</em></div>
+                  </div>
+                  <div class="fin2">
+                  <div class="plate">
+                    <div class="plate__h"><em>Tushum va xarajat · 6 oy</em><span class="up"><b>+12.4%</b></span></div>
+                    <div class="bars gbars">
+                      <span><i style="--h:58%"></i><i style="--h:39%"></i><s>Fev</s></span>
+                      <span><i style="--h:64%"></i><i style="--h:44%"></i><s>Mar</s></span>
+                      <span><i style="--h:53%"></i><i style="--h:41%"></i><s>Apr</s></span>
+                      <span><i style="--h:76%"></i><i style="--h:47%"></i><s>May</s></span>
+                      <span><i style="--h:71%"></i><i style="--h:52%"></i><s>Iyun</s></span>
+                      <span class="hi"><i style="--h:92%"></i><i style="--h:56%"></i><s>Iyul</s></span>
+                    </div>
+                    <div class="lg"><span><i style="background:#3B82F6"></i>Tushum</span><span><i style="background:#94A3B8"></i>Xarajat</span></div>
+                  </div>
+                  <div class="inv">
+                    <div class="inv__r"><em>VAC.UZ</em><span>· #2478</span><b>48 000 000</b><span class="bdg bdg--g">To'landi</span></div>
+                    <div class="inv__r"><em>APEC Asia UAE</em><span>· #2481</span><b>32 000 000</b><span class="bdg bdg--b">Yuborildi</span></div>
+                    <div class="inv__r"><em>Dagestantur</em><span>· #2470</span><b>9 600 000</b><span class="bdg bdg--a">Muddati o'tdi</span></div>
+                  </div>
+                  </div>
+                </section>
+
+                <!-- 04 · Breynstorming -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Breynstorming</span><span class="dash__btn"></span></div>
+                  <div class="bst">
+                    <div class="bst__c">
+                      <span class="stk stk--a">Telegram mini-app<u>7</u></span>
+                      <span class="stk stk--b">Referal dastur<u>5</u></span>
+                      <span class="stk stk--c">Video-keyslar<u>4</u></span>
+                      <span class="stk stk--d">Narx kalkulyatori<u>3</u></span>
+                      <span class="stk stk--e">SEO klaster<u>2</u></span>
+                      <span class="pcur pcur--a"><span><b>Xojiakbar</b></span></span>
+                      <span class="pcur pcur--b"><span><b>Dilnoza</b></span></span>
+                    </div>
+                    <p class="bst__f">Sessiya yakuni: <b>3 ta g'oya</b> tanlandi va vazifaga aylantirildi</p>
+                  </div>
+                </section>
+
+                <!-- 05 · CRM voronkasi -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">CRM va sotuv</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="128" data-min="112" data-max="146">128</b><em>Voronkadagi lidlar</em></div>
+                    <div class="kpi"><b data-live="386.5" data-min="340" data-max="430" data-dec="1" data-suffix=" mln">386.5 mln</b><em>Voronka qiymati</em></div>
+                    <div class="kpi"><b data-live="9.4" data-min="7" data-max="12" data-dec="1" data-suffix="%">9.4%</b><em>Konversiya</em></div>
+                  </div>
+                  <div class="fun">
+                    <div class="fun__r" style="--w:100%"><em>Yangi murojaat</em><u></u><b>128</b></div>
+                    <div class="fun__r" style="--w:73%"><em>Kvalifikatsiya</em><u></u><b>94</b></div>
+                    <div class="fun__r" style="--w:48%"><em>Taklif yuborildi</em><u></u><b>61</b></div>
+                    <div class="fun__r" style="--w:27%"><em>Muzokara</em><u></u><b>34</b></div>
+                    <div class="fun__r" style="--w:11%"><em>Bitim yopildi</em><u></u><b>12</b></div>
+                  </div>
+                  <div class="inv">
+                    <div class="inv__r"><em>Alfa Textile</em><span>· ERP</span><b>96 000 000</b><span class="bdg bdg--g">Muzokara</span></div>
+                    <div class="inv__r"><em>Orient Logistics</em><span>· CRM</span><b>54 000 000</b><span class="bdg bdg--b">Taklif yuborildi</span></div>
+                    <div class="inv__r"><em>Delta Market</em><span>· Sayt</span><b>22 400 000</b><span class="bdg bdg--a">Yangi murojaat</span></div>
+                  </div>
+                </section>
+
+                <!-- 06 · Hisobotlar -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Hisobotlar</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b data-live="42.6" data-min="36" data-max="48" data-dec="1" data-suffix="%">42.6%</b><em>Marja</em></div>
+                    <div class="kpi"><b data-live="38.4" data-min="31" data-max="44" data-dec="1" data-suffix=" mln">38.4 mln</b><em>O'rtacha chek</em></div>
+                    <div class="kpi"><b data-live="3.2" data-min="2.6" data-max="3.9" data-dec="1" data-suffix="x">3.2x</b><em>Mijoz LTV</em></div>
+                  </div>
+                  <div class="rep">
+                    <div class="plate">
+                      <div class="plate__h"><em>Tushum · 12 oy</em><span class="up"><b data-live="24.6" data-min="18" data-max="31" data-dec="1" data-suffix="%">24.6%</b></span></div>
+                      <div class="bars">
+                        <span><i style="--h:34%"></i><s>Yan</s></span>
+                        <span><i style="--h:41%"></i><s>Fev</s></span>
+                        <span><i style="--h:38%"></i><s>Mar</s></span>
+                        <span><i style="--h:52%"></i><s>Apr</s></span>
+                        <span><i style="--h:47%"></i><s>May</s></span>
+                        <span><i style="--h:61%"></i><s>Iyun</s></span>
+                        <span class="hi"><i style="--h:78%"></i><s>Iyul</s></span>
+                        <span><i style="--h:69%"></i><s>Avg</s></span>
+                        <span><i style="--h:74%"></i><s>Sen</s></span>
+                        <span><i style="--h:83%"></i><s>Okt</s></span>
+                        <span><i style="--h:79%"></i><s>Noy</s></span>
+                        <span><i style="--h:94%"></i><s>Dek</s></span>
+                      </div>
+                    </div>
+                    <div class="plate">
+                      <div class="plate__h"><em>Yo'nalishlar ulushi</em></div>
+                      <div class="dn">
+                        <svg viewBox="0 0 42 42" aria-hidden="true">
+                          <circle class="dn__t" cx="21" cy="21" r="15.9"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#2563EB" stroke-dasharray="41 59" stroke-dashoffset="0"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#60A5FA" stroke-dasharray="27 73" stroke-dashoffset="-41"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#93C5FD" stroke-dasharray="18 82" stroke-dashoffset="-68"/>
+                          <circle cx="21" cy="21" r="15.9" stroke="#C7DBFF" stroke-dasharray="14 86" stroke-dashoffset="-86"/>
+                        </svg>
+                        <ul class="dn__l">
+                          <li><i style="background:#2563EB"></i>ERP va CRM<b>41%</b></li>
+                          <li><i style="background:#60A5FA"></i>Veb saytlar<b>27%</b></li>
+                          <li><i style="background:#93C5FD"></i>Mobil ilovalar<b>18%</b></li>
+                          <li><i style="background:#C7DBFF"></i>Botlar<b>14%</b></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 07 · Jamoa -->
+                <section class="scr__i">
+                  <div class="dash__head"><span class="dash__t">Jamoa</span><span class="dash__btn"></span></div>
+                  <div class="kpis">
+                    <div class="kpi"><b>18</b><em>Xodimlar</em></div>
+                    <div class="kpi"><b data-live="86" data-min="78" data-max="94" data-suffix="%">86%</b><em>Bandlik</em></div>
+                    <div class="kpi"><b data-live="1284" data-min="1150" data-max="1400">1284</b><em>Soat · oy</em></div>
+                  </div>
+                  <div class="team">
+                    <div class="tm"><span class="tm__a" style="background:#2563EB">XC</span><span class="tm__b"><b>Xojiakbar Ch.</b><span>Loyiha rahbari</span></span><u style="--p:92%"></u><em>92%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#3B82F6">DA</span><span class="tm__b"><b>Dilnoza A.</b><span>Bosh dizayner</span></span><u style="--p:84%"></u><em>84%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#60A5FA">SR</span><span class="tm__b"><b>Sardor R.</b><span>Backend dasturchi</span></span><u style="--p:78%"></u><em>78%</em></div>
+                    <div class="tm"><span class="tm__a" style="background:#0EA5A5">MT</span><span class="tm__b"><b>Malika T.</b><span>Sotuv menejeri</span></span><u style="--p:71%"></u><em>71%</em></div>
+                  </div>
+                </section>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ISHONCH ===================== -->
+<section class="trust">
+  <div class="shell"><p class="trust__l rise"><b>50+</b> kompaniya bizga ishonadi</p></div>
+  <div class="mq rise" style="--d:80ms">
+    <div class="mq__t" id="mq">
+      <span class="mq__i">VAC.UZ</span><span class="mq__i">Avenir OS</span><span class="mq__i">Yakov and Partners</span>
+      <span class="mq__i">DeFi Technologies</span><span class="mq__i">APEC Asia UAE</span><span class="mq__i">Dagestantur</span>
+      <span class="mq__i">VAC.UZ</span><span class="mq__i">Avenir OS</span><span class="mq__i">Yakov and Partners</span>
+      <span class="mq__i">DeFi Technologies</span><span class="mq__i">APEC Asia UAE</span><span class="mq__i">Dagestantur</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YECHIMLAR ===================== -->
+<section class="section" id="yechimlar" data-sec="yechimlar">
+  <span class="aura aura--b aura--drift" style="width:640px;height:640px;right:-240px;top:6%;opacity:0.5"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Yechimlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Biznesingiz uchun raqamli yechimlar</h2>
+      <p class="p-sec rise" style="--d:160ms">Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.</p>
+    </div>
+
+    <div class="sol">
+      <!-- 01 · CRM va ERP — taxlangan yozuvlar -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>CRM va ERP</span>
+          <h3>Sotuv, ombor va moliya — bitta tizimda</h3>
+          <p>Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.</p>
+          <a class="btn btn--d btn--sm" href="crm-erp.html">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c rise" style="--d:90ms">
+          <div class="cyc" data-cyc>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Bitim</b> · B-4821 <span class="bdg bdg--b">Taklif yuborildi</span></p>
+              <p class="gp__t">VAC.UZ — korporativ sayt va hisob-kitob moduli</p>
+              <p class="gp__f"><span>Muddat: 12 hafta</span><b>48 000 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Shartnoma</b> · SH-1174 <span class="bdg bdg--g">Imzolandi</span></p>
+              <p class="gp__t">APEC Asia UAE — ulgurji katalog platformasi</p>
+              <p class="gp__f"><span>Muddat: 18 hafta</span><b>126 400 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Hisob-faktura</b> · #2481 <span class="bdg bdg--a">To'lov kutilmoqda</span></p>
+              <p class="gp__t">Yakov and Partners — analitik platforma, 2-bosqich</p>
+              <p class="gp__f"><span>Muddat: 5 kun</span><b>32 000 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Ombor</b> · KIR-318 <span class="bdg bdg--g">Qabul qilindi</span></p>
+              <p class="gp__t">Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC</p>
+              <p class="gp__f"><span>Skladga kiritildi</span><b>18 400 000 so'm</b></p>
+            </div></div>
+            <div class="cyc__i"><div class="gp">
+              <p class="gp__top"><b>Xarajat</b> · X-0925 <span class="bdg bdg--b">Tasdiqlandi</span></p>
+              <p class="gp__t">Jamoa oyligi va litsenziyalar — iyul 2026</p>
+              <p class="gp__f"><span>Moliya bo'limi</span><b>74 200 000 so'm</b></p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 · AI botlar — buyruq va javob -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>AI botlar</span>
+          <h3>Buyruqni tushunadigan yordamchi</h3>
+          <p>Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.</p>
+          <a class="btn btn--d btn--sm" href="ai-botlar.html">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--b rise" style="--d:90ms">
+          <div class="ai">
+            <div class="ai__box cyc cyc--fade" data-cyc>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Kelasi haftadagi uchrashuvlarni ko'rsat<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Tezkor</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Iyul oyidagi xarajatlar hisobotini tayyorla<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Hisobot</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Qarzdor mijozlar ro'yxatini chiqar<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Moliya</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+              <div class="cyc__i"><div class="gp cmd">
+                <p class="cmd__q">Yangi lidga taklif xatini yoz<span class="ai__caret"></span></p>
+                <div class="cmd__r"><span class="cmd__plus">+</span><span class="cmd__chip">Sotuv</span><span class="cmd__go"><i></i><i></i><i></i><i></i></span></div>
+              </div></div>
+            </div>
+
+            <div class="ai__res" data-cyc-link>
+              <div class="ai__rc"><em>Javob</em><p>Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).</p></div>
+              <div class="ai__rc"><em>Javob</em><p>Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).</p></div>
+              <div class="ai__rc"><em>Javob</em><p>4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.</p></div>
+              <div class="ai__rc"><em>Javob</em><p>Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · Veb saytlar — brauzer va ballar -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Veb saytlar</span>
+          <h3>Ishonch uyg'otadigan va sotadigan sayt</h3>
+          <p>Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.</p>
+          <a class="btn btn--d btn--sm" href="veb-saytlar.html">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--c rise" style="--d:90ms">
+          <div class="bw">
+            <div class="bw__bar">
+              <i></i><i></i><i></i>
+              <span class="bw__url" data-cyc-link><span>vac.uz</span><span>apecasia.ae</span><span>yakovpartners.com</span><span>dagestantur.ru</span></span>
+            </div>
+            <div class="bw__body">
+              <div class="bw__page"><i></i><i style="width:88%"></i><i style="width:62%"></i></div>
+              <div class="gauges" data-cyc>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.98"/></svg><span class="gg__n">98</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:1"/></svg><span class="gg__n">100</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.96"/></svg><span class="gg__n">96</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.95"/></svg><span class="gg__n">95</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:1"/></svg><span class="gg__n">100</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.99"/></svg><span class="gg__n">99</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.97"/></svg><span class="gg__n">97</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.98"/></svg><span class="gg__n">98</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.96"/></svg><span class="gg__n">96</span></span><em>A11y</em></div>
+                </div>
+                <div class="gset">
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.94"/></svg><span class="gg__n">94</span></span><em>Speed</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.99"/></svg><span class="gg__n">99</span></span><em>SEO</em></div>
+                  <div class="gg"><span class="gg__c"><svg viewBox="0 0 46 46"><circle class="gg__bg" cx="23" cy="23" r="20"/><circle class="gg__fg" cx="23" cy="23" r="20" style="--v:0.95"/></svg><span class="gg__n">95</span></span><em>A11y</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 · Telegram — suhbat -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Telegram bot va mini-app</span>
+          <h3>Mijoz Telegramdan chiqmasdan buyurtma beradi</h3>
+          <p>Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.</p>
+          <a class="btn btn--d btn--sm" href="telegram-bot.html">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--d rise" style="--d:90ms">
+          <div class="tg">
+            <p class="tg__h"><span class="tg__av"></span><b>VAC bot</b><u>onlayn</u></p>
+            <div class="tg__scene" data-cyc>
+              <div class="tg__s">
+                <p class="tg__in">Assalomu alaykum! Nima qilishim mumkin?</p>
+                <div class="tg__kb"><span>Buyurtma berish</span><span>Katalog</span><span>Holat</span><span>Operator</span></div>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">Ventilyatsiya kanali, 24 m</p>
+                <p class="tg__in">Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.</p>
+                <div class="tg__kb"><span>To'lov qilish</span><span>Manzilni o'zgartirish</span></div>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">To'lov qildim</p>
+                <p class="tg__in">To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.</p>
+                <p class="tg__in">CRM da bitim avtomatik yopildi.</p>
+              </div>
+              <div class="tg__s">
+                <p class="tg__out">Katalogni ko'rsat</p>
+                <p class="tg__in">Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.</p>
+                <div class="tg__kb"><span>Mini-app ochish</span><span>Qidirish</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 · Mobil — telefon ekrani -->
+      <div class="sol__row">
+        <div class="sol__t rise">
+          <span class="chip"><i></i>Mobil ilovalar</span>
+          <h3>Android va iOS uchun barqaror ilova</h3>
+          <p>Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.</p>
+          <a class="btn btn--d btn--sm" href="mobil-ilova.html">Batafsil <span class="btn__ar">→</span></a>
+        </div>
+        <div class="gc sol__c sol__c--e rise" style="--d:90ms">
+          <div class="ph">
+            <span class="ph__side ph__side--act" aria-hidden="true"></span>
+            <span class="ph__side ph__side--vu" aria-hidden="true"></span>
+            <span class="ph__side ph__side--vd" aria-hidden="true"></span>
+            <span class="ph__side ph__side--pw" aria-hidden="true"></span>
+            <span class="ph__side ph__side--cam" aria-hidden="true"></span>
+            <div class="ph__scr">
+              <span class="ph__island" aria-hidden="true"></span>
+              <div class="ph__st" aria-hidden="true" data-no-i18n>
+                <b class="ph__now">09:41</b>
+                <span class="ph__sig">
+                  <svg class="ph__cell" viewBox="0 0 16 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7.4" width="2.6" height="3.6" rx=".8"/><rect x="4.4" y="5.4" width="2.6" height="5.6" rx=".8"/><rect x="8.8" y="3.1" width="2.6" height="7.9" rx=".8"/><rect x="13.2" y=".7" width="2.6" height="10.3" rx=".8"/></svg>
+                  <svg class="ph__wifi" viewBox="0 0 15 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1.1 3.5a9.6 9.6 0 0 1 12.8 0"/><path d="M3.5 6.2a6.2 6.2 0 0 1 8 0"/><path d="M5.9 8.9a2.7 2.7 0 0 1 3.2 0"/></svg>
+                  <svg class="ph__bat" viewBox="0 0 25 11" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="20" height="10" rx="3.2" stroke="currentColor" stroke-opacity=".42"/><rect x="2" y="2" width="15.2" height="7" rx="2" fill="currentColor"/><path d="M22.4 3.9a2.1 2.1 0 0 1 0 3.2z" fill="currentColor" fill-opacity=".42"/></svg>
+                </span>
+              </div>
+              <div class="ph__t" data-no-i18n>
+                <svg class="ph__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/></svg>
+                <span class="ph__date">Payshanba, 21-avgust</span><b class="ph__clock">09:41</b>
+              </div>
+              <div class="ph__n" data-cyc>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 00-6 6v4l-2 3h16l-2-3V9a6 6 0 00-6-6z"/><path d="M10 20a2 2 0 004 0"/></svg></span>
+                  <span class="pn__b"><b>Yangi bitim</b><span>VAC.UZ — taklif yuborildi</span></span><span class="pn__t">hozir</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 9.5h16"/></svg></span>
+                  <span class="pn__b"><b>To'lov qabul qilindi</b><span>#2481 · 32 000 000 so'm</span></span><span class="pn__t">3 daq</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                  <span class="pn__b"><b>Vazifa yopildi</b><span>Dizayn sprint · 12/12</span></span><span class="pn__t">12 daq</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
+                  <span class="pn__b"><b>Eslatma</b><span>Shartnoma 3 kunda tugaydi</span></span><span class="pn__t">1 soat</span>
+                </div></div>
+                <div class="cyc__i"><div class="pn">
+                  <span class="pn__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V9M12 19V5M19 19v-6"/></svg></span>
+                  <span class="pn__b"><b>Hisobot tayyor</b><span>Iyul oyi P&amp;L</span></span><span class="pn__t">2 soat</span>
+                </div></div>
+              </div>
+              <span class="ph__home" aria-hidden="true"></span>
+              <span class="ph__glass" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOYIHALAR ===================== -->
+<section class="section" id="loyihalar" data-sec="loyihalar">
+  <span class="aura aura--a aura--drift" style="width:620px;height:620px;left:-240px;top:10%;opacity:0.45"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Loyihalar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Haqiqiy natija bergan mahsulotlar</h2>
+    </div>
+
+    <div class="work">
+      <a class="gc wc rise" href="vac-uz.html">
+        <div class="wc__img"><img src="/portfolio/vac-uz.webp" alt="VAC.UZ" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Ishlab chiqarish · ERP<span>2025</span></p>
+          <h3>VAC.UZ</h3>
+          <p>Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:80ms" href="avenir-os.html">
+        <div class="wc__img"><img src="/portfolio/avenir-os.webp" alt="Avenir OS" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">ERP + CRM + Moliya<span>2026</span></p>
+          <h3>Avenir OS</h3>
+          <p>Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:160ms" href="yakov-partners.html">
+        <div class="wc__img"><img src="/portfolio/yakov-partners.webp" alt="Yakov and Partners" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Konsalting<span>2025</span></p>
+          <h3>Yakov and Partners</h3>
+          <p>Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" href="defi-technologies.html">
+        <div class="wc__img"><img src="/portfolio/defi-technologies.webp" alt="DeFi Technologies" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">TradFi platforma<span>2026</span></p>
+          <h3>DeFi Technologies</h3>
+          <p>Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:80ms" href="apec-asia.html">
+        <div class="wc__img"><img src="/portfolio/apec-asia.webp" alt="APEC Asia UAE" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">E-commerce<span>2025</span></p>
+          <h3>APEC Asia UAE</h3>
+          <p>BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+      <a class="gc wc rise" style="--d:160ms" href="dagestantur.html">
+        <div class="wc__img"><img src="/portfolio/dagestantur.webp" alt="Dagestantur" loading="lazy"></div>
+        <div class="wc__b">
+          <p class="wc__m">Turizm<span>2025</span></p>
+          <h3>Dagestantur</h3>
+          <p>Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.</p>
+          <span class="wc__go">Keysni ochish <i>→</i></span>
+          </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JARAYON ===================== -->
+<section class="section" id="jarayon" data-sec="jarayon">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Jarayon</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>G'oyadan ishga tushirishgacha</h2>
+      <p class="p-sec rise" style="--d:160ms">Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.</p>
+    </div>
+
+    <div class="steps">
+      <div class="gc step rise"><span class="step__n">01</span><h4>Chuqur Audit</h4><p>Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.</p></div>
+      <div class="gc step rise" style="--d:100ms"><span class="step__n">02</span><h4>Dizayn va ishlab chiqish</h4><p>UI tizimlari va masshtablanuvchi injiniring.</p></div>
+      <div class="gc step rise" style="--d:200ms"><span class="step__n">03</span><h4>Ishga tushirish va o'sish</h4><p>Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.</p></div>
+    </div>
+
+    <div class="nums">
+      <div class="nums__c rise"><span class="od" data-od="50" data-sup="+"></span><p class="nums__k">Topshirilgan loyihalar</p></div>
+      <div class="nums__c rise" style="--d:80ms"><span class="od" data-od="30" data-sup="+"></span><p class="nums__k">Mamnun mijozlar</p></div>
+      <div class="nums__c rise" style="--d:160ms"><span class="od" data-od="5"></span><p class="nums__k">Bozordagi yillar</p></div>
+      <div class="nums__c rise" style="--d:240ms"><span class="od" data-od="4"></span><p class="nums__k">Qamrab olingan mamlakatlar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JAMOA ===================== -->
+<section class="section" id="jamoa" data-sec="jamoa">
+  <span class="aura aura--b aura--drift" style="width:620px;height:620px;left:-220px;top:12%;opacity:0.45"></span>
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Jamoa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Loyihangiz ustida ishlaydigan odamlar</h2>
+      <p class="p-sec rise" style="--d:160ms">Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.</p>
+    </div>
+
+    <div class="crew rise" style="--d:220ms">
+      <button class="tmc is-on" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Ta'sischi</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Xojiakbar Choriyev</b>
+          <em class="tmc__r">Ta'sischi va rahbar</em>
+          <span class="tmc__b">Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.</span>
+          <span class="tmc__x">Strategiya · ERP · Mijozlar</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">COO</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Samir Kenjayev</b>
+          <em class="tmc__r">Operatsion direktor</em>
+          <span class="tmc__b">Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.</span>
+          <span class="tmc__x">Jarayon · Rejalashtirish</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">CTO</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Shoxrux Amirkulov</b>
+          <em class="tmc__r">Texnik direktor</em>
+          <span class="tmc__b">Arxitektura va texnik yechimlar: tizim qanday qurilishi va yuklamaga qanday chidashi uning zimmasida.</span>
+          <span class="tmc__x">Arxitektura · Infratuzilma</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">CTO</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Sobitov Oybek</b>
+          <em class="tmc__r">Texnik direktor</em>
+          <span class="tmc__b">Ishlab chiqish jarayoni va kod sifati: reliz, kod-revyu va texnik standartlar.</span>
+          <span class="tmc__x">Ishlab chiqish · Sifat</span>
+        </span>
+      </button>
+      <button class="tmc" type="button" data-team>
+        <span class="tmc__art">
+          <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g class="sil"><circle cx="150" cy="150" r="66"/><path d="M25 420 v-96 a125 125 0 0 1 250 0 v96 Z"/></g>
+          </svg>
+        </span>
+        <span class="tmc__v">Backend</span>
+        <span class="tmc__d">
+          <b class="tmc__n">Xasan Orifjonov</b>
+          <em class="tmc__r">Backend dasturchi</em>
+          <span class="tmc__b">Server tomoni, ma'lumotlar bazasi va integratsiyalar — tizimning ichki qismi uning zimmasida.</span>
+          <span class="tmc__x">Backend · API · Integratsiya</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YAKUNIY BLOK ===================== -->
+<section class="section" id="aloqa" data-sec="aloqa" style="padding-bottom:0">
+  <div class="shell">
+    <div class="final rise">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in">
+        <h2 data-split>Loyihangizni <span class="grad-text">bugun</span> boshlang</h2>
+
+        <div class="final__grid">
+          <div>
+            <div class="cols">
+              <div class="col">
+                <h5>Aloqa</h5>
+                <a href="tel:+998935298807"><b>+998</b> 93 529 88 07</a>
+                <a href="mailto:info@avenir.uz" style="margin-top:0.5rem">info@avenir.uz</a>
+                <p style="margin-top:0.5rem;color:var(--w-34)">Toshkent, O'zbekiston</p>
+              </div>
+              <div class="col">
+                <h5>Ijtimoiy tarmoqlar</h5>
+                <div class="socials">
+                  <a href="https://www.instagram.com/avenir.uz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                  </a>
+                  <a href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21.5 4L2.8 11.2l5.6 1.8L19 6.5l-8.2 8.1.3 5.9 2.8-4 4.4 3.2z"/></svg>
+                  </a>
+                  <a href="mailto:info@avenir.uz" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M3 6l9 6 9-6"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="form" onsubmit="return false;">
+            <div class="field"><label for="fn">Ismingiz</label><input id="fn" type="text" placeholder="Ism familiya" required></div>
+            <div class="field"><label for="fp">Telefon raqam</label><input id="fp" type="tel" value="+998 " required></div>
+            <div class="field"><label for="ft">Telegram username</label><input id="ft" type="text" placeholder="@username" required></div>
+            <div class="field"><label for="fo">Aylanmangiz</label><input id="fo" type="text" placeholder="Masalan: oyiga 300 mln"></div>
+            <button class="btn btn--w" type="submit">Xabar yuborish <span class="btn__ar">→</span></button>
+            <p class="form__n">24 soat ichida javob beramiz</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<!-- ===================== YOPISHQOQ CTA ===================== -->
+<div class="cta" id="cta">
+  <div class="cta__in">
+    <div class="cta__txt">
+      <b>Loyihangiz bormi?</b>
+      <span>24 soat ichida javob beramiz</span>
+    </div>
+    <a class="cta__btn" href="#aloqa">Bog‘lanish</a>
+    <button class="cta__x" id="ctaX" type="button" aria-label="Yopish">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Panel yopilgach uning o'rnida qoladigan telefon tugmasi -->
+<a class="fab" id="ctaFab" href="#aloqa" aria-label="Bog‘lanish">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7.4 3.5H5.9A2.4 2.4 0 0 0 3.5 6c0 8 6.5 14.5 14.5 14.5a2.4 2.4 0 0 0 2.4-2.4v-1.5a1 1 0 0 0-.68-.95l-3.4-1.13a1 1 0 0 0-1.1.35l-1 1.3a14.6 14.6 0 0 1-5.9-5.9l1.3-1a1 1 0 0 0 .35-1.1L8.35 4.18a1 1 0 0 0-.95-.68z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</a>
+
+
+<script>
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 1024;
+
+
+  /* ==================================================================
+     TIL: uz / ru / en
+     Lug'at kaliti — o'zbekcha matnning o'zi. Sahifadagi har bir matn
+     tuguni bir marta yig'ib olinadi, keyin faqat qiymati almashtiriladi;
+     shu sababli razmetkada hech qanday qo'shimcha atribut kerak emas.
+     ================================================================== */
+  var LANGS = ['uz', 'ru', 'en'];
+  var I18N = {
+    "ru": {
+      "Loyihangiz bormi?": "Есть проект?",
+      "Bog‘lanish": "Связаться",
+      "Yopish": "Закрыть",
+      "Yechimlar": "Решения",
+      "Loyihalar": "Проекты",
+      "Jarayon": "Процесс",
+      "Aloqa": "Контакты",
+      "Avenir IT-agentligi": "IT-агентство Avenir",
+      "Biznesingizni": "Переводим ваш бизнес в",
+      "raqamli": "цифровую",
+      "tizimga o'tkazamiz.": "систему.",
+      "Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha, keyin esa o'sish va qo'llab-quvvatlash.": "Сайт, CRM, ERP и мобильное приложение — одна команда. От идеи до запуска, а дальше — рост и поддержка.",
+      "Loyihani boshlash": "Начать проект",
+      "Ishlarimizni ko'rish": "Смотреть работы",
+      "Ochiq bitimlar": "Открытые сделки",
+      "Oylik daromad": "Выручка за месяц",
+      "Bajarilgan vazifa": "Задачи выполнены",
+      "Lidlar oqimi · 30 kun": "Поток лидов · 30 дней",
+      "mln": "млн",
+      "Yangi lid": "Новый лид",
+      "VAC.UZ — korporativ sayt": "VAC.UZ — корпоративный сайт",
+      "hozir": "сейчас",
+      "daq": "мин",
+      "#2481 to’landi": "#2481 оплачен",
+      "Bitim bosqichi": "Этап сделки",
+      "Yangi mijoz": "Новый клиент",
+      "Oylik P&L tayyor": "Месячный P&L готов",
+      "kompaniya bizga ishonadi": "компаний нам доверяют",
+      "Biznesingiz uchun raqamli yechimlar": "Цифровые решения для вашего бизнеса",
+      "Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.": "По каждому направлению — готовая команда и отлаженный процесс.",
+      "Batafsil": "Подробнее",
+      "CRM va ERP": "CRM и ERP",
+      "Sotuv, ombor va moliya — bitta tizimda": "Продажи, склад и финансы — в одной системе",
+      "Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.": "Сделки, счета, склад и команда — в одном месте. Каждое действие фиксируется в системе автоматически.",
+      "Bitim": "Сделка",
+      "Taklif yuborildi": "КП отправлено",
+      "VAC.UZ — korporativ sayt va hisob-kitob moduli": "VAC.UZ — корпоративный сайт и модуль расчётов",
+      "Muddat: 12 hafta": "Срок: 12 недель",
+      "48 000 000 so'm": "48 000 000 сум",
+      "Shartnoma": "Договор",
+      "Imzolandi": "Подписан",
+      "APEC Asia UAE — ulgurji katalog platformasi": "APEC Asia UAE — платформа оптового каталога",
+      "Muddat: 18 hafta": "Срок: 18 недель",
+      "126 400 000 so'm": "126 400 000 сум",
+      "Hisob-faktura": "Счёт",
+      "To'lov kutilmoqda": "Ожидает оплаты",
+      "Yakov and Partners — analitik platforma, 2-bosqich": "Yakov and Partners — аналитическая платформа, 2-й этап",
+      "Muddat: 5 kun": "Срок: 5 дней",
+      "32 000 000 so'm": "32 000 000 сум",
+      "Ombor": "Склад",
+      "Qabul qilindi": "Принято",
+      "Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC": "Воздуховод — 240 м · поставщик VAC",
+      "Skladga kiritildi": "Оприходовано на склад",
+      "18 400 000 so'm": "18 400 000 сум",
+      "Xarajat": "Расход",
+      "Tasdiqlandi": "Утверждён",
+      "Jamoa oyligi va litsenziyalar — iyul 2026": "Зарплата команды и лицензии — июль 2026",
+      "Moliya bo'limi": "Финансовый отдел",
+      "74 200 000 so'm": "74 200 000 сум",
+      "AI botlar": "AI-боты",
+      "Buyruqni tushunadigan yordamchi": "Ассистент, который понимает команды",
+      "Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.": "Спрашиваете обычными словами — бот готовит отчёт, ставит задачу, находит ответ.",
+      "Kelasi haftadagi uchrashuvlarni ko'rsat": "Покажи встречи на следующей неделе",
+      "Tezkor": "Быстро",
+      "Iyul oyidagi xarajatlar hisobotini tayyorla": "Подготовь отчёт по расходам за июль",
+      "Hisobot": "Отчёт",
+      "Qarzdor mijozlar ro'yxatini chiqar": "Выведи список должников",
+      "Moliya": "Финансы",
+      "Yangi lidga taklif xatini yoz": "Напиши КП новому лиду",
+      "Sotuv": "Продажи",
+      "Javob": "Ответ",
+      "Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).": "На следующей неделе 3 встречи: VAC.UZ (понедельник), APEC (среда), Yakov (пятница).",
+      "Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).": "Расходы за июль — 74 200 000 сум. Крупнейшая статья: зарплата команды (68%).",
+      "4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.": "Найдено 4 должника на общую сумму 41 800 000 сум. Самый давний — 18 дней.",
+      "Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.": "КП готово — 2 страницы с таблицей цен. Можно отправлять.",
+      "Veb saytlar": "Веб-сайты",
+      "Ishonch uyg'otadigan va sotadigan sayt": "Сайт, который вызывает доверие и продаёт",
+      "Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.": "Корпоративный сайт, лендинг и e-commerce. Быстро загружается, находится в поиске, удобен на телефоне.",
+      "Telegram bot va mini-app": "Telegram-бот и mini-app",
+      "Mijoz Telegramdan chiqmasdan buyurtma beradi": "Клиент оформляет заказ, не выходя из Telegram",
+      "Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.": "Каталог, оплата и связь с CRM — в одном окне. С mini-app — полноценный интерфейс.",
+      "onlayn": "в сети",
+      "Assalomu alaykum! Nima qilishim mumkin?": "Здравствуйте! Чем могу помочь?",
+      "Buyurtma berish": "Оформить заказ",
+      "Katalog": "Каталог",
+      "Holat": "Статус",
+      "Operator": "Оператор",
+      "Ventilyatsiya kanali, 24 m": "Воздуховод, 24 м",
+      "Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.": "Принято. Заказ #4821 · доставим сегодня до 18:00.",
+      "To'lov qilish": "Оплатить",
+      "Manzilni o'zgartirish": "Изменить адрес",
+      "To'lov qildim": "Оплатил",
+      "To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.": "Оплата подтверждена — 7 400 000 сум. Чек отправлен.",
+      "CRM da bitim avtomatik yopildi.": "Сделка в CRM закрыта автоматически.",
+      "Katalogni ko'rsat": "Покажи каталог",
+      "Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.": "Mini-app открыт: 142 позиции, цены из CRM.",
+      "Mini-app ochish": "Открыть mini-app",
+      "Qidirish": "Поиск",
+      "Mobil ilovalar": "Мобильные приложения",
+      "Android va iOS uchun barqaror ilova": "Стабильное приложение для Android и iOS",
+      "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, офлайн-режим и связь с вашими системами — из одной кодовой базы.",
+      "Yangi bitim": "Новая сделка",
+      "VAC.UZ — taklif yuborildi": "VAC.UZ — КП отправлено",
+      "To'lov qabul qilindi": "Платёж получен",
+      "#2481 · 32 000 000 so'm": "#2481 · 32 000 000 сум",
+      "3 daq": "3 мин",
+      "Vazifa yopildi": "Задача закрыта",
+      "Dizayn sprint · 12/12": "Дизайн-спринт · 12/12",
+      "12 daq": "12 мин",
+      "Eslatma": "Напоминание",
+      "Shartnoma 3 kunda tugaydi": "Договор истекает через 3 дня",
+      "1 soat": "1 ч",
+      "Hisobot tayyor": "Отчёт готов",
+      "Iyul oyi P&L": "P&L за июль",
+      "2 soat": "2 ч",
+      "Haqiqiy natija bergan mahsulotlar": "Продукты, которые дали реальный результат",
+      "Ishlab chiqarish · ERP": "Производство · ERP",
+      "Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.": "Сайт и система расчётов для производителя вентиляционных воздуховодов.",
+      "ERP + CRM + Moliya": "ERP + CRM + финансы",
+      "Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.": "Система для управления всеми операционными задачами в одном приложении.",
+      "Konsalting": "Консалтинг",
+      "Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.": "Корпоративный сайт и аналитическая платформа для международной консалтинговой компании.",
+      "TradFi platforma": "TradFi-платформа",
+      "Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.": "Платформа институционального доступа к цифровым активам.",
+      "BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.": "Платформа глобальных оптовых поставок автозапчастей в ОАЭ.",
+      "Turizm": "Туризм",
+      "Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.": "Сайт с бронированием и маршрутами для туристического агентства.",
+      "G'oyadan ishga tushirishgacha": "От идеи до запуска",
+      "Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.": "Процесс, настроенный на скорость, качество и измеримый бизнес-результат.",
+      "Chuqur Audit": "Глубокий аудит",
+      "Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.": "Изучаем процессы изнутри: находим узкие места и лишние расходы и превращаем их в чёткие требования.",
+      "Dizayn va ishlab chiqish": "Дизайн и разработка",
+      "UI tizimlari va masshtablanuvchi injiniring.": "UI-системы и масштабируемая инженерия.",
+      "Ishga tushirish va o'sish": "Запуск и рост",
+      "Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.": "Оптимизация и долгосрочная поддержка.",
+      "Topshirilgan loyihalar": "Сданные проекты",
+      "Mamnun mijozlar": "Довольные клиенты",
+      "Bozordagi yillar": "Лет на рынке",
+      "Qamrab olingan mamlakatlar": "Стран охвата",
+      "Loyihangizni": "Начните свой проект",
+      "bugun": "сегодня",
+      "boshlang": "",
+      "Toshkent, O'zbekiston": "Ташкент, Узбекистан",
+      "Ijtimoiy tarmoqlar": "Социальные сети",
+      "Ismingiz": "Ваше имя",
+      "Ism familiya": "Имя и фамилия",
+      "Telefon raqam": "Номер телефона",
+      "Telegram username": "Telegram-username",
+      "Xabar yuborish": "Отправить заявку",
+      "24 soat ichida javob beramiz": "Ответим в течение 24 часов",
+      "Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li": "Avenir Soft — индивидуальный предприниматель Choriyev Xojiakbar Shuxrat O'g'li",
+      "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · Все права защищены",
+      "Maxfiylik siyosati": "Политика конфиденциальности",
+      "Foydalanish shartlari": "Условия использования",
+      "Menyu": "Меню",
+      "Boshqaruv paneli": "Обзор",
+      "Faol lidlar": "Активные лиды",
+      "Oylik tushum": "Выручка MTD",
+      "Jamoa yuklamasi": "Загрузка команды",
+      "Ishda": "В работе",
+      "Tekshiruvda": "На проверке",
+      "Yakunlandi": "Завершён",
+      "12 hafta · 48 mln": "12 недель · 48 млн",
+      "18 hafta · 126 mln": "18 недель · 126 млн",
+      "2-bosqich · 32 mln": "2-й этап · 32 млн",
+      "Topshirildi · 19 mln": "Сдан · 19 млн",
+      "Kanallar": "Каналы",
+      "Ko'rsatishlar": "Показы",
+      "Kliklar": "Клики",
+      "Lidlar": "Лиды",
+      "Mijozlar": "Клиенты",
+      "Hisob-fakturalar": "Счета",
+      "Xarajatlar": "Расходы",
+      "P&L hisobot": "P&L отчёт",
+      "Tushum · oy": "Выручка · мес",
+      "Xarajat · oy": "Расходы · мес",
+      "Foyda · oy": "Прибыль · мес",
+      "Debitorka": "Дебиторка",
+      "To'landi": "Оплачен",
+      "Yuborildi": "Отправлен",
+      "Muddati o'tdi": "Просрочен",
+      "Breynstorming": "Брейнсторминг",
+      "Referal dastur": "Реферальная программа",
+      "Video-keyslar": "Видео-кейсы",
+      "Narx kalkulyatori": "Калькулятор цены",
+      "SEO klaster": "SEO-кластер",
+      "Sessiya yakuni:": "Итоги сессии:",
+      "3 ta g'oya": "3 идеи",
+      "tanlandi va vazifaga aylantirildi": "выбраны и превращены в задачи",
+      "CRM va sotuv": "CRM и продажи",
+      "Voronkadagi lidlar": "Лиды в воронке",
+      "Voronka qiymati": "Стоимость воронки",
+      "Konversiya": "Конверсия",
+      "Yangi murojaat": "Новое обращение",
+      "Kvalifikatsiya": "Квалификация",
+      "Muzokara": "Переговоры",
+      "Bitim yopildi": "Сделка закрыта",
+      "Hisobotlar": "Отчёты",
+      "Tushum · 12 oy": "Выручка · 12 мес",
+      "Yo'nalishlar ulushi": "Доли направлений",
+      "ERP va CRM": "ERP и CRM",
+      "Botlar": "Боты",
+      "Tushum va xarajat · 6 oy": "Выручка и расходы · 6 мес",
+      "Jamoa": "Команда",
+      "Xodimlar": "Сотрудники",
+      "Bandlik": "Загрузка",
+      "Soat · oy": "Часы · мес",
+      "Loyiha rahbari": "Руководитель проектов",
+      "Bosh dizayner": "Ведущий дизайнер",
+      "Backend dasturchi": "Backend-разработчик",
+      "Sotuv menejeri": "Менеджер по продажам",
+      "Yan": "Янв",
+      "Fev": "Фев",
+      "Mar": "Мар",
+      "Apr": "Апр",
+      "May": "Май",
+      "Iyun": "Июн",
+      "Iyul": "Июл",
+      "Avg": "Авг",
+      "Sen": "Сен",
+      "Okt": "Окт",
+      "Noy": "Ноя",
+      "Dek": "Дек",
+      "Marja": "Маржа",
+      "O'rtacha chek": "Средний чек",
+      "Mijoz LTV": "LTV клиента",
+      "Tushum": "Выручка",
+      "Sayt": "Сайт",
+      "Loyihangiz ustida ishlaydigan odamlar": "Люди, которые будут работать над вашим проектом",
+      "Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.": "На каждом проекте одна и та же команда: те, кто проводит аудит, проектирует и запускает.",
+      "Ta'sischi va rahbar": "Основатель и руководитель",
+      "Ta'sischi": "Основатель",
+      "Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.": "Ведёт проект от первого разговора с клиентом до сдачи.",
+      "Strategiya · ERP · Mijozlar": "Стратегия · ERP · Клиенты",
+      "Operatsion direktor": "Операционный директор",
+      "Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.": "Держит сроки, бюджет и загрузку команды, каждую неделю присылает статус.",
+      "Jarayon · Rejalashtirish": "Процесс · Планирование",
+      "Texnik direktor": "Технический директор",
+      "Arxitektura va texnik yechimlar: tizim qanday qurilishi va yuklamaga qanday chidashi uning zimmasida.": "Архитектура и технические решения: как система устроена и как держит нагрузку.",
+      "Arxitektura · Infratuzilma": "Архитектура · Инфраструктура",
+      "Ishlab chiqish jarayoni va kod sifati: reliz, kod-revyu va texnik standartlar.": "Процесс разработки и качество кода: релизы, код-ревью и технические стандарты.",
+      "Ishlab chiqish · Sifat": "Разработка · Качество",
+      "Backend dasturchi": "Backend-разработчик",
+      "Server tomoni, ma'lumotlar bazasi va integratsiyalar — tizimning ichki qismi uning zimmasida.": "Серверная часть, база данных и интеграции — внутренняя часть системы на нём.",
+      "Backend · API · Integratsiya": "Backend · API · Интеграции",
+      "Keysni ochish": "Открыть кейс",
+      "Aylanmangiz": "Ваш оборот",
+      "Masalan: oyiga 300 mln": "Например: 300 млн/мес"
+    },
+    "en": {
+      "Loyihangiz bormi?": "Got a project?",
+      "Bog‘lanish": "Get in touch",
+      "Yopish": "Close",
+      "Yechimlar": "Solutions",
+      "Loyihalar": "Projects",
+      "Jarayon": "Process",
+      "Aloqa": "Contact",
+      "Avenir IT-agentligi": "Avenir IT agency",
+      "Biznesingizni": "We turn your business into a",
+      "raqamli": "digital",
+      "tizimga o'tkazamiz.": "system.",
+      "Sayt, CRM, ERP va Mobil Ilova — bir jamoada. G'oyadan ishga tushirishgacha, keyin esa o'sish va qo'llab-quvvatlash.": "Website, CRM, ERP and a mobile app — from one team. From idea to launch, then growth and support.",
+      "Loyihani boshlash": "Start a project",
+      "Ishlarimizni ko'rish": "See our work",
+      "Ochiq bitimlar": "Open deals",
+      "Oylik daromad": "Monthly revenue",
+      "Bajarilgan vazifa": "Tasks completed",
+      "Lidlar oqimi · 30 kun": "Lead flow · 30 days",
+      "mln": "M",
+      "Yangi lid": "New lead",
+      "VAC.UZ — korporativ sayt": "VAC.UZ — corporate website",
+      "hozir": "now",
+      "daq": "min",
+      "#2481 to’landi": "#2481 paid",
+      "Bitim bosqichi": "Deal stage",
+      "Yangi mijoz": "New client",
+      "Oylik P&L tayyor": "Monthly P&L ready",
+      "kompaniya bizga ishonadi": "companies trust us",
+      "Biznesingiz uchun raqamli yechimlar": "Digital solutions for your business",
+      "Har bir yo'nalish bo'yicha tayyor jamoa va ishlab chiqilgan jarayon.": "A ready team and a proven process for every direction.",
+      "Batafsil": "Learn more",
+      "CRM va ERP": "CRM and ERP",
+      "Sotuv, ombor va moliya — bitta tizimda": "Sales, inventory and finance — in one system",
+      "Bitim, hisob-faktura, ombor va jamoa — bir joyda. Har bir harakat tizimda o'zi qayd etiladi.": "Deals, invoices, inventory and the team — in one place. Every action is logged automatically.",
+      "Bitim": "Deal",
+      "Taklif yuborildi": "Proposal sent",
+      "VAC.UZ — korporativ sayt va hisob-kitob moduli": "VAC.UZ — corporate website and calculation module",
+      "Muddat: 12 hafta": "Term: 12 weeks",
+      "48 000 000 so'm": "48,000,000 UZS",
+      "Shartnoma": "Contract",
+      "Imzolandi": "Signed",
+      "APEC Asia UAE — ulgurji katalog platformasi": "APEC Asia UAE — wholesale catalogue platform",
+      "Muddat: 18 hafta": "Term: 18 weeks",
+      "126 400 000 so'm": "126,400,000 UZS",
+      "Hisob-faktura": "Invoice",
+      "To'lov kutilmoqda": "Awaiting payment",
+      "Yakov and Partners — analitik platforma, 2-bosqich": "Yakov and Partners — analytics platform, phase 2",
+      "Muddat: 5 kun": "Term: 5 days",
+      "32 000 000 so'm": "32,000,000 UZS",
+      "Ombor": "Inventory",
+      "Qabul qilindi": "Received",
+      "Ventilyatsiya kanali — 240 m · yetkazib beruvchi VAC": "Ventilation duct — 240 m · supplier VAC",
+      "Skladga kiritildi": "Added to stock",
+      "18 400 000 so'm": "18,400,000 UZS",
+      "Xarajat": "Expense",
+      "Tasdiqlandi": "Approved",
+      "Jamoa oyligi va litsenziyalar — iyul 2026": "Team payroll and licences — July 2026",
+      "Moliya bo'limi": "Finance department",
+      "74 200 000 so'm": "74,200,000 UZS",
+      "AI botlar": "AI bots",
+      "Buyruqni tushunadigan yordamchi": "An assistant that understands commands",
+      "Oddiy gap bilan so'raysiz — bot hisobotni tayyorlaydi, vazifani ochadi, javobni topadi.": "Ask in plain words — the bot builds the report, opens the task, finds the answer.",
+      "Kelasi haftadagi uchrashuvlarni ko'rsat": "Show next week's meetings",
+      "Tezkor": "Quick",
+      "Iyul oyidagi xarajatlar hisobotini tayyorla": "Prepare the July expense report",
+      "Hisobot": "Report",
+      "Qarzdor mijozlar ro'yxatini chiqar": "List the clients in arrears",
+      "Moliya": "Finance",
+      "Yangi lidga taklif xatini yoz": "Draft a proposal for the new lead",
+      "Sotuv": "Sales",
+      "Javob": "Answer",
+      "Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).": "Three meetings next week: VAC.UZ (Monday), APEC (Wednesday), Yakov (Friday).",
+      "Iyul xarajatlari — 74 200 000 so'm. Eng katta modda: jamoa oyligi (68%).": "July expenses — 74,200,000 UZS. Largest item: team payroll (68%).",
+      "4 ta qarzdor topildi, jami 41 800 000 so'm. Eng eskisi — 18 kun.": "Four debtors found, 41,800,000 UZS in total. The oldest is 18 days.",
+      "Taklif xati tayyor — 2 sahifa, narx jadvali bilan. Yuborishga tayyor.": "The proposal is ready — two pages with a price table. Ready to send.",
+      "Veb saytlar": "Websites",
+      "Ishonch uyg'otadigan va sotadigan sayt": "A site that earns trust and sells",
+      "Korporativ sayt, landing va e-commerce. Tez yuklanadi, qidiruvda topiladi, mobilda qulay.": "Corporate sites, landing pages and e-commerce. Fast to load, easy to find in search, comfortable on mobile.",
+      "Telegram bot va mini-app": "Telegram bot and mini app",
+      "Mijoz Telegramdan chiqmasdan buyurtma beradi": "Customers order without leaving Telegram",
+      "Katalog, to'lov va CRM ga ulanish — bir oynada. Mini-app bilan to'liq interfeys.": "Catalogue, payment and CRM sync — in one window. A full interface with the mini app.",
+      "onlayn": "online",
+      "Assalomu alaykum! Nima qilishim mumkin?": "Hello! How can I help?",
+      "Buyurtma berish": "Place an order",
+      "Katalog": "Catalogue",
+      "Holat": "Status",
+      "Operator": "Operator",
+      "Ventilyatsiya kanali, 24 m": "Ventilation duct, 24 m",
+      "Qabul qilindi. Buyurtma #4821 · bugun 18:00 gacha yetkaziladi.": "Got it. Order #4821 · delivered today by 18:00.",
+      "To'lov qilish": "Pay",
+      "Manzilni o'zgartirish": "Change address",
+      "To'lov qildim": "I've paid",
+      "To'lov tasdiqlandi — 7 400 000 so'm. Chek yuborildi.": "Payment confirmed — 7,400,000 UZS. Receipt sent.",
+      "CRM da bitim avtomatik yopildi.": "The deal in CRM closed automatically.",
+      "Katalogni ko'rsat": "Show the catalogue",
+      "Mini-app ochildi: 142 ta pozitsiya, narxlar CRM dan.": "Mini app opened: 142 items, prices from CRM.",
+      "Mini-app ochish": "Open mini app",
+      "Qidirish": "Search",
+      "Mobil ilovalar": "Mobile apps",
+      "Android va iOS uchun barqaror ilova": "A stable app for Android and iOS",
+      "Push, oflayn rejim va ichki tizimlaringizga ulanish — bitta kod bazasidan.": "Push, offline mode and integration with your systems — from a single codebase.",
+      "Yangi bitim": "New deal",
+      "VAC.UZ — taklif yuborildi": "VAC.UZ — proposal sent",
+      "To'lov qabul qilindi": "Payment received",
+      "#2481 · 32 000 000 so'm": "#2481 · 32,000,000 UZS",
+      "3 daq": "3 min",
+      "Vazifa yopildi": "Task closed",
+      "Dizayn sprint · 12/12": "Design sprint · 12/12",
+      "12 daq": "12 min",
+      "Eslatma": "Reminder",
+      "Shartnoma 3 kunda tugaydi": "Contract expires in 3 days",
+      "1 soat": "1 h",
+      "Hisobot tayyor": "Report ready",
+      "Iyul oyi P&L": "July P&L",
+      "2 soat": "2 h",
+      "Haqiqiy natija bergan mahsulotlar": "Products that delivered real results",
+      "Ishlab chiqarish · ERP": "Manufacturing · ERP",
+      "Ventilyatsiya kanal ishlab chiqaruvchi kompaniya uchun sayt va hisob-kitob tizimi.": "A website and calculation system for a ventilation duct manufacturer.",
+      "ERP + CRM + Moliya": "ERP + CRM + Finance",
+      "Barcha operatsion vazifalarni yagona ilovada boshqarish uchun tizim.": "A system to run all operational work in a single app.",
+      "Konsalting": "Consulting",
+      "Xalqaro konsalting kompaniyasi uchun korporativ sayt va analitik platforma.": "A corporate website and analytics platform for an international consulting firm.",
+      "TradFi platforma": "TradFi platform",
+      "Raqamli aktivlarga institutsional kirish imkonini beruvchi platforma.": "A platform for institutional access to digital assets.",
+      "BAA da global ulgurji avto ehtiyot qismlari yetkazib berish platformasi.": "A global wholesale auto parts supply platform based in the UAE.",
+      "Turizm": "Tourism",
+      "Tur agentligi uchun bronirovanie va marshrutlarni ko'rsatuvchi sayt.": "A booking and itinerary website for a travel agency.",
+      "G'oyadan ishga tushirishgacha": "From idea to launch",
+      "Tezlik, sifat va aniq biznes natijalari uchun moslashtirilgan jarayon.": "A process tuned for speed, quality and measurable business results.",
+      "Chuqur Audit": "Deep audit",
+      "Jarayonlarni ichidan o'rganamiz: to'siq va ortiqcha xarajatlarni topib, aniq talablarga aylantiramiz.": "We study your processes from the inside: we find bottlenecks and wasted spend, and turn them into clear requirements.",
+      "Dizayn va ishlab chiqish": "Design and development",
+      "UI tizimlari va masshtablanuvchi injiniring.": "UI systems and scalable engineering.",
+      "Ishga tushirish va o'sish": "Launch and growth",
+      "Optimizatsiya va uzoq muddatli qo'llab-quvvatlash.": "Optimisation and long-term support.",
+      "Topshirilgan loyihalar": "Projects delivered",
+      "Mamnun mijozlar": "Happy clients",
+      "Bozordagi yillar": "Years on the market",
+      "Qamrab olingan mamlakatlar": "Countries covered",
+      "Loyihangizni": "Start your project",
+      "bugun": "today",
+      "boshlang": "",
+      "Toshkent, O'zbekiston": "Tashkent, Uzbekistan",
+      "Ijtimoiy tarmoqlar": "Social media",
+      "Ismingiz": "Your name",
+      "Ism familiya": "First and last name",
+      "Telefon raqam": "Phone number",
+      "Telegram username": "Telegram username",
+      "Xabar yuborish": "Send message",
+      "24 soat ichida javob beramiz": "We reply within 24 hours",
+      "Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li": "Avenir Soft — sole proprietor Choriyev Xojiakbar Shuxrat O'g'li",
+      "© 2026 Avenir.uz · Barcha huquqlar himoyalangan": "© 2026 Avenir.uz · All rights reserved",
+      "Maxfiylik siyosati": "Privacy policy",
+      "Foydalanish shartlari": "Terms of use",
+      "Menyu": "Menu",
+      "Boshqaruv paneli": "Overview",
+      "Faol lidlar": "Active leads",
+      "Oylik tushum": "Revenue MTD",
+      "Jamoa yuklamasi": "Team utilisation",
+      "Ishda": "In progress",
+      "Tekshiruvda": "In review",
+      "Yakunlandi": "Done",
+      "12 hafta · 48 mln": "12 weeks · 48M",
+      "18 hafta · 126 mln": "18 weeks · 126M",
+      "2-bosqich · 32 mln": "phase 2 · 32M",
+      "Topshirildi · 19 mln": "Delivered · 19M",
+      "Kanallar": "Channels",
+      "Ko'rsatishlar": "Impressions",
+      "Kliklar": "Clicks",
+      "Lidlar": "Leads",
+      "Mijozlar": "Clients",
+      "Hisob-fakturalar": "Invoices",
+      "Xarajatlar": "Expenses",
+      "P&L hisobot": "P&L report",
+      "Tushum · oy": "Revenue · MTD",
+      "Xarajat · oy": "Expenses · MTD",
+      "Foyda · oy": "Profit · MTD",
+      "Debitorka": "Receivables",
+      "To'landi": "Paid",
+      "Yuborildi": "Sent",
+      "Muddati o'tdi": "Overdue",
+      "Breynstorming": "Brainstorming",
+      "Referal dastur": "Referral programme",
+      "Video-keyslar": "Video cases",
+      "Narx kalkulyatori": "Price calculator",
+      "SEO klaster": "SEO cluster",
+      "Sessiya yakuni:": "Session results:",
+      "3 ta g'oya": "3 ideas",
+      "tanlandi va vazifaga aylantirildi": "picked and turned into tasks",
+      "CRM va sotuv": "CRM and sales",
+      "Voronkadagi lidlar": "Leads in pipeline",
+      "Voronka qiymati": "Pipeline value",
+      "Konversiya": "Conversion",
+      "Yangi murojaat": "New enquiry",
+      "Kvalifikatsiya": "Qualification",
+      "Muzokara": "Negotiation",
+      "Bitim yopildi": "Deal won",
+      "Hisobotlar": "Reports",
+      "Tushum · 12 oy": "Revenue · 12 months",
+      "Yo'nalishlar ulushi": "Revenue by line",
+      "ERP va CRM": "ERP and CRM",
+      "Botlar": "Bots",
+      "Tushum va xarajat · 6 oy": "Revenue and expenses · 6 months",
+      "Jamoa": "Team",
+      "Xodimlar": "Employees",
+      "Bandlik": "Utilisation",
+      "Soat · oy": "Hours · month",
+      "Loyiha rahbari": "Project manager",
+      "Bosh dizayner": "Lead designer",
+      "Backend dasturchi": "Backend developer",
+      "Sotuv menejeri": "Sales manager",
+      "Yan": "Jan",
+      "Fev": "Feb",
+      "Mar": "Mar",
+      "Apr": "Apr",
+      "May": "May",
+      "Iyun": "Jun",
+      "Iyul": "Jul",
+      "Avg": "Aug",
+      "Sen": "Sep",
+      "Okt": "Oct",
+      "Noy": "Nov",
+      "Dek": "Dec",
+      "Marja": "Margin",
+      "O'rtacha chek": "Average deal",
+      "Mijoz LTV": "Client LTV",
+      "Tushum": "Revenue",
+      "Sayt": "Website",
+      "Loyihangiz ustida ishlaydigan odamlar": "The people who will work on your project",
+      "Har bir loyihada bir xil jamoa: auditni o'tkazadigan, dizayn qiladigan va ishga tushiradigan odamlar.": "The same team on every project: the people who run the audit, design it and ship it.",
+      "Ta'sischi va rahbar": "Founder and director",
+      "Ta'sischi": "Founder",
+      "Mijoz bilan birinchi suhbatdan tortib topshirishgacha loyihani olib boradi.": "Runs the project from the first client conversation to hand-off.",
+      "Strategiya · ERP · Mijozlar": "Strategy · ERP · Clients",
+      "Operatsion direktor": "Chief operating officer",
+      "Muddat, byudjet va jamoa yuklamasini nazorat qiladi, har hafta holatni yetkazadi.": "Keeps deadlines, budget and team load in check, and reports status every week.",
+      "Jarayon · Rejalashtirish": "Process · Planning",
+      "Texnik direktor": "Chief technology officer",
+      "Arxitektura va texnik yechimlar: tizim qanday qurilishi va yuklamaga qanday chidashi uning zimmasida.": "Architecture and technical decisions: how the system is built and how it holds under load.",
+      "Arxitektura · Infratuzilma": "Architecture · Infrastructure",
+      "Ishlab chiqish jarayoni va kod sifati: reliz, kod-revyu va texnik standartlar.": "The development process and code quality: releases, code review and technical standards.",
+      "Ishlab chiqish · Sifat": "Development · Quality",
+      "Backend dasturchi": "Backend developer",
+      "Server tomoni, ma'lumotlar bazasi va integratsiyalar — tizimning ichki qismi uning zimmasida.": "The server side, the database and integrations — the inside of the system is on them.",
+      "Backend · API · Integratsiya": "Backend · API · Integrations",
+      "Keysni ochish": "Open the case",
+      "Aylanmangiz": "Your turnover",
+      "Masalan: oyiga 300 mln": "e.g. 300M UZS / month"
+    }
+  };
+
+  var lang = 'uz';
+  try { var svLang = localStorage.getItem('avenir-language'); if (LANGS.indexOf(svLang) > -1) lang = svLang; } catch (e) {}
+
+  function norm(v) { return String(v).trim().replace(/\s+/g, ' '); }
+  function tr(v) {
+    if (lang === 'uz') return v;
+    var d = I18N[lang]; if (!d) return v;
+    var k = norm(v);
+    return Object.prototype.hasOwnProperty.call(d, k) ? d[k] : v;
+  }
+
+  /* matn tugunlarini yig'ish (sarlavhalar ichi bundan mustasno — ular alohida) */
+  function collectNodes(root, skipSplit) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while ((n = w.nextNode())) {
+      if (!n.nodeValue || !/\S/.test(n.nodeValue)) continue;
+      var p = n.parentNode;
+      if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
+      if (skipSplit && p.closest && p.closest('[data-split]')) continue;
+      if (p.closest && p.closest('[data-no-i18n]')) continue;   /* til nomlari tarjima qilinmaydi */
+      out.push({ n: n, uz: n.nodeValue });
+    }
+    return out;
+  }
+
+  function paintNodes(list) {
+    for (var i = 0; i < list.length; i++) {
+      var it = list[i], raw = it.uz;
+      if (lang === 'uz') { it.n.nodeValue = raw; continue; }
+      var key = norm(raw), out = tr(key);
+      if (out === key) { it.n.nodeValue = raw; continue; }
+      it.n.nodeValue = raw.match(/^\s*/)[0] + out + raw.match(/\s*$/)[0];
+    }
+  }
+
+  var i18nRoots = ['#top', '#drawer', 'main', 'footer', '#cta']
+    .map(function (q) { return document.querySelector(q); }).filter(Boolean);
+  var baseNodes = [];
+  i18nRoots.forEach(function (r) { baseNodes = baseNodes.concat(collectNodes(r, true)); });
+
+  /* sarlavhalar: asl razmetkasi eslab qolinadi */
+  var splitEls = Array.prototype.slice.call(document.querySelectorAll('[data-split]'))
+    .map(function (h) { return { el: h, html: h.innerHTML }; });
+
+  /* atributlar */
+  var i18nAttrs = [];
+  [['#fn', 'placeholder'], ['#fo', 'placeholder'], ['#burger', 'aria-label'], ['#ctaX', 'aria-label'],
+   ['#ctaFab', 'aria-label'], ['[data-suffix]', 'data-suffix']].forEach(function (pair) {
+    document.querySelectorAll(pair[0]).forEach(function (el) {
+      var v = el.getAttribute(pair[1]);
+      if (v) i18nAttrs.push({ el: el, a: pair[1], uz: v });
+    });
+  });
+
+  /* ---------- telefon maketidagi soat: haqiqiy vaqt ----------
+     Intl o'rniga qo'lda jadval: o'zbekcha "21-avgust" ko'rinishini brauzer
+     locale ma'lumotidan ishonchli olib bo'lmaydi. */
+  var PH_DAY = {
+    uz: ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
+    ru: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  };
+  var PH_MONTH = {
+    uz: ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust',
+         'sentabr', 'oktabr', 'noyabr', 'dekabr'],
+    ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа',
+         'сентября', 'октября', 'ноября', 'декабря'],
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+         'September', 'October', 'November', 'December']
+  };
+  var phTimer = null;
+
+  function paintPhoneClock() {
+    var clock = document.querySelector('.ph__clock');
+    if (!clock) return;
+
+    var now = new Date();
+    var time = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+    clock.textContent = time;
+
+    var status = document.querySelector('.ph__now');
+    if (status) status.textContent = time;
+
+    var date = document.querySelector('.ph__date');
+    if (date) {
+      var l = PH_DAY[lang] ? lang : 'uz';
+      var d = now.getDate(), day = PH_DAY[l][now.getDay()], month = PH_MONTH[l][now.getMonth()];
+      date.textContent = day + ', ' + (l === 'uz' ? d + '-' + month : d + ' ' + month);
+    }
+
+    /* keyingi daqiqa boshida qayta chizamiz — har sekundda tekshirish shart emas */
+    clearTimeout(phTimer);
+    phTimer = setTimeout(paintPhoneClock, (60 - now.getSeconds()) * 1000 + 250);
+  }
+
+  /* fonda turgan varaqda taymer sekinlashadi — qaytganda darrov yangilaymiz */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) paintPhoneClock();
+  });
+
+  function applyLang(l) {
+    if (LANGS.indexOf(l) < 0) l = 'uz';
+    lang = l;
+    document.documentElement.setAttribute('lang', l);
+
+    paintNodes(baseNodes);
+    splitEls.forEach(function (s) {
+      s.el.innerHTML = s.html;                 /* asl (o'zbekcha) holat */
+      paintNodes(collectNodes(s.el, false));
+      splitOne(s.el);
+    });
+    i18nAttrs.forEach(function (at) {
+      var raw = at.uz, prev = at.el.getAttribute(at.a), val = raw;
+      if (lang !== 'uz') {
+        var key = norm(raw), out = tr(key);
+        if (out !== key) val = raw.match(/^\s*/)[0] + out + raw.match(/\s*$/)[0];
+      }
+      at.el.setAttribute(at.a, val);
+      /* jonli raqamning qo'shimchasi keyingi kadrni kutib turmasin */
+      if (at.a === 'data-suffix' && prev && prev !== val) {
+        var txt = at.el.textContent;
+        if (txt.slice(-prev.length) === prev) at.el.textContent = txt.slice(0, -prev.length) + val;
+      }
+    });
+
+    /* eski tildagi lenta qatorlari qolib ketmasin — o'zi qaytadan to'ladi */
+    document.querySelectorAll('[data-feed]').forEach(function (f) { f.innerHTML = ''; });
+
+    document.querySelectorAll('.lang').forEach(function (box) {
+      var cur = box.querySelector('.lang__cur');
+      if (cur) cur.textContent = lang.toUpperCase();
+      box.querySelectorAll('.lang__menu li').forEach(function (li) {
+        var b = li.querySelector('button');
+        li.setAttribute('aria-selected', String(!!b && b.getAttribute('data-lang') === lang));
+      });
+    });
+
+    paintPhoneClock();
+  }
+
+  applyLang(lang);
+
+  /* ---------- sarlavhalarni so'zlarga bo'lish ----------
+     tilni almashtirganda sarlavha asl holatiga qaytarilib, qaytadan bo'linadi */
+  function splitOne(h) {
+    var frag = document.createDocumentFragment(), i = 0;
+    Array.prototype.slice.call(h.childNodes).forEach(function (node) {
+      if (node.nodeType === 3) {
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part.trim()) { if (part) frag.appendChild(document.createTextNode(part)); return; }
+          var m = document.createElement('span'); m.className = 'mask';
+          var inner = document.createElement('i'); inner.textContent = part;
+          inner.style.setProperty('--wd', (i++ * 70) + 'ms');
+          m.appendChild(inner); frag.appendChild(m);
+        });
+      } else {
+        var m2 = document.createElement('span'); m2.className = 'mask';
+        var in2 = document.createElement('i'); in2.style.setProperty('--wd', (i++ * 70) + 'ms');
+        in2.appendChild(node.cloneNode(true)); m2.appendChild(in2); frag.appendChild(m2);
+      }
+    });
+    h.textContent = ''; h.appendChild(frag);
+  }
+
+  /* ---------- odometr ---------- */
+  document.querySelectorAll('[data-od]').forEach(function (el) {
+    var val = el.getAttribute('data-od'), sup = el.getAttribute('data-sup');
+    val.split('').forEach(function (d) {
+      var wrap = document.createElement('span'); wrap.className = 'od__d';
+      var roll = document.createElement('u');
+      for (var n = 0; n <= 9; n++) { var g = document.createElement('i'); g.textContent = String(n); roll.appendChild(g); }
+      roll.setAttribute('data-to', d); wrap.appendChild(roll); el.appendChild(wrap);
+    });
+    if (sup) { var s = document.createElement('sup'); s.textContent = sup; el.appendChild(s); }
+  });
+  function rollOd(el) {
+    Array.prototype.slice.call(el.querySelectorAll('u')).forEach(function (u, i) {
+      var to = parseInt(u.getAttribute('data-to'), 10);
+      setTimeout(function () { u.style.transform = 'translateY(-' + to + 'em)'; }, i * 110);
+    });
+  }
+
+  /* ---------- ochilish ---------- */
+  var io;
+  function startReveals() {
+    io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        (function (t) { setTimeout(function () { t.classList.add('unmask'); }, 1400); })(e.target);
+        if (e.target.classList.contains('nums__c')) { var od = e.target.querySelector('[data-od]'); if (od) rollOd(od); }
+        if (e.target.classList.contains('sol__c') || e.target.classList.contains('gc')) e.target.classList.add('is-play');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rise, [data-split], .nums__c, .sol__c, .center, .final')
+      .forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- kirish ---------- */
+  var intro = document.getElementById('intro'), hero = document.querySelector('.hero'), done = false;
+  function endIntro() {
+    if (done) return; done = true;
+    intro.classList.add('is-out');
+    document.body.classList.remove('intro-on');
+    setTimeout(function () { if (intro.parentNode) intro.parentNode.removeChild(intro); }, 650);
+    hero.classList.add('is-in');
+    setTimeout(function () { hero.classList.add('unmask'); }, 1500);
+    startReveals();
+  }
+  if (intro) {
+    if (reduce) {
+      if (intro.parentNode) intro.parentNode.removeChild(intro);
+      document.body.classList.remove('intro-on'); done = true;
+      hero.classList.add('is-in'); startReveals();
+    } else {
+      document.body.classList.add('intro-on');
+      setTimeout(endIntro, 1350);
+      intro.addEventListener('click', endIntro);
+      window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === ' ') endIntro(); });
+    }
+  } else { hero.classList.add('is-in'); startReveals(); }
+
+  /* ---------- kursor ---------- */
+  if (fine && !reduce) {
+    var cur = document.getElementById('cur'), cx = -60, cy = -60, tx = -60, ty = -60;
+    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest ? e.target.closest('a, button, input, label') : null;
+      cur.classList.toggle('is-big', !!t);
+      cur.classList.remove('is-hidden');
+    });
+    document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) cur.classList.add('is-hidden'); });
+    window.addEventListener('blur', function () { cur.classList.add('is-hidden'); });
+    window.addEventListener('focus', function () { cur.classList.remove('is-hidden'); });
+
+    (function loop() {
+      cx += (tx - cx) * 0.24; cy += (ty - cy) * 0.24;
+      cur.style.setProperty('--cx', cx.toFixed(1) + 'px');
+      cur.style.setProperty('--cy', cy.toFixed(1) + 'px');
+      requestAnimationFrame(loop);
+    })();
+  }
+
+
+
+  /* ---------- hero kartasi qiyshayadi ---------- */
+  var tilt = document.getElementById('tilt');
+  if (tilt && fine && !reduce) {
+    var wrap = tilt.closest('.tiltwrap');
+    wrap.addEventListener('mousemove', function (e) {
+      var r = tilt.getBoundingClientRect();
+      tilt.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 8).toFixed(2) + 'deg');
+      tilt.style.setProperty('--rx', ((0.5 - (e.clientY - r.top) / r.height) * 6).toFixed(2) + 'deg');
+    });
+    wrap.addEventListener('mouseleave', function () {
+      tilt.style.setProperty('--ry', '0deg'); tilt.style.setProperty('--rx', '0deg');
+    });
+  }
+
+  /* ---------- jonli maketlar ---------- */
+  var heroVis = true, trustVis = true;
+  (function () {
+    var h = document.querySelector('.hero'), t = document.querySelector('.trust');
+    if (h) new IntersectionObserver(function (es) { es.forEach(function (e) { heroVis = e.isIntersecting; }); }, { rootMargin: '200px' }).observe(h);
+    if (t) new IntersectionObserver(function (es) { es.forEach(function (e) { trustVis = e.isIntersecting; }); }, { rootMargin: '200px' }).observe(t);
+  })();
+
+  if (!reduce) {
+    var nums = Array.prototype.slice.call(document.querySelectorAll('[data-live]')).map(function (el) {
+      var v = parseFloat(el.getAttribute('data-live'));
+      return { el: el, cur: v, from: v, to: v, t: 1, t0: 0, dur: 1500,
+        min: parseFloat(el.getAttribute('data-min')), max: parseFloat(el.getAttribute('data-max')),
+        dec: parseInt(el.getAttribute('data-dec') || '0', 10), sfx: el.getAttribute('data-suffix') || '' };
+    });
+    var nextNum = 0;
+    function retarget(n, now) {
+      var sp = n.max - n.min, nx = n.cur + (Math.random() - 0.45) * sp * 0.32;
+      if (nx < n.min) nx = n.min + Math.random() * sp * 0.2;
+      if (nx > n.max) nx = n.max - Math.random() * sp * 0.2;
+      n.from = n.cur; n.to = nx; n.t = 0; n.t0 = now; n.dur = 1300 + Math.random() * 900;
+    }
+
+    var charts = Array.prototype.slice.call(document.querySelectorAll('[data-chart]')).map(function (svg) {
+      var N = 26, vals = [];
+      for (var i = 0; i <= N; i++) vals.push(0.35 + Math.random() * 0.4);
+      return { N: N, vals: vals, t: 0, step: 950, last: 0,
+        area: svg.querySelector('.lc__area'), line: svg.querySelector('.lc__line'),
+        dot: svg.querySelector('.lc__dot'), halo: svg.querySelector('.lc__halo') };
+    });
+    function drawChart(c) {
+      var W = 300, H = 92, dx = W / (c.N - 1), d = '', pts = [];
+      for (var i = 0; i <= c.N; i++) {
+        var x = (i - c.t) * dx, y = H - 6 - c.vals[i] * (H - 20);
+        pts.push([x, y]); d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+      }
+      c.line.setAttribute('d', d);
+      c.area.setAttribute('d', d + 'L' + pts[c.N][0].toFixed(1) + ' ' + H + 'L' + pts[0][0].toFixed(1) + ' ' + H + 'Z');
+      var a = pts[c.N - 1], b = pts[c.N], k = (W - a[0]) / Math.max(0.001, b[0] - a[0]);
+      var ey = a[1] + (b[1] - a[1]) * Math.min(1, Math.max(0, k));
+      c.dot.setAttribute('cx', W); c.dot.setAttribute('cy', ey.toFixed(1));
+      c.halo.setAttribute('cx', W); c.halo.setAttribute('cy', ey.toFixed(1));
+    }
+
+    var items = [
+      ['Yangi lid', 'VAC.UZ — korporativ sayt'], ['Hisob-faktura', '#2481 to’landi'],
+      ['Vazifa yopildi', 'Dizayn sprint · 12/12'], ['Bitim bosqichi', 'Taklif yuborildi'],
+      ['Yangi mijoz', 'APEC Asia UAE'], ['Hisobot', 'Oylik P&L tayyor']
+    ];
+    var feeds = Array.prototype.slice.call(document.querySelectorAll('[data-feed]')), fi = 0, nextFeed = 0;
+    function pushFeed() {
+      feeds.forEach(function (f) {
+        var it = items[fi % items.length], row = document.createElement('div');
+        row.className = 'feed__row';
+        row.innerHTML = '<i></i><b>' + tr(it[0]) + '</b>' + tr(it[1]) + '<span>' + tr('hozir') + '</span>';
+        f.insertBefore(row, f.firstChild);
+        var rows = f.querySelectorAll('.feed__row');
+        for (var i = 3; i < rows.length; i++) rows[i].remove();
+        var st = f.querySelectorAll('.feed__row span');
+        for (var j = 1; j < st.length; j++) st[j].textContent = j + ' ' + tr('daq');
+      });
+      fi++;
+    }
+
+    var bars = Array.prototype.slice.call(document.querySelectorAll('.m-chart')), nextBars = 0;
+    function morph() {
+      bars.forEach(function (set) {
+        Array.prototype.slice.call(set.children).forEach(function (b, i) {
+          setTimeout(function () { b.style.setProperty('--h', (26 + Math.random() * 68).toFixed(0) + '%'); }, i * 60);
+        });
+      });
+    }
+
+    requestAnimationFrame(function loop(now) {
+      if (!heroVis) { requestAnimationFrame(loop); return; }   /* ko'rinmasa — hisoblamaymiz */
+      if (now > nextNum) { nums.forEach(function (n) { retarget(n, now); }); nextNum = now + 3600; }
+      nums.forEach(function (n) {
+        if (n.t >= 1) return;
+        var p = Math.min(1, (now - n.t0) / n.dur); n.t = p;
+        var e = 1 - Math.pow(1 - p, 3);
+        n.cur = n.from + (n.to - n.from) * e;
+        var txt = n.cur.toFixed(n.dec);
+        /* mingliklarni ajratamiz — ERP dagidek "1 284" */
+        var dot = txt.indexOf('.'), head = dot < 0 ? txt : txt.slice(0, dot), tail = dot < 0 ? '' : txt.slice(dot);
+        if (head.length > 3) head = head.replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
+        n.el.textContent = head + tail + (n.el.getAttribute('data-suffix') || '');
+      });
+      charts.forEach(function (c) {
+        if (!c.last) c.last = now;
+        c.t += (now - c.last) / c.step; c.last = now;
+        while (c.t >= 1) {
+          c.t -= 1; c.vals.shift();
+          var pv = c.vals[c.vals.length - 1];
+          c.vals.push(Math.min(0.92, Math.max(0.08, pv + (Math.random() - 0.5) * 0.26 + (0.5 - pv) * 0.12)));
+        }
+        drawChart(c);
+      });
+      if (now > nextFeed) { pushFeed(); nextFeed = now + 3400; }
+      if (now > nextBars) { morph(); nextBars = now + 3200; }
+      requestAnimationFrame(loop);
+    });
+  }
+
+  /* ---------- kartalar ichidagi holatlar navbat bilan almashadi ---------- */
+  var POS = ['p0', 'p1', 'p2', 'p3', 'px'];
+  function setPos(el, cls) {
+    for (var q = 0; q < POS.length; q++) el.classList.remove(POS[q]);
+    el.classList.add(cls);
+  }
+
+  document.querySelectorAll('[data-cyc]').forEach(function (c, ci) {
+    var items = Array.prototype.slice.call(c.children);
+    var n = items.length;
+    if (!n) return;
+
+    /* shu kartadagi bog'liq bloklar — javob matni, URL va h.k. */
+    var host = c.closest('.sol__c');
+    var links = host ? Array.prototype.slice.call(host.querySelectorAll('[data-cyc-link]')) : [];
+    var i = 0;
+
+    function place() {
+      for (var k = 0; k < n; k++) {
+        var d = (i - k + n) % n;              /* 0 — oldinda, 1..3 — orqada */
+        setPos(items[k], d < 4 ? 'p' + d : 'px');
+      }
+      links.forEach(function (lk) {
+        var kids = Array.prototype.slice.call(lk.children);
+        for (var m = 0; m < kids.length; m++) {
+          var dd = (i - m + kids.length) % kids.length;
+          setPos(kids[m], dd === 0 ? 'p0' : 'px');
+        }
+      });
+    }
+    place();
+
+    if (reduce || n < 2) return;
+    setTimeout(function () {
+      setInterval(function () {
+        var r = c.getBoundingClientRect();
+        if (r.bottom < -260 || r.top > window.innerHeight + 260) return;   /* ko'rinmasa — tinch */
+        i = (i + 1) % n;
+        place();
+      }, 3400);
+    }, ci * 540);
+  });
+
+  /* ---------- hero maketi: ERP modullari navbat bilan almashadi ---------- */
+  (function () {
+    var wrap = document.querySelector('[data-screens]');
+    if (!wrap) return;
+    var scr = Array.prototype.slice.call(wrap.children);
+    var icons = Array.prototype.slice.call(document.querySelectorAll('.dash__ico'));
+    var urls = Array.prototype.slice.call(document.querySelectorAll('.stage__url i'));
+    var stage = document.querySelector('.stage');
+    if (scr.length < 2 || reduce) return;
+    var cur = 0;
+    function fit() { wrap.style.height = scr[cur].offsetHeight + 'px'; }
+    function show(n) {
+      cur = n;
+      for (var k = 0; k < scr.length; k++) scr[k].classList.toggle('is-on', k === n);
+      for (var m = 0; m < icons.length; m++) icons[m].classList.toggle('is-on', m === n);
+      for (var u = 0; u < urls.length; u++) urls[u].classList.toggle('is-on', u === n);
+      fit();
+    }
+    /* shrift yuklangach o'lchov o'zgaradi — bir necha marta qayta o'lchaymiz */
+    fit();
+    window.addEventListener('load', fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    setTimeout(fit, 600); setTimeout(fit, 1600);
+    /* lenta yangi qator qo'shsa yoki matn qayta o'ralsa — balandlik ergashsin */
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { fit(); });
+      scr.forEach(function (x) { ro.observe(x); });
+    }
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fit, 120); }, { passive: true });
+    setInterval(function () {
+      var r = stage.getBoundingClientRect();
+      if (r.bottom < 60 || r.top > window.innerHeight - 60) return;   /* ko'rinmasa — turaveradi */
+      show((cur + 1) % scr.length);
+    }, 4600);
+  })();
+
+  /* ---------- jamoa akkordeoni ---------- */
+  (function () {
+    var wrap = document.querySelector('.crew');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-team]'));
+    if (!wrap || cards.length < 2) return;
+    var wide = window.matchMedia('(min-width: 861px)');
+    function open(c) {
+      if (!wide.matches) return;
+      cards.forEach(function (x) { x.classList.toggle('is-on', x === c); });
+    }
+    cards.forEach(function (c) {
+      c.addEventListener('mouseenter', function () { open(c); });
+      c.addEventListener('focus', function () { open(c); });
+      /* sensorli ekran uchun — bosilganda ochiladi va ochiq qoladi */
+      c.addEventListener('click', function () { open(c); });
+    });
+    /* kursor jamoa blokidan chiqsa — hamma panel yopiladi */
+    wrap.addEventListener('mouseleave', function () {
+      if (!wide.matches) return;
+      cards.forEach(function (x) { x.classList.remove('is-on'); });
+    });
+  })();
+
+  /* ---------- tasma ---------- */
+  var mq = document.getElementById('mq'), off = 0, half = 0, boost = 0;
+  function measure() { if (mq) half = mq.scrollWidth / 2; }
+  measure(); window.addEventListener('resize', measure);
+  (function tick() {
+    if (!reduce && half && mq && trustVis) {
+      off -= 0.6 + boost; boost *= 0.92;
+      if (-off >= half) off += half;
+      mq.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- scroll ---------- */
+  var top = document.getElementById('top');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[data-sec]'));
+  var secs = Array.prototype.slice.call(document.querySelectorAll('[data-sec]'));
+  var lastY = window.scrollY, ticking = false;
+  function onFrame() {
+    var y = window.scrollY, dy = y - lastY;
+    top.classList.toggle('is-stuck', y > 24);
+    top.classList.toggle('is-away', dy > 4 && y > 500);
+    var mid = y + window.innerHeight * 0.4, cur = '';
+    secs.forEach(function (s) { if (s.offsetTop <= mid) cur = s.getAttribute('data-sec'); });
+    links.forEach(function (a) { a.classList.toggle('is-on', a.getAttribute('data-sec') === cur); });
+    boost = Math.min(9, Math.abs(dy) * 0.35);
+    lastY = y; ticking = false;
+  }
+  window.addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(onFrame); }, { passive: true });
+
+  /* ---------- shisha tugmalar ---------- */
+  document.querySelectorAll('.btn').forEach(function (b) {
+    b.addEventListener('mousemove', function (e) {
+      var r = b.getBoundingClientRect();
+      b.style.setProperty('--gx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
+      b.style.setProperty('--gy', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
+    });
+  });
+
+  /* ---------- menyu / til ---------- */
+  var burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function () {
+    var open = drawer.classList.toggle('is-open');
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  drawer.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      drawer.classList.remove('is-open'); burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.querySelectorAll('.lang').forEach(function (box) {
+    var trigger = box.querySelector('.lang__btn');
+    if (!trigger) return;
+
+    function close() { box.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); }
+    function toggle() {
+      var open = !box.classList.contains('is-open');
+      box.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+    }
+
+    trigger.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+    box.querySelectorAll('.lang__menu button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-lang');
+        close();
+        if (!l || l === lang) return;
+        applyLang(l);
+        try { localStorage.setItem('avenir-language', l); } catch (e) {}
+      });
+    });
+
+    document.addEventListener('click', function (e) { if (!box.contains(e.target)) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  });
+})();
+</script>
+<script>
+/* ---------- pastdagi yopishqoq CTA ---------- */
+(function () {
+  var bar = document.getElementById('cta');
+  if (!bar) return;
+
+  var hero = document.querySelector('.hero');
+  var aloqa = document.getElementById('aloqa');
+  var drawer = document.getElementById('drawer');
+  var closeBtn = document.getElementById('ctaX');
+  var fab = document.getElementById('ctaFab');
+
+  /* Yopilgani eslab qolinadi: bir marta yopilsa, panel boshqa chiqmaydi —
+     uning o'rnida burchakda telefon tugmasi qoladi. */
+  var KEY = 'avenir-cta-closed';
+  var dismissed = false;
+  try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+
+  var pastHero = false;   /* hero ekrandan chiqdimi */
+  var atContact = false;  /* aloqa bo'limi ko'rinyaptimi */
+
+  function apply() {
+    var menuOpen = drawer && drawer.classList.contains('is-open');
+    var visible = pastHero && !atContact && !menuOpen;
+    bar.classList.toggle('is-on', !dismissed && visible);
+    if (fab) fab.classList.toggle('is-on', dismissed && visible);
+  }
+
+  if ('IntersectionObserver' in window) {
+    if (hero) {
+      new IntersectionObserver(function (es) {
+        pastHero = !es[0].isIntersecting;
+        apply();
+      }, { threshold: 0 }).observe(hero);
+    } else {
+      pastHero = true;
+    }
+
+    if (aloqa) {
+      new IntersectionObserver(function (es) {
+        atContact = es[0].isIntersecting;
+        apply();
+      }, { threshold: 0 }).observe(aloqa);
+    }
+  }
+
+  /* menyu ochilib-yopilganda ham qayta hisoblaymiz */
+  if (drawer && 'MutationObserver' in window) {
+    new MutationObserver(apply).observe(drawer, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      dismissed = true;
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      apply();
+    });
+  }
+
+  apply();
+})();
+</script>

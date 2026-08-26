@@ -1,131 +1,4 @@
-export const languages = ['uz', 'ru', 'en'] as const
-export type Language = (typeof languages)[number]
-
-export const defaultLanguage: Language = 'uz'
-
-export interface Dictionary {
-  nav: {
-    links: {
-      portfolio: string
-      services: string
-      contact: string
-    }
-    languageLabel: string
-    toggleMenuAria: string
-    closeMenuAria: string
-    logoAlt: string
-  }
-  hero: {
-    studioBadge: string
-    titlePrefix: string
-    titleHighlight: string
-    description: string
-    focusAreas: Array<{
-      title: string
-      description: string
-    }>
-    ctaPortfolio: string
-    ctaProject: string
-    frameworkLabel: string
-    frameworkTitle: string
-    frameworkDescription: string
-    deliveryFlow: Array<{
-      title: string
-      detail: string
-    }>
-    avgLaunchLabel: string
-    avgLaunchValue: string
-    satisfactionLabel: string
-    satisfactionValue: string
-  }
-  services: {
-    eyebrow: string
-    title: string
-    subtitle: string
-    items: Array<{
-      title: string
-      description: string
-    }>
-  }
-  portfolio: {
-    title: string
-    subtitle: string
-    viewCase: string
-    imageAltSuffix: string
-    projects: Array<{
-      name: string
-      category: string
-      summary: string
-      tags: string[]
-    }>
-  }
-  team: {
-    title: string
-    subtitle: string
-    members: Array<{
-      role: string
-      bio: string
-    }>
-  }
-  stats: {
-    items: Array<{
-      label: string
-    }>
-  }
-  contact: {
-    title: string
-    description: string
-    labels: {
-      email: string
-      phone: string
-      location: string
-    }
-    locationValue: string
-    socialLinks: {
-      linkedin: string
-      twitter: string
-      instagram: string
-    }
-    successTitle: string
-    successMessage: string
-    form: {
-      name: string
-      phone: string
-      telegram: string
-      employeesCount: string
-      submit: string
-      responseTime: string
-    }
-  }
-  footer: {
-    description: string
-    sections: {
-      company: string
-      services: string
-      contact: string
-    }
-    companyLinks: {
-      about: string
-      blog: string
-      careers: string
-      contact: string
-    }
-    serviceLinks: {
-      web: string
-      app: string
-      ux: string
-      consulting: string
-    }
-    locationValue: string
-    rightsSuffix: string
-    legalEntity: string
-    legalAddress: string
-    legalLinks: {
-      privacy: string
-      terms: string
-    }
-  }
-}
+import type { Dictionary, Language } from '@/lib/languages'
 
 export const dictionaries: Record<Language, Dictionary> = {
   uz: {
@@ -139,6 +12,8 @@ export const dictionaries: Record<Language, Dictionary> = {
       toggleMenuAria: 'Navigatsiya menyusini ochish/yopish',
       closeMenuAria: 'Navigatsiya menyusini yopish',
       logoAlt: 'Avenir logotipi',
+      skipToContent: 'Asosiy kontentga o‘tish',
+      homeAria: 'Bosh sahifa',
     },
     hero: {
       studioBadge: 'Avenir IT-agenstligi',
@@ -172,7 +47,7 @@ export const dictionaries: Record<Language, Dictionary> = {
         { title: 'Ishga tushirish va o`sish', detail: 'Optimizatsiya va uzoq muddatli qo`llab-quvvatlash' },
       ],
       avgLaunchLabel: 'O`rtacha ishga tushirish',
-      avgLaunchValue: '2 haftagacha',
+      avgLaunchValue: '6-8 hafta',
       satisfactionLabel: 'Qoniqish',
       satisfactionValue: '98% hamkorlar biz bilan qoladi',
     },
@@ -180,6 +55,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       eyebrow: 'Mahsulotlar va xizmatlar',
       title: 'Nimalar yaratamiz?',
       subtitle: 'Biznesingiz uchun ishlab chiqadigan asosiy raqamli yechimlar',
+      detailsLabel: 'Batafsil',
       items: [
         {
           title: 'Veb saytlar',
@@ -289,8 +165,6 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Toshkent, O`zbekiston',
       socialLinks: {
-        linkedin: 'LinkedIn',
-        twitter: 'Twitter',
         instagram: 'Instagram',
       },
       successTitle: 'Rahmat!',
@@ -301,6 +175,8 @@ export const dictionaries: Record<Language, Dictionary> = {
         telegram: 'Telegram username',
         employeesCount: 'Xodimlar soni',
         submit: 'Xabar yuborish',
+        submitting: 'Yuborilmoqda...',
+        error: 'Yuborib bo\'lmadi. Iltimos, qaytadan urinib ko\'ring.',
         responseTime: '24 soat ichida javob beramiz',
       },
     },
@@ -346,6 +222,8 @@ export const dictionaries: Record<Language, Dictionary> = {
       toggleMenuAria: 'Открыть/закрыть меню навигации',
       closeMenuAria: 'Закрыть меню навигации',
       logoAlt: 'Логотип Avenir',
+      skipToContent: 'Перейти к содержимому',
+      homeAria: 'Главная страница',
     },
     hero: {
       studioBadge: 'IT-агентство Avenir',
@@ -387,6 +265,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       eyebrow: 'Продукты и услуги',
       title: 'Что мы создаем?',
       subtitle: 'Основные цифровые решения, которые мы делаем для бизнеса',
+      detailsLabel: 'Подробнее',
       items: [
         {
           title: 'Веб-сайты',
@@ -496,8 +375,6 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Ташкент, Узбекистан',
       socialLinks: {
-        linkedin: 'LinkedIn',
-        twitter: 'Twitter',
         instagram: 'Instagram',
       },
       successTitle: 'Спасибо!',
@@ -508,6 +385,8 @@ export const dictionaries: Record<Language, Dictionary> = {
         telegram: 'Telegram username',
         employeesCount: 'Сотрудники кол-во',
         submit: 'Отправить сообщение',
+        submitting: 'Отправка...',
+        error: 'Не удалось отправить заявку. Попробуйте ещё раз.',
         responseTime: 'Ответим в течение 24 часов',
       },
     },
@@ -553,6 +432,8 @@ export const dictionaries: Record<Language, Dictionary> = {
       toggleMenuAria: 'Toggle navigation menu',
       closeMenuAria: 'Close navigation menu',
       logoAlt: 'Avenir logo',
+      skipToContent: 'Skip to content',
+      homeAria: 'Home page',
     },
     hero: {
       studioBadge: 'Avenir IT Agency',
@@ -594,6 +475,7 @@ export const dictionaries: Record<Language, Dictionary> = {
       eyebrow: 'Products & Services',
       title: 'What We Build',
       subtitle: 'Core digital products we deliver for modern businesses',
+      detailsLabel: 'View details',
       items: [
         {
           title: 'Websites',
@@ -703,8 +585,6 @@ export const dictionaries: Record<Language, Dictionary> = {
       },
       locationValue: 'Tashkent, Uzbekistan',
       socialLinks: {
-        linkedin: 'LinkedIn',
-        twitter: 'Twitter',
         instagram: 'Instagram',
       },
       successTitle: 'Thank you!',
@@ -715,6 +595,8 @@ export const dictionaries: Record<Language, Dictionary> = {
         telegram: 'Telegram username',
         employeesCount: 'Employees count',
         submit: 'Send Message',
+        submitting: 'Sending...',
+        error: 'Could not send your request. Please try again.',
         responseTime: "We'll respond within 24 hours",
       },
     },
@@ -751,6 +633,20 @@ export const dictionaries: Record<Language, Dictionary> = {
   },
 }
 
-export function isLanguage(value: string): value is Language {
-  return languages.includes(value as Language)
+export function getDictionary(language: Language): Dictionary {
+  return dictionaries[language]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,3 +4,10 @@ node_modules/
 .env
 .env*.local
 .DS_Store
+
+# local dev artifacts
+dev.log
+tunnel.log
+build.log
+prod.log
+tsconfig.tsbuildinfo

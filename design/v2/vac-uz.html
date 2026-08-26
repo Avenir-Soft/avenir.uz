@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<title>VAC.UZ — ishlab chiqarish ERP tizimi | Avenir.uz</title>
+<meta name="description" content="Ventilyatsiya kanallari ishlab chiqaruvchi VAC.UZ uchun ERP: arizadan jo'natishgacha bo'lgan yo'l, sexlar, OTK, ombor, moliya va jamoa — 24 ta bo'limli yagona tizimda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v2.css">
+<script src="assets/fx.js" defer></script>
+
+<span class="cur" id="cur" aria-hidden="true"></span>
+<div class="grain" aria-hidden="true"></div>
+
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="top" id="top">
+  <div class="shell top__in">
+    <a class="brand" href="index.html" aria-label="Avenir">
+      <svg class="brand__svg" viewBox="0 0 210 120" fill="none" role="img" aria-label="Avenir">
+        <line class="lg-axis" x1="60" y1="10" x2="60" y2="110"/>
+        <line class="lg-axis" x1="10" y1="60" x2="200" y2="60"/>
+        <rect class="lg-tip" x="57" y="7" width="6" height="6" transform="rotate(45 60 10)"/>
+        <rect class="lg-tip" x="57" y="107" width="6" height="6" transform="rotate(45 60 110)"/>
+        <rect class="lg-tip" x="7" y="57" width="6" height="6" transform="rotate(45 10 60)"/>
+        <rect class="lg-tip" x="197" y="57" width="6" height="6" transform="rotate(45 200 60)"/>
+        <path class="lg-star" d="M60 28 Q60 60 82.7 60 Q60 60 60 92 Q60 60 37.3 60 Q60 60 60 28 Z"/>
+        <text class="lg-word" x="72" y="46">AVENIR</text>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html#yechimlar" data-sec="yechimlar">Yechimlar</a>
+      <a href="index.html#loyihalar" data-sec="loyihalar">Loyihalar</a>
+      <a href="index.html#jarayon" data-sec="jarayon">Jarayon</a>
+      <a href="index.html#jamoa" data-sec="jamoa">Jamoa</a>
+      <a href="index.html#aloqa" data-sec="aloqa">Aloqa</a>
+    </nav>
+
+    <div class="top__side">
+      <div class="lang" data-no-i18n>
+        <button class="lang__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Til">
+          <span class="lang__cur">UZ</span>
+          <svg class="lang__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang__menu" role="listbox" aria-label="Til">
+          <li role="option" aria-selected="true"><button type="button" data-lang="uz">O‘zbekcha<i>UZ</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="ru">Русский<i>RU</i></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="en">English<i>EN</i></button></li>
+        </ul>
+      </div>
+      <button class="burger" id="burger" type="button" aria-label="Menyu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="index.html#yechimlar">Yechimlar</a><a href="index.html#loyihalar">Loyihalar</a>
+  <a href="index.html#jarayon">Jarayon</a><a href="index.html#jamoa">Jamoa</a><a href="index.html#aloqa">Aloqa</a>
+</div>
+
+
+<main>
+<section class="sv-hero" data-sec="hero">
+  <span class="aura aura--a aura--drift" style="width:820px;height:820px;left:50%;top:-380px;transform:translateX(-50%);opacity:0.65"></span>
+  <span class="aura aura--b aura--drift" style="width:560px;height:560px;right:-200px;top:140px;opacity:0.5"></span>
+
+  <div class="shell">
+    <p class="crumb rise"><a href="index.html">Bosh sahifa</a><span>/</span><a href="index.html#loyihalar">Loyihalar</a><span>/</span><b>VAC.UZ</b></p>
+
+    <div class="sv-top">
+      <div class="sv-t">
+        <a class="back rise" href="index.html#loyihalar"><i></i>Loyihalarga qaytish</a>
+        <span class="chip rise" style="--d:60ms"><i></i>Ishlab chiqarish · ERP</span>
+        <h1 class="rise" style="--d:120ms" data-split>Zavod ishini bitta ERP ga yig'dik</h1>
+        <p class="sv-lead rise" style="--d:200ms">VAC.UZ — ventilyatsiya kanallari ishlab chiqaruvchi kompaniya. Buyurtma qabul qilinishidan tayyor mahsulot jo'natilgunga qadar bo'lgan butun yo'l — arizalar, rejalashtirish, sexlar, OTK stansiyasi, ombor, xarid, moliya va jamoa — 24 ta bo'limdan iborat yagona tizimga yig'ildi.</p>
+        <div class="hero__cta rise" style="--d:280ms;justify-content:flex-start">
+          <a class="btn btn--w" href="index.html#aloqa">Shunday tizim kerakmi? <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="index.html#loyihalar">Boshqa loyihalar</a>
+        </div>
+      </div>
+
+      <aside class="gc spec rise" style="--d:220ms">
+        <p class="spec__l">Yil</p>
+        <p class="spec__v">2025</p>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Bizning ish</p>
+        <div class="chips"><span>Audit</span><span>UX va UI</span><span>Backend</span><span>Frontend</span><span>Integratsiyalar</span><span>Qo'llab-quvvatlash</span></div>
+        <span class="spec__hr"></span>
+        <p class="spec__l">Texnologiyalar</p>
+        <div class="chips"><span>Next.js</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span><span>Telegram Bot API</span></div>
+      </aside>
+    </div>
+
+    <div class="cover rise" style="--d:320ms">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>VAC.UZ ERP — boshqaruv paneli</span></div>
+      <img src="assets/work/vac-uz/01-dashboard.jpg" alt="VAC.UZ ERP boshqaruv paneli: tushum, debitorka, arizalar va grafiklar" width="1280" height="719" loading="eager">
+    </div>
+
+    <div class="kv">
+      <div class="gc kv__i rise"><b>24</b><span>tizim bo'limi</span></div>
+      <div class="gc kv__i rise" style="--d:60ms"><b>7</b><span>yo'nalish guruhi</span></div>
+      <div class="gc kv__i rise" style="--d:120ms"><b>14</b><span>jamoa akkaunti</span></div>
+      <div class="gc kv__i rise" style="--d:180ms"><b>1</b><span>ma'lumot manbai</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="yechimlar">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Vazifa</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nimadan boshladik</h2>
+    </div>
+
+    <div class="duo">
+      <div class="gc duo__i rise">
+        <em>Muammo</em>
+        <h3>Har bo'lim o'z daftarida ishlardi</h3>
+        <p>Ishlab chiqarish korxonasida ma'lumot bir nechta joyda yashaydi: arizalar messenjerda, reja qog'ozda, ombor qoldig'i alohida jadvalda, moliya buxgalterda. Natijada oddiy savolga javob topish qiyin bo'ladi.</p>
+        <ul>
+          <li>Buyurtma qaysi bosqichda ekanini bilish uchun sexga qo'ng'iroq qilish kerak</li>
+          <li>Ombor qoldig'i va xarid rejasi bir-biriga bog'lanmagan</li>
+          <li>Rahbar oylik hisobotni oy tugagach ko'radi</li>
+          <li>Mijoz bilan yozishmalar shaxsiy akkauntlarda qolib ketadi</li>
+        </ul>
+      </div>
+
+      <div class="gc duo__i rise" style="--d:80ms">
+        <em>Yechim</em>
+        <h3>Bitta tizim, ettita yo'nalish</h3>
+        <p>Korxonaning haqiqiy jarayonini o'rganib, uni tizimga ko'chirdik: har bir bo'lim o'z ekranida ishlaydi, lekin hammasi bitta ma'lumot bazasiga yozadi. Rahbar uchun esa alohida hisobot yig'ish kerak emas — panel o'zi to'ladi.</p>
+        <ul>
+          <li>Sotuv, ishlab chiqarish, ta'minot, moliya, kadrlar, xo'jalik va tizim sozlamalari</li>
+          <li>Rollar bo'yicha kirish: har kim faqat o'ziga tegishlisini ko'radi</li>
+          <li>Telegram orqali kelgan murojaat to'g'ridan-to'g'ri CRM ga tushadi</li>
+          <li>Har bir harakat kim va qachon qilgani bilan saqlanadi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ekranlar" data-sec="loyihalar" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Ekranlar</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Tizim ichida nima bor</h2>
+      <p class="p-sec rise" style="--d:140ms">Quyida — haqiqiy tizimning ekranlari. Interfeys rus tilida: kompaniya jamoasi shu tilda ishlaydi.</p>
+    </div>
+
+    <div class="shots">
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">01</span>
+            <h3>Boshqaruv paneli</h3>
+          </div>
+          <div>
+            <p>Rahbarning birinchi ekrani. Yuqorida — pul: arizalar bo'yicha tushum, to'langan summa, debitorka va kassaga kirim. Pastda — ish: nechta ariza, qancha mahsulot ishlab chiqarildi, nechta jo'natma yo'lda, nechta yangi lid kutmoqda.</p>
+            <ul>
+              <li>Davr tanlash: kunlar, haftalar yoki oylar kesimida</li>
+              <li>Kirim-chiqim va foyda grafigi, pul qoldig'i dinamikasi</li>
+              <li>Arizalarning bosqichlar bo'yicha taqsimoti</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Дашборд — обзор компании</span></div>
+          <img src="assets/work/vac-uz/01-dashboard.jpg" alt="Boshqaruv paneli: pul va ish ko'rsatkichlari, kirim-chiqim grafigi" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">02</span>
+            <h3>Vazifalar taxtasi</h3>
+          </div>
+          <div>
+            <p>Kanban-taxta beshta bosqichdan iborat: boshlanishda, jarayonda, muammo bor, tekshiruvda, tayyor. Kartochka sichqoncha bilan ko'chiriladi, har birida taymer yuritiladi, tugagan vazifalar 24 soatdan keyin arxivga o'tadi.</p>
+            <ul>
+              <li>«Muammo bor» ustuni — to'siqni yashirmaslik uchun alohida</li>
+              <li>Xodim bo'yicha filtr va nom bo'yicha qidiruv</li>
+              <li>Arxiv alohida yorliqda — taxta toza qoladi</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Задачи — канбан-доска</span></div>
+          <img src="assets/work/vac-uz/02-vazifalar.jpg" alt="Kanban taxta: besh ustun, taymer, arxiv" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">03</span>
+            <h3>CRM va Telegram</h3>
+          </div>
+          <div>
+            <p>Mijoz bilan yozishma tizim ichida qoladi. Kompaniyaning Telegram boti va menejerning shaxsiy akkaunti bir joyga ulangan — xodim ishdan ketsa ham murojaatlar tarixi kompaniyada qoladi.</p>
+            <ul>
+              <li>Kiruvchi, kanban va arxiv — uchta ko'rinish</li>
+              <li>Kanal bo'yicha filtr va o'qilmaganlar belgisi</li>
+              <li>Kanalsiz lidlarni qo'lda kiritish mumkin</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>CRM — переписка с клиентами</span></div>
+          <img src="assets/work/vac-uz/03-crm.jpg" alt="CRM: Telegram orqali mijozlar bilan yozishma, kiruvchi lidlar" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">04</span>
+            <h3>Jamoa va rollar</h3>
+          </div>
+          <div>
+            <p>Bitta ro'yxatda butun jamoa: kim qaysi rolda, oylik qancha, akkaunt faolmi. Rol shu yerdan almashtiriladi — ishlab chiqarish boshlig'i, OTK, ombor boshlig'i, hisob-kitob buxgalteri, bosh buxgalter, marketolog va boshqalar.</p>
+            <ul>
+              <li>Email, ism yoki telefon bo'yicha qidiruv</li>
+              <li>Ishdan bo'shaganlar arxivga o'tadi, ma'lumot yo'qolmaydi</li>
+              <li>Rol kirish huquqini belgilaydi — alohida sozlash kerak emas</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Сотрудники — аккаунты команды</span></div>
+          <img src="assets/work/vac-uz/04-xodimlar.jpg" alt="Xodimlar ro'yxati: rol, oylik, status" width="1280" height="721" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="shot rise">
+        <figcaption class="shot__c">
+          <div>
+            <span class="shot__n">05</span>
+            <h3>Xodim kabineti</h3>
+          </div>
+          <div>
+            <p>Har bir xodimning o'z bo'limi: reyting, bonuslar, oylik va shaxsiy statistika. Yulduzlar tizimi jamoani bir-biri bilan emas, o'zining o'tgan oyi bilan solishtirishga undaydi.</p>
+            <ul>
+              <li>Oylik va umumiy davr bo'yicha liderbord</li>
+              <li>Mening bonuslarim, oyligim va statistikam — alohida yorliqlarda</li>
+              <li>Bonus berish va mukofotlar tarixi rahbar uchun</li>
+            </ul>
+          </div>
+        </figcaption>
+        <div class="shot__f">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Мой кабинет — лидерборд и бонусы</span></div>
+          <img src="assets/work/vac-uz/05-kabinet.jpg" alt="Xodim kabineti: reyting, bonuslar, oylik" width="1280" height="719" loading="lazy">
+        </div>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="jarayon" style="padding-top:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Natija</span>
+      <h2 class="h-sec rise" style="--d:80ms" data-split>Nima o'zgardi</h2>
+    </div>
+    <div class="out">
+      <div class="gc out__i rise"><em>Natija</em><b>Bitta manba</b><p>Sotuv, ishlab chiqarish va moliya bir xil raqamga qaraydi — jadval nusxalari kerak emas.</p></div>
+      <div class="gc out__i rise" style="--d:80ms"><em>Natija</em><b>Ko'rinadigan jarayon</b><p>Buyurtma qaysi bosqichda ekani ekranda turadi, so'rab aniqlash shart emas.</p></div>
+      <div class="gc out__i rise" style="--d:160ms"><em>Natija</em><b>Saqlanadigan tarix</b><p>Mijoz yozishmasi, rol o'zgarishi va har bir harakat tizimda qoladi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-sec="aloqa" style="padding-top:0;padding-bottom:0">
+  <div class="shell">
+    <div class="center">
+      <span class="chip rise"><i></i>Boshqa loyihalar</span>
+    </div>
+    <div class="other">
+      <a class="gc other__i rise" href="avenir-os.html"><b>ERP + CRM + Moliya</b><p>Avenir OS</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="yakov-partners.html" style="--d:60ms"><b>Konsalting</b><p>Yakov and Partners</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="defi-technologies.html" style="--d:120ms"><b>TradFi platforma</b><p>DeFi Technologies</p><span>Keysni ochish <i>→</i></span></a>
+      <a class="gc other__i rise" href="apec-asia.html" style="--d:180ms"><b>E-commerce</b><p>APEC Asia UAE</p><span>Keysni ochish <i>→</i></span></a>
+    </div>
+
+    <div class="final rise" style="margin-top:clamp(2.5rem, 5vw, 4rem)">
+      <span class="aura aura--a aura--drift"></span>
+      <div class="final__in center">
+        <h2 data-split>Sizda ham shunday jarayon bormi?</h2>
+        <p class="p-sec rise" style="--d:80ms">Brif to'ldirish shart emas — qisqacha yozing, qolganini savol berib aniqlaymiz.</p>
+        <div class="hero__cta rise" style="--d:160ms">
+          <a class="btn btn--w" href="index.html#aloqa">Loyihani boshlash <span class="btn__ar">→</span></a>
+          <a class="btn btn--d" href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <p>Avenir Soft — Yakka tartibdagi tadbirkor Choriyev Xojiakbar Shuxrat O'g'li<br>
+      © 2026 Avenir.uz · Barcha huquqlar himoyalangan</p>
+    <nav><a href="/privacy">Maxfiylik siyosati</a><a href="/terms">Foydalanish shartlari</a></nav>
+  </div>
+</footer>
+
+<script src="assets/page.js"></script>
