@@ -67,7 +67,7 @@ export default async function ServicesIndexPage({ params }: ServicesIndexProps) 
                 <i></i>
                 {tv(language, 'Yechimlar')}
               </span>
-              <Split className="h-sec rise" style={{ '--d': '80ms' }}>
+              <Split as="h1" className="h-sec rise" style={{ '--d': '80ms' }}>
                 {tv(language, 'Biznesingiz uchun raqamli yechimlar')}
               </Split>
             </div>

@@ -3,8 +3,11 @@ import { tv, tva } from '@/lib/i18n-v2'
 import { Split } from '@/components/v2/split'
 import { localizedPath } from '@/lib/paths'
 import type { Language } from '@/lib/languages'
+import type { ElementType } from 'react'
 
-export function HomeProjects({ lang }: { lang: Language }) {
+/* Bosh sahifada bu — bo'lim (h2), /portfolio sahifasida esa sahifaning
+   o'zi (h1). Shuning uchun sarlavha darajasi tashqaridan beriladi. */
+export function HomeProjects({ lang, titleAs = 'h2' }: { lang: Language; titleAs?: ElementType }) {
 	const prj = (s: string) => localizedPath(lang, `/portfolio/${s}`)
 	return (
 		<>
@@ -17,7 +20,7 @@ export function HomeProjects({ lang }: { lang: Language }) {
 							<i></i>
 							{tv(lang, 'Loyihalar')}
 						</span>
-						<Split className="h-sec rise" style={{ '--d': '80ms' }}>
+						<Split as={titleAs} className="h-sec rise" style={{ '--d': '80ms' }}>
 							{tv(lang, 'Haqiqiy natija bergan mahsulotlar')}
 						</Split>
 					</div>

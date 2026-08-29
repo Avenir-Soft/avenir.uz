@@ -56,7 +56,7 @@ export default async function PortfolioIndexPage({ params }: PortfolioIndexProps
       <V2Header lang={language} />
       <main id="main">
         <div className="index-v2">
-          <HomeProjects lang={language} />
+          <HomeProjects lang={language} titleAs="h1" />
         </div>
       </main>
       <V2Footer lang={language} />
