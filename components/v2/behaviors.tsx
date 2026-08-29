@@ -138,8 +138,24 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       $$('.rise, [data-split], .nums__c, .sol__c, .center, .final, .gc').forEach(el => io.observe(el))
     }
 
-    /* ---------- kirish (index.html:1536) ---------- */
-    const intro = document.getElementById('intro')
+    /* ---------- kirish (index.html:1536) ----------
+       #intro'ni React chizadi (V2Intro), shuning uchun uni DOMdan qo'lda
+       olib tashlamaymiz — faqat yashiramiz. Ilgari bu yerda removeChild edi:
+       React keyin o'sha tugunni o'zi unmount qilmoqchi bo'lganda uni topa
+       olmay «removeChild: node is not a child» bilan yiqilardi. Maketda bu
+       muammo yo'q edi — u yerda DOM'ni faqat skript boshqaradi.
+       intro-out animatsiyasi visibility:hidden bilan tugaydi, display:none
+       esa uni layoutdan ham chiqaradi — ko'rinish o'zgarmaydi.
+       Ishlov berilgani `data-done` bilan belgilanadi: ilgari buni removeChild
+       bajarardi — o'chirilgan tugun qaytib topilmasdi. Endi tugun joyida
+       qoladi, shuning uchun belgi kerak. Aks holda bosh sahifada til
+       almashtirilganda effekt eski, yashirilgan pardani topib, yangisini
+       hech kim yopmay qolardi. */
+    const hideIntro = (el: HTMLElement) => {
+      el.dataset.done = '1'
+      el.style.display = 'none'
+    }
+    const intro = document.querySelector<HTMLElement>('#intro:not([data-done])')
     const hero = $('.hero') || $('.sv-hero')
     let introDone = false
     function endIntro() {
@@ -147,14 +163,14 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       introDone = true
       intro.classList.add('is-out')
       document.body.classList.remove('intro-on')
-      later(() => { intro.parentNode?.removeChild(intro) }, 650)
+      later(() => hideIntro(intro), 650)
       hero?.classList.add('is-in')
       later(() => hero?.classList.add('unmask'), 1500)
       startReveals()
     }
     if (intro) {
       if (reduce) {
-        intro.parentNode?.removeChild(intro)
+        hideIntro(intro)
         document.body.classList.remove('intro-on')
         introDone = true
         hero?.classList.add('is-in')
@@ -632,7 +648,8 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
          sahifa ishlayotgan bo'lsa ham bo'sh ko'rinadi. */
       try {
         document.body.classList.remove('intro-on')
-        document.getElementById('intro')?.remove()
+        const el = document.querySelector<HTMLElement>('#intro')
+        if (el) { el.dataset.done = '1'; el.style.display = 'none' }
         document
           .querySelectorAll('.hero, .sv-hero, .rise, [data-split], .nums__c, .sol__c, .center, .final, .gc')
           .forEach(el => el.classList.add('is-in', 'unmask'))

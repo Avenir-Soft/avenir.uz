@@ -46,7 +46,11 @@ export default function LanguageError({
     /* Parda ochiq qolgan bo'lishi mumkin — u faqat JS bilan olinadi. */
     try {
       document.body.classList.remove('intro-on')
-      document.getElementById('intro')?.remove()
+      /* DOMdan olib tashlamaymiz: #intro'ni React chizadi, uni qo'lda o'chirsak
+         React keyin o'sha tugunni unmount qilmoqchi bo'lganda «removeChild:
+         node is not a child» xatosi chiqadi. Yashirish yetarli. */
+      const el = document.getElementById('intro')
+      if (el) el.style.display = 'none'
     } catch { /* mumkin emas — mayli */ }
   }, [error])
 

@@ -18,7 +18,8 @@ export function V2Intro() {
             "try{if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches)" +
             "document.body.classList.add('intro-on');" +
             "setTimeout(function(){var i=document.getElementById('intro');" +
-            "if(i&&!i.classList.contains('is-out')){i.style.display='none';" +
+            "if(i&&!i.classList.contains('is-out')&&!i.dataset.done){" +
+            "i.dataset.done='1';i.style.display='none';" +
             "document.body.classList.remove('intro-on')}},4000)}catch(e){}",
         }}
       />
