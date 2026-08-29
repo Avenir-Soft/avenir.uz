@@ -65,6 +65,10 @@ export function proxy(request: NextRequest) {
   return NextResponse.next()
 }
 
+/* Nuqta ikki teskari chiziq bilan yoziladi. Satr ichida `\.` shunchaki `.` ga
+   aylanardi va shablon `.*..*` bo'lib qolardi — bu esa bitta belgidan uzun
+   HAR QANDAY yo'lni istisnoga tushirardi. Natijada proxy faqat `/` da ishlagan:
+   www.avenir.uz/ru apeksga yo'naltirilmay, sayt ikkita xostda ochilaverardi. */
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\..*).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon\\.ico|.*\\..*).*)'],
 }
