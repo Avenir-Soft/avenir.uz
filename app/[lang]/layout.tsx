@@ -172,7 +172,14 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify([websiteJsonLd, organizationJsonLd]) }}
         />
       </head>
-      <body>
+      {/* intro.tsx dagi sinxron skript gidratatsiyadan OLDIN body'ga
+          `intro-on` qo'yadi (birinchi kadr miltillamasin). Serverda bu klass
+          yo'q — React buni nomuvofiqlik deb hisoblardi. Klassni serverda
+          chizib bo'lmaydi: `intro-on` — bu `overflow:hidden`, va intro yo'q
+          sahifalarda uni hech kim olib tashlamaydi, skroll qotib qolardi.
+          suppressHydrationWarning aynan shu holat uchun: faqat shu
+          elementning atributlari tekshirilmaydi, ichkarisi emas. */}
+      <body suppressHydrationWarning>
         <a href="#main" className="skip-link">
           {dictionary.nav.skipToContent}
         </a>
