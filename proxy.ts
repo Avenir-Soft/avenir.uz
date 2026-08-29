@@ -13,28 +13,6 @@ function getHost(request: NextRequest) {
   return host.split(':')[0].toLowerCase()
 }
 
-/** Accept-Language'dan qo'llab-quvvatlanadigan tilni tanlaydi. */
-function preferredLanguage(request: NextRequest) {
-  const header = request.headers.get('accept-language')
-  if (!header) return defaultLanguage
-
-  const ranked = header
-    .split(',')
-    .map(part => {
-      const [tag, ...params] = part.trim().split(';')
-      const q = params.find(p => p.trim().startsWith('q='))
-      return { tag: tag.trim().toLowerCase(), q: q ? Number.parseFloat(q.split('=')[1]) || 0 : 1 }
-    })
-    .sort((a, b) => b.q - a.q)
-
-  for (const { tag } of ranked) {
-    const base = tag.split('-')[0]
-    if (isLanguage(base)) return base
-  }
-
-  return defaultLanguage
-}
-
 export function proxy(request: NextRequest) {
   const host = getHost(request)
 
@@ -52,14 +30,15 @@ export function proxy(request: NextRequest) {
   // Til prefiksi bor — tegmaymiz.
   if (firstSegment && isLanguage(firstSegment)) return NextResponse.next()
 
-  // Faqat ildizni tilga yo'naltiramiz; qolgan eski manzillar next.config
-  // redirects'ida hal qilinadi.
+  /* Ildiz HAR DOIM o'zbek tiliga ketadi — brauzer tiliga qaramay (egasining
+     qarori). Ilgari bu yerda Accept-Language bo'yicha tanlov bor edi: rus
+     brauzeri /ru ga, ingliz brauzeri /en ga tushardi. Endi tanlov yo'q, javob
+     Accept-Language'ga bog'liq emas — shuning uchun `Vary` ham kerak emas.
+     Qolgan eski manzillar next.config redirects'ida hal qilinadi. */
   if (pathname === '/' || pathname === '') {
     const url = request.nextUrl.clone()
-    url.pathname = `/${preferredLanguage(request)}`
-    const response = NextResponse.redirect(url, 307)
-    response.headers.set('Vary', 'Accept-Language')
-    return response
+    url.pathname = `/${defaultLanguage}`
+    return NextResponse.redirect(url, 307)
   }
 
   return NextResponse.next()
