@@ -11,7 +11,15 @@ export function V2Intro() {
       <script
         dangerouslySetInnerHTML={{
           __html:
-            "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.body.classList.add('intro-on');",
+            /* matchMedia ba'zi ilova-ichi brauzerlarda yo'q — himoyasiz chaqiruv
+               shu yerdayoq uzilardi. Topilmasa intro umuman ko'rsatilmaydi.
+               Zaxira taymer: parda faqat JS bilan olib tashlanadi, shuning uchun
+               React yuklanmasa ham (chunk 404, WebView) ekran ochilib qolsin. */
+            "try{if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches)" +
+            "document.body.classList.add('intro-on');" +
+            "setTimeout(function(){var i=document.getElementById('intro');" +
+            "if(i&&!i.classList.contains('is-out')){i.style.display='none';" +
+            "document.body.classList.remove('intro-on')}},4000)}catch(e){}",
         }}
       />
       <div className="intro" id="intro" role="presentation" aria-hidden="true">

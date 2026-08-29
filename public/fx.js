@@ -7,7 +7,10 @@
    ========================================================================== */
 (function () {
   'use strict';
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* matchMedia ba'zi ilova-ichi brauzerlarda yo'q. */
+  var reduce = typeof window.matchMedia === 'function'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
 
   /* ---------- mavzu: canvas ham xuddi shu siyohda chiziladi ---------- */
   var FXINK = '255, 255, 255';
@@ -24,13 +27,16 @@
      qaytadan chiziladi. Shu bilan kadr ichidagi chizish 1100 dan ~150 ga tushdi.
      ====================================================================== */
   var fx = document.getElementById('fx');
-  if (fx && fx.getContext && !reduce) {
-    var fc = fx.getContext('2d');
+  /* getContext GPU o'chirilganda yoki kengaytma bloklaganda null qaytaradi —
+     ilgari shu yerda "Cannot read properties of null" chiqardi. */
+  var fc = fx && fx.getContext ? fx.getContext('2d') : null;
+  var base = document.createElement('canvas');
+  var bc = base.getContext ? base.getContext('2d') : null;
+  if (fx && fc && bc && !reduce) {
     var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var FW = 0, FH = 0, dots = [], stars = [], waves = [], nextWave = 0;
     var px = -9999, py = -9999, fxOn = true;
     var GAP = 38, R_MAX = 1500, BAND = 115;
-    var base = document.createElement('canvas'), bc = base.getContext('2d');
 
     function fxSize() {
       var r = fx.getBoundingClientRect();
@@ -143,9 +149,12 @@
       var r = fx.getBoundingClientRect();
       px = e.clientX - r.left; py = e.clientY - r.top;
     }, { passive: true });
-    new IntersectionObserver(function (es) {
-      es.forEach(function (e) { fxOn = e.isIntersecting; });
-    }, { rootMargin: '120px' }).observe(fx);
+    /* IntersectionObserver yo'q bo'lsa — fonni doim yoqiq qoldiramiz. */
+    if (typeof IntersectionObserver === 'function') {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { fxOn = e.isIntersecting; });
+      }, { rootMargin: '120px' }).observe(fx);
+    }
     requestAnimationFrame(fxDraw);
   }
 })();

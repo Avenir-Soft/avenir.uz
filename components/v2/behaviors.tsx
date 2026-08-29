@@ -29,13 +29,49 @@ export type FeedStrings = {
   min: string
 }
 
+/* Ilova-ichi brauzerlar (Instagram, Telegram) va eski WebView'larda ba'zi API
+   yo'q. Ular yo'qligi bezakni o'chirsin, sahifani emas. */
+type IOEntry = { isIntersecting: boolean; target: Element }
+type IOLike = { observe(el: Element): void; unobserve(el: Element): void; disconnect(): void }
+
+/* IntersectionObserver yo'q bo'lsa — hamma narsa darhol ko'rinadi. Aks holda
+   .rise/.sol__c/.nums__c CSS bilan yashirilgan holicha qolib, sahifa bo'sh
+   ko'rinardi: ularni ochadigan yagona narsa — shu observer. */
+class FallbackIO implements IOLike {
+  cb: (es: IOEntry[]) => void
+  constructor(cb: (es: IOEntry[]) => void) {
+    this.cb = cb
+  }
+  observe(el: Element) {
+    this.cb([{ isIntersecting: true, target: el }])
+  }
+  unobserve() {}
+  disconnect() {}
+}
+
+type IOCtor = new (cb: (es: IOEntry[]) => void, opts?: object) => IOLike
+
+/* matchMedia yo'q bo'lsa — «mos kelmadi» deb hisoblaymiz: animatsiyalar
+   o'chadi, tinglovchilar bo'sh qoladi. */
+const noopMedia = {
+  matches: false,
+  addEventListener() {},
+  removeEventListener() {},
+} as unknown as MediaQueryList
+
 export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings }) {
   const router = useRouter()
   const pathname = usePathname()
 
   useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 900
+    const mq = (q: string) =>
+      typeof window.matchMedia === 'function' ? window.matchMedia(q) : noopMedia
+    const IO = (typeof IntersectionObserver === 'function'
+      ? IntersectionObserver
+      : FallbackIO) as unknown as IOCtor
+
+    const reduce = mq('(prefers-reduced-motion: reduce)').matches
+    const fine = mq('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 900
 
     /* --- yig'ishtirish reestri --- */
     let alive = true
@@ -66,6 +102,12 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     const $ = <T extends Element = HTMLElement>(q: string) => document.querySelector<T>(q)
     const $$ = <T extends Element = HTMLElement>(q: string) => Array.prototype.slice.call(document.querySelectorAll<T>(q)) as T[]
 
+    /* Butun bezak bloki qo'riqlanadi. Effekt ichidagi istalgan xato React'da
+       yuqoriga otiladi va sahifa butunlay «Application error» ga aylanadi —
+       bitta animatsiya uchun juda qimmat. Buzilsa: bezak yo'q, sayt bor.
+       Yig'ishtirish reestri try'dan tashqarida — cleanup baribir ishlaydi. */
+    try {
+
     /* ---------- odometr (index.html:1512) ---------- */
     function rollOd(el: Element) {
       Array.prototype.slice.call(el.querySelectorAll('u')).forEach((u: HTMLElement, i: number) => {
@@ -75,7 +117,7 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     }
 
     /* ---------- ochilish (index.html:1519) ---------- */
-    const io = new IntersectionObserver(
+    const io = new IO(
       es => {
         es.forEach(e => {
           if (!e.isIntersecting) return
@@ -183,12 +225,12 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       const h = $('.hero')
       const t = $('.trust')
       if (h) {
-        const o = new IntersectionObserver(es => es.forEach(e => { heroVis = e.isIntersecting }), { rootMargin: '200px' })
+        const o = new IO(es => es.forEach(e => { heroVis = e.isIntersecting }), { rootMargin: '200px' })
         o.observe(h)
         observers.push(o)
       }
       if (t) {
-        const o = new IntersectionObserver(es => es.forEach(e => { trustVis = e.isIntersecting }), { rootMargin: '200px' })
+        const o = new IO(es => es.forEach(e => { trustVis = e.isIntersecting }), { rootMargin: '200px' })
         o.observe(t)
         observers.push(o)
       }
@@ -415,7 +457,7 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       const wrap = $('.crew')
       const cards = $$('[data-team]')
       if (wrap && cards.length >= 2) {
-        const wide = window.matchMedia('(min-width: 861px)')
+        const wide = mq('(min-width: 861px)')
         const open = (c: Element) => {
           if (!wide.matches) return
           cards.forEach(x => x.classList.toggle('is-on', x === c))
@@ -556,14 +598,14 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
           fab?.classList.toggle('is-on', dismissed && visible)
         }
         if (heroEl) {
-          const o = new IntersectionObserver(es => { pastHero = !es[0].isIntersecting; apply() }, { threshold: 0 })
+          const o = new IO(es => { pastHero = !es[0].isIntersecting; apply() }, { threshold: 0 })
           o.observe(heroEl)
           observers.push(o)
         } else {
           pastHero = true
         }
         if (aloqa) {
-          const o = new IntersectionObserver(es => { atContact = es[0].isIntersecting; apply() }, { threshold: 0 })
+          const o = new IO(es => { atContact = es[0].isIntersecting; apply() }, { threshold: 0 })
           o.observe(aloqa)
           observers.push(o)
         }
@@ -581,6 +623,20 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         }
         apply()
       }
+    }
+
+    } catch (err) {
+      console.error('[v2] xatti-harakatlar skripti to\'xtadi:', err)
+      /* Bezak yarim yo'lda uzilgan bo'lishi mumkin: kirish pardasi ekranni
+         to'sib qolmasin va CSS bilan yashiringan bloklar ochilsin — aks holda
+         sahifa ishlayotgan bo'lsa ham bo'sh ko'rinadi. */
+      try {
+        document.body.classList.remove('intro-on')
+        document.getElementById('intro')?.remove()
+        document
+          .querySelectorAll('.hero, .sv-hero, .rise, [data-split], .nums__c, .sol__c, .center, .final, .gc')
+          .forEach(el => el.classList.add('is-in', 'unmask'))
+      } catch { /* mumkin emas — mayli */ }
     }
 
     return () => {
