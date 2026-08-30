@@ -10,4 +10,5 @@ dev.log
 tunnel.log
 build.log
 prod.log
+prod.err.log
 tsconfig.tsbuildinfo
