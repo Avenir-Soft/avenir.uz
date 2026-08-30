@@ -457,6 +457,15 @@ button, input { font: inherit; color: inherit; }
   opacity: 0; transform: translateY(10px); pointer-events: none;
   transition: opacity 0.5s var(--ease), transform 0.6s var(--out); }
 .scr__i.is-on { opacity: 1; transform: none; pointer-events: auto; }
+/* Tor ekranda balandlik eng baland modulga qotiriladi (behaviors.tsx:
+   `.scr--fixed`), aks holda modullar almashganda sahifa 388px sakrab,
+   butun sayt silkinardi. Balandlik endi o'zgarmagani uchun uni
+   animatsiyalashning ham hojati yo'q — breykpoint kesib o'tilganda
+   bekorga 0.55s cho'zilib turmasin.
+   Modullar YUQORIGA tekislanib qolaveradi (`align-items: start`):
+   markazga qo'yib ko'rildi — kalta modul brauzer paneli ostida osilib
+   qolib, yomonroq ko'rindi. */
+.scr--fixed { transition: none; }
 .stage__url i { font-style: normal; display: none; width: auto; height: auto; background: none; border-radius: 0; }
 .stage__url i.is-on { display: inline; }
 
