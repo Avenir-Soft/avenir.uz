@@ -5,10 +5,12 @@
    API maydon nomlari o'zgarmagan: name, phone, telegramUsername,
    employeeCount (endi "oylik aylanma" ma'nosida), language, company. */
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { useLanguage } from '@/components/language-provider'
 import { tv, tva } from '@/lib/i18n-v2'
 import type { Language } from '@/lib/languages'
+import { localizedPath } from '@/lib/paths'
 
 const UZ_PHONE_PREFIX = '+998'
 const PHONE_MAX = 24
@@ -216,6 +218,15 @@ export function V2ContactForm({ lang }: { lang: Language }) {
         {sending ? tv(lang, 'Yuborilmoqda…') : tv(lang, 'Xabar yuborish')}{' '}
         <span className="btn__ar">→</span>
       </button>
+      {/* Rozilik tugmaning yonida turishi kerak: forma ism, telefon, Telegram
+          va aylanmani yig'adi va ularni CRM bilan Telegram ga uzatadi, ya'ni
+          bu shaxsiy ma'lumotlarga ishlov berish. Maxfiylik siyosatiga havola
+          shu yerda — podvaldagi kichkina qatorda emas. */}
+      <p className="form__n form__c">
+        {tv(lang, "Ariza yuborish orqali siz shaxsiy ma'lumotlaringizni qayta ishlashga rozilik bildirasiz")}
+        {' · '}
+        <Link href={localizedPath(lang, '/privacy')}>{tv(lang, 'Maxfiylik siyosati')}</Link>
+      </p>
       {error ? (
         <p className="form__n" role="alert" style={{ color: '#F87171' }}>{error}</p>
       ) : (

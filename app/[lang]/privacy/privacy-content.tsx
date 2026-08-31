@@ -12,7 +12,7 @@ const content = {
       },
       {
         heading: '2. Qanday ma’lumot to‘planadi',
-        body: 'Aloqa formasi orqali siz o‘zingiz kiritgan to‘rt maydon to‘planadi: ism, telefon raqami, Telegram username va kompaniyangizdagi xodimlar soni. Elektron pochta va erkin matn maydoni formada yo‘q. Bundan tashqari analitika xizmatlari texnik ma’lumotlarni yig‘adi: IP-manzil, brauzer va qurilma turi, qaysi sahifalarga kirganingiz va qachon. Bank rekvizitlari, parollar yoki hujjat raqamlarini biz hech qachon so‘ramaymiz.',
+        body: 'Aloqa formasi orqali siz o‘zingiz kiritgan maydonlar to‘planadi: ism, telefon raqami, Telegram username — bular majburiy — va kompaniyangizning oylik aylanmasi, uni ko‘rsatish ixtiyoriy. Elektron pochta va erkin matn maydoni formada yo‘q. Bundan tashqari analitika xizmatlari texnik ma’lumotlarni yig‘adi: IP-manzil, brauzer va qurilma turi, qaysi sahifalarga kirganingiz va qachon. Bank rekvizitlari, parollar yoki hujjat raqamlarini biz hech qachon so‘ramaymiz.',
       },
       {
         heading: '3. Ma’lumot qayerga boradi',
@@ -50,7 +50,7 @@ const content = {
       },
       {
         heading: '2. Какие данные собираются',
-        body: 'Через форму обратной связи собираются четыре поля, которые вы вводите сами: имя, номер телефона, Telegram username и количество сотрудников в компании. Поля с почтой и свободным текстом в форме нет. Дополнительно аналитические сервисы собирают технические данные: IP-адрес, тип браузера и устройства, какие страницы вы открывали и когда. Банковские реквизиты, пароли и номера документов мы не запрашиваем.',
+        body: 'Через форму обратной связи собираются поля, которые вы вводите сами: имя, номер телефона, Telegram username — они обязательны — и месячный оборот вашей компании, его можно не указывать. Поля с почтой и свободным текстом в форме нет. Дополнительно аналитические сервисы собирают технические данные: IP-адрес, тип браузера и устройства, какие страницы вы открывали и когда. Банковские реквизиты, пароли и номера документов мы не запрашиваем.',
       },
       {
         heading: '3. Куда попадают данные',
@@ -88,7 +88,7 @@ const content = {
       },
       {
         heading: '2. What we collect',
-        body: 'The contact form collects four fields you enter yourself: name, phone number, Telegram username, and the number of employees at your company. There is no email or free-text field in the form. Analytics services additionally collect technical data: IP address, browser and device type, which pages you opened and when. We never ask for bank details, passwords, or identity document numbers.',
+        body: 'The contact form collects fields you enter yourself: name, phone number and Telegram username — these are required — plus your company’s monthly turnover, which is optional. There is no email or free-text field in the form. Analytics services additionally collect technical data: IP address, browser and device type, which pages you opened and when. We never ask for bank details, passwords, or identity document numbers.',
       },
       {
         heading: '3. Where the data goes',

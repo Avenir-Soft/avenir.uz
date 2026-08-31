@@ -1214,6 +1214,11 @@ button, input { font: inherit; color: inherit; }
   box-shadow: inset 0 1px 0 rgba(var(--ink),0.4), 0 0 0 4px rgba(37,99,235,0.18); }
 .form .btn { justify-content: center; margin-top: 0.3rem; }
 .form__n { text-align: center; font-size: 0.75rem; color: var(--w-34); }
+/* Rozilik qatori — huquqiy matn, uni o'qib bo'lishi SHART, shuning uchun
+   bu yerda --w-34 (kontrast 3,02:1) o'rniga yorqinroq ton olingan. */
+.form__c { margin-top: 0.7rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.form__c a { color: var(--b3); text-decoration: underline; text-underline-offset: 2px; }
+.form__c a:hover { color: #fff; }
 
 /* ==========================================================================
    Futer
