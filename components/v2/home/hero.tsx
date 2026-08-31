@@ -158,12 +158,12 @@ export function HomeHero({ lang }: { lang: Language }) {
 														<div className="pcol">
 															<em>{tv(lang, 'Ishda')}</em>
 															<div className="pc">
-																<b>{tv(lang, 'VAC.UZ — ERP')}</b>
+																<b>{tv(lang, 'Alfa Textile — ERP')}</b>
 																<span>{tv(lang, '12 hafta · 48 mln')}</span>
 																<u style={{ '--p': '64%' }}></u>
 															</div>
 															<div className="pc">
-																<b>{tv(lang, 'APEC — katalog')}</b>
+																<b>{tv(lang, 'Orient Logistics — katalog')}</b>
 																<span>{tv(lang, '18 hafta · 126 mln')}</span>
 																<u style={{ '--p': '38%' }}></u>
 															</div>
@@ -171,12 +171,12 @@ export function HomeHero({ lang }: { lang: Language }) {
 														<div className="pcol">
 															<em>{tv(lang, 'Tekshiruvda')}</em>
 															<div className="pc">
-																<b>{tv(lang, 'Yakov — analitika')}</b>
+																<b>{tv(lang, 'Delta Market — analitika')}</b>
 																<span>{tv(lang, '2-bosqich · 32 mln')}</span>
 																<u style={{ '--p': '88%' }}></u>
 															</div>
 															<div className="pc">
-																<b>{tv(lang, 'DeFi — platforma')}</b>
+																<b>{tv(lang, 'Vertex Build — platforma')}</b>
 																<span>{tv(lang, '8 hafta · 96 mln')}</span>
 																<u style={{ '--p': '71%' }}></u>
 															</div>
@@ -184,7 +184,7 @@ export function HomeHero({ lang }: { lang: Language }) {
 														<div className="pcol">
 															<em>{tv(lang, 'Yakunlandi')}</em>
 															<div className="pc">
-																<b>{tv(lang, 'Dagestantur — sayt')}</b>
+																<b>{tv(lang, 'Nova Pharm — sayt')}</b>
 																<span>{tv(lang, 'Topshirildi · 19 mln')}</span>
 																<u style={{ '--p': '100%' }}></u>
 															</div>
@@ -295,19 +295,19 @@ export function HomeHero({ lang }: { lang: Language }) {
 													</div>
 													<div className="inv">
 														<div className="inv__r">
-															<em>{tv(lang, 'VAC.UZ')}</em>
+															<em>{tv(lang, 'Alfa Textile')}</em>
 															<span>{'· #2478'}</span>
 															<b>{'48 000 000'}</b>
 															<span className="bdg bdg--g">{tv(lang, 'To\'landi')}</span>
 														</div>
 														<div className="inv__r">
-															<em>{tv(lang, 'APEC Asia UAE')}</em>
+															<em>{tv(lang, 'Orient Logistics')}</em>
 															<span>{'· #2481'}</span>
 															<b>{'32 000 000'}</b>
 															<span className="bdg bdg--b">{tv(lang, 'Yuborildi')}</span>
 														</div>
 														<div className="inv__r">
-															<em>{tv(lang, 'Dagestantur')}</em>
+															<em>{tv(lang, 'Nova Pharm')}</em>
 															<span>{'· #2470'}</span>
 															<b>{'9 600 000'}</b>
 															<span className="bdg bdg--a">{tv(lang, 'Muddati o\'tdi')}</span>

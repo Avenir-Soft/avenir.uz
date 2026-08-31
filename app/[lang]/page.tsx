@@ -16,11 +16,11 @@ import { isLanguage, type Language } from '@/lib/languages'
 /* Lenta satrlari maketdan (index.html:1641); serverda tarjima qilinadi,
    behaviors ularni tayyor holda oladi. */
 const FEED_ITEMS: [string, string][] = [
-  ['Yangi lid', 'VAC.UZ — korporativ sayt'],
+  ['Yangi lid', 'Alfa Textile — korporativ sayt'],
   ['Hisob-faktura', "#2481 to’landi"],
   ['Vazifa yopildi', 'Dizayn sprint · 12/12'],
   ['Bitim bosqichi', 'Taklif yuborildi'],
-  ['Yangi mijoz', 'APEC Asia UAE'],
+  ['Yangi mijoz', 'Orient Logistics'],
   ['Hisobot', 'Oylik P&L tayyor'],
 ]
 

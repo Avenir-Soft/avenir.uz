@@ -46,7 +46,7 @@ export function HomeSolutions({ lang }: { lang: Language }) {
 												{' '}{tv(lang, '· B-4821')}{' '}
 												<span className="bdg bdg--b">{tv(lang, 'Taklif yuborildi')}</span>
 											</p>
-											<p className="gp__t">{tv(lang, 'VAC.UZ — korporativ sayt va hisob-kitob moduli')}</p>
+											<p className="gp__t">{tv(lang, 'Alfa Textile — korporativ sayt va hisob-kitob moduli')}</p>
 											<p className="gp__f">
 												<span>{tv(lang, 'Muddat: 12 hafta')}</span>
 												<b>{tv(lang, '48 000 000 so\'m')}</b>
@@ -60,7 +60,7 @@ export function HomeSolutions({ lang }: { lang: Language }) {
 												{' '}{tv(lang, '· SH-1174')}{' '}
 												<span className="bdg bdg--g">{tv(lang, 'Imzolandi')}</span>
 											</p>
-											<p className="gp__t">{tv(lang, 'APEC Asia UAE — ulgurji katalog platformasi')}</p>
+											<p className="gp__t">{tv(lang, 'Orient Logistics — ulgurji katalog platformasi')}</p>
 											<p className="gp__f">
 												<span>{tv(lang, 'Muddat: 18 hafta')}</span>
 												<b>{tv(lang, '126 400 000 so\'m')}</b>
@@ -74,7 +74,7 @@ export function HomeSolutions({ lang }: { lang: Language }) {
 												{' '}{'· #2481'}{' '}
 												<span className="bdg bdg--a">{tv(lang, 'To\'lov kutilmoqda')}</span>
 											</p>
-											<p className="gp__t">{tv(lang, 'Yakov and Partners — analitik platforma, 2-bosqich')}</p>
+											<p className="gp__t">{tv(lang, 'Delta Market — analitik platforma, 2-bosqich')}</p>
 											<p className="gp__f">
 												<span>{tv(lang, 'Muddat: 5 kun')}</span>
 												<b>{tv(lang, '32 000 000 so\'m')}</b>
@@ -205,7 +205,7 @@ export function HomeSolutions({ lang }: { lang: Language }) {
 									<div className="ai__res" data-cyc-link>
 										<div className="ai__rc">
 											<em>{tv(lang, 'Javob')}</em>
-											<p>{tv(lang, 'Kelasi haftada 3 ta uchrashuv: VAC.UZ (dushanba), APEC (chorshanba), Yakov (juma).')}</p>
+											<p>{tv(lang, 'Kelasi haftada 3 ta uchrashuv: Alfa Textile (dushanba), Orient Logistics (chorshanba), Delta Market (juma).')}</p>
 										</div>
 										<div className="ai__rc">
 											<em>{tv(lang, 'Javob')}</em>
@@ -509,7 +509,7 @@ export function HomeSolutions({ lang }: { lang: Language }) {
 													</span>
 													<span className="pn__b">
 														<b>{tv(lang, 'Yangi bitim')}</b>
-														<span>{tv(lang, 'VAC.UZ — taklif yuborildi')}</span>
+														<span>{tv(lang, 'Alfa Textile — taklif yuborildi')}</span>
 													</span>
 													<span className="pn__t">{tv(lang, 'hozir')}</span>
 												</div>
