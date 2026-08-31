@@ -218,20 +218,30 @@ export default async function LocaleLayout({
         <Script src="/fx.js" strategy="afterInteractive" />
 
         {gaId && (
-          <>
-            <Script
-              id="gtag-load"
-              strategy="afterInteractive"
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}',{page_path:window.location.pathname});`,
-              }}
-            />
-          </>
+          /* gtag.js — 170 KB, sahifadagi ENG OG'IR resurs, va u gidratatsiya
+             bilan bir vaqtda kelardi: Slow 4G da bu taxminan ikki soniya,
+             aynan brauzer eng band paytda.
+             Endi kutubxonaning O'ZI kechiktiriladi — birinchi harakatgacha yoki
+             3 soniyagacha. Lekin `dataLayer` va `gtag()` zaxirasi DARHOL
+             qo'yiladi: shu sababli `config` ham, formadagi `lead_submit` ham
+             navbatga tushadi va kutubxona kelganda hammasi yetkaziladi.
+             Yo'qoladigan yagona narsa — kutubxona kelguncha ketib qolgan
+             tashriflarning page_view'i. */
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html:
+                `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}` +
+                `gtag('js',new Date());gtag('config','${gaId}',{page_path:window.location.pathname});` +
+                `(function(){var go=function(){if(document.getElementById('gtag-lib'))return;` +
+                `var s=document.createElement('script');s.id='gtag-lib';s.async=!0;` +
+                `s.src='https://www.googletagmanager.com/gtag/js?id=${gaId}';` +
+                `document.head.appendChild(s)};var t=setTimeout(go,3000);` +
+                `['pointerdown','keydown','scroll'].forEach(function(ev){` +
+                `window.addEventListener(ev,function(){clearTimeout(t);go()},{once:true,passive:true})})})();`,
+            }}
+          />
         )}
 
         {metaPixelId && (
