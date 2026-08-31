@@ -1,7 +1,7 @@
 /* Mini-app sahifasi: maketda yo'q, «Telegram bot» sahifasining skeletida
    qo'lda yig'ilgan. Matnlar — lib/service-catalog.ts (uch tilda), umumiy
    satrlar — maket lug'atidan (tv). Egasining qarori: 2026-08-26. */
-import { tv } from '@/lib/i18n-v2'
+import { tv, tva } from '@/lib/i18n-v2'
 import { Split } from '@/components/v2/split'
 import { localizedPath } from '@/lib/paths'
 import { getServiceBySlug } from '@/lib/service-catalog'
@@ -10,6 +10,7 @@ import type { Language } from '@/lib/languages'
 export function SvcMiniApps({ lang }: { lang: Language }) {
 	const base = localizedPath(lang, '/')
 	const svc = (s: string) => localizedPath(lang, `/services/${s}`)
+	const prj = (s: string) => localizedPath(lang, `/portfolio/${s}`)
 	const c = getServiceBySlug('mini-apps')!.content[lang]
 	return (
 		<>
@@ -87,6 +88,52 @@ export function SvcMiniApps({ lang }: { lang: Language }) {
 								<p></p>
 							</div>
 						))}
+					</div>
+				</div>
+			</section>
+			{/* Bu bo'lim boshqa beshta xizmat sahifasida bor edi, mini-app da esa
+				 yo'q: ko'rsatadigan ekran yo'q edi. Avenir Store — o'z mahsulotimiz,
+				 endi ko'rsatadigan narsa bor. */}
+			<section className="section" id="ekranlar" data-sec="loyihalar" style={{ paddingTop: '0' }}>
+				<div className="shell">
+					<div className="center">
+						<span className="chip rise">
+							<i></i>
+							{tv(lang, 'Ekranlar')}
+						</span>
+						<Split className="h-sec rise" style={{ '--d': '80ms' }}>
+							{tv(lang, 'Loyihalardan ekranlar')}
+						</Split>
+					</div>
+					<div className="work work--2">
+						<a className="gc wc rise" href={`${prj('avenir-store')}`}>
+							<div className="wc__img">
+								<img src="/portfolio/avenir-shop.webp" alt={tva(lang, 'Avenir Store')} loading="lazy" />
+							</div>
+							<div className="wc__b">
+								<p className="wc__m">{tv(lang, 'Katalog, filtrlar va savat')}</p>
+								<h3>{tv(lang, 'Avenir Store')}</h3>
+								{' '}
+								<span className="wc__go">
+									{tv(lang, 'Keysni ochish')}{' '}
+									<i>{'→'}</i>
+								</span>
+							</div>
+						</a>
+						<a className="gc wc rise" href={`${prj('apec-asia')}`}>
+							<div className="wc__img">
+								<img src="/portfolio/apec-asia.webp" alt={tva(lang, 'APEC Asia UAE')} loading="lazy" />
+							</div>
+							<div className="wc__b">
+								<p className="wc__m">{tv(lang, 'Katalog va narxlar')}</p>
+								<h3>{tv(lang, 'APEC Asia UAE')}</h3>
+								{' '}
+								<span className="wc__go">
+									{tv(lang, 'Keysni ochish')}{' '}
+									<i>{'→'}</i>
+								</span>
+							</div>
+						</a>
 					</div>
 				</div>
 			</section>

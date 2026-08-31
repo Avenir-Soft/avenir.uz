@@ -59,7 +59,25 @@ export function HomeProjects({ lang, titleAs = 'h2' }: { lang: Language; titleAs
 								</span>
 							</div>
 						</a>
-						<a className="gc wc rise" style={{ '--d': '160ms' }} href={`${prj('yakov-partners')}`}>
+						{/* Avenir Store — o'z mahsulotimiz, Avenir OS dan keyin turadi */}
+						<a className="gc wc rise" style={{ '--d': '160ms' }} href={`${prj('avenir-store')}`}>
+								<div className="wc__img">
+									<img src="/portfolio/avenir-shop.webp" alt={tva(lang, 'Avenir Store')} loading="lazy" />
+								</div>
+								<div className="wc__b">
+									<p className="wc__m">
+										{tv(lang, 'E-commerce · mini-app')}
+										<span>{'2026'}</span>
+									</p>
+									<h3>{tv(lang, 'Avenir Store')}</h3>
+									<p>{tv(lang, 'Telegram ichida ochiladigan elektronika vitrinasi: katalog, filtrlar va savat.')}</p>
+									<span className="wc__go">
+										{tv(lang, 'Keysni ochish')}{' '}
+										<i>{'→'}</i>
+									</span>
+								</div>
+							</a>
+							<a className="gc wc rise" style={{ '--d': '240ms' }} href={`${prj('yakov-partners')}`}>
 							<div className="wc__img">
 								<img src="/portfolio/yakov-partners.webp" alt={tva(lang, 'Yakov and Partners')} loading="lazy" />
 							</div>

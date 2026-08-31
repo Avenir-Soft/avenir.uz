@@ -1,6 +1,7 @@
 export type PortfolioSlug =
   | 'vac-uz'
   | 'avenir-os'
+  | 'avenir-store'
   | 'yakov-partners'
   | 'defi-technologies'
   | 'apec-asia'
@@ -32,28 +33,39 @@ export const portfolioCatalog: PortfolioProject[] = [
     layout: 'wide',
   },
   {
+    /* Avenir Store — o'z mahsulotimiz, Avenir OS dan keyin turadi: ikkalasi
+       ham «o'zimiz quramiz va o'zimiz ishlatamiz» degan qatorni tashkil qiladi.
+       `tile` — chunki `feature` va `wide` allaqachon band, va kartochka
+       qolganlari bilan bir xil to'rda turishi kerak. */
     id: 3,
+    slug: 'avenir-store',
+    year: 2026,
+    image: '/portfolio/avenir-shop.webp',
+    layout: 'tile',
+  },
+  {
+    id: 4,
     slug: 'yakov-partners',
     year: 2025,
     image: '/portfolio/yakov-partners.webp',
     layout: 'wide',
   },
   {
-    id: 4,
+    id: 5,
     slug: 'defi-technologies',
     year: 2026,
     image: '/portfolio/defi-technologies.webp',
     layout: 'tile',
   },
   {
-    id: 5,
+    id: 6,
     slug: 'apec-asia',
     year: 2025,
     image: '/portfolio/apec-asia.webp',
     layout: 'tile',
   },
   {
-    id: 6,
+    id: 7,
     slug: 'dagestantur',
     year: 2025,
     image: '/portfolio/dagestantur.webp',

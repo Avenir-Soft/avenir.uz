@@ -5,6 +5,7 @@ import { V2Footer } from '@/components/v2/footer'
 import { V2Header } from '@/components/v2/header'
 import { PrjApecAsia } from '@/components/v2/portfolio/apec-asia'
 import { PrjAvenirOs } from '@/components/v2/portfolio/avenir-os'
+import { PrjAvenirStore } from '@/components/v2/portfolio/avenir-store'
 import { PrjDagestantur } from '@/components/v2/portfolio/dagestantur'
 import { PrjDefiTechnologies } from '@/components/v2/portfolio/defi-technologies'
 import { PrjVacUz } from '@/components/v2/portfolio/vac-uz'
@@ -24,6 +25,7 @@ interface PortfolioPageProps {
 const VIEWS: Record<PortfolioSlug, (props: { lang: Language }) => React.ReactNode> = {
   'vac-uz': PrjVacUz,
   'avenir-os': PrjAvenirOs,
+  'avenir-store': PrjAvenirStore,
   'yakov-partners': PrjYakovPartners,
   'defi-technologies': PrjDefiTechnologies,
   'apec-asia': PrjApecAsia,

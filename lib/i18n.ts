@@ -102,6 +102,12 @@ export const dictionaries: Record<Language, Dictionary> = {
           tags: ['ERP', 'CRM', 'Moliya'],
         },
         {
+          name: 'Avenir Store',
+          category: 'E-commerce · mini-app',
+          summary: 'Telegram ichida ochiladigan elektronika vitrinasi: katalog, filtrlar, qoldiq va savat.',
+          tags: ['Mini-app', 'Katalog', 'E-commerce'],
+        },
+        {
           name: 'Yakov and Partners',
           category: 'Konsalting va analitika',
           summary: 'Xalqaro konsalting kompaniyasi uchun korporativ veb-sayt va analitik platforma.',
@@ -312,6 +318,12 @@ export const dictionaries: Record<Language, Dictionary> = {
           tags: ['ERP', 'CRM', 'Финансы'],
         },
         {
+          name: 'Avenir Store',
+          category: 'E-commerce · mini-app',
+          summary: 'Витрина электроники, которая открывается внутри Telegram: каталог, фильтры, остатки и корзина.',
+          tags: ['Mini-app', 'Каталог', 'E-commerce'],
+        },
+        {
           name: 'Яков и Партнёры',
           category: 'Консалтинг и аналитика',
           summary: 'Корпоративный сайт и аналитическая платформа для международной консалтинговой компании.',
@@ -520,6 +532,12 @@ export const dictionaries: Record<Language, Dictionary> = {
           category: 'ERP+CRM+Finance System',
           summary: 'Operating system for full control of operational tasks in a single application.',
           tags: ['ERP', 'CRM', 'Finance'],
+        },
+        {
+          name: 'Avenir Store',
+          category: 'E-commerce · mini app',
+          summary: 'An electronics storefront that opens inside Telegram: catalogue, filters, stock and cart.',
+          tags: ['Mini app', 'Catalogue', 'E-commerce'],
         },
         {
           name: 'Yakov and Partners',
