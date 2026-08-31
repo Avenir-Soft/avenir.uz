@@ -102,6 +102,7 @@ export function V2ContactForm({ lang }: { lang: Language }) {
     phone: UZ_PHONE_PREFIX + ' ',
     telegramUsername: '',
     employeeCount: '',
+    message: '',
     company: '' /* honeypot */,
   })
   const [sending, setSending] = useState(false)
@@ -112,7 +113,7 @@ export function V2ContactForm({ lang }: { lang: Language }) {
   /* Bitta ariza — bitta id, qayta urinishlarda ham o'sha. */
   const requestId = useRef('')
 
-  const change = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setError('')
     if (name === 'phone') {
@@ -260,6 +261,21 @@ export function V2ContactForm({ lang }: { lang: Language }) {
           placeholder={tva(lang, 'Masalan: oyiga 300 mln')}
           maxLength={32}
           value={form.employeeCount}
+          onChange={change}
+        />
+      </div>
+      {/* Xizmatlar va keyslar sahifalaridagi tugma shu formaga olib keladi va
+          «qisqacha yozing» deb va'da qiladi — yozadigan joy esa yo'q edi.
+          Majburiy emas: birinchi aloqada ortiqcha to'siq qo'ymaymiz. */}
+      <div className="field">
+        <label htmlFor="fm">{tv(lang, 'Nima kerak')}</label>
+        <textarea
+          id="fm"
+          name="message"
+          rows={3}
+          placeholder={tva(lang, 'Qisqacha yozing — qolganini savollar bilan aniqlaymiz')}
+          maxLength={1000}
+          value={form.message}
           onChange={change}
         />
       </div>

@@ -20,6 +20,9 @@ const MAX_LENGTHS = {
   // qiymatlar 6 belgidan uzun, jimgina kesilmasin
   employeeCount: 32,
   requestId: 64,
+  // «Nima kerak» — erkin matn. AvenirOS javoblarni 1000 belgida kesadi,
+  // shuning uchun bu yerda ham xuddi shu chegara: kesilgan dum qaytmaydi.
+  message: 1000,
 } as const
 
 type TelegramSendMessageResponse = {
@@ -33,6 +36,8 @@ type ContactFormData = {
   telegramUsername: string
   employeeCount: string
   language: string
+  /** Mijozning erkin matni: «nima kerak». Majburiy emas. */
+  message: string
   /* Brauzer o'ylab topadigan bir martalik identifikator. CRM uni external_id
      sifatida oladi va shu id bilan kelgan takroriy so'rovdan dubl yasamaydi —
      javobda status: duplicate qaytadi. Tarmoq uzilib qayta yuborilganda
@@ -194,6 +199,7 @@ function buildTelegramMessage(data: ContactFormData) {
     `Номер телефона: ${data.phone}`,
     `Telegram username: ${data.telegramUsername || '—'}`,
     `Оборот: ${data.employeeCount || '—'}`,
+    `Что нужно: ${data.message || '—'}`,
     `Язык сайта: ${data.language || '—'}`,
     `Время: ${timestamp}`,
   ].join('\n')
@@ -205,6 +211,7 @@ function buildTelegramMessage(data: ContactFormData) {
    hamma narsani bitta `notes` satriga yopishtirib. */
 function buildFormAnswers(data: ContactFormData) {
   const answers: Array<{ q: string; a: string }> = []
+  if (data.message) answers.push({ q: 'Что нужно', a: data.message })
   if (data.employeeCount) answers.push({ q: 'Оборот компании в месяц', a: data.employeeCount })
   return answers
 }
@@ -232,6 +239,10 @@ async function sendToCRM(data: ContactFormData): Promise<'created' | 'duplicate'
       form_name: 'avenir.uz · форма заявки',
       external_id: data.requestId || undefined,
       form_answers: buildFormAnswers(data),
+      /* Mijozning matni `message` ga ham, javoblarga ham qo'yiladi. Sabab:
+         AvenirOS da note_text = notes or message, ya'ni `notes` bo'lsa
+         `message` umuman o'qilmaydi. Javoblar bloki esa har doim ko'rinadi. */
+      message: data.message || undefined,
       notes: `Язык сайта: ${data.language || '—'}`,
     }),
     signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
@@ -288,6 +299,7 @@ export async function POST(request: Request) {
     telegramUsername: cleanString(payload.telegramUsername, MAX_LENGTHS.telegramUsername),
     employeeCount: cleanString(payload.employeeCount, MAX_LENGTHS.employeeCount),
     language: cleanString(payload.language, 2),
+    message: cleanString(payload.message, MAX_LENGTHS.message),
     requestId: cleanString(payload.requestId, MAX_LENGTHS.requestId),
   }
 
