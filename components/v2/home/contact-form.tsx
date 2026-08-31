@@ -164,11 +164,25 @@ export function V2ContactForm({ lang }: { lang: Language }) {
         setSending(false)
         return
       }
-      trackLead({
-        hasTelegram: Boolean(form.telegramUsername.trim()),
-        hasEmployees: Boolean(form.employeeCount.trim()),
-        language: lang,
-      })
+      /* Bot uchun qo'yilgan tuzoq ishga tushganda server ataylab «ok» qaytaradi
+         (tuzoqning ma'nosi shunda), lekin ariza hech qayerga ketmaydi:
+         crm: 'skipped', delivered: 0. Ilgari shu holatda ham `lead_submit` va
+         `Lead` hodisalari otilardi — reklama bo'lmagan konversiyani hisoblab,
+         auditoriyani botlar bilan o'rgatardi. Endi hodisalar faqat ariza
+         HAQIQATDAN yetib borgan bo'lsa yuboriladi. */
+      const result = (await response.json().catch(() => null)) as
+        { crm?: string; delivered?: number } | null
+      const yetibBordi = Boolean(
+        result &&
+          (result.crm === 'created' || result.crm === 'duplicate' || (result.delivered ?? 0) > 0),
+      )
+      if (yetibBordi) {
+        trackLead({
+          hasTelegram: Boolean(form.telegramUsername.trim()),
+          hasEmployees: Boolean(form.employeeCount.trim()),
+          language: lang,
+        })
+      }
       setDone(true)
     } catch (err) {
       /* Bu yerga faqat tarmoq uzilishi tushadi — server javob bergan holatlar

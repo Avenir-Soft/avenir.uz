@@ -45,6 +45,8 @@ type ContactFormData = {
   requestId: string
 }
 
+type CrmStatus = 'created' | 'duplicate' | 'failed' | 'skipped'
+
 type RateEntry = { hits: number[]; }
 const rateBuckets = new Map<string, RateEntry>()
 
@@ -182,7 +184,7 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
   throw new Error(`Telegram sendMessage failed for chat "${chatId}": ${toErrorMessage(lastError)}`)
 }
 
-function buildTelegramMessage(data: ContactFormData) {
+function buildTelegramMessage(data: ContactFormData, crmStatus: CrmStatus) {
   const timestamp = new Intl.DateTimeFormat('ru-RU', {
     dateStyle: 'medium',
     timeStyle: 'medium',
@@ -193,7 +195,9 @@ function buildTelegramMessage(data: ContactFormData) {
      qolib ketgan edi. Menejer lidning yagona saralash belgisini boshqa nom
      ostida ko'rar va yo e'tibor bermas, yo qaytadan so'rardi. */
   return [
-    'Новая заявка с сайта avenir.uz',
+    crmStatus === 'failed'
+      ? '⚠️ Новая заявка с сайта avenir.uz — CRM НЕ ПРИНЯЛ, занесите вручную'
+      : 'Новая заявка с сайта avenir.uz',
     '',
     `Имя: ${data.name}`,
     `Номер телефона: ${data.phone}`,
@@ -331,7 +335,7 @@ export async function POST(request: Request) {
 
   // CRM ham, Telegram ham urinib ko'riladi. Ilgari CRM yiqilsa Telegram
   // bosqichiga umuman yetib borilmasdi va lid yo'qolardi.
-  let crmStatus: 'created' | 'duplicate' | 'failed' | 'skipped' = 'skipped'
+  let crmStatus: CrmStatus = 'skipped'
   let crmError: string | null = null
 
   if (hasCrmTarget) {
@@ -348,7 +352,11 @@ export async function POST(request: Request) {
   let delivered = 0
 
   if (hasTelegramTargets) {
-    const message = buildTelegramMessage(formData)
+    /* CRM yiqilib, Telegram tirik qolsa — odam muvaffaqiyat ko'radi, lid esa
+       CRM ga tushmaydi va bu haqda hech kim bilmaydi. Xabarnoma kanalining
+       o'zi ogohlantirish bo'lsin: menejer lidni qo'lda kiritishi kerakligini
+       darhol ko'radi. */
+    const message = buildTelegramMessage(formData, crmStatus)
     const telegramToken = botToken as string
 
     for (const chatId of chatIds) {
@@ -369,7 +377,24 @@ export async function POST(request: Request) {
   const anyDelivered = crmStatus === 'created' || crmStatus === 'duplicate' || delivered > 0
 
   if (!anyDelivered) {
-    console.error('Contact form could not be delivered anywhere', { crmError, failedByChatId })
+    /* Ikkala kanal ham yiqildi. Navbat ham, qayta yuborish ham yo'q, ya'ni
+       arizaning MAZMUNI hech qayerda saqlanmasdi — logda faqat xato matni
+       qolardi. Endi tozalangan maydonlar ham logga tushadi: lidni Dokploy
+       loglaridan qo'lda tiklash mumkin. Bu yerda ariza allaqachon
+       validatsiyadan o'tgan va cleanString bilan kesilgan. */
+    console.error('Contact form could not be delivered anywhere', {
+      crmError,
+      failedByChatId,
+      lead: {
+        name: formData.name,
+        phone: formData.phone,
+        telegram: formData.telegramUsername,
+        turnover: formData.employeeCount,
+        message: formData.message,
+        language: formData.language,
+        requestId: formData.requestId,
+      },
+    })
     return NextResponse.json({ error: 'Failed to deliver the request' }, { status: 502 })
   }
 
