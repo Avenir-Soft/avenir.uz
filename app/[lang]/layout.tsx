@@ -236,11 +236,18 @@ export default async function LocaleLayout({
 
         {metaPixelId && (
           <>
+            {/* `lazyOnload` bo'sh daqiqani kutadi, bosh sahifa esa unga hech
+                qachon kirmaydi: hero maketi va fon kanvasi ko'rinib turgan
+                ekan, asosiy oqim band. O'lchov: CPU 4x + Slow 4G da 25 soniya
+                kuzatuvda facebook ga 0 ta so'rov, `window.fbq === undefined`,
+                ya'ni reklama ko'r-ko'rona ishlaydi.
+                Endi piksel gidratatsiyaga xalaqit bermaydi, lekin baribir
+                yuklanadi: birinchi harakatda yoki 3 soniyadan keyin. */}
             <Script
               id="meta-pixel"
-              strategy="lazyOnload"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
-                __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${metaPixelId}');fbq('track','PageView');`,
+                __html: `(function(){var go=function(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${metaPixelId}');fbq('track','PageView')};var t=setTimeout(go,3000);['pointerdown','keydown','scroll'].forEach(function(ev){window.addEventListener(ev,function(){clearTimeout(t);go()},{once:true,passive:true})})})();`,
               }}
             />
             <noscript>

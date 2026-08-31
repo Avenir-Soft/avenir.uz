@@ -245,16 +245,25 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     /* ---------- jonli maketlar ko'rinish darvozalari (index.html:1597) ---------- */
     let heroVis = true
     let trustVis = true
+    /* Ko'rinmayotgan blok uchun kadr SO'RAMAYMIZ. Ilgari sikllar ishni
+       o'tkazib yuborardi, lekin keyingi kadrni baribir so'rardi — natijada
+       bosh sahifa bo'sh turganda ham asosiy oqim ~99% band bo'lardi
+       (o'lchov: 0,990). Telefon qiziydi, va `lazyOnload` bilan yuklanadigan
+       Meta Pixel bo'sh daqiqani kutib umuman yuklanmaydi. Endi sikl
+       to'xtaydi, observer yoki visibilitychange uni qayta yoqadi. */
+    const wake: (() => void)[] = []
+    const rerun = () => { for (const f of wake) f() }
+    on(document, 'visibilitychange', () => { if (!document.hidden) rerun() })
     {
       const h = $('.hero')
       const t = $('.trust')
       if (h) {
-        const o = new IO(es => es.forEach(e => { heroVis = e.isIntersecting }), { rootMargin: '200px' })
+        const o = new IO(es => es.forEach(e => { heroVis = e.isIntersecting; if (heroVis) rerun() }), { rootMargin: '200px' })
         o.observe(h)
         observers.push(o)
       }
       if (t) {
-        const o = new IO(es => es.forEach(e => { trustVis = e.isIntersecting }), { rootMargin: '200px' })
+        const o = new IO(es => es.forEach(e => { trustVis = e.isIntersecting; if (trustVis) rerun() }), { rootMargin: '200px' })
         o.observe(t)
         observers.push(o)
       }
@@ -338,9 +347,16 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         })
       }
 
-      requestAnimationFrame(function loop(now) {
-        if (!alive) return
-        if (!heroVis) { requestAnimationFrame(loop); return }
+      let heroRun = false
+      const heroStart = () => {
+        if (heroRun || !alive || !heroVis || document.hidden) return
+        heroRun = true
+        requestAnimationFrame(loop)
+      }
+      wake.push(heroStart)
+      function loop(now: number) {
+        if (!alive) { heroRun = false; return }
+        if (!heroVis || document.hidden) { heroRun = false; return }
         if (now > nextNum) { nums.forEach(n => retarget(n, now)); nextNum = now + 3600 }
         nums.forEach(n => {
           if (n.t >= 1) return
@@ -370,7 +386,8 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         if (now > nextFeed) { pushFeed(); nextFeed = now + 3400 }
         if (now > nextBars) { morph(); nextBars = now + 3200 }
         requestAnimationFrame(loop)
-      })
+      }
+      heroStart()
     }
 
     /* ---------- kartalar ichidagi navbat (index.html:1700) ---------- */
@@ -569,17 +586,29 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       let half = 0
       const measure = () => { if (mq) half = mq.scrollWidth / 2 }
       measure()
-      on(window, 'resize', measure)
-      ;(function tick() {
-        if (!alive) return
-        if (!reduce && half && mq && trustVis) {
+      /* Tasma ko'rinmasa yoki tab yashirin bo'lsa — sikl to'xtaydi.
+         `reduce` da yoki `#mq` bo'lmasa umuman ishga tushmaydi: ilgari u
+         hech nima chizmasdan har kadrda bekorga uyg'onardi. */
+      let mqRun = false
+      const mqStart = () => {
+        if (mqRun || !alive || reduce || !mq || !trustVis || document.hidden) return
+        mqRun = true
+        requestAnimationFrame(tick)
+      }
+      wake.push(mqStart)
+      on(window, 'resize', () => { measure(); mqStart() })
+      on(window, 'load', () => { measure(); mqStart() })
+      function tick() {
+        if (!alive || !mq || !trustVis || document.hidden) { mqRun = false; return }
+        if (half) {
           off -= 0.6 + boost
           boost *= 0.92
           if (-off >= half) off += half
           mq.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)'
         }
         requestAnimationFrame(tick)
-      })()
+      }
+      mqStart()
     }
 
     /* ---------- scroll: panel va bo'lim belgisi (index.html:1816) ---------- */

@@ -17,10 +17,24 @@ export function V2Intro() {
                React yuklanmasa ham (chunk 404, WebView) ekran ochilib qolsin. */
             "try{if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches)" +
             "document.body.classList.add('intro-on');" +
-            "setTimeout(function(){var i=document.getElementById('intro');" +
-            "if(i&&!i.classList.contains('is-out')&&!i.dataset.done){" +
-            "i.dataset.done='1';i.style.display='none';" +
-            "document.body.classList.remove('intro-on')}},4000)}catch(e){}",
+            /* Pardani tap bilan yopish. Ilgari bu ishlov beruvchi gidratatsiyadan
+               keyin osilardi, ya'ni sekin telefonda 6-soniyagacha bosib bo'lmasdi —
+               aynan o'sha paytda odam pardadan qutulmoqchi bo'ladi. Endi u shu
+               sinxron skriptda va birinchi kadrdanoq ishlaydi.
+               `data-done` DARHOL qo'yiladi: behaviors.tsx `#intro:not([data-done])`
+               bo'yicha qidiradi, shuning uchun gidratatsiya kelganda o'z taymerini
+               ortiqcha ishga tushirmaydi. Herolarni ochish endIntro dagidek —
+               aks holda parda ketadi, sarlavha esa ko'rinmay qolardi. */
+            'var close=function(){var i=document.getElementById("intro");' +
+            'if(!i||i.dataset.done)return;i.dataset.done="1";' +
+            'i.classList.add("is-out");document.body.classList.remove("intro-on");' +
+            'setTimeout(function(){i.style.display="none"},650);' +
+            'var h=document.querySelector(".hero");' +
+            'if(h){h.classList.add("is-in");setTimeout(function(){h.classList.add("unmask")},1500)}};' +
+            "document.addEventListener('pointerdown',close,{once:true});" +
+            "document.addEventListener('keydown',function(e){" +
+            "if(e.key==='Escape'||e.key===' '||e.key==='Enter')close()});" +
+            'setTimeout(close,4000)}catch(e){}',
         }}
       />
       <div className="intro" id="intro" role="presentation" aria-hidden="true">

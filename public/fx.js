@@ -93,13 +93,17 @@
       requestAnimationFrame(fxDraw);
     }
     function startFx() {
-      if (running || document.hidden) return;
+      if (running || document.hidden || !fxOn) return;
       running = true;
       requestAnimationFrame(fxDraw);
     }
 
     function fxDraw(now) {
-      if (!fxOn) { nextFrame(); return; }
+      /* Kanvas ekrandan chiqib ketgan bo'lsa ham kadr so'ramaymiz. Ilgari bu
+         yerda `nextFrame()` turardi: chizish bajarilmasdi, lekin sikl
+         aylanaverardi va asosiy oqim hech qachon bo'shamasdi. Observer
+         qaytarganda startFx() uni yana yoqadi. */
+      if (!fxOn) { running = false; return; }
       fc.clearRect(0, 0, FW, FH);
       fc.drawImage(base, 0, 0, FW, FH);
 
@@ -203,6 +207,7 @@
     if (typeof IntersectionObserver === 'function') {
       new IntersectionObserver(function (es) {
         es.forEach(function (e) { fxOn = e.isIntersecting; });
+        if (fxOn) startFx();
       }, { rootMargin: '120px' }).observe(fx);
     }
 
