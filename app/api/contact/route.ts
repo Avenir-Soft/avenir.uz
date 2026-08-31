@@ -239,7 +239,12 @@ export async function POST(request: Request) {
     language: cleanString(payload.language, 2),
   }
 
-  if (!formData.name || !formData.phone || !formData.telegramUsername || !formData.employeeCount) {
+  // Aylanma («oborot») MAJBURIY EMAS: formada bu maydonda `required` yo'q va
+  // brauzer uni bo'sh qoldirib yuborishga ruxsat beradi. Server esa uni talab
+  // qilardi va 400 qaytarardi — odam «qaytadan urinib ko'ring» dan boshqa hech
+  // narsa ko'rmasdi, lid esa na CRM ga, na Telegram ga yetib borardi.
+  // Quyida `|| '—'` allaqachon bor, ya'ni bo'sh qiymat xabarni buzmaydi.
+  if (!formData.name || !formData.phone || !formData.telegramUsername) {
     return NextResponse.json({ error: 'All fields are required' }, { status: 400 })
   }
 
