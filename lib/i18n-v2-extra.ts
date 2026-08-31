@@ -42,6 +42,13 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		'41.8 mln': '41.8 млн',
 		'386.5 mln': '386.5 млн',
 		'38.4 mln': '38.4 млн',
+
+		/* Forma xatolari. Ilgari hammasi bitta «qaytadan urinib ko'ring» edi. */
+		"Juda tez-tez yuborilyapti. {n} soniyadan keyin qayta urinib ko'ring":
+			'Слишком часто. Попробуйте через {n} секунд',
+		"Maydonlarni tekshiring: telefon raqami yoki majburiy maydon to'ldirilmagan":
+			'Проверьте поля: телефон или обязательное поле заполнены неверно',
+		"Yuborib bo'lmadi. Bizga yozing": 'Не получилось отправить. Напишите нам',
 	},
 	en: {
 		'Yuborilmoqda…': 'Sending…',
@@ -77,5 +84,12 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		'41.8 mln': '41.8M',
 		'386.5 mln': '386.5M',
 		'38.4 mln': '38.4M',
+
+		/* Forma xatolari. */
+		"Juda tez-tez yuborilyapti. {n} soniyadan keyin qayta urinib ko'ring":
+			'Too many attempts. Try again in {n} seconds',
+		"Maydonlarni tekshiring: telefon raqami yoki majburiy maydon to'ldirilmagan":
+			'Check the fields: the phone number or a required field is incorrect',
+		"Yuborib bo'lmadi. Bizga yozing": 'Could not send. Message us',
 	},
 }

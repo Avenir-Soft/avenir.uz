@@ -37,29 +37,60 @@ type ContactFormData = {
 type RateEntry = { hits: number[]; }
 const rateBuckets = new Map<string, RateEntry>()
 
+/* Ilova oldida nechta ISHONCHLI proksi turibdi. Dokploy (Traefik) — 1 ta.
+   Oldiga CDN qo'yilsa (Cloudflare va shu kabi) — 2 qilib qo'ying. */
+const TRUSTED_PROXY_HOPS = Math.max(1, Number(process.env.CONTACT_TRUSTED_PROXY_HOPS ?? 1))
+
+/* X-Forwarded-For ning BIRINCHI elementini mijozning o'zi yozadi, ya'ni uni
+   xohlagancha to'qib chiqarish mumkin edi: har so'rovda yangi «IP» — va
+   chastota chegarasi butunlay chetlab o'tilardi (o'lchov: 10 ta soxta IP bilan
+   10 tadan 10 tasi o'tib ketdi, chegara «10 daqiqada 5 ta» bo'lgani holda).
+   Oxiridan sanaymiz: zanjirning oxirgi bo'g'inini bizning o'z proksimiz
+   yozadi, uni mijoz almashtira olmaydi. */
 function clientIp(request: Request) {
-  const forwarded = request.headers.get('x-forwarded-for')
-  if (forwarded) return forwarded.split(',')[0].trim()
+  const chain = (request.headers.get('x-forwarded-for') || '')
+    .split(',')
+    .map(part => part.trim())
+    .filter(Boolean)
+
+  if (chain.length) {
+    const index = chain.length - TRUSTED_PROXY_HOPS
+    return chain[index >= 0 ? index : 0]
+  }
+
+  /* Zanjir umuman yo'q — demak proksi ham yo'q. Bu holatda X-Real-IP dan
+     boshqa signal qolmaydi (uni ham mijoz yuborishi mumkin, lekin proksisiz
+     ishonchli manba umuman yo'q). */
   return request.headers.get('x-real-ip')?.trim() || 'unknown'
 }
 
-/** null — ruxsat; son — necha soniyadan keyin qayta urinish mumkin. */
-function rateLimit(ip: string): number | null {
+/** null — ruxsat; son — necha soniyadan keyin qayta urinish mumkin. Yozmaydi. */
+function rateCheck(ip: string): number | null {
   const now = Date.now()
-  const entry = rateBuckets.get(ip) ?? { hits: [] }
+  const entry = rateBuckets.get(ip)
+  if (!entry) return null
   entry.hits = entry.hits.filter(at => now - at < RATE_WINDOW_MS)
 
   const last = entry.hits[entry.hits.length - 1]
   if (last !== undefined && now - last < RATE_MIN_INTERVAL_MS) {
-    rateBuckets.set(ip, entry)
     return Math.ceil((RATE_MIN_INTERVAL_MS - (now - last)) / 1000)
   }
-
   if (entry.hits.length >= RATE_MAX_PER_WINDOW) {
-    rateBuckets.set(ip, entry)
     return Math.ceil((RATE_WINDOW_MS - (now - entry.hits[0])) / 1000)
   }
+  return null
+}
 
+/* Urinishni FAQAT validatsiyadan o'tgandan keyin yozamiz. Ilgari yozuv eng
+   boshida turardi: bo'sh aylanma tufayli 400 olgan odam maydonni to'ldirib
+   qayta bosardi va 15 soniya o'tmagani uchun 429 ga tushardi — xabar esa
+   ikkala holatda ham bir xil edi. Ya'ni o'z xatosini tuzatgan odam
+   jazolanardi. Botlar uchun qimmat yo'l (CRM va Telegram) baribir yopiq:
+   u faqat to'g'ri arizadan keyin ochiladi. */
+function rateHit(ip: string) {
+  const now = Date.now()
+  const entry = rateBuckets.get(ip) ?? { hits: [] }
+  entry.hits = entry.hits.filter(at => now - at < RATE_WINDOW_MS)
   entry.hits.push(now)
   rateBuckets.set(ip, entry)
 
@@ -69,8 +100,6 @@ function rateLimit(ip: string): number | null {
       if (value.hits.every(at => now - at >= RATE_WINDOW_MS)) rateBuckets.delete(key)
     }
   }
-
-  return null
 }
 
 function cleanString(value: unknown, maxLength: number) {
@@ -199,7 +228,7 @@ export const runtime = 'nodejs'
 
 export async function POST(request: Request) {
   const ip = clientIp(request)
-  const retryAfter = rateLimit(ip)
+  const retryAfter = rateCheck(ip)
   if (retryAfter !== null) {
     return NextResponse.json(
       { error: 'Too many requests' },
@@ -251,6 +280,9 @@ export async function POST(request: Request) {
   if (!isValidPhone(formData.phone)) {
     return NextResponse.json({ error: 'Phone format is invalid' }, { status: 400 })
   }
+
+  /* Ariza to'g'ri — endi urinishni chegaraga yozamiz. */
+  rateHit(ip)
 
   const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim()
   const chatIds = parseChatIds(process.env.TELEGRAM_CHAT_IDS)

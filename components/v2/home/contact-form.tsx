@@ -76,6 +76,8 @@ export function V2ContactForm({ lang }: { lang: Language }) {
   })
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
+  /* Server yiqilgan holatda odam qo'lsiz qolmasin: xabar yonida Telegram. */
+  const [offerTelegram, setOfferTelegram] = useState(false)
   const [done, setDone] = useState(false)
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,13 +99,32 @@ export function V2ContactForm({ lang }: { lang: Language }) {
     }
     setSending(true)
     setError('')
+    setOfferTelegram(false)
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, language: lang }),
       })
-      if (!response.ok) throw new Error(`Contact form failed with ${response.status}`)
+      /* Ilgari bu yerda faqat `response.ok` tekshirilardi va odam 400, 429,
+         502 va tarmoq uzilishida BIR XIL «qaytadan urinib ko'ring» ni ko'rardi:
+         o'zi xato qildimi yoki server yiqildimi — ajratib bo'lmasdi. */
+      if (!response.ok) {
+        if (response.status === 429) {
+          const sec = Number(response.headers.get('Retry-After')) || 15
+          setError(
+            tv(lang, "Juda tez-tez yuborilyapti. {n} soniyadan keyin qayta urinib ko'ring")
+              .replace('{n}', String(sec)),
+          )
+        } else if (response.status === 400 || response.status === 413) {
+          setError(tv(lang, "Maydonlarni tekshiring: telefon raqami yoki majburiy maydon to'ldirilmagan"))
+        } else {
+          setError(tv(lang, "Yuborib bo'lmadi. Bizga yozing"))
+          setOfferTelegram(true)
+        }
+        setSending(false)
+        return
+      }
       trackLead({
         hasTelegram: Boolean(form.telegramUsername.trim()),
         hasEmployees: Boolean(form.employeeCount.trim()),
@@ -111,8 +132,11 @@ export function V2ContactForm({ lang }: { lang: Language }) {
       })
       setDone(true)
     } catch (err) {
+      /* Bu yerga faqat tarmoq uzilishi tushadi — server javob bergan holatlar
+         yuqorida ajratilgan. Odamga yagona ishlaydigan yo'lni ko'rsatamiz. */
       console.error(err)
       setError(t.contact.form.error)
+      setOfferTelegram(true)
     } finally {
       setSending(false)
     }
@@ -228,7 +252,17 @@ export function V2ContactForm({ lang }: { lang: Language }) {
         <Link href={localizedPath(lang, '/privacy')}>{tv(lang, 'Maxfiylik siyosati')}</Link>
       </p>
       {error ? (
-        <p className="form__n" role="alert" style={{ color: '#F87171' }}>{error}</p>
+        <p className="form__n form__c" role="alert" style={{ color: '#F87171' }}>
+          {error}
+          {offerTelegram ? (
+            <>
+              {' · '}
+              <a href="https://t.me/avenir_uz" target="_blank" rel="noopener noreferrer">
+                {tv(lang, 'Telegram')}
+              </a>
+            </>
+          ) : null}
+        </p>
       ) : (
         <p className="form__n">{tv(lang, '24 soat ichida javob beramiz')}</p>
       )}
