@@ -29,6 +29,14 @@
   --white:     #FFFFFF;
   --w-72:      rgba(255, 255, 255, 0.72);
   --w-52:      rgba(255, 255, 255, 0.52);
+  /* --w-34 kontrasti #020B16 fonida 3,02:1 — 18,66px dan kichik matn uchun
+     talab qilinadigan 4,5:1 dan past. U BEZAK bo'lib qoladi (hero maketlari
+     ichidagi kichkina yozuvlar), o'qiladigan matn esa --w-55 ga o'tkazildi:
+     forma yorliqlari, xato matni, podval, non ushoqlari, hisoblagich
+     imzolari. Plesxolder uchun --w-40: ilgari --w-18 da u ~1,8:1 berardi va
+     «Masalan: oyiga 300 mln» ko'zga zo'rg'a ilinardi. */
+  --w-55:      rgba(255, 255, 255, 0.55);
+  --w-40:      rgba(255, 255, 255, 0.40);
   --w-34:      rgba(255, 255, 255, 0.34);
   --w-18:      rgba(255, 255, 255, 0.18);
 
@@ -688,7 +696,7 @@ button, input, textarea { font: inherit; color: inherit; }
    Ishonch tasmasi
    ========================================================================== */
 .trust { padding-block: clamp(2.5rem, 5vw, 3.5rem); border-block: 1px solid var(--line); overflow: hidden; position: relative; z-index: 2; }
-.trust__l { text-align: center; color: var(--w-34); font-size: 0.875rem; }
+.trust__l { text-align: center; color: var(--w-55); font-size: 0.875rem; }
 .trust__l b { color: var(--white); font-weight: 600; }
 .mq { margin-top: 1.6rem; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
 .mq__t { display: flex; gap: 3.5rem; width: max-content; will-change: transform; }
@@ -1170,7 +1178,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .od__d u { display: block; text-decoration: none; transform: translateY(0); transition: transform 1.2s var(--out); }
 .od__d u i { display: block; height: 1em; font-style: normal; }
 .od sup { font-size: 0.42em; line-height: 1; margin-top: 0.1em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nums__k { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--w-34); }
+.nums__k { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--w-55); }
 
 /* ==========================================================================
    Yakuniy CTA bloki
@@ -1191,7 +1199,7 @@ button, input, textarea { font: inherit; color: inherit; }
   .final__grid > .form { order: 0; } }
 .cols { display: grid; gap: 2rem; }
 @media (min-width: 480px) { .cols { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-.col h5 { margin: 0 0 0.85rem; font-size: 0.8125rem; font-weight: 400; color: var(--w-34); }
+.col h5 { margin: 0 0 0.85rem; font-size: 0.8125rem; font-weight: 400; color: var(--w-55); }
 .col a, .col p { display: block; color: var(--w-72); font-size: 1rem; transition: color 0.25s var(--ease); }
 .col a:hover { color: var(--white); }
 .col b { font-weight: 600; color: var(--white); }
@@ -1206,18 +1214,18 @@ button, input, textarea { font: inherit; color: inherit; }
   background: linear-gradient(170deg, rgba(var(--ink),0.09), rgba(var(--ink),0.02));
   box-shadow: inset 0 1px 0 rgba(var(--ink),0.3), 0 34px 70px -38px var(--sh2); }
 .field { display: grid; gap: 0.4rem; }
-.field label { font-size: 0.75rem; color: var(--w-34); }
+.field label { font-size: 0.75rem; color: var(--w-55); }
 /* textarea maydonlar bilan bir xil ko'rinadi — o'zining hech qanday uslubi yo'q */
 .field input, .field textarea { border: 1px solid var(--line-2); border-radius: 14px; padding: 0.85rem 1rem;
   background: linear-gradient(180deg, rgba(var(--ink),0.09), rgba(var(--ink),0.03));
   box-shadow: inset 0 1px 0 rgba(var(--ink),0.25);
   transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease); }
 .field textarea { resize: vertical; min-height: 88px; line-height: 1.5; }
-.field input::placeholder, .field textarea::placeholder { color: var(--w-18); }
+.field input::placeholder, .field textarea::placeholder { color: var(--w-40); }
 .field input:focus, .field textarea:focus { outline: none; border-color: rgba(96,165,250,0.7);
   box-shadow: inset 0 1px 0 rgba(var(--ink),0.4), 0 0 0 4px rgba(37,99,235,0.18); }
 .form .btn { justify-content: center; margin-top: 0.3rem; }
-.form__n { text-align: center; font-size: 0.75rem; color: var(--w-34); }
+.form__n { text-align: center; font-size: 0.75rem; color: var(--w-55); }
 /* Rozilik qatori — huquqiy matn, uni o'qib bo'lishi SHART, shuning uchun
    bu yerda --w-34 (kontrast 3,02:1) o'rniga yorqinroq ton olingan. */
 .form__c { margin-top: 0.7rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
@@ -1229,9 +1237,9 @@ button, input, textarea { font: inherit; color: inherit; }
    ========================================================================== */
 .foot { padding-block: clamp(2.5rem, 5vw, 3.5rem); }
 .foot__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
-.foot p { font-size: 0.8125rem; color: var(--w-34); line-height: 1.8; }
+.foot p { font-size: 0.8125rem; color: var(--w-55); line-height: 1.8; }
 .foot nav { display: flex; gap: 1.5rem; }
-.foot nav a { font-size: 0.8125rem; color: var(--w-34); transition: color 0.25s var(--ease); }
+.foot nav a { font-size: 0.8125rem; color: var(--w-55); transition: color 0.25s var(--ease); }
 .foot nav a:hover { color: var(--b3); }
 
 /* ==========================================================================
@@ -1382,7 +1390,7 @@ body.intro-on { overflow: hidden; }
 .sv-hero { position: relative; overflow: hidden; padding-top: clamp(7rem, 12vw, 9.5rem); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
 .sv-hero > .shell { position: relative; z-index: 2; }
 
-.crumb { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8125rem; color: var(--w-34); }
+.crumb { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8125rem; color: var(--w-55); }
 .crumb a { transition: color 0.25s var(--ease); }
 .crumb a:hover { color: var(--b3); }
 .crumb b { color: var(--w-72); font-weight: 400; }

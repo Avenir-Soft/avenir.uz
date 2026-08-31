@@ -72,6 +72,12 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
        ishladi», til almashganda qayta montajda bloklar miltillamasin. */
     document.body.classList.add('is-hydrated')
 
+    /* Til almashganda `key={language}` bu effektni qayta montaj qiladi, va shu
+       paytda <canvas id="fx"> ham yangisiga almashadi. fx.js ni xabardor
+       qilamiz, aks holda u eski, DOM dan uzilgan tugunga chizishda davom
+       etardi va fon o'lik qolardi. */
+    ;(window as Window & { __fxRefresh?: () => void }).__fxRefresh?.()
+
     const mq = (q: string) =>
       typeof window.matchMedia === 'function' ? window.matchMedia(q) : noopMedia
     const IO = (typeof IntersectionObserver === 'function'
@@ -106,6 +112,12 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       return id
     }
     const observers: { disconnect(): void }[] = []
+
+    /* Ko'rinmayotgan blok uchun kadr SO'RAMAYMIZ: sikl chiqib ketadi, uni
+       observer yoki tabga qaytish qayta yoqadi. Ro'yxat shu yerda turadi,
+       chunki uni birinchi bo'lib kursor sikli ishlatadi. */
+    const wake: (() => void)[] = []
+    const rerun = () => { for (const f of wake) f() }
 
     const $ = <T extends Element = HTMLElement>(q: string) => document.querySelector<T>(q)
     const $$ = <T extends Element = HTMLElement>(q: string) => Array.prototype.slice.call(document.querySelectorAll<T>(q)) as T[]
@@ -199,12 +211,39 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     }
     offs.push(() => document.body.classList.remove('intro-on'))
 
-    /* ---------- kursor (index.html:1560) ---------- */
-    if (fine && !reduce) {
+    /* ---------- kursor (index.html:1560) ----------
+       Ilgari shart JS da `innerWidth > 900` edi, CSS da esa `min-width: 1024px`
+       (v2.css:121). Oynani 900 dan kichik holatda ochib 1024 dan kattaga
+       kengaytirilsa, CSS o'z kursorini o'chirib qo'yardi (`cursor: none`), JS
+       esa tinglovchini umuman osmagan bo'lardi — odam butun sahifada
+       KO'RSATKICHSIZ qolardi, faqat qayta yuklash yordam berardi. Endi shart
+       CSS dagi bilan bitta media so'rovdan olinadi va uning o'zgarishiga
+       obuna bo'lamiz. */
+    const fineMq = mq('(hover: hover) and (pointer: fine) and (min-width: 1024px)')
+    if (!reduce) {
       const cur = document.getElementById('cur')
       if (cur) {
         let cx = -60, cy = -60, tx = -60, ty = -60
-        on(window, 'mousemove', (e: Event) => { tx = (e as MouseEvent).clientX; ty = (e as MouseEvent).clientY }, { passive: true })
+        let curRun = false
+        const curLoop = () => {
+          if (!alive || !fineMq.matches || document.hidden) { curRun = false; return }
+          cx += (tx - cx) * 0.24
+          cy += (ty - cy) * 0.24
+          cur.style.setProperty('--cx', cx.toFixed(1) + 'px')
+          cur.style.setProperty('--cy', cy.toFixed(1) + 'px')
+          requestAnimationFrame(curLoop)
+        }
+        const curStart = () => {
+          if (curRun || !alive || !fineMq.matches || document.hidden) return
+          curRun = true
+          requestAnimationFrame(curLoop)
+        }
+        wake.push(curStart)
+        on(fineMq as unknown as EventTarget, 'change', () => {
+          if (fineMq.matches) curStart()
+          else cur.classList.add('is-hidden')
+        })
+        on(window, 'mousemove', (e: Event) => { tx = (e as MouseEvent).clientX; ty = (e as MouseEvent).clientY; curStart() }, { passive: true })
         on(document, 'mouseover', (e: Event) => {
           const t = (e.target as Element).closest?.('a, button, input, label, .gc')
           cur.classList.toggle('is-big', !!t)
@@ -213,14 +252,7 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         on(document, 'mouseout', (e: Event) => { if (!(e as MouseEvent).relatedTarget) cur.classList.add('is-hidden') })
         on(window, 'blur', () => cur.classList.add('is-hidden'))
         on(window, 'focus', () => cur.classList.remove('is-hidden'))
-        ;(function loop() {
-          if (!alive) return
-          cx += (tx - cx) * 0.24
-          cy += (ty - cy) * 0.24
-          cur.style.setProperty('--cx', cx.toFixed(1) + 'px')
-          cur.style.setProperty('--cy', cy.toFixed(1) + 'px')
-          requestAnimationFrame(loop)
-        })()
+        curStart()
       }
     }
 
@@ -245,14 +277,10 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
     /* ---------- jonli maketlar ko'rinish darvozalari (index.html:1597) ---------- */
     let heroVis = true
     let trustVis = true
-    /* Ko'rinmayotgan blok uchun kadr SO'RAMAYMIZ. Ilgari sikllar ishni
-       o'tkazib yuborardi, lekin keyingi kadrni baribir so'rardi — natijada
-       bosh sahifa bo'sh turganda ham asosiy oqim ~99% band bo'lardi
-       (o'lchov: 0,990). Telefon qiziydi, va `lazyOnload` bilan yuklanadigan
-       Meta Pixel bo'sh daqiqani kutib umuman yuklanmaydi. Endi sikl
-       to'xtaydi, observer yoki visibilitychange uni qayta yoqadi. */
-    const wake: (() => void)[] = []
-    const rerun = () => { for (const f of wake) f() }
+    /* Ilgari sikllar ishni o'tkazib yuborardi, lekin keyingi kadrni baribir
+       so'rardi — natijada bosh sahifa bo'sh turganda ham asosiy oqim ~99% band
+       bo'lardi (o'lchov: 0,990). Telefon qiziydi, va `lazyOnload` bilan
+       yuklanadigan Meta Pixel bo'sh daqiqani kutib umuman yuklanmaydi. */
     on(document, 'visibilitychange', () => { if (!document.hidden) rerun() })
     {
       const h = $('.hero')

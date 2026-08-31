@@ -181,7 +181,25 @@
     }
 
     fxSize();
-    window.__fxRefresh = function () { readInk(); fxSize(); };
+    /* Til almashganda Next `[lang]` segmentini qayta montaj qiladi va DOM da
+       YANGI <canvas id="fx"> paydo bo'ladi. Skript esa eskisini yopilmada
+       ushlab turardi: chizish uzilgan tugunga ketardi va fon sessiya oxirigacha
+       o'lik qolardi (F5 dan boshqa davo yo'q edi). Skript `next/script` orqali
+       ulangani uchun qayta bajarilmaydi — tugunni O'ZIMIZ almashtiramiz.
+       Butun initsializatsiyani qaytadan yugurtirmaymiz: mousemove va resize
+       tinglovchilari ikkilanib ketardi. */
+    window.__fxRefresh = function () {
+      var next = document.getElementById('fx');
+      if (next && next !== fx) {
+        var ctx = next.getContext ? next.getContext('2d') : null;
+        if (!ctx) return;
+        if (io) { try { io.unobserve(fx); } catch (e) {} }
+        fx = next; fc = ctx;
+        if (io) io.observe(fx);
+        fxOn = true;
+      }
+      readInk(); fxSize(); startFx();
+    };
 
     /* Telefonda skroll paytida manzil paneli yig'ilib-yozilib turadi va har
        safar `resize` beradi. fxSize() esa butun nuqtalar to'rini qaytadan
@@ -204,11 +222,13 @@
       px = e.clientX - r.left; py = e.clientY - r.top;
     }, { passive: true });
     /* IntersectionObserver yo'q bo'lsa — fonni doim yoqiq qoldiramiz. */
+    var io = null;
     if (typeof IntersectionObserver === 'function') {
-      new IntersectionObserver(function (es) {
+      io = new IntersectionObserver(function (es) {
         es.forEach(function (e) { fxOn = e.isIntersecting; });
         if (fxOn) startFx();
-      }, { rootMargin: '120px' }).observe(fx);
+      }, { rootMargin: '120px' });
+      io.observe(fx);
     }
 
     document.addEventListener('visibilitychange', function () {
