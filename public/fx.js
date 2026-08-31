@@ -83,8 +83,23 @@
       fc.fill();
     }
 
+    /* Ko'rinmayotgan tabda kadr so'ramaymiz: oyna boshqa deraza bilan
+       to'silganda yoki ilova fonga o'tganda brauzer rAF'ni har doim ham
+       to'xtatmaydi — batareya behuda sarflanadi. Qaytib kelganda
+       visibilitychange siklni qayta yoqadi. */
+    var running = false;
+    function nextFrame() {
+      if (document.hidden) { running = false; return; }
+      requestAnimationFrame(fxDraw);
+    }
+    function startFx() {
+      if (running || document.hidden) return;
+      running = true;
+      requestAnimationFrame(fxDraw);
+    }
+
     function fxDraw(now) {
-      if (!fxOn) { requestAnimationFrame(fxDraw); return; }
+      if (!fxOn) { nextFrame(); return; }
       fc.clearRect(0, 0, FW, FH);
       fc.drawImage(base, 0, 0, FW, FH);
 
@@ -94,26 +109,45 @@
         if (waves[w].r > R_MAX) waves.splice(w, 1);
       }
 
+      /* Har bir to'lqin uchun halqaning ichki/tashqi radiusi KVADRATDA:
+         nuqtaning shu halqaga tushishini sqrt'siz tekshiramiz. Kadr ichida
+         nuqtalar ~1200 ta, to'lqin tegmaydiganlari esa aksariyat — ilgari
+         ularning har biri uchun ham sqrt hisoblanardi. */
       var nw = waves.length;
+      for (var v = 0; v < nw; v++) {
+        var wv0 = waves[v];
+        var inner = wv0.r - BAND, outer = wv0.r + BAND;
+        wv0.i2 = inner > 0 ? inner * inner : 0;
+        wv0.o2 = outer * outer;
+        wv0.fade = 1 - wv0.r / R_MAX;
+      }
+      /* Kursor yo'q bo'lsa (sensorli ekran) — yaqinlik hisobini butunlay
+         o'tkazib yuboramiz; px shu holatda -9999 bo'lib qolaveradi. */
+      var hasPointer = px > -9000;
+
       for (var i = 0; i < dots.length; i++) {
         var d = dots[i], a = 0, blue = 0;
 
-        for (var v = 0; v < nw; v++) {
-          var wv = waves[v], dx = d.x - wv.x, dy = d.y - wv.y;
-          var dist = Math.sqrt(dx * dx + dy * dy), off = dist - wv.r;
+        for (var v2 = 0; v2 < nw; v2++) {
+          var wv = waves[v2], dx = d.x - wv.x, dy = d.y - wv.y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < wv.i2 || d2 > wv.o2) continue;
+          var off = Math.sqrt(d2) - wv.r;
           if (off < 0) off = -off;
           if (off < BAND) {
-            var k = 1 - off / BAND, fade = 1 - wv.r / R_MAX;
+            var k = 1 - off / BAND, fade = wv.fade;
             a += k * k * 0.62 * fade;
             if (k * fade > blue) blue = k * fade;
           }
         }
 
-        var mx = d.x - px, my = d.y - py, md2 = mx * mx + my * my;
-        if (md2 < 28900) {                       /* 170px */
-          var mk = 1 - Math.sqrt(md2) / 170;
-          a += mk * mk * 0.45;
-          if (mk * 0.7 > blue) blue = mk * 0.7;
+        if (hasPointer) {
+          var mx = d.x - px, my = d.y - py, md2 = mx * mx + my * my;
+          if (md2 < 28900) {                     /* 170px */
+            var mk = 1 - Math.sqrt(md2) / 170;
+            a += mk * mk * 0.45;
+            if (mk * 0.7 > blue) blue = mk * 0.7;
+          }
         }
 
         if (a < 0.03) continue;                  /* xira nuqta allaqachon fonda bor */
@@ -139,12 +173,28 @@
         star4(sx, sy, st.s);
       }
 
-      requestAnimationFrame(fxDraw);
+      nextFrame();
     }
 
     fxSize();
     window.__fxRefresh = function () { readInk(); fxSize(); };
-    window.addEventListener('resize', fxSize);
+
+    /* Telefonda skroll paytida manzil paneli yig'ilib-yozilib turadi va har
+       safar `resize` beradi. fxSize() esa butun nuqtalar to'rini qaytadan
+       quradi va offscreen canvasni qayta chizadi — skrollning eng qizigan
+       joyida. Shuning uchun: kechiktiramiz va faqat KENGLIK o'zgarganda
+       yoki balandlik sezilarli siljiganda qayta quramiz. */
+    var rsT = 0, lastW = FW, lastH = FH;
+    window.addEventListener('resize', function () {
+      clearTimeout(rsT);
+      rsT = setTimeout(function () {
+        var r = fx.getBoundingClientRect();
+        if (Math.round(r.width) === Math.round(lastW) && Math.abs(r.height - lastH) < 120) return;
+        lastW = r.width; lastH = r.height;
+        fxSize();
+      }, 150);
+    }, { passive: true });
+
     window.addEventListener('mousemove', function (e) {
       var r = fx.getBoundingClientRect();
       px = e.clientX - r.left; py = e.clientY - r.top;
@@ -155,6 +205,10 @@
         es.forEach(function (e) { fxOn = e.isIntersecting; });
       }, { rootMargin: '120px' }).observe(fx);
     }
-    requestAnimationFrame(fxDraw);
+
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) startFx();
+    });
+    startFx();
   }
 })();

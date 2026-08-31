@@ -415,26 +415,89 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         const icons = $$('.dash__ico')
         const urls = $$('.stage__url i')
         let cur = 0
-        const fit = () => { wrap.style.height = scr[cur].offsetHeight + 'px' }
+
+        /* Tor ekranda modullarning balandligi juda farq qiladi (o'lchadik:
+           «Breynstorming» 214px, «Loyihalar» 602px). Har bir modulga
+           moslashadigan balandlik har 4.6 soniyada 388px sakrar va butun
+           sahifani pastga-yuqoriga silkitardi — telefonda sayt shundan
+           «qiyshiq» ko'rinardi. Shuning uchun tor ekranda balandlik ENG
+           BALAND modulga qarab qotiriladi. Keng ekranda tarqoqlik ikki
+           barobar kichik (151px) — u yerda maketdagidek moslashib
+           qolaveradi. */
+        const steady = mq('(max-width: 899px)')
+
+        /* Modullarning balandliklari shu yerda saqlanadi. Ularni skroll yoki
+           animatsiya paytida `offsetHeight` bilan o'qish — har safar majburiy
+           layout; ResizeObserver esa xuddi shu o'lchamlarni layout'ni
+           majburlamasdan o'zi yetkazib beradi. Shuning uchun quyida
+           `offsetHeight` FAQAT bir marta, boshlang'ich o'lchov uchun
+           o'qiladi, keyin hammasi observer'dan keladi. */
+        const hs = scr.map(s => s.offsetHeight)
+        const wanted = () => {
+          if (!steady.matches) return hs[cur]
+          let max = 0
+          for (let k = 0; k < hs.length; k++) if (hs[k] > max) max = hs[k]
+          return max
+        }
+
+        /* Faqat qiymat haqiqatan o'zgargan bo'lsa yozamiz. Ilgari har bir
+           `fit()` shartsiz yozar, ResizeObserver esa shu yozuvga javoban
+           yana o'zi ishga tushar edi. */
+        let applied = -1
+        const apply = () => {
+          const h = wanted()
+          if (!h || Math.abs(h - applied) < 1) return
+          applied = h
+          wrap.style.height = h + 'px'
+        }
+        /* Observer yo'q brauzerlar uchun zaxira yo'l: o'zimiz o'qiymiz. */
+        const fit = () => {
+          for (let k = 0; k < scr.length; k++) hs[k] = scr[k].offsetHeight
+          apply()
+        }
+        const syncSteady = () => {
+          wrap.classList.toggle('scr--fixed', steady.matches)
+          applied = -1
+          fit()
+        }
         function show(n: number) {
           cur = n
           for (let k = 0; k < scr.length; k++) scr[k].classList.toggle('is-on', k === n)
           for (let m = 0; m < icons.length; m++) icons[m].classList.toggle('is-on', m === n)
           for (let u = 0; u < urls.length; u++) urls[u].classList.toggle('is-on', u === n)
-          fit()
+          apply()
         }
-        fit()
-        on(window, 'load', fit)
-        if (document.fonts?.ready) document.fonts.ready.then(() => { if (alive) fit() })
-        later(fit, 600)
-        later(fit, 1600)
+        syncSteady()
         if (window.ResizeObserver) {
-          const ro = new ResizeObserver(() => fit())
+          let roQueued = false
+          const ro = new ResizeObserver(entries => {
+            for (let e = 0; e < entries.length; e++) {
+              const en = entries[e]
+              const i = scr.indexOf(en.target as HTMLElement)
+              if (i < 0) continue
+              const bb = en.borderBoxSize
+              hs[i] = bb && bb.length ? bb[0].blockSize : en.contentRect.height
+            }
+            /* Yozuv observer callback'i ichida emas, keyingi kadrda —
+               aks holda «ResizeObserver loop completed with undelivered
+               notifications» chiqadi. */
+            if (roQueued) return
+            roQueued = true
+            requestAnimationFrame(() => { roQueued = false; if (alive) apply() })
+          })
           scr.forEach(x => ro.observe(x))
           observers.push(ro)
+        } else {
+          on(window, 'load', fit)
+          if (document.fonts?.ready) document.fonts.ready.then(() => { if (alive) fit() })
+          later(fit, 600)
+          later(fit, 1600)
         }
+        /* noopMedia ham addEventListener/removeEventListener beradi,
+           shuning uchun qo'shimcha tekshiruv kerak emas. */
+        on(steady as unknown as EventTarget, 'change', syncSteady)
         let rt: ReturnType<typeof setTimeout> | undefined
-        on(window, 'resize', () => { if (rt) clearTimeout(rt); rt = later(fit, 120) }, { passive: true })
+        on(window, 'resize', () => { if (rt) clearTimeout(rt); rt = later(syncSteady, 120) }, { passive: true })
         every(() => {
           const r = stage.getBoundingClientRect()
           if (r.bottom < 60 || r.top > window.innerHeight - 60) return
@@ -516,8 +579,27 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       const top = document.getElementById('top')
       const links = $$('.nav a[data-sec]')
       const secs = $$('[data-sec]').filter(s => !s.matches('a'))
+      /* `offsetTop` skroll paytida o'qilsa, brauzer har kadrda layout'ni
+         majburan qayta hisoblaydi (skroll qanchalik uzoq — shuncha qimmat).
+         Bir marta o'lchab qo'yamiz va faqat o'lchamlar o'zgarganda
+         yangilaymiz. */
+      let tops: number[] = secs.map(s => (s as HTMLElement).offsetTop)
+      const remeasure = () => { tops = secs.map(s => (s as HTMLElement).offsetTop) }
+      on(window, 'load', remeasure)
+      on(window, 'resize', remeasure, { passive: true })
+      if (window.ResizeObserver) {
+        let q = false
+        const ro = new ResizeObserver(() => {
+          if (q) return
+          q = true
+          requestAnimationFrame(() => { q = false; if (alive) remeasure() })
+        })
+        ro.observe(document.body)
+        observers.push(ro)
+      }
       let lastY = window.scrollY
       let ticking = false
+      let lastSec: string | null = null
       const onFrame = () => {
         const y = window.scrollY
         const dy = y - lastY
@@ -525,8 +607,14 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         top?.classList.toggle('is-away', dy > 4 && y > 500)
         const mid = y + window.innerHeight * 0.4
         let cur = ''
-        secs.forEach(s => { if ((s as HTMLElement).offsetTop <= mid) cur = s.getAttribute('data-sec') || '' })
-        links.forEach(a => a.classList.toggle('is-on', a.getAttribute('data-sec') === cur))
+        for (let i = 0; i < secs.length; i++) {
+          if (tops[i] <= mid) cur = secs[i].getAttribute('data-sec') || ''
+        }
+        /* havolalarni har kadrda emas, faqat bo'lim almashganda qayta chizamiz */
+        if (cur !== lastSec) {
+          lastSec = cur
+          links.forEach(a => a.classList.toggle('is-on', a.getAttribute('data-sec') === cur))
+        }
         boost = Math.min(9, Math.abs(dy) * 0.35)
         lastY = y
         ticking = false
