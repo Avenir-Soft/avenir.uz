@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const path = `/services/${service.slug}`
 
   return {
-    title: content.title,
+    title: content.seoTitle,
     description: content.intro,
     alternates: {
       canonical: localizedPath(lang, path),

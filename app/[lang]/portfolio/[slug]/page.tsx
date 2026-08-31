@@ -47,8 +47,12 @@ export async function generateMetadata({ params }: PortfolioPageProps): Promise<
   const projectCopy = dictionary.portfolio.projects[index] ?? dictionary.portfolio.projects[0]
   const path = `/portfolio/${project.slug}`
 
+  /* Ilgari bu yerda faqat `name` turardi: «VAC.UZ | Avenir» — 15 belgi va
+     uchala tilda AYNAN bir xil, ya'ni to'liq dubl. Kategoriya lug'atda
+     tarjima qilingan, shuning uchun yangi matn yozish shart emas:
+     «VAC.UZ — производство и автоматизация | Avenir». */
   return {
-    title: projectCopy.name,
+    title: `${projectCopy.name} — ${projectCopy.category}`,
     description: projectCopy.summary,
     alternates: {
       canonical: localizedPath(lang, path),

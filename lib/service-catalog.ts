@@ -4,7 +4,13 @@ export type ServiceSlug = 'web-sites' | 'mobile-apps' | 'crm-erp' | 'ai-bots' | 
 export type ServiceIcon = 'globe' | 'smartphone' | 'database' | 'bot' | 'send' | 'app'
 
 export interface ServiceLocalizedContent {
+  /** Sahifadagi nom: chip, h1 yonidagi yorliq, «Boshqa yechimlar» kartochkasi. */
   title: string
+  /* Faqat <title> uchun. Ilgari u yerda `title` turardi — «Веб-сайты | Avenir»,
+     18 belgi, va uchta tilning ikkitasida bir xil («Mini-app | Avenir» uz va ru
+     da to'liq dubl). Qidiruv so'rovlari esa (lib/seo.ts:47) sarlavhaga umuman
+     tushmasdi. Bu yerda «xizmat + nima qilamiz + shahar» shabloni. */
+  seoTitle: string
   teaser: string
   intro: string
   outcomesLabel: string
@@ -30,6 +36,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'Veb saytlar',
+        seoTitle: 'Toshkentda veb-sayt ishlab chiqish',
         teaser: 'Korporativ sayt, landing va e-commerce yechimlar.',
         intro:
           'Biz mijozga ishonch uyg\'otadigan, tez ochiladigan va konversiyaga yo\'naltirilgan zamonaviy veb saytlar yaratamiz.',
@@ -52,6 +59,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'Веб-сайты',
+        seoTitle: 'Разработка сайтов в Ташкенте',
         teaser: 'Корпоративные сайты, лендинги и e-commerce решения.',
         intro:
           'Создаем современные сайты, которые формируют доверие к бренду, быстро работают и приводят целевых клиентов.',
@@ -74,6 +82,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'Websites',
+        seoTitle: 'Website development in Tashkent',
         teaser: 'Corporate websites, landing pages, and e-commerce solutions.',
         intro:
           'We build modern websites that strengthen brand trust, load fast, and convert visitors into qualified leads.',
@@ -102,6 +111,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'Mobil ilovalar',
+        seoTitle: 'Mobil ilova ishlab chiqish — iOS va Android',
         teaser: 'Android va iOS uchun intuitiv mobil mahsulotlar.',
         intro:
           'Biz foydalanuvchiga qulay, tezkor va ishonchli mobil ilovalar yaratib, mahsulotingizni doimiy foydalanishga olib chiqamiz.',
@@ -124,6 +134,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'Мобильные приложения',
+        seoTitle: 'Разработка мобильных приложений iOS и Android',
         teaser: 'Интуитивные мобильные продукты для Android и iOS.',
         intro:
           'Разрабатываем быстрые и стабильные мобильные приложения, которые повышают вовлеченность и упрощают клиентский путь.',
@@ -146,6 +157,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'Mobile Apps',
+        seoTitle: 'Mobile app development for iOS and Android',
         teaser: 'Intuitive mobile products for Android and iOS.',
         intro:
           'We deliver fast and reliable mobile apps that improve user retention and streamline the customer journey.',
@@ -174,6 +186,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'AI botlar',
+        seoTitle: 'Biznes uchun AI yordamchi va botlar',
         teaser: 'Savollarni tushunadigan va jarayonni avtomatlashtiradigan botlar.',
         intro:
           'AI botlar yordamida savdo, support va ichki operatsiyalarni tezlashtirib, jamoa yuklamasini kamaytiramiz.',
@@ -196,6 +209,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'AI-боты',
+        seoTitle: 'AI-боты и умные ассистенты для бизнеса',
         teaser: 'Боты, которые понимают запросы и автоматизируют коммуникацию.',
         intro:
           'Внедряем AI-ботов для продаж, поддержки и внутренних процессов, чтобы снизить нагрузку команды и ускорить ответы.',
@@ -218,6 +232,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'AI Bots',
+        seoTitle: 'AI assistants and bots for business',
         teaser: 'Bots that understand requests and automate communication.',
         intro:
           'We implement AI bots for sales, support, and internal workflows to reduce team load and speed up responses.',
@@ -246,6 +261,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'CRM va ERP tizimlar',
+        seoTitle: 'CRM va ERP tizimlarini joriy qilish',
         teaser: 'Sotuv, ombor, moliya va operatsiyalarni yagona tizimda boshqarish.',
         intro:
           'Biznes jarayonlarini CRM va ERP orqali raqamlashtirib, bo\'limlar o\'rtasidagi ishlashni bir platformaga jamlaymiz.',
@@ -268,6 +284,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'CRM и ERP системы',
+        seoTitle: 'Внедрение CRM и ERP систем в Ташкенте',
         teaser: 'Единое управление продажами, складом, финансами и операциями.',
         intro:
           'Оцифровываем процессы бизнеса через CRM и ERP, чтобы объединить отделы и данные в одной системе.',
@@ -290,6 +307,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'CRM & ERP Systems',
+        seoTitle: 'CRM and ERP implementation in Tashkent',
         teaser: 'Unified management of sales, inventory, finance, and operations.',
         intro:
           'We digitize business workflows with CRM and ERP to connect teams, data, and operations in one platform.',
@@ -318,6 +336,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'Telegram botlar',
+        seoTitle: 'Biznes uchun Telegram bot ishlab chiqish',
         teaser: 'Savdo, servis va ichki jarayonlar uchun Telegram yechimlari.',
         intro:
           'Telegram ichida buyurtma qabul qilish, katalog ko\'rsatish, to\'lovga yo\'naltirish va CRM bilan ishlashni avtomatlashtiramiz.',
@@ -340,6 +359,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'Telegram-боты',
+        seoTitle: 'Разработка Telegram-ботов для бизнеса',
         teaser: 'Telegram-решения для продаж, сервиса и внутренних процессов.',
         intro:
           'Автоматизируем прием заявок, показ каталога, платежные сценарии и интеграции с CRM прямо внутри Telegram.',
@@ -362,6 +382,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'Telegram Bots',
+        seoTitle: 'Telegram bot development for business',
         teaser: 'Telegram-first solutions for sales, service, and operations.',
         intro:
           'We automate lead capture, catalog browsing, payment flows, and CRM integrations directly inside Telegram.',
@@ -390,6 +411,7 @@ export const serviceCatalog: ServiceEntry[] = [
     content: {
       uz: {
         title: 'Mini-app',
+        seoTitle: 'Telegram mini-app ishlab chiqish',
         teaser: 'Telegram ichidagi interaktiv mini-ilovalar.',
         intro:
           'Mini-app orqali foydalanuvchiga oddiy botdan kengroq, vizual va interaktiv tajriba beramiz: katalog, bron, to\'lov, kabinet.',
@@ -412,6 +434,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       ru: {
         title: 'Mini-app',
+        seoTitle: 'Разработка mini-app в Telegram',
         teaser: 'Интерактивные mini-app решения внутри Telegram.',
         intro:
           'Создаем mini-app с полноценным пользовательским сценарием внутри Telegram: каталог, бронирование, оплата и личный кабинет.',
@@ -434,6 +457,7 @@ export const serviceCatalog: ServiceEntry[] = [
       },
       en: {
         title: 'Mini Apps',
+        seoTitle: 'Telegram Mini App development',
         teaser: 'Interactive Telegram Mini Apps for rich user journeys.',
         intro:
           'We build Telegram Mini Apps with full product flows: catalog, booking, payments, and user account experiences.',
