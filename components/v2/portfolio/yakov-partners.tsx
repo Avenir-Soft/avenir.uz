@@ -17,13 +17,13 @@ export function PrjYakovPartners({ lang }: { lang: Language }) {
 					<p className="crumb rise">
 						<a href={`${base}`}>{tv(lang, 'Bosh sahifa')}</a>
 						<span>{'/'}</span>
-						<a href={`${base}#loyihalar`}>{tv(lang, 'Loyihalar')}</a>
+						<a href={localizedPath(lang, '/portfolio')}>{tv(lang, 'Loyihalar')}</a>
 						<span>{'/'}</span>
 						<b>{tv(lang, 'Yakov and Partners')}</b>
 					</p>
 					<div className="sv-top">
 						<div className="sv-t">
-							<a className="back rise" href={`${base}#loyihalar`}>
+							<a className="back rise" href={localizedPath(lang, '/portfolio')}>
 								<i></i>
 								{tv(lang, 'Loyihalarga qaytish')}
 							</a>

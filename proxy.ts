@@ -41,7 +41,14 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 307)
   }
 
-  return NextResponse.next()
+  /* Tilsiz qolgan noma'lum manzil (`/foo`, `/fr`). Eski manzillar bu yergacha
+     yetib kelmaydi — ularni next.config dagi redirects avvalroq hal qiladi.
+     Bu yerda REWRITE, redirect emas: aks holda 307 dan keyin 404 zanjiri
+     chiqardi va odam ikki javob kutardi. Rewrite `[lang]/[...rest]` ga
+     tushadi va firma 404 sahifasi to'g'ri status bilan chiziladi. */
+  const url = request.nextUrl.clone()
+  url.pathname = `/${defaultLanguage}${pathname}`
+  return NextResponse.rewrite(url)
 }
 
 /* Nuqta ikki teskari chiziq bilan yoziladi. Satr ichida `\.` shunchaki `.` ga

@@ -17,13 +17,13 @@ export function SvcWebSites({ lang }: { lang: Language }) {
 					<p className="crumb rise">
 						<a href={`${base}`}>{tv(lang, 'Bosh sahifa')}</a>
 						<span>{'/'}</span>
-						<a href={`${base}#yechimlar`}>{tv(lang, 'Yechimlar')}</a>
+						<a href={localizedPath(lang, '/services')}>{tv(lang, 'Yechimlar')}</a>
 						<span>{'/'}</span>
 						<b>{tv(lang, 'Veb saytlar')}</b>
 					</p>
 					<div className="sv-top">
 						<div className="sv-t">
-							<a className="back rise" href={`${base}#yechimlar`}>
+							<a className="back rise" href={localizedPath(lang, '/services')}>
 								<i></i>
 								{tv(lang, 'Yechimlarga qaytish')}
 							</a>
@@ -40,7 +40,7 @@ export function SvcWebSites({ lang }: { lang: Language }) {
 									{tv(lang, 'Loyihani boshlash')}{' '}
 									<span className="btn__ar">{'→'}</span>
 								</a>
-								<a className="btn btn--d" href={`${base}#loyihalar`}>{tv(lang, 'Ishlarimizni ko\'rish')}</a>
+								<a className="btn btn--d" href={localizedPath(lang, '/portfolio')}>{tv(lang, 'Ishlarimizni ko\'rish')}</a>
 							</div>
 						</div>
 						<aside className="gc spec rise" style={{ '--d': '220ms' }}>

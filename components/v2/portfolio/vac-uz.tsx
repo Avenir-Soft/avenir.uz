@@ -16,13 +16,13 @@ export function PrjVacUz({ lang }: { lang: Language }) {
 					<p className="crumb rise">
 						<a href={`${base}`}>{tv(lang, 'Bosh sahifa')}</a>
 						<span>{'/'}</span>
-						<a href={`${base}#loyihalar`}>{tv(lang, 'Loyihalar')}</a>
+						<a href={localizedPath(lang, '/portfolio')}>{tv(lang, 'Loyihalar')}</a>
 						<span>{'/'}</span>
 						<b>{tv(lang, 'VAC.UZ')}</b>
 					</p>
 					<div className="sv-top">
 						<div className="sv-t">
-							<a className="back rise" href={`${base}#loyihalar`}>
+							<a className="back rise" href={localizedPath(lang, '/portfolio')}>
 								<i></i>
 								{tv(lang, 'Loyihalarga qaytish')}
 							</a>
@@ -39,7 +39,7 @@ export function PrjVacUz({ lang }: { lang: Language }) {
 									{tv(lang, 'Shunday tizim kerakmi?')}{' '}
 									<span className="btn__ar">{'→'}</span>
 								</a>
-								<a className="btn btn--d" href={`${base}#loyihalar`}>{tv(lang, 'Boshqa loyihalar')}</a>
+								<a className="btn btn--d" href={localizedPath(lang, '/portfolio')}>{tv(lang, 'Boshqa loyihalar')}</a>
 							</div>
 						</div>
 						<aside className="gc spec rise" style={{ '--d': '220ms' }}>

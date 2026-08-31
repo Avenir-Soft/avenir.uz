@@ -707,17 +707,36 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
       const burger = document.getElementById('burger')
       const drawer = document.getElementById('drawer')
       if (burger && drawer) {
-        on(burger, 'click', () => {
-          const open = drawer.classList.toggle('is-open')
+        /* Ochiq menyu skrollni to'smasdi: pastga aylantirilganda shapka
+           `is-away` bilan chiqib ketardi va burger EKRANDAN tashqarida
+           qolardi — panel esa yopishib turardi. Tashqariga bosish ham,
+           Escape ham yopmasdi (til ro'yxatida ikkalasi ham yozilgan, bu
+           yerda esa yo'q edi), ya'ni menyudan chiqishning yagona yo'li
+           orqaga aylantirish bo'lib qolardi.
+           `inert` yopiq holatda ikkita muammoni birdan yopadi: fokus va
+           bosish. Ilgari yashirin panel `opacity: 0` da turardi va Tab
+           bo'yicha 4 ta «bo'sh» to'xtash berardi. */
+        const setMenu = (open: boolean) => {
+          drawer.classList.toggle('is-open', open)
           burger.classList.toggle('is-open', open)
           burger.setAttribute('aria-expanded', String(open))
+          document.body.classList.toggle('menu-on', open)
+          if (open) drawer.removeAttribute('inert')
+          else drawer.setAttribute('inert', '')
+        }
+        setMenu(false)
+        offs.push(() => document.body.classList.remove('menu-on'))
+        on(burger, 'click', (e: Event) => {
+          e.stopPropagation()
+          setMenu(!drawer.classList.contains('is-open'))
         })
-        drawer.querySelectorAll('a').forEach(a => {
-          on(a, 'click', () => {
-            drawer.classList.remove('is-open')
-            burger.classList.remove('is-open')
-            burger.setAttribute('aria-expanded', 'false')
-          })
+        drawer.querySelectorAll('a').forEach(a => on(a, 'click', () => setMenu(false)))
+        on(document, 'click', (e: Event) => {
+          if (!drawer.classList.contains('is-open')) return
+          if (!drawer.contains(e.target as Node)) setMenu(false)
+        })
+        on(document, 'keydown', (e: Event) => {
+          if ((e as KeyboardEvent).key === 'Escape') setMenu(false)
         })
       }
     }
@@ -760,12 +779,25 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
         try { dismissed = localStorage.getItem(KEY) === '1' } catch { /* mumkin emas — mayli */ }
         let pastHero = false
         let atContact = false
+        /* Yashirin yopishqoq panel va telefon tugmasi `opacity: 0` da turardi,
+           lekin fokus tartibida qolardi: Tab bo'yicha 3 ta «bo'sh» to'xtash —
+           birinchi ekranning asosiy tugmasidan sal oldin. `inert` ularni
+           fokusdan ham, bosishdan ham chiqaradi. */
         const apply = () => {
           const menuOpen = !!drawer?.classList.contains('is-open')
           const visible = pastHero && !atContact && !menuOpen
-          bar.classList.toggle('is-on', !dismissed && visible)
-          fab?.classList.toggle('is-on', dismissed && visible)
+          const barOn = !dismissed && visible
+          const fabOn = dismissed && visible
+          bar.classList.toggle('is-on', barOn)
+          fab?.classList.toggle('is-on', fabOn)
+          if (barOn) bar.removeAttribute('inert')
+          else bar.setAttribute('inert', '')
+          if (fab) {
+            if (fabOn) fab.removeAttribute('inert')
+            else fab.setAttribute('inert', '')
+          }
         }
+        apply()
         if (heroEl) {
           const o = new IO(es => { pastHero = !es[0].isIntersecting; apply() }, { threshold: 0 })
           o.observe(heroEl)
