@@ -64,6 +64,14 @@ export function V2Behaviors({ lang, feed }: { lang: Language; feed?: FeedStrings
   const pathname = usePathname()
 
   useEffect(() => {
+    /* «Chunk yetib keldi va bajarildi» signali. Uni layout.tsx dagi sinxron
+       skript kutadi: agar belgilangan vaqtda klass paydo bo'lmasa, u
+       `js-anim` ni olib tashlaydi va CSS bilan yashiringan bloklarni ochadi.
+       try'dan OLDIN turadi — bu yerdagi xato uchun catch tarmog'i bor.
+       Klass ataylab tozalanmaydi: ma'nosi «skript shu sahifada bir marta
+       ishladi», til almashganda qayta montajda bloklar miltillamasin. */
+    document.body.classList.add('is-hydrated')
+
     const mq = (q: string) =>
       typeof window.matchMedia === 'function' ? window.matchMedia(q) : noopMedia
     const IO = (typeof IntersectionObserver === 'function'

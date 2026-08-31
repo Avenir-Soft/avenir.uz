@@ -180,6 +180,28 @@ export default async function LocaleLayout({
           suppressHydrationWarning aynan shu holat uchun: faqat shu
           elementning atributlari tekshirilmaydi, ichkarisi emas. */}
       <body suppressHydrationWarning>
+        {/* Bloklarni CSS bilan yashirishga RUXSAT beruvchi kalit. `.rise` va
+            `.mask > i` ni ochadigan yagona narsa — JS qo'yadigan `.is-in`.
+            Chunk yetib kelmasa, sahifa bo'sh qolardi: logotipdan boshqa hech
+            narsa, jumladan ariza formasi ham ko'rinmasdi.
+            Shuning uchun yashirish endi shartli. Skript body'ning BIRINCHI
+            farzandi — `.rise` hali o'qilmagan, miltillash bo'lmaydi.
+            Qo'riqchi: `load` dan 1,5 s keyin (yoki 8 s da, agar `load`
+            umuman bo'lmasa) gidratatsiya belgisi yo'q bo'lsa — kalitni
+            olib tashlaymiz va hamma narsa ochiladi. Erta ishlagani
+            animatsiyani yo'qotadi, mazmunni emas. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var b=document.body;' +
+              "if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){" +
+              "b.classList.add('js-anim');" +
+              "var s=function(){if(!b.classList.contains('is-hydrated'))b.classList.remove('js-anim')};" +
+              'var c=setTimeout(s,8000);' +
+              "window.addEventListener('load',function(){setTimeout(function(){clearTimeout(c);s()},1500)})" +
+              '}}catch(e){}',
+          }}
+        />
         <a href="#main" className="skip-link">
           {dictionary.nav.skipToContent}
         </a>
