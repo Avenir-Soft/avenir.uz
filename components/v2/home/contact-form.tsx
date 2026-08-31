@@ -49,7 +49,17 @@ function formatPhone(input: string) {
   const isUz = trimmed.startsWith('+998') || trimmed.startsWith('998') || !trimmed.startsWith('+')
   if (!isUz) return input.slice(0, PHONE_MAX)
   const digitsOnly = trimmed.replace(/\D/g, '')
-  const nationalDigits = (digitsOnly.startsWith('998') ? digitsOnly.slice(3) : digitsOnly).slice(0, 9)
+  /* Maydonda «+998 » oldindan turadi. Odam kursorni oxiriga qo'yib TO'LIQ
+     raqamni qo'yganda «998» ikki marta paydo bo'lardi, va faqat BITTA guruh
+     kesilardi: «998901234567» -> «+998 (99) 890 12 34». 99 — mavjud operator
+     kodi, ya'ni buzilgan raqamni ko'rinishidan ajratib bo'lmasdi, va u
+     HTTP 200 va «Rahmat!» bilan CRM ga ketardi. Endi boshidagi HAMMA «998»
+     guruhi kesiladi. Odat bo'yicha qo'yilgan boshdagi «8» ham olib
+     tashlanadi: O'zbekistonda milliy raqam 9 xonali, «8» prefiks emas. */
+  const nationalDigits = digitsOnly
+    .replace(/^(?:998)+/, '')
+    .replace(/^8(?=\d{9,})/, '')
+    .slice(0, 9)
   const operatorCode = nationalDigits.slice(0, 2)
   const firstBlock = nationalDigits.slice(2, 5)
   const secondBlock = nationalDigits.slice(5, 7)
@@ -63,6 +73,16 @@ function formatPhone(input: string) {
   if (secondBlock) formatted += ` ${secondBlock}`
   if (thirdBlock) formatted += ` ${thirdBlock}`
   return formatted
+}
+
+/* Brauzerdagi `minLength=9` BELGILARNI sanaydi, raqamlarni emas: «+998 (90) 1»
+   11 ta belgi, tekshiruvdan o'tadi, server esa uni 400 bilan qaytaradi.
+   Bu yerda raqamlar sanaladi. +998 uchun qat'iyroq: milliy qism aniq 9 xonali,
+   ya'ni jami 12 ta raqam. Boshqa davlat kodlari serverdagi qoida bo'yicha. */
+function isCompletePhone(value: string) {
+  const digits = value.replace(/\D/g, '')
+  if (digits.startsWith('998')) return digits.length === 12
+  return digits.length >= 7 && digits.length <= 15
 }
 
 export function V2ContactForm({ lang }: { lang: Language }) {
@@ -95,6 +115,11 @@ export function V2ContactForm({ lang }: { lang: Language }) {
     const el = e.currentTarget
     if (!el.checkValidity()) {
       el.reportValidity()
+      return
+    }
+    if (!isCompletePhone(form.phone)) {
+      setError(tv(lang, "Telefon raqamini to'liq kiriting"))
+      setOfferTelegram(false)
       return
     }
     setSending(true)

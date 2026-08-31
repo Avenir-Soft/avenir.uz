@@ -49,6 +49,7 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		"Maydonlarni tekshiring: telefon raqami yoki majburiy maydon to'ldirilmagan":
 			'Проверьте поля: телефон или обязательное поле заполнены неверно',
 		"Yuborib bo'lmadi. Bizga yozing": 'Не получилось отправить. Напишите нам',
+		"Telefon raqamini to'liq kiriting": 'Введите номер телефона полностью',
 	},
 	en: {
 		'Yuborilmoqda…': 'Sending…',
@@ -91,5 +92,6 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		"Maydonlarni tekshiring: telefon raqami yoki majburiy maydon to'ldirilmagan":
 			'Check the fields: the phone number or a required field is incorrect',
 		"Yuborib bo'lmadi. Bizga yozing": 'Could not send. Message us',
+		"Telefon raqamini to'liq kiriting": 'Enter the full phone number',
 	},
 }
