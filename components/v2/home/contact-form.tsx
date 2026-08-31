@@ -6,7 +6,7 @@
    employeeCount (endi "oylik aylanma" ma'nosida), language, company. */
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLanguage } from '@/components/language-provider'
 import { tv, tva } from '@/lib/i18n-v2'
 import type { Language } from '@/lib/languages'
@@ -79,6 +79,16 @@ function formatPhone(input: string) {
    11 ta belgi, tekshiruvdan o'tadi, server esa uni 400 bilan qaytaradi.
    Bu yerda raqamlar sanaladi. +998 uchun qat'iyroq: milliy qism aniq 9 xonali,
    ya'ni jami 12 ta raqam. Boshqa davlat kodlari serverdagi qoida bo'yicha. */
+/* Arizaning bir martalik identifikatori. CRM uni external_id sifatida oladi:
+   aloqa uzilib, odam qaytadan yuborganda menejer bitta lidni ikki marta
+   ko'rmaydi. randomUUID faqat xavfsiz kontekstda bor — ilova ichidagi eski
+   brauzerlar uchun zaxira yo'l qoldirilgan. */
+function newRequestId() {
+  const c = typeof crypto !== 'undefined' ? crypto : undefined
+  if (c && typeof c.randomUUID === 'function') return c.randomUUID()
+  return `av-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
+}
+
 function isCompletePhone(value: string) {
   const digits = value.replace(/\D/g, '')
   if (digits.startsWith('998')) return digits.length === 12
@@ -99,6 +109,8 @@ export function V2ContactForm({ lang }: { lang: Language }) {
   /* Server yiqilgan holatda odam qo'lsiz qolmasin: xabar yonida Telegram. */
   const [offerTelegram, setOfferTelegram] = useState(false)
   const [done, setDone] = useState(false)
+  /* Bitta ariza — bitta id, qayta urinishlarda ham o'sha. */
+  const requestId = useRef('')
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -122,6 +134,7 @@ export function V2ContactForm({ lang }: { lang: Language }) {
       setOfferTelegram(false)
       return
     }
+    if (!requestId.current) requestId.current = newRequestId()
     setSending(true)
     setError('')
     setOfferTelegram(false)
@@ -129,7 +142,7 @@ export function V2ContactForm({ lang }: { lang: Language }) {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, language: lang }),
+        body: JSON.stringify({ ...form, language: lang, requestId: requestId.current }),
       })
       /* Ilgari bu yerda faqat `response.ok` tekshirilardi va odam 400, 429,
          502 va tarmoq uzilishida BIR XIL «qaytadan urinib ko'ring» ni ko'rardi:

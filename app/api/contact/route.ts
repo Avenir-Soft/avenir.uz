@@ -19,6 +19,7 @@ const MAX_LENGTHS = {
   // v2 formada bu maydon "oylik aylanma" bo'ldi — "oyiga 300 mln" kabi
   // qiymatlar 6 belgidan uzun, jimgina kesilmasin
   employeeCount: 32,
+  requestId: 64,
 } as const
 
 type TelegramSendMessageResponse = {
@@ -32,6 +33,11 @@ type ContactFormData = {
   telegramUsername: string
   employeeCount: string
   language: string
+  /* Brauzer o'ylab topadigan bir martalik identifikator. CRM uni external_id
+     sifatida oladi va shu id bilan kelgan takroriy so'rovdan dubl yasamaydi —
+     javobda status: duplicate qaytadi. Tarmoq uzilib qayta yuborilganda
+     menejer bitta lidni ikki marta ko'rmaydi. */
+  requestId: string
 }
 
 type RateEntry = { hits: number[]; }
@@ -178,40 +184,55 @@ function buildTelegramMessage(data: ContactFormData) {
     timeZone: 'Asia/Tashkent',
   }).format(new Date())
 
+  /* «Сотрудники кол-во» — eski nom: maydon aylanmaga aylangan, imzo esa
+     qolib ketgan edi. Menejer lidning yagona saralash belgisini boshqa nom
+     ostida ko'rar va yo e'tibor bermas, yo qaytadan so'rardi. */
   return [
     'Новая заявка с сайта avenir.uz',
     '',
     `Имя: ${data.name}`,
-    `Телефон номер: ${data.phone}`,
+    `Номер телефона: ${data.phone}`,
     `Telegram username: ${data.telegramUsername || '—'}`,
-    `Сотрудники кол-во: ${data.employeeCount || '—'}`,
+    `Оборот: ${data.employeeCount || '—'}`,
     `Язык сайта: ${data.language || '—'}`,
     `Время: ${timestamp}`,
   ].join('\n')
 }
 
-function buildCrmNotes(data: ContactFormData) {
-  return [
-    `Telegram username: ${data.telegramUsername || '—'}`,
-    `Сотрудники: ${data.employeeCount || '—'}`,
-    `Язык сайта: ${data.language || '—'}`,
-  ].join('\n')
+/* AvenirOS lid kartochkasidagi «Ответы из формы» bloki. Uning hujjatida
+   to'g'ridan-to'g'ri yozilgan: «Не склеивайте их в одну строку и не обрезайте:
+   обрезанный хвост восстановить уже нельзя» — lending esa aynan shuni qilardi,
+   hamma narsani bitta `notes` satriga yopishtirib. */
+function buildFormAnswers(data: ContactFormData) {
+  const answers: Array<{ q: string; a: string }> = []
+  if (data.employeeCount) answers.push({ q: 'Оборот компании в месяц', a: data.employeeCount })
+  return answers
 }
 
-async function sendToCRM(data: ContactFormData) {
+/** 'created' — yangi lid; 'duplicate' — shu external_id allaqachon bor. */
+async function sendToCRM(data: ContactFormData): Promise<'created' | 'duplicate'> {
   const crmKey = process.env.CRM_API_KEY?.trim()
-  if (!crmKey) return false
+  if (!crmKey) throw new Error('CRM key is missing')
 
   const crmUrl = (process.env.CRM_INTAKE_URL?.trim() || DEFAULT_CRM_INTAKE_URL).replace(/\/$/, '')
   const response = await fetch(crmUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': crmKey },
     body: JSON.stringify({
-      title: 'Заявка с сайта avenir.uz',
+      /* Ilgari sarlavha hammada bir xil edi — lidlar ro'yxatida ularni
+         ajratib bo'lmasdi. */
+      title: `Заявка с сайта avenir.uz — ${data.name}`,
       contact_name: data.name,
       contact_phone: data.phone,
+      /* AvenirOS da Telegram uchun ALOHIDA maydon bor va kontakt aynan
+         u bo'yicha topiladi yoki yaratiladi. Ilgari username `notes` ichida
+         oddiy matn bo'lib yotardi va kontaktga hech qanday aloqasi yo'q edi. */
+      contact_telegram: data.telegramUsername || undefined,
       source: 'website',
-      notes: buildCrmNotes(data),
+      form_name: 'avenir.uz · форма заявки',
+      external_id: data.requestId || undefined,
+      form_answers: buildFormAnswers(data),
+      notes: `Язык сайта: ${data.language || '—'}`,
     }),
     signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
   })
@@ -221,7 +242,8 @@ async function sendToCRM(data: ContactFormData) {
     throw new Error(`CRM intake failed with HTTP ${response.status}${responseText ? `: ${responseText}` : ''}`)
   }
 
-  return true
+  const body = (await response.json().catch(() => null)) as { status?: string } | null
+  return body?.status === 'duplicate' ? 'duplicate' : 'created'
 }
 
 export const runtime = 'nodejs'
@@ -266,6 +288,7 @@ export async function POST(request: Request) {
     telegramUsername: cleanString(payload.telegramUsername, MAX_LENGTHS.telegramUsername),
     employeeCount: cleanString(payload.employeeCount, MAX_LENGTHS.employeeCount),
     language: cleanString(payload.language, 2),
+    requestId: cleanString(payload.requestId, MAX_LENGTHS.requestId),
   }
 
   // Aylanma («oborot») MAJBURIY EMAS: formada bu maydonda `required` yo'q va
@@ -296,13 +319,12 @@ export async function POST(request: Request) {
 
   // CRM ham, Telegram ham urinib ko'riladi. Ilgari CRM yiqilsa Telegram
   // bosqichiga umuman yetib borilmasdi va lid yo'qolardi.
-  let crmStatus: 'created' | 'failed' | 'skipped' = 'skipped'
+  let crmStatus: 'created' | 'duplicate' | 'failed' | 'skipped' = 'skipped'
   let crmError: string | null = null
 
   if (hasCrmTarget) {
     try {
-      await sendToCRM(formData)
-      crmStatus = 'created'
+      crmStatus = await sendToCRM(formData)
     } catch (error) {
       crmStatus = 'failed'
       crmError = toErrorMessage(error)
@@ -332,7 +354,7 @@ export async function POST(request: Request) {
   }
 
   // Kamida bitta kanal ishlagan bo'lsa — lid yo'qolmadi, muvaffaqiyat.
-  const anyDelivered = crmStatus === 'created' || delivered > 0
+  const anyDelivered = crmStatus === 'created' || crmStatus === 'duplicate' || delivered > 0
 
   if (!anyDelivered) {
     console.error('Contact form could not be delivered anywhere', { crmError, failedByChatId })
