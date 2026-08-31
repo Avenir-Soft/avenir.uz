@@ -32,7 +32,7 @@ export const serviceCatalog: ServiceEntry[] = [
         title: 'Veb saytlar',
         teaser: 'Korporativ sayt, landing va e-commerce yechimlar.',
         intro:
-          'Biz mijozga ishonch uyg`otadigan, tez ochiladigan va konversiyaga yo`naltirilgan zamonaviy veb saytlar yaratamiz.',
+          'Biz mijozga ishonch uyg\'otadigan, tez ochiladigan va konversiyaga yo\'naltirilgan zamonaviy veb saytlar yaratamiz.',
         outcomesLabel: 'Natija',
         outcomes: [
           'Brendingizga mos premium dizayn',
@@ -180,8 +180,8 @@ export const serviceCatalog: ServiceEntry[] = [
         outcomesLabel: 'Natija',
         outcomes: [
           '24/7 avtomatik javob berish',
-          'Lead saralash va mijozga yo`naltirish',
-          'Qo`llab-quvvatlash xarajatini optimizatsiya',
+          'Lead saralash va mijozga yo\'naltirish',
+          'Qo\'llab-quvvatlash xarajatini optimizatsiya',
         ],
         includedLabel: 'Nimalar kiradi',
         included: [
@@ -248,12 +248,12 @@ export const serviceCatalog: ServiceEntry[] = [
         title: 'CRM va ERP tizimlar',
         teaser: 'Sotuv, ombor, moliya va operatsiyalarni yagona tizimda boshqarish.',
         intro:
-          'Biznes jarayonlarini CRM va ERP orqali raqamlashtirib, bo`limlar o`rtasidagi ishlashni bir platformaga jamlaymiz.',
+          'Biznes jarayonlarini CRM va ERP orqali raqamlashtirib, bo\'limlar o\'rtasidagi ishlashni bir platformaga jamlaymiz.',
         outcomesLabel: 'Natija',
         outcomes: [
-          'Mijozlar va savdo jarayonlari to`liq nazoratda',
-          'Ombor, hisob-kitob va operatsiyalar bo`yicha shaffoflik',
-          'Qo`lda bajariladigan ishlarni avtomatlashtirish',
+          'Mijozlar va savdo jarayonlari to\'liq nazoratda',
+          'Ombor, hisob-kitob va operatsiyalar bo\'yicha shaffoflik',
+          'Qo\'lda bajariladigan ishlarni avtomatlashtirish',
         ],
         includedLabel: 'Nimalar kiradi',
         included: [
@@ -320,12 +320,12 @@ export const serviceCatalog: ServiceEntry[] = [
         title: 'Telegram botlar',
         teaser: 'Savdo, servis va ichki jarayonlar uchun Telegram yechimlari.',
         intro:
-          'Telegram ichida buyurtma qabul qilish, katalog ko`rsatish, to`lovga yo`naltirish va CRM bilan ishlashni avtomatlashtiramiz.',
+          'Telegram ichida buyurtma qabul qilish, katalog ko\'rsatish, to\'lovga yo\'naltirish va CRM bilan ishlashni avtomatlashtiramiz.',
         outcomesLabel: 'Natija',
         outcomes: [
           'Mijoz bilan tezkor aloqa kanali',
           'Jarayonlarni bir bot ichida markazlashtirish',
-          'Zayavka va buyurtmalarni yo`qotmaslik',
+          'Zayavka va buyurtmalarni yo\'qotmaslik',
         ],
         includedLabel: 'Nimalar kiradi',
         included: [
@@ -392,18 +392,18 @@ export const serviceCatalog: ServiceEntry[] = [
         title: 'Mini-app',
         teaser: 'Telegram ichidagi interaktiv mini-ilovalar.',
         intro:
-          'Mini-app orqali foydalanuvchiga oddiy botdan kengroq, vizual va interaktiv tajriba beramiz: katalog, bron, to`lov, kabinet.',
+          'Mini-app orqali foydalanuvchiga oddiy botdan kengroq, vizual va interaktiv tajriba beramiz: katalog, bron, to\'lov, kabinet.',
         outcomesLabel: 'Natija',
         outcomes: [
-          'Telegramdan chiqmasdan to`liq user flow',
-          'Konversiya uchun qulay UI',
-          'Tezkor ishga tushirish va analytics',
+          'Telegramdan chiqmasdan to\'liq mijoz yo\'li',
+          'Arizaga olib boradigan qulay interfeys',
+          'Tezkor ishga tushirish va o\'lchov',
         ],
         includedLabel: 'Nimalar kiradi',
         included: [
-          'Mini-app UX/UI dizayn',
-          'Auth va backend integratsiyasi',
-          'To`lov yoki bronlash modullari',
+          'Mini-app uchun UX/UI dizayn',
+          'Kirish va sizning tizimingiz bilan ulanish',
+          'To\'lov va bron qilish modullari',
         ],
         stackLabel: 'Texnologiyalar',
         stack: ['Telegram Mini Apps', 'Next.js', 'TypeScript', 'REST API'],
@@ -417,15 +417,15 @@ export const serviceCatalog: ServiceEntry[] = [
           'Создаем mini-app с полноценным пользовательским сценарием внутри Telegram: каталог, бронирование, оплата и личный кабинет.',
         outcomesLabel: 'Результат',
         outcomes: [
-          'Полный user flow без выхода из Telegram',
-          'Конверсионный интерфейс',
-          'Быстрый запуск и аналитика',
+          'Весь путь клиента без выхода из Telegram',
+          'Интерфейс, который доводит до заявки',
+          'Быстрый запуск и понятная аналитика',
         ],
         includedLabel: 'Что входит',
         included: [
           'UX/UI дизайн mini-app',
-          'Auth и интеграция с backend',
-          'Платежные или booking модули',
+          'Вход и связь с вашей системой',
+          'Модули оплаты и бронирования',
         ],
         stackLabel: 'Технологии',
         stack: ['Telegram Mini Apps', 'Next.js', 'TypeScript', 'REST API'],

@@ -9,9 +9,15 @@ export function HomeTrust({ lang }: { lang: Language }) {
 			{/* ===================== ISHONCH ===================== */}
 			<section className="trust">
 				<div className="shell">
+					{/* Ilgari bu yerda «50+ kompaniya bizga ishonadi» turardi, «Jarayon»
+						 bo'limidagi hisoblagichlar esa bir ekran pastda «50+ topshirilgan
+						 loyiha» va «30+ mamnun mijoz» deb turardi. Bitta narsa haqida ikki
+						 xil son — sanoq bilan ishonch uyg'otish shu yerda ham tugaydi.
+						 Endi satr aynan hisoblagichlarni takrorlaydi, hech qanday yangi
+						 va'da qo'shmasdan. */}
 					<p className="trust__l rise">
 						<b>{'50+'}</b>
-						{' '}{tv(lang, 'kompaniya bizga ishonadi')}
+						{' '}{tv(lang, 'loyiha — 30+ kompaniya uchun')}
 					</p>
 				</div>
 				<div className="mq rise" style={{ '--d': '80ms' }}>

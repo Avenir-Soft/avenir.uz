@@ -51,6 +51,7 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		"Yuborib bo'lmadi. Bizga yozing": 'Не получилось отправить. Напишите нам',
 		"Telefon raqamini to'liq kiriting": 'Введите номер телефона полностью',
 		'Nima kerak': 'Что нужно',
+		'loyiha — 30+ kompaniya uchun': 'проектов для 30+ компаний',
 		'Qisqacha yozing — qolganini savollar bilan aniqlaymiz':
 			'Напишите коротко — остальное уточним вопросами',
 	},
@@ -97,6 +98,7 @@ export const v2Extra: Record<'ru' | 'en', Record<string, string>> = {
 		"Yuborib bo'lmadi. Bizga yozing": 'Could not send. Message us',
 		"Telefon raqamini to'liq kiriting": 'Enter the full phone number',
 		'Nima kerak': 'What you need',
+		'loyiha — 30+ kompaniya uchun': 'projects for 30+ companies',
 		'Qisqacha yozing — qolganini savollar bilan aniqlaymiz':
 			'Write briefly — we will clarify the rest with questions',
 	},
